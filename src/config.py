@@ -1,0 +1,119 @@
+"""Chargement de la configuration et des variables d'environnement."""
+
+from __future__ import annotations
+
+import os
+from dataclasses import dataclass, field
+from pathlib import Path
+from typing import Any
+
+import yaml
+
+ROOT = Path(__file__).resolve().parent.parent
+
+
+def _load_dotenv() -> None:
+    """Charge un .env s'il existe, sans dépendance externe."""
+    env_file = ROOT / ".env"
+    if not env_file.exists():
+        return
+    for raw in env_file.read_text(encoding="utf-8").splitlines():
+        line = raw.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, _, value = line.partition("=")
+        os.environ.setdefault(key.strip(), value.strip().strip("'\""))
+
+
+@dataclass
+class Source:
+    name: str
+    url: str
+    category: str = "france"
+    weight: int = 1
+
+
+@dataclass
+class Speaker:
+    name: str
+    voice: str
+    role: str = ""
+
+
+@dataclass
+class Config:
+    raw: dict[str, Any]
+    sources: list[Source] = field(default_factory=list)
+    speakers: list[Speaker] = field(default_factory=list)
+
+    # --- accès pratiques -------------------------------------------------
+    @property
+    def podcast(self) -> dict[str, Any]:
+        return self.raw["podcast"]
+
+    @property
+    def brief(self) -> dict[str, Any]:
+        return self.raw["brief"]
+
+    @property
+    def models(self) -> dict[str, Any]:
+        return self.raw["models"]
+
+    @property
+    def audio(self) -> dict[str, Any]:
+        return self.raw["audio"]
+
+    @property
+    def memory(self) -> dict[str, Any]:
+        return self.raw["memory"]
+
+    @property
+    def two_voices(self) -> bool:
+        return bool(self.raw["voices"].get("two_voices", False))
+
+    @property
+    def direction(self) -> str:
+        return (self.raw["voices"].get("direction") or "").strip()
+
+    @property
+    def base_url(self) -> str:
+        return self.podcast["base_url"].rstrip("/")
+
+    @property
+    def target_words(self) -> int:
+        return int(self.brief["target_minutes"] * self.brief["words_per_minute"])
+
+    def lookback_hours(self, weekday: int) -> int:
+        table = self.brief["lookback_hours"]
+        names = ["monday", "tuesday", "wednesday", "thursday",
+                 "friday", "saturday", "sunday"]
+        return int(table.get(names[weekday], table["default"]))
+
+    def wants_weekly_recap(self, weekday: int) -> bool:
+        names = ["monday", "tuesday", "wednesday", "thursday",
+                 "friday", "saturday", "sunday"]
+        return names[weekday] in self.brief.get("weekly_recap_on", [])
+
+
+def load_config(path: str | Path | None = None) -> Config:
+    _load_dotenv()
+    cfg_path = Path(path) if path else ROOT / "config.yaml"
+    raw = yaml.safe_load(cfg_path.read_text(encoding="utf-8"))
+
+    sources = [Source(**s) for s in raw.get("sources", [])]
+    speakers = [Speaker(**s) for s in raw["voices"].get("speakers", [])]
+    if not speakers:
+        raise ValueError("config.yaml : au moins un speaker est requis.")
+    return Config(raw=raw, sources=sources, speakers=speakers)
+
+
+def api_key() -> str:
+    # Idempotent : la fonction peut être appelée sans passer par load_config().
+    _load_dotenv()
+    key = os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY")
+    if not key:
+        raise RuntimeError(
+            "GEMINI_API_KEY absente. Mets-la dans .env en local, ou dans les "
+            "secrets du repo GitHub (Settings > Secrets and variables > Actions)."
+        )
+    return key

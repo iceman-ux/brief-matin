@@ -1,0 +1,227 @@
+"""Synthèse vocale Gemini + encodage mp3.
+
+Le modèle renvoie du PCM brut 24 kHz 16 bits mono. Deux conséquences utiles :
+- on peut concaténer plusieurs morceaux en collant simplement les octets ;
+- l'encodage mp3 se fait en une passe ffmpeg à la fin.
+"""
+
+from __future__ import annotations
+
+import io
+import subprocess
+import wave
+from pathlib import Path
+
+from .config import Config, api_key
+
+# Le modèle multi-locuteurs n'accepte que deux voix.
+MAX_SPEAKERS = 2
+# Au-delà, on découpe : les modèles TTS ont une limite de contexte en sortie.
+DEFAULT_MAX_WORDS_PER_CHUNK = 900
+
+
+def _client():
+    from google import genai
+    return genai.Client(api_key=api_key())
+
+
+def _chunk_script(script: list[dict], max_words: int) -> list[list[dict]]:
+    """Découpe en préservant les répliques entières."""
+    chunks: list[list[dict]] = []
+    current: list[dict] = []
+    count = 0
+    for line in script:
+        words = len(line["text"].split())
+        if current and count + words > max_words:
+            chunks.append(current)
+            current, count = [], 0
+        current.append(line)
+        count += words
+    if current:
+        chunks.append(current)
+    return chunks
+
+
+def _render_chunk_text(cfg: Config, chunk: list[dict], multi: bool) -> str:
+    header = cfg.direction
+    if multi:
+        # Un morceau découpé peut ne contenir qu'une seule voix : annoncer
+        # une conversation à deux serait faux et brouille la consigne.
+        presents = list(dict.fromkeys(l["speaker"] for l in chunk))
+        if len(presents) >= 2:
+            header += (f"\n\nLis la conversation suivante entre "
+                       f"{presents[0]} et {presents[1]} :")
+        else:
+            header += f"\n\nLis le passage suivant, dit par {presents[0]} :"
+        body = "\n".join(f"{l['speaker']}: {l['text']}" for l in chunk)
+    else:
+        header += "\n\nLis le texte suivant :"
+        body = "\n\n".join(l["text"] for l in chunk)
+    return f"{header}\n\n{body}"
+
+
+def _is_multi(cfg: Config) -> bool:
+    return cfg.two_voices and len(cfg.speakers) >= MAX_SPEAKERS
+
+
+def active_speakers(cfg: Config) -> list:
+    """Voix réellement envoyées au TTS, dans l'ordre de la config."""
+    return cfg.speakers[:MAX_SPEAKERS] if _is_multi(cfg) else cfg.speakers[:1]
+
+
+def _speech_config(cfg: Config, multi: bool):
+    from google.genai import types
+
+    if multi:
+        return types.SpeechConfig(
+            multi_speaker_voice_config=types.MultiSpeakerVoiceConfig(
+                speaker_voice_configs=[
+                    types.SpeakerVoiceConfig(
+                        speaker=s.name,
+                        voice_config=types.VoiceConfig(
+                            prebuilt_voice_config=types.PrebuiltVoiceConfig(
+                                voice_name=s.voice
+                            )
+                        ),
+                    )
+                    for s in active_speakers(cfg)
+                ]
+            )
+        )
+    return types.SpeechConfig(
+        voice_config=types.VoiceConfig(
+            prebuilt_voice_config=types.PrebuiltVoiceConfig(
+                voice_name=active_speakers(cfg)[0].voice
+            )
+        )
+    )
+
+
+def _synth_pcm(cfg: Config, text: str, multi: bool) -> bytes:
+    from google.genai import types
+
+    from .retry import call_with_retry
+
+    client = _client()
+    response = call_with_retry(
+        lambda: client.models.generate_content(
+            model=cfg.models["tts"],
+            contents=text,
+            config=types.GenerateContentConfig(
+                response_modalities=["AUDIO"],
+                speech_config=_speech_config(cfg, multi),
+            ),
+        ),
+        label="synthèse vocale",
+    )
+    try:
+        part = response.candidates[0].content.parts[0]
+        data = part.inline_data.data
+    except (AttributeError, IndexError, TypeError) as exc:
+        raise RuntimeError(
+            f"Réponse TTS inattendue — le modèle a peut-être refusé le texte.\n{response}"
+        ) from exc
+    if not data:
+        raise RuntimeError("Le modèle TTS a renvoyé un audio vide.")
+    return data
+
+
+def _pcm_to_wav(pcm: bytes, sample_rate: int) -> bytes:
+    buffer = io.BytesIO()
+    with wave.open(buffer, "wb") as wav:
+        wav.setnchannels(1)
+        wav.setsampwidth(2)  # 16 bits
+        wav.setframerate(sample_rate)
+        wav.writeframes(pcm)
+    return buffer.getvalue()
+
+
+def _encode_mp3(wav_bytes: bytes, out_path: Path, cfg: Config) -> None:
+    audio = cfg.audio
+    inputs = ["-i", "pipe:0"]
+    filter_args: list[str] = []
+
+    intro, outro = audio.get("intro_file"), audio.get("outro_file")
+    extra_files = [f for f in (intro, outro) if f]
+    if extra_files:
+        # Concaténation jingle + voix (+ outro) via le filtre concat.
+        from .config import ROOT
+        paths = []
+        if intro:
+            paths.append(str(ROOT / "assets" / intro))
+        paths.append("pipe:0")
+        if outro:
+            paths.append(str(ROOT / "assets" / outro))
+        inputs = []
+        for p in paths:
+            inputs += ["-i", p]
+        n = len(paths)
+        chain = "".join(f"[{i}:a]" for i in range(n))
+        filter_args = ["-filter_complex", f"{chain}concat=n={n}:v=0:a=1[out]",
+                       "-map", "[out]"]
+
+    cmd = [
+        "ffmpeg", "-hide_banner", "-loglevel", "error", "-y",
+        *inputs, *filter_args,
+        "-codec:a", "libmp3lame", "-b:a", str(audio["bitrate"]),
+        "-ac", "1", "-ar", str(audio["sample_rate"]),
+        str(out_path),
+    ]
+    proc = subprocess.run(cmd, input=wav_bytes, capture_output=True)
+    if proc.returncode != 0:
+        raise RuntimeError(f"ffmpeg a échoué :\n{proc.stderr.decode(errors='replace')}")
+
+
+def synthesize(cfg: Config, script: list[dict], out_path: Path,
+               verbose: bool = True) -> Path:
+    """Script -> mp3. Retourne le chemin du fichier écrit."""
+    multi = _is_multi(cfg)
+    max_words = int(cfg.audio.get("max_words_per_chunk", DEFAULT_MAX_WORDS_PER_CHUNK))
+    chunks = _chunk_script(script, max_words)
+
+    pcm = bytearray()
+    for idx, chunk in enumerate(chunks, 1):
+        if verbose:
+            words = sum(len(l["text"].split()) for l in chunk)
+            print(f"  synthèse {idx}/{len(chunks)} ({words} mots)…")
+        pcm += _synth_pcm(cfg, _render_chunk_text(cfg, chunk, multi), multi)
+
+    wav_bytes = _pcm_to_wav(bytes(pcm), int(cfg.audio["sample_rate"]))
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    _encode_mp3(wav_bytes, out_path, cfg)
+    return out_path
+
+
+def audio_duration_seconds(path: Path) -> int:
+    """Durée réelle du mp3, lue par ffprobe (nécessaire pour le flux RSS)."""
+    proc = subprocess.run(
+        ["ffprobe", "-v", "error", "-show_entries", "format=duration",
+         "-of", "default=noprint_wrappers=1:nokey=1", str(path)],
+        capture_output=True, text=True,
+    )
+    try:
+        return int(float(proc.stdout.strip()))
+    except ValueError:
+        return 0
+
+
+USD_PAR_MILLION_TOKENS = 20.0   # tarif standard ; le mode batch serait à 10
+TOKENS_AUDIO_PAR_SECONDE = 25
+
+
+def estimate_cost_usd(cfg: Config, seconds: float) -> float:
+    """Coût TTS indicatif, facturé à la durée d'audio produite.
+
+    Toujours au tarif standard : le mode batch, deux fois moins cher, n'est
+    pas implémenté (_synth_pcm appelle generate_content en synchrone). Tant
+    qu'il ne l'est pas, afficher un tarif réduit mentirait sur la facture.
+    Le tarif peut changer — vérifie la grille officielle.
+    """
+    return (seconds * TOKENS_AUDIO_PAR_SECONDE / 1_000_000) * USD_PAR_MILLION_TOKENS
+
+
+def warn_if_batch_requested(cfg: Config) -> None:
+    """Le flag existe dans config.yaml mais ne fait rien : mieux vaut le dire."""
+    if cfg.models.get("tts_batch"):
+        print("   ⚠ tts_batch est à true mais le mode batch n'est pas "
+              "implémenté : la synthèse reste synchrone, au tarif plein.")

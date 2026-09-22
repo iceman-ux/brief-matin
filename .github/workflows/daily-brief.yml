@@ -1,0 +1,77 @@
+name: Brief quotidien
+
+on:
+  schedule:
+    # 04:30 UTC = 06:30 heure de Paris en été, 05:30 en hiver.
+    # GitHub ne connaît que l'UTC : si tu veux une heure fixe à Paris toute
+    # l'année, double la ligne (une pour chaque saison) ou accepte le décalage.
+    - cron: "30 4 * * *"
+  workflow_dispatch:      # bouton "Run workflow" pour tester à la demande
+    inputs:
+      dry_run:
+        description: "Dry-run (aucun appel API payant)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write         # nécessaire pour committer l'épisode et la mémoire
+
+concurrency:
+  group: brief-matin
+  cancel-in-progress: false
+
+jobs:
+  brief:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Installer ffmpeg
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+
+      - name: Installer les dépendances
+        run: pip install -q -r requirements.txt
+
+      - name: Générer le brief
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          python -m src.main run ${{ inputs.dry_run && '--dry-run' || '' }}
+
+      - name: Publier
+        run: |
+          git config user.name  "brief-matin[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/ data/covered.json
+          if git diff --staged --quiet; then
+            echo "Rien de nouveau à publier."
+          else
+            git commit -m "brief du $(date -u +%Y-%m-%d)"
+            # Le run peut entrer en collision avec un push manuel : on rebase.
+            git pull --rebase --autostash origin ${{ github.ref_name }}
+            git push
+          fi
+
+      - name: Résumé
+        if: always()
+        run: |
+          echo "### Brief du $(date -u +%Y-%m-%d)" >> $GITHUB_STEP_SUMMARY
+          if [ -f docs/episodes.json ]; then
+            python -c "
+import json,pathlib
+eps=json.loads(pathlib.Path('docs/episodes.json').read_text())
+if eps:
+    e=eps[0]
+    print(f\"**{e['title']}** — {e['duration']//60}:{e['duration']%60:02d}\")
+    print()
+    for t in e.get('topics',[]):
+        print(f\"- {t.get('title','')}\")
+" >> $GITHUB_STEP_SUMMARY
+          fi

@@ -1,0 +1,56 @@
+[
+  {
+    "date": "2026-09-22",
+    "filename": "brief-2026-09-22.mp3",
+    "title": "22/09 — Boycott des médias contre Trump",
+    "summary": "Brief du 2026-09-22. Boycott des médias contre Trump · Le chancelier allemand fragilisé · La Cour des comptes s'attaque au budget · El Niño frappe la Californie et l'Asie · Premier entraînement de Zidane",
+    "duration": 153,
+    "size": 1231148,
+    "topics": [
+      {
+        "slug": "medias-usa-trump",
+        "title": "Boycott des médias contre Trump",
+        "category": "monde",
+        "sources": [
+          "Le Monde",
+          "RFI"
+        ]
+      },
+      {
+        "slug": "crise-politique-allemagne",
+        "title": "Le chancelier allemand fragilisé",
+        "category": "monde",
+        "sources": [
+          "Le Monde",
+          "Le Figaro"
+        ]
+      },
+      {
+        "slug": "budget-france-2027",
+        "title": "La Cour des comptes s'attaque au budget",
+        "category": "eco",
+        "sources": [
+          "Le Monde"
+        ]
+      },
+      {
+        "slug": "climat-el-nino",
+        "title": "El Niño frappe la Californie et l'Asie",
+        "category": "monde",
+        "sources": [
+          "Le Monde",
+          "franceinfo"
+        ]
+      },
+      {
+        "slug": "zidane-bleus",
+        "title": "Premier entraînement de Zidane",
+        "category": "sport",
+        "sources": [
+          "franceinfo"
+        ]
+      }
+    ],
+    "pub_date": "2026-09-22T15:44:39.071075+00:00"
+  }
+]

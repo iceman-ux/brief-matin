@@ -1,0 +1,163 @@
+# ─────────────────────────────────────────────────────────────
+#  Brief Matin — configuration
+#  Tout se règle ici. Le code ne contient aucune valeur en dur.
+# ─────────────────────────────────────────────────────────────
+
+podcast:
+  title: "Brief Matin"
+  subtitle: "Le récap perso de l'actu, tous les matins"
+  description: >
+    Brief quotidien généré automatiquement à partir des grands titres
+    français et internationaux. France, Monde, Économie, Tech.
+  author: "neodem"
+  email: "annihilateurdedaronne@gmail.com"
+  language: "fr-FR"
+  category: "News"
+  # ⚠️ À REMPLACER par l'URL de ta GitHub Page une fois le repo créé.
+  # Format : https://<ton-pseudo-github>.github.io/<nom-du-repo>
+  base_url: "https://iceman-ux.github.io/brief-matin"
+  cover_image: "cover.png"     # relatif à base_url, optionnel
+  retention_days: 30           # on garde les 30 derniers épisodes
+
+brief:
+  target_minutes: 4            # durée visée (pilote le coût TTS)
+  words_per_minute: 190        # mesuré sur les voix Gemini, pas une moyenne
+                               # théorique : 426 mots ont donné 2 min 13.
+  timezone: "Europe/Paris"
+
+  # Fenêtre d'actu récupérée, en heures, selon le jour de la semaine.
+  # 0 = lundi ... 6 = dimanche. Le lundi on ratisse le week-end.
+  lookback_hours:
+    default: 26
+    monday: 74
+  # Le vendredi, on ajoute une section "à retenir de la semaine".
+  weekly_recap_on: ["friday"]
+
+  # Nombre de sujets traités dans le brief.
+  topics_min: 5
+  topics_max: 8
+
+  # Seuil de regroupement des articles qui parlent du même sujet (0 → 1).
+  # Plus bas = fusionne plus agressivement. 0.6 est un bon compromis.
+  dedupe_threshold: 0.6
+
+  # Répartition éditoriale visée (indicative, transmise au rédacteur).
+  mix:
+    france: 3
+    monde: 3
+    eco: 1
+    tech: 1
+
+voices:
+  two_voices: true
+  speakers:
+    - name: "Léa"
+      voice: "Kore"        # ferme, posée — voix de fil conducteur
+      role: "présentatrice qui déroule le fil et pose le contexte"
+    - name: "Marc"
+      voice: "Puck"        # énergique — relances et angles
+      role: "chroniqueur qui relance, nuance et apporte l'angle"
+  direction: >
+    Lecture de studio, rythme soutenu mais jamais précipité. Ton de matinale
+    radio : éveillé, clair, jamais solennel. Marquer une vraie respiration
+    entre chaque sujet. Léa pose, Marc relance avec une once de relief.
+
+models:
+  # Rédaction du script. Modèle texte, peu coûteux.
+  writer: "gemini-3.8-flash"
+  # Utilisé si le principal reste indisponible après tous les réessais.
+  # Mets null pour désactiver la bascule.
+  writer_fallback: "gemini-3.5-flash"
+  # Synthèse vocale. Facturé au token audio (25 tokens / seconde).
+  tts: "gemini-3.1-flash-tts-preview"
+  # ⚠ NON IMPLÉMENTÉ. Le mode batch serait deux fois moins cher, mais la
+  # synthèse appelle generate_content en synchrone. Le flag ne change rien
+  # au comportement ni au coût réel ; il émet un avertissement s'il est
+  # activé. Voir TODO.md.
+  tts_batch: false
+
+memory:
+  # Le rédacteur reçoit la liste des sujets déjà traités sur cette fenêtre
+  # et a pour consigne de ne pas les rejouer, sauf vrai rebondissement.
+  lookback_days: 7
+  path: "data/covered.json"
+
+audio:
+  bitrate: "64k"     # mono parlé : 64 kbps suffit largement (~2 Mo / 4 min)
+  sample_rate: 24000 # imposé par le modèle TTS (PCM 24 kHz 16 bits mono)
+  # Au-delà, le script est découpé en plusieurs appels TTS puis recollé.
+  max_words_per_chunk: 150
+  # Silence inséré entre deux morceaux recollés. Chaque appel TTS rend un
+  # audio bordé de silence : on le rabote, puis on impose cet écart-là, qui
+  # correspond à une respiration normale entre deux sujets.
+  chunk_gap_ms: 320
+  # Jingle optionnel collé en tête (mets un mp3 dans assets/ et donne le nom)
+  intro_file: null
+  outro_file: null
+
+# ─────────────────────────────────────────────────────────────
+#  Sources RSS
+#  Teste-les avec :  python -m src.main check-feeds
+#  Retire celles qui tombent, ajoute les tiennes.
+# ─────────────────────────────────────────────────────────────
+sources:
+  - name: "Le Monde — Une"
+    url: "https://www.lemonde.fr/rss/une.xml"
+    category: "france"
+    weight: 3
+  - name: "Le Monde — International"
+    url: "https://www.lemonde.fr/international/rss_full.xml"
+    category: "monde"
+    weight: 3
+  - name: "franceinfo — Titres"
+    url: "https://www.francetvinfo.fr/titres.rss"
+    category: "france"
+    weight: 2
+  - name: "franceinfo — Monde"
+    url: "https://www.francetvinfo.fr/monde.rss"
+    category: "monde"
+    weight: 2
+  - name: "France 24 — FR"
+    url: "https://www.france24.com/fr/rss"
+    category: "monde"
+    weight: 2
+  - name: "RFI"
+    url: "https://www.rfi.fr/fr/rss"
+    category: "monde"
+    weight: 2
+  - name: "Le Monde — Économie"
+    url: "https://www.lemonde.fr/economie/rss_full.xml"
+    category: "eco"
+    weight: 3
+  - name: "Le Figaro — Économie"
+    url: "https://www.lefigaro.fr/rss/figaro_economie.xml"
+    category: "eco"
+    weight: 2
+  - name: "La Tribune"
+    url: "https://www.latribune.fr/feed.xml"
+    category: "eco"
+    weight: 2
+  - name: "Courrier International"
+    url: "https://www.courrierinternational.com/feed/all/rss.xml"
+    category: "monde"
+    weight: 1
+  - name: "The Guardian — World"
+    url: "https://www.theguardian.com/world/rss"
+    category: "monde"
+    weight: 1
+  - name: "BBC — World"
+    url: "https://feeds.bbci.co.uk/news/world/rss.xml"
+    category: "monde"
+    weight: 1
+  - name: "Next"
+    url: "https://next.ink/feed/free/"
+    category: "tech"
+    weight: 1
+  - name: "Le Figaro — Actualités"
+    url: "https://www.lefigaro.fr/rss/figaro_actualites.xml"
+    category: "france"
+    weight: 2
+  - name: "20 Minutes — Une"
+    url: "https://www.20minutes.fr/feeds/rss-une.xml"
+    category: "france"
+    weight: 1

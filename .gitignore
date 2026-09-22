@@ -1,0 +1,11 @@
+.env
+__pycache__/
+*.pyc
+.venv/
+# data/scripts/ est versionné : sans lui, un brief raté sur GitHub
+# Actions n'est pas débuggable après coup. ~1 Mo par an.
+
+# Le silence produit par --dry-run, jamais publié.
+data/dry-run.mp3
+
+data/dry-run.txt
