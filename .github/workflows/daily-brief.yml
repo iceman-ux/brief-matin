@@ -9,7 +9,7 @@ on:
   workflow_dispatch:      # bouton "Run workflow" pour tester à la demande
     inputs:
       dry_run:
-        description: "Dry-run (aucun appel API payant)"
+        description: "Dry-run : aucun appel API payant, rien n'est publié"
         type: boolean
         default: false
 
@@ -39,39 +39,43 @@ jobs:
       - name: Installer les dépendances
         run: pip install -q -r requirements.txt
 
+      # Le drapeau passe par une variable d'environnement plutôt que par une
+      # expression dans la ligne de commande : plus lisible, et ça évite les
+      # pièges de conversion booléen/chaîne des entrées de workflow_dispatch.
       - name: Générer le brief
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          DRY_RUN: ${{ inputs.dry_run }}
         run: |
-          python -m src.main run ${{ inputs.dry_run && '--dry-run' || '' }}
+          if [ "$DRY_RUN" = "true" ]; then
+            python -m src.main run --dry-run
+          else
+            python -m src.main run
+          fi
 
       - name: Publier
         run: |
           git config user.name  "brief-matin[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/ data/covered.json
+          git add docs/ data/covered.json data/scripts/
           if git diff --staged --quiet; then
             echo "Rien de nouveau à publier."
           else
-            git commit -m "brief du $(date -u +%Y-%m-%d)"
+            git commit -m "brief du $(date -u +%F)"
             # Le run peut entrer en collision avec un push manuel : on rebase.
-            git pull --rebase --autostash origin ${{ github.ref_name }}
+            git pull --rebase --autostash origin "${GITHUB_REF_NAME}"
             git push
           fi
 
+      # Résumé lisible dans l'onglet Actions. jq est préinstallé sur les
+      # runners Ubuntu : plus de script Python inline, donc plus de guillemets
+      # imbriqués — c'est ce qui avait cassé l'analyse du fichier.
       - name: Résumé
         if: always()
         run: |
-          echo "### Brief du $(date -u +%Y-%m-%d)" >> $GITHUB_STEP_SUMMARY
+          echo "### Brief du $(date -u +%F)" >> "$GITHUB_STEP_SUMMARY"
           if [ -f docs/episodes.json ]; then
-            python -c "
-import json,pathlib
-eps=json.loads(pathlib.Path('docs/episodes.json').read_text())
-if eps:
-    e=eps[0]
-    print(f\"**{e['title']}** — {e['duration']//60}:{e['duration']%60:02d}\")
-    print()
-    for t in e.get('topics',[]):
-        print(f\"- {t.get('title','')}\")
-" >> $GITHUB_STEP_SUMMARY
+            jq -r '.[0].title' docs/episodes.json >> "$GITHUB_STEP_SUMMARY" || true
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            jq -r '.[0].topics[]?.title | "- " + .' docs/episodes.json >> "$GITHUB_STEP_SUMMARY" || true
           fi
