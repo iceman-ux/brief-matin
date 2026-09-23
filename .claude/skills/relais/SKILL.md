@@ -1,6 +1,6 @@
 ---
-name: cowork
-description: Exécute la tâche préparée par Claude (Cowork) dans « Claude outputs/tache.md », puis écrit le rapport dans « Claude outputs/rapport.md ». À utiliser quand l'utilisateur tape /cowork.
+name: relais
+description: Exécute la tâche préparée par Claude (Cowork) dans « Claude outputs/tache.md », puis écrit le rapport dans « Claude outputs/rapport.md ». À utiliser quand l'utilisateur tape /relais.
 ---
 
 # Relais avec Cowork

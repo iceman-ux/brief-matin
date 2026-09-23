@@ -361,7 +361,14 @@ def main(argv: list[str] | None = None) -> int:
             raise
         # Arrivé ici, call_with_retry a déjà épuisé ses tentatives : un
         # traceback n'apprendrait rien, seule la saturation compte.
-        print(f"\n✗ API saturée (erreur {code}) malgré les réessais — rien "
+        attempts = getattr(exc, "attempts_made", None)
+        if attempts is None:
+            tries = "malgré les réessais"
+        elif attempts > 1:
+            tries = f"après {attempts} tentatives"
+        else:
+            tries = "au premier essai, sans réessai"
+        print(f"\n✗ API saturée (erreur {code}) {tries} — rien "
               "n'a été publié. Les trois créneaux de nuit (2 h 30, 3 h 30 "
               "et 4 h 30 UTC) visent justement à éviter ces pics : le "
               "suivant retentera, sinon relance plus tard.", file=sys.stderr)

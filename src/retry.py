@@ -75,6 +75,8 @@ def call_with_retry(fn: Callable[[], T], *, attempts: int = 5,
         except Exception as exc:
             code = status_code(exc)
             if code not in RETRYABLE or attempt == attempts:
+                # Le message final doit dire s'il y a eu des réessais ou non.
+                exc.attempts_made = attempt
                 raise
             delay = base_delay * (2 ** (attempt - 1)) * (0.7 + 0.6 * random.random())
             if verbose:
