@@ -9,3 +9,9 @@ __pycache__/
 data/dry-run.mp3
 
 data/dry-run.txt
+
+# Les essais d'écoute : des mp3 lourds qui n'ont rien à faire dans l'historique.
+tests/
+
+# Dossier de travail de l'outillage, pas du projet.
+Claude outputs/
