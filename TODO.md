@@ -22,9 +22,12 @@ existant hors production, avec la clé du projet de test.
 Remplace les essais 03 à 06 du protocole d'écoute. Trois modèles sur le même
 script, celui du 23/09, découpé en morceaux de 150 mots :
 `gemini-3.1-flash-tts-preview` (production), `gemini-3.8-flash-tts` et
-`gemini-3.8-flash-lite-tts`. Fichiers `A.mp3`, `B.mp3`, `C.mp3` dans
-`data/voice-test/` (ignoré par Git), lettres tirées au hasard ; la
-correspondance est dans `cle.txt`, à ne pas ouvrir avant la fin des écoutes.
+`gemini-3.8-flash-lite-tts`, cités ici dans un ordre sans rapport avec les
+lettres.
+
+Les fichiers sont dans `data/voice-test/` (ignoré par Git), avec des lettres
+tirées au hasard. La correspondance est dans `cle.txt`, à ne pas ouvrir avant
+la fin des écoutes.
 Juges : deux amis d'Adam, qui ne connaissent pas la correspondance.
 
 - [x] Générer A et C
