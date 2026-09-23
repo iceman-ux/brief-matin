@@ -1,5 +1,70 @@
 [
   {
+    "date": "2026-09-23",
+    "filename": "brief-2026-09-23.mp3",
+    "title": "23/09 — Macron à la tribune de l'ONU",
+    "summary": "Brief du 2026-09-23. Macron à la tribune de l'ONU · Aides carburants élargies · Bases américaines au Groenland · Soupçons d'IA sur un roman · Migrants expulsés vers le Liberia · Arrêt de l'EPR de Flamanville",
+    "duration": 193,
+    "size": 1549485,
+    "topics": [
+      {
+        "slug": "onu-macron",
+        "title": "Macron à la tribune de l'ONU",
+        "category": "monde",
+        "sources": [
+          "Le Monde",
+          "Le Figaro",
+          "franceinfo"
+        ]
+      },
+      {
+        "slug": "carburants-aides",
+        "title": "Aides carburants élargies",
+        "category": "eco",
+        "sources": [
+          "Le Monde",
+          "La Tribune",
+          "France 24"
+        ]
+      },
+      {
+        "slug": "securite-arctique-groenland",
+        "title": "Bases américaines au Groenland",
+        "category": "monde",
+        "sources": [
+          "Le Monde",
+          "The Guardian"
+        ]
+      },
+      {
+        "slug": "ia-litterature",
+        "title": "Soupçons d'IA sur un roman",
+        "category": "tech",
+        "sources": [
+          "Le Figaro",
+          "franceinfo"
+        ]
+      },
+      {
+        "slug": "expulsions-liberia",
+        "title": "Migrants expulsés vers le Liberia",
+        "category": "monde",
+        "sources": [
+          "Le Monde"
+        ]
+      },
+      {
+        "slug": "epr-flamanville",
+        "title": "Arrêt de l'EPR de Flamanville",
+        "category": "eco",
+        "sources": [
+          "La Tribune"
+        ]
+      }
+    ],
+    "pub_date": "2026-09-23T09:31:10.407418+00:00"
+  },
+  {
     "date": "2026-09-22",
     "filename": "brief-2026-09-22.mp3",
     "title": "22/09 — Boycott des médias contre Trump",
