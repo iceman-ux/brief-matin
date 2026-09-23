@@ -187,6 +187,8 @@ def cmd_say(args) -> int:
     if args.tts_model:
         # En mémoire seulement : config.yaml et la production restent intacts.
         cfg.models["tts"] = args.tts_model
+    if args.max_words:
+        cfg.audio["max_words_per_chunk"] = args.max_words
 
     try:
         script = writer_mod.text_to_script(
@@ -268,6 +270,17 @@ def _episode_texts(date: str, topics: list[dict]) -> tuple[str, str]:
     return title, summary
 
 
+def _positive_int(value: str) -> int:
+    try:
+        number = int(value)
+    except ValueError:
+        number = 0
+    if number < 1:
+        raise argparse.ArgumentTypeError(
+            f"« {value} » : un entier strictement positif est attendu")
+    return number
+
+
 def _iso_date(value: str) -> str:
     try:
         return datetime.strptime(value, "%Y-%m-%d").strftime("%Y-%m-%d")
@@ -325,6 +338,9 @@ def main(argv: list[str] | None = None) -> int:
                      help="chemin du mp3 ; dans ce cas rien n'est publié "
                           "(ni docs/episodes, ni flux) et la synthèse utilise "
                           "GEMINI_API_KEY_TEST, jamais la clé de production")
+    say.add_argument("--max-words", type=_positive_int, default=None,
+                     help="remplace audio.max_words_per_chunk pour cet appel "
+                          "seulement")
     say.set_defaults(func=cmd_say)
 
     check = sub.add_parser("check-feeds", help="teste toutes les sources RSS")
