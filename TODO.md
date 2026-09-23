@@ -1,36 +1,48 @@
 # Brief Matin — avancement
 
-## État au 23/09/2026
+## État au 24/09/2026
 
 Le pipeline tourne en production. Le repo GitHub existe, GitHub Pages sert le
 flux, et le workflow tourne chaque nuit sur trois créneaux de cron (4 h 30,
 5 h 30 et 6 h 30 heure de Paris l'été) pour compenser les runs planifiés que
 GitHub abandonne. Une garde d'idempotence dans `cmd_run` arrête les créneaux
 suivants dès qu'un épisode du jour est publié. **Premier brief automatique :
-23/09.**
+23/09.** L'écoute quotidienne est en place depuis le 23/09 : flux dans Pocket
+Casts avec téléchargement auto, automatisation Raccourcis sur l'arrêt de
+l'alarme.
 
-**En cours : protocole d'écoute** pour régler les voix. Le verdict à date est
-que le rendu est trop robotique. Les essais sont dans `tests/`, et la commande
-`say` resynthétise un script existant pour comparer à texte constant.
+**En cours : test de voix à l'aveugle** pour choisir le modèle TTS. Le rendu
+actuel est jugé trop robotique. La commande `say --out` resynthétise un script
+existant hors production, avec la clé du projet de test.
 
 ## À faire
 
-### Protocole d'écoute (en cours)
+### Test de voix à l'aveugle (en cours)
 
-- [ ] `03` — revenir à une voix expressive (Marc sur `Puck`), comparer au `02`
-- [ ] `04` — consigne `direction` plus courte et plus concrète
-- [ ] `05` — casser la régularité du texte à la main dans `data/scripts/`
-- [ ] `06` — `max_words_per_chunk: 150`, écouter les jointures
+Remplace les essais 03 à 06 du protocole d'écoute. Trois modèles sur le même
+script, celui du 23/09, découpé en morceaux de 150 mots :
+`gemini-3.1-flash-tts-preview` (production), `gemini-3.8-flash-tts` et
+`gemini-3.8-flash-lite-tts`. Fichiers `A.mp3`, `B.mp3`, `C.mp3` dans
+`data/voice-test/` (ignoré par Git), lettres tirées au hasard ; la
+correspondance est dans `cle.txt`, à ne pas ouvrir avant la fin des écoutes.
+Juges : deux amis d'Adam, qui ne connaissent pas la correspondance.
+
+- [x] Générer A et C
+- [ ] Générer B, bloqué par le quota gratuit : à relancer après sa remise à
+      zéro (9 h, heure de Paris)
+- [ ] Faire écouter les trois fichiers aux deux juges, recueillir leur avis
+- [ ] Ouvrir `cle.txt` seulement ensuite, et choisir le modèle
 - [ ] Relancer `tools/analyse_voix.py` et vérifier si `derive_demitons` baisse
 - [ ] **Trancher** : agréable à écouter au réveil, oui ou non
 - [ ] Réintégrer trim_silence et la lecture de audio.chunk_gap_ms après le
       test à l'aveugle (perdus, jamais committés).
 - [ ] Activer la facturation Gemini au plus tard avant la phase 2.
 
-### Écoute quotidienne
+### Clés API
 
-- [ ] Ajouter le flux dans Pocket Casts, activer le téléchargement auto
-- [ ] Créer l'automatisation Raccourcis iOS (déclencheur Alarme → arrêtée)
+- [ ] Vérifier dans AI Studio que la clé `GEMINI_API_KEY_TEST` appartient à un
+      **projet différent** de la clé de production. Sinon, elles partagent le
+      même quota et un essai peut faire échouer le brief de la nuit.
 
 ## Dette assumée
 
@@ -65,6 +77,9 @@ diviserait la facture TTS par deux.
 - **503 et 429 du free tier Gemini** aux heures de pointe américaines. Les
   créneaux de nuit (2 h 30 à 4 h 30 UTC) les évitent en principe. Si ça arrive
   quand même, activer la facturation pour la priorité de file.
+- **`max_words_per_chunk: 900` est temporaire** : un seul appel TTS par brief
+  tant qu'on est sur le quota gratuit (à 150, un brief en coûtait cinq). À
+  revoir après le test à l'aveugle.
 - **Ne plus toucher au prompt** avant d'avoir trois ou quatre briefs sur des
   journées différentes. Celui du 22 septembre a été lu six fois : on l'a déjà
   sur-ajusté.
@@ -89,3 +104,10 @@ diviserait la facture TTS par deux.
   réduit d'un bon tiers le poids des mp3 accumulés dans l'historique Git.
 - Trois créneaux de cron plutôt qu'un, protégés par une garde d'idempotence :
   GitHub abandonne des runs planifiés depuis fin août 2026.
+- Chemin TTS séparé pour les modèles `gemini-3.8-*` : API Interactions, une
+  entrée annotée par réplique. Ces modèles lisent le texte mot pour mot, donc
+  aucune consigne de direction dans le texte.
+- `say --out` n'utilise que `GEMINI_API_KEY_TEST`, jamais la clé de
+  production, et s'arrête si elle manque.
+- Mention « généré par IA » dans le flux, en description du podcast et de
+  chaque épisode (AI Act, article 50).
