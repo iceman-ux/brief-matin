@@ -45,6 +45,8 @@ class Config:
     raw: dict[str, Any]
     sources: list[Source] = field(default_factory=list)
     speakers: list[Speaker] = field(default_factory=list)
+    # Posé par « say --out » : la synthèse passe par la clé du projet de test.
+    use_test_key: bool = False
 
     # --- accès pratiques -------------------------------------------------
     @property
@@ -105,6 +107,25 @@ def load_config(path: str | Path | None = None) -> Config:
     if not speakers:
         raise ValueError("config.yaml : au moins un speaker est requis.")
     return Config(raw=raw, sources=sources, speakers=speakers)
+
+
+TEST_KEY_VAR = "GEMINI_API_KEY_TEST"
+
+
+def test_api_key() -> str:
+    """Clé du projet Google de test, pour les essais hors production.
+
+    Jamais de repli sur GEMINI_API_KEY : un essai qui mangerait le quota
+    gratuit de la production pourrait faire échouer le brief de la nuit.
+    """
+    _load_dotenv()
+    key = os.environ.get(TEST_KEY_VAR, "").strip()
+    if not key:
+        raise RuntimeError(
+            f"{TEST_KEY_VAR} absente ou vide dans .env : les essais (say "
+            "--out) n'utilisent jamais la clé de production. Ajoute la clé "
+            "du projet de test dans .env.")
+    return key
 
 
 def api_key() -> str:

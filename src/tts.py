@@ -13,7 +13,7 @@ import subprocess
 import wave
 from pathlib import Path
 
-from .config import Config, api_key
+from .config import Config, api_key, test_api_key
 
 # Le modèle multi-locuteurs n'accepte que deux voix.
 MAX_SPEAKERS = 2
@@ -21,9 +21,10 @@ MAX_SPEAKERS = 2
 DEFAULT_MAX_WORDS_PER_CHUNK = 900
 
 
-def _client():
+def _client(cfg: Config):
     from google import genai
-    return genai.Client(api_key=api_key())
+    key = test_api_key() if cfg.use_test_key else api_key()
+    return genai.Client(api_key=key)
 
 
 def _chunk_script(script: list[dict], max_words: int) -> list[list[dict]]:
@@ -103,7 +104,7 @@ def _synth_pcm(cfg: Config, text: str, multi: bool) -> bytes:
 
     from .retry import call_with_retry
 
-    client = _client()
+    client = _client(cfg)
     response = call_with_retry(
         lambda: client.models.generate_content(
             model=cfg.models["tts"],
@@ -146,7 +147,7 @@ def _synth_pcm_interactions(cfg: Config, chunk: list[dict]) -> bytes:
     if not _is_multi(cfg):
         raise RuntimeError("Chemin gemini-3.8 : seul le dialogue à deux voix "
                            "est pris en charge.")
-    client = _client()
+    client = _client(cfg)
     interaction = call_with_retry(
         lambda: client.interactions.create(
             model=cfg.models["tts"],

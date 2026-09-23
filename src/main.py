@@ -20,7 +20,7 @@ from . import feed as feed_mod
 from . import sources as sources_mod
 from . import tts as tts_mod
 from . import writer as writer_mod
-from .config import ROOT, load_config
+from .config import ROOT, load_config, test_api_key
 from .memory import load_memory
 from .retry import RETRYABLE, status_code
 
@@ -176,6 +176,14 @@ def cmd_say(args) -> int:
     # Avec --out, rien n'est publié : l'URL du flux n'est pas nécessaire.
     if not args.out and not _base_url_ready(cfg):
         return 2
+    if args.out:
+        # Un essai ne doit jamais consommer le quota gratuit de la production.
+        try:
+            test_api_key()
+        except RuntimeError as exc:
+            print(f"✗ {exc}", file=sys.stderr)
+            return 2
+        cfg.use_test_key = True
     if args.tts_model:
         # En mémoire seulement : config.yaml et la production restent intacts.
         cfg.models["tts"] = args.tts_model
@@ -315,7 +323,8 @@ def main(argv: list[str] | None = None) -> int:
                      help="remplace models.tts pour cet appel seulement")
     say.add_argument("--out", default=None,
                      help="chemin du mp3 ; dans ce cas rien n'est publié "
-                          "(ni docs/episodes, ni flux)")
+                          "(ni docs/episodes, ni flux) et la synthèse utilise "
+                          "GEMINI_API_KEY_TEST, jamais la clé de production")
     say.set_defaults(func=cmd_say)
 
     check = sub.add_parser("check-feeds", help="teste toutes les sources RSS")

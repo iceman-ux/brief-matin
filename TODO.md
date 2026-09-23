@@ -23,6 +23,9 @@ que le rendu est trop robotique. Les essais sont dans `tests/`, et la commande
 - [ ] `06` — `max_words_per_chunk: 150`, écouter les jointures
 - [ ] Relancer `tools/analyse_voix.py` et vérifier si `derive_demitons` baisse
 - [ ] **Trancher** : agréable à écouter au réveil, oui ou non
+- [ ] Réintégrer trim_silence et la lecture de audio.chunk_gap_ms après le
+      test à l'aveugle (perdus, jamais committés).
+- [ ] Activer la facturation Gemini au plus tard avant la phase 2.
 
 ### Écoute quotidienne
 
