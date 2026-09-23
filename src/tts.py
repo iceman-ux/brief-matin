@@ -1,6 +1,7 @@
 """Synthèse vocale Gemini + encodage mp3.
 
-Le modèle renvoie du PCM brut 24 kHz 16 bits mono. Deux conséquences utiles :
+Le modèle renvoie du PCM brut 24 kHz 16 bits mono (les modèles 3.8 un WAV,
+dont on retire l'en-tête pour revenir au PCM). Deux conséquences utiles :
 - on peut concaténer plusieurs morceaux en collant simplement les octets ;
 - l'encodage mp3 se fait en une passe ffmpeg à la fin.
 """
@@ -126,6 +127,68 @@ def _synth_pcm(cfg: Config, text: str, multi: bool) -> bytes:
     return data
 
 
+def _uses_interactions(cfg: Config) -> bool:
+    # Les modèles 3.8 refusent generate_content en multi-locuteurs : ils
+    # exigent un locuteur attaché à chaque réplique, via l'API interactions.
+    return cfg.models["tts"].startswith("gemini-3.8-")
+
+
+def _synth_pcm_interactions(cfg: Config, chunk: list[dict]) -> bytes:
+    """Chemin des modèles 3.8 : une entrée annotée par réplique.
+
+    Ces modèles lisent le texte mot pour mot : ni cfg.direction ni consigne
+    de lecture, sinon elles seraient prononcées. Seules les répliques partent.
+    """
+    import base64
+
+    from .retry import call_with_retry
+
+    if not _is_multi(cfg):
+        raise RuntimeError("Chemin gemini-3.8 : seul le dialogue à deux voix "
+                           "est pris en charge.")
+    client = _client()
+    interaction = call_with_retry(
+        lambda: client.interactions.create(
+            model=cfg.models["tts"],
+            input=[{"type": "user_input", "content": [
+                {"type": "text", "text": line["text"],
+                 "annotations": [{"type": "speech_metadata",
+                                  "speaker": line["speaker"]}]}
+                for line in chunk
+            ]}],
+            response_format={"type": "audio"},
+            generation_config={"speech_config": {
+                "mode": "conversational",
+                "speakers": [{"speaker": s.name, "voice": s.voice}
+                             for s in active_speakers(cfg)],
+            }},
+        ),
+        label="synthèse vocale",
+    )
+    try:
+        data = interaction.output_audio.data
+    except AttributeError as exc:
+        raise RuntimeError(
+            f"Réponse TTS inattendue — le modèle a peut-être refusé le texte.\n{interaction}"
+        ) from exc
+    audio = base64.b64decode(data) if isinstance(data, str) else bytes(data)
+    if not audio.startswith(b"RIFF"):
+        audio = base64.b64decode(audio)
+    return _wav_to_pcm(audio, int(cfg.audio["sample_rate"]))
+
+
+def _wav_to_pcm(wav_bytes: bytes, sample_rate: int) -> bytes:
+    """Retire l'en-tête RIFF : collé tel quel entre deux morceaux, il
+    s'entendrait comme un clic à chaque raccord."""
+    with wave.open(io.BytesIO(wav_bytes), "rb") as wav:
+        params = (wav.getnchannels(), wav.getsampwidth(), wav.getframerate())
+        if params != (1, 2, sample_rate):
+            raise RuntimeError(
+                f"WAV inattendu (canaux, octets, Hz) = {params}, attendu "
+                f"(1, 2, {sample_rate}) : la concaténation serait fausse.")
+        return wav.readframes(wav.getnframes())
+
+
 def _pcm_to_wav(pcm: bytes, sample_rate: int) -> bytes:
     buffer = io.BytesIO()
     with wave.open(buffer, "wb") as wav:
@@ -179,12 +242,16 @@ def synthesize(cfg: Config, script: list[dict], out_path: Path,
     max_words = int(cfg.audio.get("max_words_per_chunk", DEFAULT_MAX_WORDS_PER_CHUNK))
     chunks = _chunk_script(script, max_words)
 
+    interactions = _uses_interactions(cfg)
     pcm = bytearray()
     for idx, chunk in enumerate(chunks, 1):
         if verbose:
             words = sum(len(l["text"].split()) for l in chunk)
             print(f"  synthèse {idx}/{len(chunks)} ({words} mots)…")
-        pcm += _synth_pcm(cfg, _render_chunk_text(cfg, chunk, multi), multi)
+        if interactions:
+            pcm += _synth_pcm_interactions(cfg, chunk)
+        else:
+            pcm += _synth_pcm(cfg, _render_chunk_text(cfg, chunk, multi), multi)
 
     wav_bytes = _pcm_to_wav(bytes(pcm), int(cfg.audio["sample_rate"]))
     out_path.parent.mkdir(parents=True, exist_ok=True)
