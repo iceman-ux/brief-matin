@@ -61,6 +61,14 @@ def cmd_run(args) -> int:
     if publishing and not _base_url_ready(cfg):
         return 2
 
+    # Plusieurs créneaux de cron se relaient chaque nuit pour rattraper les
+    # runs abandonnés par GitHub : sans cette garde, le deuxième et le
+    # troisième repaieraient un brief déjà publié.
+    if publishing and not args.force and feed_mod.find_episode(date):
+        print(f"✓ Épisode du {date} déjà publié, rien à générer — "
+              "utilise --force pour regénérer.\n")
+        return 0
+
     # 1 ─ Sources
     print("1. Agrégation des flux")
     items, warnings = sources_mod.collect(cfg, now.astimezone(timezone.utc))
@@ -279,6 +287,9 @@ def main(argv: list[str] | None = None) -> int:
                      help="aucun appel API payant, audio silencieux")
     run.add_argument("--no-audio", action="store_true",
                      help="écrit le script mais ne synthétise pas")
+    run.add_argument("--force", action="store_true",
+                     help="regénère même si un épisode existe déjà pour "
+                          "aujourd'hui")
     run.set_defaults(func=cmd_run)
 
     say = sub.add_parser("say", help="resynthétise un script déjà écrit, "
