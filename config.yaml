@@ -24,8 +24,15 @@ podcast:
   cover_image: "cover.png"     # relatif à base_url, optionnel
   retention_days: 30           # on garde les 30 derniers épisodes
 
+onboarding:
+  # Lien iCloud du raccourci « Brief Matin » (iPhone : Raccourcis → appui
+  # long sur le raccourci → Partager → Copier le lien iCloud). Tant qu'il est
+  # vide, la page d'installation affiche « bientôt disponible » à l'étape 2
+  # au lieu d'un lien mort.
+  shortcut_url: ""
+
 brief:
-  target_minutes: 4            # durée visée (pilote le coût TTS)
+  target_minutes: 4           # durée visée (pilote le coût TTS)
   words_per_minute: 190        # mesuré sur les voix Gemini, pas une moyenne
                                # théorique : 426 mots ont donné 2 min 13.
   timezone: "Europe/Paris"

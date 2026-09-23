@@ -4,6 +4,7 @@ Overcast) et rétention des épisodes."""
 from __future__ import annotations
 
 import json
+import re
 from datetime import datetime, timedelta, timezone
 from email.utils import format_datetime
 from pathlib import Path
@@ -203,8 +204,171 @@ def _write_landing(cfg: Config, episodes: list[dict]) -> None:
     <ul>
 {rows}
     </ul>
+    <p class="sub" style="margin-top:28px;font-size:.85rem">
+      <a href="installer.html">Installer le brief sur un téléphone</a>
+    </p>
   </main>
 </body>
 </html>
 """
     (DOCS / "index.html").write_text(html, encoding="utf-8")
+    _write_installer(cfg)
+
+
+# Liens d'abonnement, au format documenté par chaque appli. Apple Podcasts
+# n'en documente aucun (seulement « Ajouter une émission par URL » à la main,
+# podcasters.apple.com/support/3993) : pas de bouton, pas de format deviné.
+# Pocket Casts — support.pocketcasts.com/knowledge-base/third-party-integration :
+# l'URL du flux suit « subscribe/ », sans le préfixe http(s)://.
+POCKETCASTS_SUBSCRIBE = "pktc://subscribe/{feed_without_scheme}"
+# Overcast — overcast.fm/podcasterinfo : paramètre url encodé.
+OVERCAST_SUBSCRIBE = "overcast://x-callback-url/add?url={feed_encoded}"
+# Bibliothèque de QR code chargée par le navigateur : aucune dépendance Python.
+# Version fixée, avec l'empreinte publiée par cdnjs pour ce fichier.
+QRCODE_JS = ("https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/"
+             "qrcode.min.js")
+QRCODE_JS_SRI = ("sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0"
+                 "FslNhTDadL4O5SAGapGt4FodqL8My0mA==")
+
+
+def subscribe_links(feed_url: str) -> dict[str, str]:
+    """Liens d'abonnement par appli, pour le flux donné."""
+    from urllib.parse import quote
+    return {
+        "Pocket Casts": POCKETCASTS_SUBSCRIBE.format(
+            feed_without_scheme=re.sub(r"^https?://", "", feed_url)),
+        "Overcast": OVERCAST_SUBSCRIBE.format(
+            feed_encoded=quote(feed_url, safe="")),
+    }
+
+
+def _write_installer(cfg: Config) -> None:
+    """Page d'installation : un testeur abonné et réveillé par le brief en
+    moins de deux minutes, sans aide."""
+    base = cfg.base_url
+    pod = cfg.podcast
+    feed_url = f"{base}/feed.xml"
+    page_url = f"{base}/installer.html"
+    shortcut_url = ((cfg.raw.get("onboarding") or {}).get("shortcut_url")
+                    or "").strip()
+    disclosure = (pod.get("ai_disclosure") or "").strip()
+    title = pod["title"]
+
+    def attr(value: str) -> str:
+        return escape(value, {'"': "&quot;"})
+
+    buttons = "\n".join(
+        f'        <a class="btn" href="{attr(url)}">Ouvrir dans {escape(app)}</a>'
+        for app, url in subscribe_links(feed_url).items())
+    if shortcut_url:
+        shortcut = (f'<a class="btn" href="{attr(shortcut_url)}">'
+                    "Ajouter le raccourci</a>")
+    else:
+        shortcut = ('<span class="btn off" aria-disabled="true">'
+                    "Ajouter le raccourci — bientôt disponible</span>")
+
+    html = f"""<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Installer {escape(title)}</title>
+<style>
+  :root {{ color-scheme: light dark; --bg:#fbfbfa; --fg:#1a1a18; --mut:#6b6b66; --line:#e4e4e0; --acc:#b4541f; --on:#ffffff; }}
+  @media (prefers-color-scheme: dark) {{
+    :root {{ --bg:#16161a; --fg:#ececeb; --mut:#93938d; --line:#2c2c31; --acc:#e08a52; --on:#16161a; }}
+  }}
+  * {{ box-sizing: border-box; }}
+  body {{ margin:0; background:var(--bg); color:var(--fg); padding:40px 16px 56px;
+         font:16px/1.6 ui-sans-serif,-apple-system,"Segoe UI",system-ui,sans-serif; }}
+  main {{ max-width: 560px; margin: 0 auto; }}
+  h1 {{ font-size: 1.6rem; margin: 0 0 8px; letter-spacing: -.02em; }}
+  h2 {{ font-size: 1.05rem; margin: 36px 0 12px; }}
+  p {{ margin: 0 0 12px; }}
+  .mut {{ color: var(--mut); font-size: .9rem; }}
+  .btns {{ display:flex; flex-direction:column; gap:10px; margin: 0 0 16px; }}
+  .btn {{ display:block; text-align:center; padding:13px 16px; border-radius:10px;
+          background:var(--acc); color:var(--on); text-decoration:none; font-weight:600; }}
+  .btn.off {{ background:transparent; color:var(--mut); border:1px dashed var(--line); font-weight:500; }}
+  .copy {{ display:flex; gap:8px; align-items:stretch; }}
+  .copy code {{ flex:1; min-width:0; word-break:break-all; font-size:.84rem; padding:10px 12px;
+                border:1px solid var(--line); border-radius:8px; }}
+  .copy button {{ font:inherit; font-size:.9rem; padding:0 14px; border-radius:8px; cursor:pointer;
+                  border:1px solid var(--line); background:transparent; color:var(--fg); }}
+  ol {{ padding-left: 1.3em; margin: 12px 0; }}
+  li {{ margin: 4px 0; }}
+  .qr {{ display:flex; gap:16px; align-items:center; }}
+  .qr div {{ background:#fff; padding:8px; border-radius:8px; line-height:0; flex:none; }}
+  hr {{ border:0; border-top:1px solid var(--line); margin:36px 0 0; }}
+</style>
+</head>
+<body>
+  <main>
+    <h1>{escape(title)}</h1>
+    <p>Quelques minutes d'actu chaque matin, lancées par ton réveil.</p>
+    <p class="mut">{escape(disclosure)}</p>
+
+    <h2>Étape 1 — S'abonner</h2>
+    <div class="btns">
+{buttons}
+    </div>
+    <p class="mut">Apple Podcasts ne propose pas de lien d'abonnement direct :
+      Bibliothèque → « … » → Ajouter une émission par URL, puis colle
+      l'adresse ci-dessous. Même adresse pour toute autre appli, et pour
+      Android.</p>
+    <div class="copy">
+      <code id="feed">{escape(feed_url)}</code>
+      <button type="button" id="copy">Copier</button>
+    </div>
+    <p class="mut" style="margin-top:12px">Dans l'appli de podcast, active le
+      téléchargement automatique : l'épisode sera là même sans réseau au
+      réveil.</p>
+
+    <h2>Étape 2 — Lancer le brief au réveil</h2>
+    <div class="btns">
+      {shortcut}
+    </div>
+    <ol>
+      <li>Ouvre Raccourcis, onglet Automatisation, puis touche +.</li>
+      <li>Choisis Réveil, puis « Est arrêté », et Exécuter immédiatement.</li>
+      <li>Choisis le raccourci « {escape(title)} ».</li>
+    </ol>
+    <p class="mut">Les libellés exacts peuvent varier selon la version d'iOS.</p>
+
+    <hr>
+    <h2>Depuis un ordinateur</h2>
+    <div class="qr">
+      <div id="qr"></div>
+      <p class="mut">Scanne ce code avec l'appareil photo du téléphone pour
+        ouvrir cette page dessus.</p>
+    </div>
+  </main>
+  <script src="{QRCODE_JS}" integrity="{QRCODE_JS_SRI}"
+          crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>
+    (function () {{
+      var feed = {json.dumps(feed_url)};
+      var btn = document.getElementById("copy");
+      btn.addEventListener("click", function () {{
+        function done() {{ btn.textContent = "Copié"; }}
+        if (navigator.clipboard && window.isSecureContext) {{
+          navigator.clipboard.writeText(feed).then(done);
+        }} else {{
+          var r = document.createRange();
+          r.selectNodeContents(document.getElementById("feed"));
+          var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+          try {{ document.execCommand("copy"); done(); }} catch (e) {{}}
+        }}
+      }});
+      if (window.QRCode) {{
+        new QRCode(document.getElementById("qr"), {{
+          text: {json.dumps(page_url)}, width: 132, height: 132,
+          colorDark: "#000000", colorLight: "#ffffff"
+        }});
+      }}
+    }})();
+  </script>
+</body>
+</html>
+"""
+    (DOCS / "installer.html").write_text(html, encoding="utf-8")
