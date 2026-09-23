@@ -91,7 +91,8 @@ audio:
   bitrate: "40k"     # mono parlé à 24 kHz : 40 kbps reste transparent (~1,2 Mo / 4 min)
   sample_rate: 24000 # imposé par le modèle TTS (PCM 24 kHz 16 bits mono)
   # Au-delà, le script est découpé en plusieurs appels TTS puis recollé.
-  max_words_per_chunk: 150
+  # temporaire : un seul appel TTS par brief tant qu'on est sur le quota gratuit
+  max_words_per_chunk: 900
   # Silence inséré entre deux morceaux recollés. Chaque appel TTS rend un
   # audio bordé de silence : on le rabote, puis on impose cet écart-là, qui
   # correspond à une respiration normale entre deux sujets.
