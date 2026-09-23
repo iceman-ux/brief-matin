@@ -136,9 +136,8 @@ def cmd_run(args) -> int:
 
     duration = tts_mod.audio_duration_seconds(mp3_path)
     size = mp3_path.stat().st_size
-    cost = tts_mod.estimate_cost_usd(cfg, duration)
     print(f"   → {mp3_path.name} · {duration // 60}:{duration % 60:02d} · "
-          f"{size / 1024:.0f} Ko · ~{cost:.3f} $ de TTS")
+          f"{size / 1024:.0f} Ko · {_cost_label(cfg, duration)}")
 
     if args.dry_run:
         print("\n5-6. Publication et mémoire ignorées en dry-run.")
@@ -174,8 +173,12 @@ def cmd_say(args) -> int:
         print(f"✗ Aucun script pour le {date} : "
               f"{script_path.relative_to(ROOT)} introuvable.", file=sys.stderr)
         return 2
-    if not _base_url_ready(cfg):
+    # Avec --out, rien n'est publié : l'URL du flux n'est pas nécessaire.
+    if not args.out and not _base_url_ready(cfg):
         return 2
+    if args.tts_model:
+        # En mémoire seulement : config.yaml et la production restent intacts.
+        cfg.models["tts"] = args.tts_model
 
     try:
         script = writer_mod.text_to_script(
@@ -199,15 +202,20 @@ def cmd_say(args) -> int:
 
     print("\n2. Synthèse vocale")
     mp3_name = f"brief-{date}.mp3"
-    mp3_path = feed_mod.EPISODES_DIR / mp3_name
+    mp3_path = (Path(args.out).resolve() if args.out
+                else feed_mod.EPISODES_DIR / mp3_name)
+    print(f"   modèle : {cfg.models['tts']}")
     _print_voices(cfg)
     tts_mod.warn_if_batch_requested(cfg)
     tts_mod.synthesize(cfg, script, mp3_path)
     duration = tts_mod.audio_duration_seconds(mp3_path)
     size = mp3_path.stat().st_size
-    cost = tts_mod.estimate_cost_usd(cfg, duration)
-    print(f"   → {mp3_name} · {duration // 60}:{duration % 60:02d} · "
-          f"{size / 1024:.0f} Ko · ~{cost:.3f} $ de TTS")
+    print(f"   → {mp3_path.name} · {duration // 60}:{duration % 60:02d} · "
+          f"{size / 1024:.0f} Ko · {_cost_label(cfg, duration)}")
+
+    if args.out:
+        print(f"\n✓ Terminé. Écrit dans {mp3_path} — rien n'a été publié.\n")
+        return 0
 
     print("\n3. Flux podcast")
     title, summary = _episode_texts(date, topics)
@@ -220,6 +228,13 @@ def cmd_say(args) -> int:
 
     print(f"\n✓ Terminé. Flux : {cfg.base_url}/feed.xml\n")
     return 0
+
+
+def _cost_label(cfg, seconds: float) -> str:
+    cost = tts_mod.estimate_cost_usd(cfg, seconds)
+    if cost is None:
+        return f"coût inconnu (tarif de {cfg.models['tts']} absent de la grille)"
+    return f"~{cost:.3f} $ de TTS"
 
 
 def _print_voices(cfg) -> None:
@@ -296,6 +311,11 @@ def main(argv: list[str] | None = None) -> int:
                                      "sans appeler le modèle de rédaction")
     say.add_argument("date", nargs="?", type=_iso_date, default=None,
                      help="AAAA-MM-JJ (par défaut : aujourd'hui)")
+    say.add_argument("--tts-model", default=None,
+                     help="remplace models.tts pour cet appel seulement")
+    say.add_argument("--out", default=None,
+                     help="chemin du mp3 ; dans ce cas rien n'est publié "
+                          "(ni docs/episodes, ni flux)")
     say.set_defaults(func=cmd_say)
 
     check = sub.add_parser("check-feeds", help="teste toutes les sources RSS")

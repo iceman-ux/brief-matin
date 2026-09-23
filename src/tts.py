@@ -205,19 +205,29 @@ def audio_duration_seconds(path: Path) -> int:
         return 0
 
 
-USD_PAR_MILLION_TOKENS = 20.0   # tarif standard ; le mode batch serait à 10
+# Tarif standard en $ par million de tokens audio, valable jusqu'au
+# 31/12/2026 : à revérifier sur la grille officielle passé cette date.
+USD_PAR_MILLION_TOKENS = {
+    "gemini-3.1-flash-tts-preview": 20.0,
+    "gemini-3.8-flash-tts": 9.0,
+    "gemini-3.8-flash-lite-tts": 6.0,
+}
 TOKENS_AUDIO_PAR_SECONDE = 25
 
 
-def estimate_cost_usd(cfg: Config, seconds: float) -> float:
+def estimate_cost_usd(cfg: Config, seconds: float) -> float | None:
     """Coût TTS indicatif, facturé à la durée d'audio produite.
 
     Toujours au tarif standard : le mode batch, deux fois moins cher, n'est
     pas implémenté (_synth_pcm appelle generate_content en synchrone). Tant
     qu'il ne l'est pas, afficher un tarif réduit mentirait sur la facture.
-    Le tarif peut changer — vérifie la grille officielle.
+    None pour un modèle absent de la grille : mieux vaut « inconnu » qu'un
+    chiffre emprunté à un autre modèle.
     """
-    return (seconds * TOKENS_AUDIO_PAR_SECONDE / 1_000_000) * USD_PAR_MILLION_TOKENS
+    rate = USD_PAR_MILLION_TOKENS.get(cfg.models["tts"])
+    if rate is None:
+        return None
+    return (seconds * TOKENS_AUDIO_PAR_SECONDE / 1_000_000) * rate
 
 
 def warn_if_batch_requested(cfg: Config) -> None:
