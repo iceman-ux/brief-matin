@@ -99,8 +99,8 @@ Ton flux est à `https://<ton-pseudo>.github.io/<repo>/feed.xml`.
 > ⚠️ Repo public = flux public. Personne ne le trouvera sans l'URL, mais ce
 > n'est pas un secret. Si ça te gêne, passe le repo en privé : Actions reste
 > gratuit dans la limite de 2 000 min/mois (ce job en consomme de l'ordre de
-> 150 à 200 : un run complet de trois ou quatre minutes, plus environ une
-> minute pour chacun des deux créneaux redondants ; estimation, pas une
+> 180 à 230 : un run complet de trois ou quatre minutes, plus environ une
+> minute pour chacun des trois créneaux redondants ; estimation, pas une
 > mesure), mais il
 > faudra héberger les mp3 ailleurs (Cloudflare R2, 10 Go gratuits).
 
@@ -240,8 +240,11 @@ python -m src.main rebuild-feed       # régénère feed.xml depuis l'index
 
 ## 6. Points d'attention
 
-**Trois créneaux de cron, pas un.** Le workflow se déclenche à `30 2`, `30 3`
-et `30 4` UTC, soit 4 h 30, 5 h 30 et 6 h 30 à Paris l'été. Depuis fin août
+**Quatre créneaux de cron, pas un.** Le workflow se déclenche à `30 2`,
+`30 3` et `30 4` UTC, soit 4 h 30, 5 h 30 et 6 h 30 à Paris l'été, puis à
+`10 8` UTC en filet de sécurité : c'est après la remise à zéro du quota
+gratuit Gemini (minuit heure du Pacifique = 7 h UTC l'été, 8 h UTC l'hiver),
+utile si le quota était épuisé pendant la nuit. Depuis fin août
 2026, GitHub abandonne régulièrement des runs planifiés : un créneau unique
 laissait des matins sans brief. Le premier créneau qui aboutit publie
 l'épisode ; les suivants voient qu'il existe déjà et s'arrêtent avant tout
@@ -249,8 +252,8 @@ appel payant (garde d'idempotence dans `cmd_run`, contournable avec
 `run --force`). Ils consomment tout de même la minute d'installation de
 ffmpeg et des dépendances, qui précède la garde.
 
-**Le cron est en UTC.** GitHub ne gère pas les fuseaux : l'hiver, les trois
-créneaux reculent d'une heure à Paris (3 h 30, 4 h 30, 5 h 30).
+**Le cron est en UTC.** GitHub ne gère pas les fuseaux : l'hiver, les
+créneaux reculent d'une heure à Paris (3 h 30, 4 h 30, 5 h 30 et 9 h 10).
 
 **GitHub Actions n'est pas ponctuel.** Le déclenchement peut glisser de 5 à
 30 minutes aux heures chargées. Lance le job largement en avance sur ton

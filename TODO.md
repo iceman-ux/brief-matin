@@ -5,7 +5,8 @@
 Le pipeline tourne en production. Le repo GitHub existe, GitHub Pages sert le
 flux, et le workflow tourne chaque nuit sur trois créneaux de cron (4 h 30,
 5 h 30 et 6 h 30 heure de Paris l'été) pour compenser les runs planifiés que
-GitHub abandonne. Une garde d'idempotence dans `cmd_run` arrête les créneaux
+GitHub abandonne, plus un quatrième à 8 h 10 UTC (10 h 10 à Paris l'été),
+filet de sécurité après la remise à zéro du quota gratuit Gemini. Une garde d'idempotence dans `cmd_run` arrête les créneaux
 suivants dès qu'un épisode du jour est publié. **Premier brief automatique :
 23/09.** L'écoute quotidienne est en place depuis le 23/09 : flux dans Pocket
 Casts avec téléchargement auto, automatisation Raccourcis sur l'arrêt de
@@ -69,7 +70,7 @@ diviserait la facture TTS par deux.
 ## À surveiller les premières semaines
 
 - **Runs planifiés abandonnés par GitHub.** Vérifier dans l'onglet Actions
-  qu'au moins un des trois créneaux aboutit chaque nuit, et que les suivants
+  qu'au moins un des quatre créneaux aboutit chaque jour, et que les suivants
   s'arrêtent bien sur « déjà publié ».
 - **Sujets « France » faibles.** Deux causes identifiées : peu de sources
   généralistes (corrigé, Le Figaro et 20 Minutes ajoutés) et surtout le
@@ -107,7 +108,10 @@ diviserait la facture TTS par deux.
 - `audio.bitrate: "40k"` : transparent pour de la parole mono à 24 kHz, et
   réduit d'un bon tiers le poids des mp3 accumulés dans l'historique Git.
 - Trois créneaux de cron plutôt qu'un, protégés par une garde d'idempotence :
-  GitHub abandonne des runs planifiés depuis fin août 2026.
+  GitHub abandonne des runs planifiés depuis fin août 2026. Un quatrième à
+  8 h 10 UTC sert de filet après la remise à zéro du quota gratuit Gemini
+  (minuit heure du Pacifique = 7 h UTC l'été, 8 h UTC l'hiver) : un quota
+  épuisé la veille fait échouer les trois créneaux de nuit.
 - Chemin TTS séparé pour les modèles `gemini-3.8-*` : API Interactions, une
   entrée annotée par réplique. Ces modèles lisent le texte mot pour mot, donc
   aucune consigne de direction dans le texte.

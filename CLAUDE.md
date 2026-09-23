@@ -63,7 +63,9 @@ Sur Windows, utiliser `py` plutôt que `python`.
   américaines. Les trois créneaux de cron (2 h 30, 3 h 30 et 4 h 30 UTC)
   tombent en pleine nuit américaine précisément pour les éviter.
 - **GitHub abandonne des runs planifiés** depuis fin août 2026, d'où les
-  trois créneaux. Une garde d'idempotence arrête `run` si l'épisode du jour
+  trois créneaux de nuit, plus un quatrième à 8 h 10 UTC : filet de sécurité
+  après la remise à zéro du quota gratuit Gemini (minuit heure du Pacifique,
+  7 h UTC l'été, 8 h UTC l'hiver). Une garde d'idempotence arrête `run` si l'épisode du jour
   est déjà dans `docs/episodes.json` : pour regénérer, `run --force`.
   `say`, `--dry-run` et `--no-audio` ne sont pas concernés.
 - **Le modèle n'a que les titres et chapôs**, jamais le texte des articles.

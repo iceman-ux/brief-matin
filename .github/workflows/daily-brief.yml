@@ -2,13 +2,17 @@ name: Brief quotidien
 
 on:
   schedule:
-    # Trois créneaux : 4 h 30, 5 h 30 et 6 h 30 heure de Paris en été.
+    # Trois créneaux de nuit : 4 h 30, 5 h 30 et 6 h 30 heure de Paris en été.
     # GitHub abandonne régulièrement les runs planifiés (problème ouvert
     # depuis août 2026), d'où la redondance. La garde d'idempotence dans
     # cmd_run empêche les créneaux suivants de regénérer un brief déjà publié.
     - cron: "30 2 * * *"
     - cron: "30 3 * * *"
     - cron: "30 4 * * *"
+    # Filet de sécurité après la remise à zéro du quota gratuit Gemini (minuit
+    # heure du Pacifique = 7 h UTC l'été, 8 h UTC l'hiver) ; la garde
+    # d'idempotence l'arrête si le brief est déjà publié.
+    - cron: "10 8 * * *"
   workflow_dispatch:      # bouton "Run workflow" pour tester à la demande
     inputs:
       dry_run:
