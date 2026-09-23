@@ -1,10 +1,13 @@
 # Brief Matin — avancement
 
-## État au 22/09/2026
+## État au 23/09/2026
 
-Le pipeline tourne de bout en bout : agrégation, rédaction, TTS, flux, mémoire.
-Trois briefs audio réels produits. 15/15 flux RSS opérationnels. Le repo GitHub
-n'existe pas encore, donc rien n'est publié en ligne.
+Le pipeline tourne en production. Le repo GitHub existe, GitHub Pages sert le
+flux, et le workflow tourne chaque nuit sur trois créneaux de cron (4 h 30,
+5 h 30 et 6 h 30 heure de Paris l'été) pour compenser les runs planifiés que
+GitHub abandonne. Une garde d'idempotence dans `cmd_run` arrête les créneaux
+suivants dès qu'un épisode du jour est publié. **Premier brief automatique :
+23/09.**
 
 **En cours : protocole d'écoute** pour régler les voix. Le verdict à date est
 que le rendu est trop robotique. Les essais sont dans `tests/`, et la commande
@@ -21,14 +24,6 @@ que le rendu est trop robotique. Les essais sont dans `tests/`, et la commande
 - [ ] Relancer `tools/analyse_voix.py` et vérifier si `derive_demitons` baisse
 - [ ] **Trancher** : agréable à écouter au réveil, oui ou non
 
-### Avant le premier push
-
-- [ ] Décider du sort des mp3 dans Git — voir « Dette » plus bas
-- [ ] `git init`, repo GitHub public, premier push
-- [ ] Settings → Pages → branche `main`, dossier `/docs`
-- [ ] Settings → Secrets → `GEMINI_API_KEY`
-- [ ] Déclencher le workflow à la main (onglet Actions) et vérifier le résultat
-
 ### Écoute quotidienne
 
 - [ ] Ajouter le flux dans Pocket Casts, activer le téléchargement auto
@@ -37,16 +32,15 @@ que le rendu est trop robotique. Les essais sont dans `tests/`, et la commande
 ## Dette assumée
 
 **Les mp3 dans Git.** La rétention à 30 jours nettoie le répertoire de travail,
-pas l'historique. À 64 kbps, un épisode pèse ~1 Mo, soit **~365 Mo par an
-accumulés définitivement**. GitHub commence à râler vers 1 Go : environ deux
-ans et demi de marge. Trois issues :
+pas l'historique. Le débit est passé à 40 kbps : un épisode pèse ~1 Mo à
+3 minutes, ~1,2 Mo à 4 minutes, soit **~350 à 450 Mo par an accumulés
+définitivement** (à 64 kbps, les deux premiers épisodes pesaient 1,2 et
+1,5 Mo). GitHub commence à râler vers 1 Go : environ deux ans de marge.
+Deux issues restantes :
 
-- baisser `audio.bitrate` à `"40k"` — transparent pour de la parole à 24 kHz,
-  ramène à ~230 Mo/an ; non appliqué pour ne pas ajouter une variable au
-  protocole d'écoute en cours ;
 - héberger les mp3 sur Cloudflare R2 (10 Go gratuits, pas de frais de sortie)
   et ne garder que `feed.xml` dans le repo ;
-- ne rien faire et réécrire l'historique dans deux ans.
+- ne rien faire et réécrire l'historique le moment venu.
 
 **Le mode batch TTS n'est pas implémenté.** `models.tts_batch` existe dans la
 config mais ne change rien : `_synth_pcm` appelle `generate_content` en
@@ -55,6 +49,9 @@ diviserait la facture TTS par deux.
 
 ## À surveiller les premières semaines
 
+- **Runs planifiés abandonnés par GitHub.** Vérifier dans l'onglet Actions
+  qu'au moins un des trois créneaux aboutit chaque nuit, et que les suivants
+  s'arrêtent bien sur « déjà publié ».
 - **Sujets « France » faibles.** Deux causes identifiées : peu de sources
   généralistes (corrigé, Le Figaro et 20 Minutes ajoutés) et surtout le
   plafond de `_articles_block` qui ne transmettait que 60 articles sur 292,
@@ -62,9 +59,9 @@ diviserait la facture TTS par deux.
 - **Slugs de mémoire trop précis.** Vérifier que `data/covered.json` contient
   `budget-2027` et non `budget-2027-vote-mardi`, sinon l'anti-répétition ne
   sert à rien.
-- **503 et 429 du free tier Gemini** aux heures de pointe américaines. Le cron
-  à 4 h 30 UTC les évite en principe. Si ça arrive quand même, activer la
-  facturation pour la priorité de file.
+- **503 et 429 du free tier Gemini** aux heures de pointe américaines. Les
+  créneaux de nuit (2 h 30 à 4 h 30 UTC) les évitent en principe. Si ça arrive
+  quand même, activer la facturation pour la priorité de file.
 - **Ne plus toucher au prompt** avant d'avoir trois ou quatre briefs sur des
   journées différentes. Celui du 22 septembre a été lu six fois : on l'a déjà
   sur-ajusté.
@@ -85,3 +82,7 @@ diviserait la facture TTS par deux.
   moyenne théorique de lecture.
 - `data/scripts/` est versionné : sans lui, un brief raté sur GitHub Actions
   n'est pas débuggable après coup.
+- `audio.bitrate: "40k"` : transparent pour de la parole mono à 24 kHz, et
+  réduit d'un bon tiers le poids des mp3 accumulés dans l'historique Git.
+- Trois créneaux de cron plutôt qu'un, protégés par une garde d'idempotence :
+  GitHub abandonne des runs planifiés depuis fin août 2026.

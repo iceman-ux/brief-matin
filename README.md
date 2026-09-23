@@ -59,8 +59,10 @@ casse pas le brief — il le rend juste plus pauvre, en silence. D'où ce test.
 python -m src.main run --dry-run
 ```
 
-Ça exerce toute la chaîne (agrégation, mémoire, flux RSS, encodage) avec un
-script factice et un mp3 silencieux. Si ça passe, la plomberie est bonne.
+Ça exerce l'agrégation, la mémoire et l'encodage avec un script factice et un
+mp3 silencieux. Si ça passe, la plomberie est bonne. Un dry-run ne publie
+rien : ni épisode, ni flux, ni mise à jour de la mémoire. Le silence et le
+script factice vont dans `data/dry-run.*`, hors de `docs/`.
 
 Ensuite, un vrai brief mais sans audio — c'est là que tu juges la qualité
 éditoriale, et c'est l'étape sur laquelle il faut itérer :
@@ -96,7 +98,10 @@ Ton flux est à `https://<ton-pseudo>.github.io/<repo>/feed.xml`.
 
 > ⚠️ Repo public = flux public. Personne ne le trouvera sans l'URL, mais ce
 > n'est pas un secret. Si ça te gêne, passe le repo en privé : Actions reste
-> gratuit dans la limite de 2 000 min/mois (ce job en consomme ~60), mais il
+> gratuit dans la limite de 2 000 min/mois (ce job en consomme de l'ordre de
+> 150 à 200 : un run complet de trois ou quatre minutes, plus environ une
+> minute pour chacun des deux créneaux redondants ; estimation, pas une
+> mesure), mais il
 > faudra héberger les mp3 ailleurs (Cloudflare R2, 10 Go gratuits).
 
 ---
@@ -157,7 +162,7 @@ Tout le caractère du brief vit dans deux fichiers.
 | `memory.lookback_days` | profondeur de la mémoire anti-répétition |
 
 **`prompts/brief_fr.md`** — la ligne éditoriale. C'est là que tu passes ton
-temps. Les neuf règles d'écriture sont ce qui sépare un brief écoutable d'une
+temps. Ses règles d'écriture numérotées sont ce qui sépare un brief écoutable d'une
 lecture de dépêches. Ajoute les tiennes au fil des écoutes : chaque fois qu'un
 tic t'agace, une ligne de plus dans le prompt.
 
@@ -187,14 +192,13 @@ Base : 4 minutes par jour, 30 jours.
 | Poste | Mensuel |
 |---|---|
 | TTS Gemini Flash (standard) | ~3,3 € |
-| TTS Gemini Flash (`tts_batch: true`) | ~1,7 € |
 | LLM rédacteur (~25k tokens in / 1,5k out par jour) | ~0,70 € |
 | GitHub Actions + Pages | 0 € |
 | Pocket Casts | 0 € |
-| **Total** | **~2,5 à 4 €/mois** |
+| **Total** | **~4 €/mois** |
 
-Le calcul TTS : 240 s × 25 tokens/s = 6 000 tokens audio, à 20 $/M
-(10 $ en batch). Chaque minute ajoutée coûte ~0,03 $/jour, soit ~0,90 $/mois.
+Le calcul TTS : 240 s × 25 tokens/s = 6 000 tokens audio, à 20 $/M. Le mode
+batch, deux fois moins cher, n'est pas implémenté : `tts_batch` ne change rien. Chaque minute ajoutée coûte ~0,03 $/jour, soit ~0,90 $/mois.
 `estimate_cost_usd()` affiche le coût réel à chaque run.
 
 Le free tier de Gemini peut suffire pour un brief par jour — mais les quotas
@@ -236,9 +240,17 @@ python -m src.main rebuild-feed       # régénère feed.xml depuis l'index
 
 ## 6. Points d'attention
 
-**Le cron est en UTC.** `30 4 * * *` = 6 h 30 à Paris l'été, 5 h 30 l'hiver.
-GitHub ne gère pas les fuseaux. Soit tu acceptes le décalage saisonnier, soit
-tu mets deux lignes de cron.
+**Trois créneaux de cron, pas un.** Le workflow se déclenche à `30 2`, `30 3`
+et `30 4` UTC, soit 4 h 30, 5 h 30 et 6 h 30 à Paris l'été. Depuis fin août
+2026, GitHub abandonne régulièrement des runs planifiés : un créneau unique
+laissait des matins sans brief. Le premier créneau qui aboutit publie
+l'épisode ; les suivants voient qu'il existe déjà et s'arrêtent avant tout
+appel payant (garde d'idempotence dans `cmd_run`, contournable avec
+`run --force`). Ils consomment tout de même la minute d'installation de
+ffmpeg et des dépendances, qui précède la garde.
+
+**Le cron est en UTC.** GitHub ne gère pas les fuseaux : l'hiver, les trois
+créneaux reculent d'une heure à Paris (3 h 30, 4 h 30, 5 h 30).
 
 **GitHub Actions n'est pas ponctuel.** Le déclenchement peut glisser de 5 à
 30 minutes aux heures chargées. Lance le job largement en avance sur ton

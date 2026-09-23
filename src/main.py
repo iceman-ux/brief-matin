@@ -317,8 +317,9 @@ def main(argv: list[str] | None = None) -> int:
         # Arrivé ici, call_with_retry a déjà épuisé ses tentatives : un
         # traceback n'apprendrait rien, seule la saturation compte.
         print(f"\n✗ API saturée (erreur {code}) malgré les réessais — rien "
-              "n'a été publié. Le cron tourne à 4 h 30 UTC justement pour "
-              "éviter ces pics ; relance plus tard.", file=sys.stderr)
+              "n'a été publié. Les trois créneaux de nuit (2 h 30, 3 h 30 "
+              "et 4 h 30 UTC) visent justement à éviter ces pics : le "
+              "suivant retentera, sinon relance plus tard.", file=sys.stderr)
         return 3
 
 

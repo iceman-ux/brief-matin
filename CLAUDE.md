@@ -18,6 +18,8 @@ src/feed.py          flux RSS podcast, page d'accueil, rétention des épisodes
 src/retry.py         réessais avec backoff exponentiel sur erreurs temporaires
 src/main.py          orchestration + CLI
 docs/                publié par GitHub Pages (feed.xml, index.html, episodes/)
+tools/analyse_voix.py  mesure audio pour le protocole d'écoute, hors pipeline
+                       (numpy, scipy — hors requirements.txt, le run n'en a pas besoin)
 ```
 
 Pipeline : RSS → dédoublonnage → mémoire → LLM → TTS → mp3 → feed.xml.
@@ -25,7 +27,8 @@ Pipeline : RSS → dédoublonnage → mémoire → LLM → TTS → mp3 → feed.
 ## Commandes
 
 ```bash
-python -m src.main run              # brief complet
+python -m src.main run              # brief complet (s'arrête si déjà publié)
+python -m src.main run --force      # regénère même si l'épisode du jour existe
 python -m src.main run --dry-run    # aucun appel API payant, audio silencieux
 python -m src.main run --no-audio   # script seul, pour itérer sur le prompt
 python -m src.main say [AAAA-MM-JJ] # resynthèse d'un script existant, sans LLM
@@ -57,12 +60,15 @@ Sur Windows, utiliser `py` plutôt que `python`.
 - **`.env` n'est jamais versionné** et disparaît si on réextrait une archive
   par-dessus le projet.
 - **Le free tier Gemini renvoie beaucoup de 503** aux heures de pointe
-  américaines. Le cron tourne à 4 h 30 UTC précisément pour les éviter.
+  américaines. Les trois créneaux de cron (2 h 30, 3 h 30 et 4 h 30 UTC)
+  tombent en pleine nuit américaine précisément pour les éviter.
+- **GitHub abandonne des runs planifiés** depuis fin août 2026, d'où les
+  trois créneaux. Une garde d'idempotence arrête `run` si l'épisode du jour
+  est déjà dans `docs/episodes.json` : pour regénérer, `run --force`.
+  `say`, `--dry-run` et `--no-audio` ne sont pas concernés.
 - **Le modèle n'a que les titres et chapôs**, jamais le texte des articles.
   Le prompt lui interdit d'inventer des liens de causalité — c'est le défaut
   le plus grave possible ici, parce qu'il est invisible à l'écoute.
-- **`podcast.base_url` vaut `CHANGE-ME`** tant que le repo GitHub n'existe
-  pas. Seul un run qui publie réellement refuse de démarrer dans ce cas.
 
 L'avancement et les tâches en cours sont dans `TODO.md` — à lire seulement
 quand la question porte dessus (`@TODO.md`), pas à chaque session.

@@ -31,6 +31,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Un créneau mis en file derrière un autre part du commit figé à son
+      # déclenchement : sans ce pull, la garde ne voit pas l'épisode publié.
+      - name: Rattraper le dernier état de main
+        run: git pull --ff-only origin "${GITHUB_REF_NAME}"
+
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
