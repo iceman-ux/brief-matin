@@ -17,3 +17,6 @@ data/voice-test/
 
 # Dossier de travail de l'outillage, pas du projet.
 Claude outputs/
+
+# Fichier local de Claude Code (tâches programmées de la session).
+.claude/scheduled_tasks.lock
