@@ -9,6 +9,11 @@ podcast:
   description: >
     Brief quotidien généré automatiquement à partir des grands titres
     français et internationaux. France, Monde, Économie, Tech.
+  # Ajoutée à la description du podcast et à celle de chaque épisode :
+  # quiconque tombe sur le flux sait d'emblée d'où viennent texte et voix.
+  ai_disclosure: >-
+    Brief généré automatiquement par intelligence artificielle, texte et
+    voix, à partir de titres et chapôs de presse.
   author: "neodem"
   email: "annihilateurdedaronne@gmail.com"
   language: "fr-FR"

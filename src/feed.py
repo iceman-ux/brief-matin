@@ -82,6 +82,10 @@ def build_feed(cfg: Config, episodes: list[dict] | None = None) -> Path:
     episodes = episodes if episodes is not None else _load_index()
     pod = cfg.podcast
     base = cfg.base_url
+    disclosure = (pod.get("ai_disclosure") or "").strip()
+    channel_desc = pod["description"].strip()
+    if disclosure:
+        channel_desc = f"{channel_desc}\n\n{disclosure}"
 
     items = []
     for ep in episodes:
@@ -90,6 +94,8 @@ def build_feed(cfg: Config, episodes: list[dict] | None = None) -> Path:
         if ep.get("topics"):
             lines = "\n".join(f"• {t.get('title', '')}" for t in ep["topics"])
             notes = f"{notes}\n\nAu sommaire :\n{lines}"
+        if disclosure:
+            notes = f"{notes}\n\n{disclosure}"
         items.append(f"""    <item>
       <title>{escape(ep['title'])}</title>
       <description>{escape(notes)}</description>
@@ -120,12 +126,12 @@ def build_feed(cfg: Config, episodes: list[dict] | None = None) -> Path:
     <title>{escape(pod['title'])}</title>
     <link>{escape(base)}</link>
     <atom:link href="{escape(base)}/feed.xml" rel="self" type="application/rss+xml"/>
-    <description>{escape(pod['description'].strip())}</description>
+    <description>{escape(channel_desc)}</description>
     <language>{escape(pod['language'])}</language>
     <lastBuildDate>{last_build}</lastBuildDate>
     <itunes:author>{escape(pod['author'])}</itunes:author>
     <itunes:subtitle>{escape(pod['subtitle'])}</itunes:subtitle>
-    <itunes:summary>{escape(pod['description'].strip())}</itunes:summary>
+    <itunes:summary>{escape(channel_desc)}</itunes:summary>
     <itunes:owner>
       <itunes:name>{escape(pod['author'])}</itunes:name>
       <itunes:email>{escape(pod['email'])}</itunes:email>
