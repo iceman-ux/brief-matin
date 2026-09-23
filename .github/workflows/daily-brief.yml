@@ -2,9 +2,12 @@ name: Brief quotidien
 
 on:
   schedule:
-    # 04:30 UTC = 06:30 heure de Paris en été, 05:30 en hiver.
-    # GitHub ne connaît que l'UTC : si tu veux une heure fixe à Paris toute
-    # l'année, double la ligne (une pour chaque saison) ou accepte le décalage.
+    # Trois créneaux : 4 h 30, 5 h 30 et 6 h 30 heure de Paris en été.
+    # GitHub abandonne régulièrement les runs planifiés (problème ouvert
+    # depuis août 2026), d'où la redondance. La garde d'idempotence dans
+    # cmd_run empêche les créneaux suivants de regénérer un brief déjà publié.
+    - cron: "30 2 * * *"
+    - cron: "30 3 * * *"
     - cron: "30 4 * * *"
   workflow_dispatch:      # bouton "Run workflow" pour tester à la demande
     inputs:
