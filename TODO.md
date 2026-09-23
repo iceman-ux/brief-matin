@@ -43,9 +43,10 @@ Juges : deux amis d'Adam, qui ne connaissent pas la correspondance.
 
 ### Clés API
 
-- [ ] Vérifier dans AI Studio que la clé `GEMINI_API_KEY_TEST` appartient à un
+- [x] Vérifier dans AI Studio que la clé `GEMINI_API_KEY_TEST` appartient à un
       **projet différent** de la clé de production. Sinon, elles partagent le
       même quota et un essai peut faire échouer le brief de la nuit.
+      Vérifié par Adam le 24/09 : projets distincts.
 
 ## Dette assumée
 
