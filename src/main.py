@@ -22,7 +22,7 @@ from . import tts as tts_mod
 from . import writer as writer_mod
 from .config import ROOT, load_config, test_api_key
 from .memory import load_memory
-from .retry import RETRYABLE, status_code
+from .retry import RETRYABLE, quota_details, status_code
 
 
 def _now(cfg) -> datetime:
@@ -349,6 +349,8 @@ def main(argv: list[str] | None = None) -> int:
               "n'a été publié. Les trois créneaux de nuit (2 h 30, 3 h 30 "
               "et 4 h 30 UTC) visent justement à éviter ces pics : le "
               "suivant retentera, sinon relance plus tard.", file=sys.stderr)
+        if code == 429:
+            print(f"  Détail : {quota_details(exc)}", file=sys.stderr)
         return 3
 
 
