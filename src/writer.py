@@ -5,11 +5,13 @@ from __future__ import annotations
 import json
 import re
 from datetime import datetime
-from typing import Any
+from typing import Any, Callable, TypeVar
 
 from .config import ROOT, Config, api_key
 from .memory import Memory
 from .sources import Item
+
+T = TypeVar("T")
 
 _JOURS = ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"]
 _MOIS = ["", "janvier", "février", "mars", "avril", "mai", "juin", "juillet",
@@ -162,21 +164,42 @@ def write_script(cfg: Config, items: list[Item], memory: Memory,
             ),
         )
 
-    primary = cfg.models["writer"]
-    try:
-        response = call_with_retry(lambda: generate(primary),
-                                   label=f"rédaction ({primary})")
-    except Exception as exc:
-        fallback = cfg.models.get("writer_fallback")
-        if not fallback or fallback == primary:
-            raise
-        print(f"   ⚠ {primary} indisponible ({exc.__class__.__name__}), "
-              f"bascule sur {fallback}")
-        response = call_with_retry(lambda: generate(fallback),
-                                   label=f"rédaction ({fallback})")
-
+    response = generate_with_fallbacks(
+        writer_models(cfg),
+        lambda model: call_with_retry(lambda: generate(model),
+                                      label=f"rédaction ({model})"),
+    )
     data = _extract_json(response.text)
     return validate(cfg, data)
+
+
+def writer_models(cfg: Config) -> list[str]:
+    """Modèle principal puis modèles de repli, sans doublon ni vide."""
+    fallbacks = cfg.models.get("writer_fallbacks") or []
+    if isinstance(fallbacks, str):
+        fallbacks = [fallbacks]
+    models: list[str] = []
+    for model in [cfg.models["writer"], *fallbacks]:
+        if model and model not in models:
+            models.append(model)
+    return models
+
+
+def generate_with_fallbacks(models: list[str], attempt: Callable[[str], T]) -> T:
+    """Essaie chaque modèle dans l'ordre ; le dernier échec remonte tel quel.
+
+    Un modèle n'est abandonné qu'après ses propres réessais : la bascule
+    couvre une saturation qui dure, pas un 503 isolé.
+    """
+    for index, model in enumerate(models):
+        try:
+            return attempt(model)
+        except Exception as exc:
+            if index == len(models) - 1:
+                raise
+            print(f"   ⚠ {model} indisponible ({exc.__class__.__name__}), "
+                  f"bascule sur {models[index + 1]}")
+    raise ValueError("Aucun modèle de rédaction configuré (models.writer).")
 
 
 def validate(cfg: Config, data: dict[str, Any]) -> dict[str, Any]:

@@ -59,9 +59,15 @@ Sur Windows, utiliser `py` plutôt que `python`.
   indispensable, sinon `ZoneInfo("Europe/Paris")` échoue.
 - **`.env` n'est jamais versionné** et disparaît si on réextrait une archive
   par-dessus le projet.
-- **Le free tier Gemini renvoie beaucoup de 503** aux heures de pointe
-  américaines. Les trois créneaux de cron (2 h 30, 3 h 30 et 4 h 30 UTC)
-  tombent en pleine nuit américaine précisément pour les éviter.
+- **Gemini est au palier payant depuis le 24/09/2026**, après une matinée de
+  503 sur l'offre gratuite saturée. Prépaiement sans recharge et plafond
+  mensuel de 10 € : un run peut donc échouer faute de crédit. Les deux clés
+  (prod et tests) sont dans le même projet et partagent sa facture.
+  `models.writer_fallbacks` liste les modèles de rédaction essayés dans
+  l'ordre si le principal reste saturé.
+- **GitHub lance les runs planifiés en retard**, jusqu'à cinq heures le
+  24/09, et en saute parfois un. Les créneaux de cron tombent en pleine
+  nuit américaine, mais l'heure réelle de publication n'est pas garantie.
 - **GitHub abandonne des runs planifiés** depuis fin août 2026, d'où les
   trois créneaux de nuit, plus un quatrième à 8 h 10 UTC : filet de sécurité
   après la remise à zéro du quota gratuit Gemini (minuit heure du Pacifique,

@@ -40,14 +40,15 @@ Juges : deux amis d'Adam, qui ne connaissent pas la correspondance.
 - [ ] **Trancher** : agréable à écouter au réveil, oui ou non
 - [ ] Réintégrer trim_silence et la lecture de audio.chunk_gap_ms après le
       test à l'aveugle (perdus, jamais committés).
-- [ ] Activer la facturation Gemini au plus tard avant la phase 2.
 
 ### Clés API
 
-- [x] Vérifier dans AI Studio que la clé `GEMINI_API_KEY_TEST` appartient à un
-      **projet différent** de la clé de production. Sinon, elles partagent le
-      même quota et un essai peut faire échouer le brief de la nuit.
-      Vérifié par Adam le 24/09 : projets distincts.
+Les deux clés sont dans le **même projet** Google (`gen-lang-client-0612097558`),
+contrairement à ce qu'indiquait la vérification cochée le 24/09 au matin.
+Sans conséquence depuis le passage au palier payant : tests et production ne
+se disputent plus un quota gratuit. Noms dans AI Studio :
+`prod — brief de la nuit` (`GEMINI_API_KEY`) et `tests — PC`
+(`GEMINI_API_KEY_TEST`).
 
 ## Dette assumée
 
@@ -79,12 +80,16 @@ diviserait la facture TTS par deux.
 - **Slugs de mémoire trop précis.** Vérifier que `data/covered.json` contient
   `budget-2027` et non `budget-2027-vote-mardi`, sinon l'anti-répétition ne
   sert à rien.
-- **503 et 429 du free tier Gemini** aux heures de pointe américaines. Les
-  créneaux de nuit (2 h 30 à 4 h 30 UTC) les évitent en principe. Si ça arrive
-  quand même, activer la facturation pour la priorité de file.
-- **`max_words_per_chunk: 900` est temporaire** : un seul appel TTS par brief
-  tant qu'on est sur le quota gratuit (à 150, un brief en coûtait cinq). À
-  revoir après le test à l'aveugle.
+- **Retards de GitHub sur les runs planifiés.** Le 24/09, les créneaux de nuit
+  ont démarré avec environ cinq heures de retard (9 h 45, 10 h 37, 11 h 26 à
+  Paris) et l'un d'eux n'a pas été lancé du tout. Si ça se répète, le brief
+  n'est pas prêt au réveil : envisager un déclencheur externe.
+- **Crédit Google Cloud de 257,47 €**, valable jusqu'à fin décembre 2026
+  environ. Il ne couvre **pas** l'API Gemini, mais couvrirait Chirp 3 HD ou
+  Cloud Storage. À utiliser avant son expiration ou à laisser filer.
+- **`max_words_per_chunk: 900` reste en place jusqu'au verdict du test à
+  l'aveugle**, dont dépend le découpage final. Le quota gratuit, qui
+  justifiait un seul appel TTS par brief, n'est plus une contrainte.
 - **Ne plus toucher au prompt** avant d'avoir trois ou quatre briefs sur des
   journées différentes. Celui du 22 septembre a été lu six fois : on l'a déjà
   sur-ajusté.
@@ -117,5 +122,12 @@ diviserait la facture TTS par deux.
   aucune consigne de direction dans le texte.
 - `say --out` n'utilise que `GEMINI_API_KEY_TEST`, jamais la clé de
   production, et s'arrête si elle manque.
+- **Palier payant Gemini activé le 24/09.** Les quatre runs du matin ont
+  échoué sur des 503 des deux modèles de rédaction, même après la remise à
+  zéro du quota : l'offre gratuite était saturée. Garde-fous : prépaiement de
+  25 € sans recharge automatique, plafond mensuel de 10 € dans AI Studio,
+  alerte budgétaire Google Cloud à 10 € par mois (seuils 50, 90 et 100 %,
+  sur le coût brut, crédits non déduits). Premier run payant réussi : le
+  manuel du 24/09 à 13 h 02.
 - Mention « généré par IA » dans le flux, en description du podcast et de
   chaque épisode (AI Act, article 50).

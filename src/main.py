@@ -369,9 +369,8 @@ def main(argv: list[str] | None = None) -> int:
         else:
             tries = "au premier essai, sans réessai"
         print(f"\n✗ API saturée (erreur {code}) {tries} — rien "
-              "n'a été publié. Les trois créneaux de nuit (2 h 30, 3 h 30 "
-              "et 4 h 30 UTC) visent justement à éviter ces pics : le "
-              "suivant retentera, sinon relance plus tard.", file=sys.stderr)
+              "n'a été publié. Un créneau suivant retentera, sinon "
+              "relance depuis l'onglet Actions.", file=sys.stderr)
         if code == 429:
             print(f"  Détail : {quota_details(exc)}", file=sys.stderr)
         return 3

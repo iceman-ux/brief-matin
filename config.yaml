@@ -77,9 +77,11 @@ voices:
 models:
   # Rédaction du script. Modèle texte, peu coûteux.
   writer: "gemini-3.8-flash"
-  # Utilisé si le principal reste indisponible après tous les réessais.
-  # Mets null pour désactiver la bascule.
-  writer_fallback: "gemini-3.5-flash"
+  # Modèles de repli, essayés dans l'ordre quand le précédent reste
+  # indisponible après tous ses réessais. Chaque modèle ajouté rallonge
+  # d'autant un run qui échoue. Liste vide pour désactiver la bascule.
+  writer_fallbacks:
+    - "gemini-3.5-flash"
   # Synthèse vocale. Facturé au token audio (25 tokens / seconde).
   tts: "gemini-3.1-flash-tts-preview"
   # ⚠ NON IMPLÉMENTÉ. Le mode batch serait deux fois moins cher, mais la
