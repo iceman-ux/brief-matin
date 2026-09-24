@@ -12,8 +12,9 @@ suivants dès qu'un épisode du jour est publié. **Premier brief automatique :
 Casts avec téléchargement auto, automatisation Raccourcis sur l'arrêt de
 l'alarme.
 
-**En cours : test de voix à l'aveugle** pour choisir le modèle TTS. Le rendu
-actuel est jugé trop robotique. La commande `say --out` resynthétise un script
+**Voix de production : `gemini-3.8-flash-tts` depuis le 24/09**, gagnant du
+tour 1 du test à l'aveugle, en un seul appel TTS par brief. **En cours : tour
+2**, pour trouver des voix plus humaines. La commande `say --out` resynthétise un script
 existant hors production, avec la clé du projet de test.
 
 ## À faire
@@ -32,14 +33,41 @@ la fin des écoutes.
 Juges : deux amis d'Adam, qui ne connaissent pas la correspondance.
 
 - [x] Générer A et C
-- [ ] Générer B, bloqué par le quota gratuit : à relancer après sa remise à
-      zéro (9 h, heure de Paris)
-- [ ] Faire écouter les trois fichiers aux deux juges, recueillir leur avis
-- [ ] Ouvrir `cle.txt` seulement ensuite, et choisir le modèle
+- [x] Générer B
+- [x] Faire écouter les trois fichiers, recueillir les avis
+- [x] Ouvrir `cle.txt` seulement ensuite, et choisir le modèle
 - [ ] Relancer `tools/analyse_voix.py` et vérifier si `derive_demitons` baisse
-- [ ] **Trancher** : agréable à écouter au réveil, oui ou non
-- [ ] Réintégrer trim_silence et la lecture de audio.chunk_gap_ms après le
-      test à l'aveugle (perdus, jamais committés).
+- [x] **Trancher** : agréable à écouter au réveil, oui ou non — non, pas
+      encore, d'où le tour 2
+- [ ] Réintégrer trim_silence et la lecture de audio.chunk_gap_ms (perdus,
+      jamais committés). Moins urgent : un brief tient désormais en un seul
+      morceau, sans raccord.
+
+**Verdict du tour 1 (24/09).** Gagnant net : C = `gemini-3.8-flash-tts`,
+devant la production d'alors (B, `gemini-3.1-flash-tts-preview`) et
+Flash-Lite (A). Passé en production le jour même. Mais C reste loin d'une
+voix humaine : intonations correctes, ensemble monotone, et **la voix change
+par moments**, comme s'il y avait plus de deux personnes. Cause la plus
+probable : le découpage en 5 morceaux de 150 mots, soit 5 générations
+séparées qui réinterprètent chacune les voix. La production tourne en un seul
+appel (`max_words_per_chunk: 900`), vérifié sur le script du 24/09 : 2 min 55
+en un morceau.
+
+### Test de voix à l'aveugle, tour 2 (en cours)
+
+Objectif d'Adam : des voix de radio chaleureuses, vivantes, qui réagissent à
+l'info. La qualité passe avant le coût. Trois fichiers sur le script du
+23/09, lettres X, Y, Z tirées au hasard, correspondance dans
+`data/voice-test/tour2/cle.txt`, à ne pas ouvrir avant la fin des écoutes :
+C du tour 1 (copie), voix sur mesure Gemini (Voice design) en un seul appel,
+ElevenLabs v3 Text to Dialogue. Les deux derniers reçoivent les mêmes
+intentions de jeu par réplique, dans `tour2/annotations.json`.
+
+- [ ] Annoter le script du 23/09
+- [ ] Créer les voix sur mesure Gemini, synthétiser
+- [ ] Synthétiser avec ElevenLabs v3
+- [ ] Tirage des lettres
+- [ ] Écoutes, puis ouverture de `tour2/cle.txt`
 
 ### Clés API
 
@@ -87,9 +115,9 @@ diviserait la facture TTS par deux.
 - **Crédit Google Cloud de 257,47 €**, valable jusqu'à fin décembre 2026
   environ. Il ne couvre **pas** l'API Gemini, mais couvrirait Chirp 3 HD ou
   Cloud Storage. À utiliser avant son expiration ou à laisser filer.
-- **`max_words_per_chunk: 900` reste en place jusqu'au verdict du test à
-  l'aveugle**, dont dépend le découpage final. Le quota gratuit, qui
-  justifiait un seul appel TTS par brief, n'est plus une contrainte.
+- **Un seul appel TTS par brief** (`max_words_per_chunk: 900`). Si un brief
+  dépasse 900 mots, il sera découpé et les voix risquent de changer au
+  raccord : surveiller la longueur des scripts.
 - **Ne plus toucher au prompt** avant d'avoir trois ou quatre briefs sur des
   journées différentes. Celui du 22 septembre a été lu six fois : on l'a déjà
   sur-ajusté.

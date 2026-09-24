@@ -83,7 +83,10 @@ models:
   writer_fallbacks:
     - "gemini-3.5-flash"
   # Synthèse vocale. Facturé au token audio (25 tokens / seconde).
-  tts: "gemini-3.1-flash-tts-preview"
+  # Gagnant du test à l'aveugle du 24/09 contre 3.1-flash-tts-preview et
+  # 3.8-flash-lite-tts. Les modèles 3.8 lisent le texte mot pour mot :
+  # voices.direction ne leur est pas envoyée.
+  tts: "gemini-3.8-flash-tts"
   # ⚠ NON IMPLÉMENTÉ. Le mode batch serait deux fois moins cher, mais la
   # synthèse appelle generate_content en synchrone. Le flag ne change rien
   # au comportement ni au coût réel ; il émet un avertissement s'il est
@@ -100,7 +103,9 @@ audio:
   bitrate: "40k"     # mono parlé à 24 kHz : 40 kbps reste transparent (~1,2 Mo / 4 min)
   sample_rate: 24000 # imposé par le modèle TTS (PCM 24 kHz 16 bits mono)
   # Au-delà, le script est découpé en plusieurs appels TTS puis recollé.
-  # temporaire : un seul appel TTS par brief tant qu'on est sur le quota gratuit
+  # Chaque appel réinterprète les voix : à 150 mots par morceau, le test à
+  # l'aveugle entendait les voix changer en cours de brief. 900 mots tient
+  # un brief entier en un seul appel.
   max_words_per_chunk: 900
   # Silence inséré entre deux morceaux recollés. Chaque appel TTS rend un
   # audio bordé de silence : on le rabote, puis on impose cet écart-là, qui
