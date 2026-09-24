@@ -1,15 +1,19 @@
-"""Synthèse vocale (Gemini, ElevenLabs en essai) + encodage mp3.
+"""Synthèse vocale (Gemini ; ElevenLabs essayé, hors production), finition
+audio et encodage mp3.
 
 Le modèle renvoie du PCM brut 24 kHz 16 bits mono (les modèles 3.8 un WAV,
 dont on retire l'en-tête pour revenir au PCM). Deux conséquences utiles :
 - on peut concaténer plusieurs morceaux en collant simplement les octets ;
-- l'encodage mp3 se fait en une passe ffmpeg à la fin.
+- tout le traitement ffmpeg (jingles, finition, mp3) se fait à la fin, sur
+  l'audio entier.
 """
 
 from __future__ import annotations
 
 import io
+import os
 import subprocess
+import tempfile
 import wave
 from pathlib import Path
 
@@ -281,7 +285,8 @@ def _pcm_to_wav(pcm: bytes, sample_rate: int) -> bytes:
     return buffer.getvalue()
 
 
-def _encode_mp3(wav_bytes: bytes, out_path: Path, cfg: Config) -> None:
+def _encode(wav_bytes: bytes, out_path: Path, cfg: Config,
+            codec: list[str]) -> None:
     audio = cfg.audio
     inputs = ["-i", "pipe:0"]
     filter_args: list[str] = []
@@ -307,8 +312,7 @@ def _encode_mp3(wav_bytes: bytes, out_path: Path, cfg: Config) -> None:
 
     cmd = [
         "ffmpeg", "-hide_banner", "-loglevel", "error", "-y",
-        *inputs, *filter_args,
-        "-codec:a", "libmp3lame", "-b:a", str(audio["bitrate"]),
+        *inputs, *filter_args, *codec,
         "-ac", "1", "-ar", str(audio["sample_rate"]),
         str(out_path),
     ]
@@ -341,9 +345,39 @@ def synthesize(cfg: Config, script: list[dict], out_path: Path,
         else:
             pcm += _synth_pcm(cfg, _render_chunk_text(cfg, chunk, multi), multi)
 
-    wav_bytes = _pcm_to_wav(bytes(pcm), int(cfg.audio["sample_rate"]))
+    return finalize(cfg, bytes(pcm), out_path, verbose)
+
+
+def _mp3_codec(cfg: Config) -> list[str]:
+    return ["-codec:a", "libmp3lame", "-b:a", str(cfg.audio["bitrate"])]
+
+
+def finishing_enabled(cfg: Config) -> bool:
+    return bool(cfg.raw["finishing"].get("enabled", True))
+
+
+def finalize(cfg: Config, pcm: bytes, out_path: Path,
+             verbose: bool = True) -> Path:
+    """PCM brut -> mp3 du flux, jingles et finition compris.
+
+    Tout passe par des fichiers temporaires, remplacés d'un coup à la fin :
+    un échec en route ne laisse ni mp3 tronqué ni audio non fini à la place
+    de l'épisode, et un épisode déjà publié reste intact.
+    """
+    wav_bytes = _pcm_to_wav(pcm, int(cfg.audio["sample_rate"]))
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    _encode_mp3(wav_bytes, out_path, cfg)
+    with tempfile.TemporaryDirectory(dir=out_path.parent) as tmp:
+        final = Path(tmp) / out_path.name
+        if finishing_enabled(cfg):
+            # Intermédiaire sans perte : finir un mp3 le réencoderait deux fois.
+            raw = Path(tmp) / f"{out_path.stem}-brut.wav"
+            _encode(wav_bytes, raw, cfg, ["-codec:a", "pcm_s16le"])
+            loudness = finish(cfg, raw, final)
+            if verbose:
+                print(f"  finition : {loudness:.1f} LUFS")
+        else:
+            _encode(wav_bytes, final, cfg, _mp3_codec(cfg))
+        os.replace(final, out_path)
     return out_path
 
 
@@ -382,6 +416,11 @@ def finish(cfg: Config, src: Path, out_path: Path) -> float:
 
     measured = _loudnorm_report(
         run(f"{compressor},{target}:print_format=json", ["-f", "null", "-"]))
+    # Un audio muet n'a pas de loudness mesurable (-inf) et ffmpeg refuse
+    # la seconde passe : le dire plutôt que laisser son message cryptique.
+    if float(measured["input_i"]) == float("-inf"):
+        raise RuntimeError(f"{src.name} est silencieux : rien à normaliser. "
+                           "Le TTS a peut-être rendu un audio vide.")
     second = (f"{compressor},{target}:linear=true:print_format=json"
               f":measured_I={measured['input_i']}"
               f":measured_TP={measured['input_tp']}"
@@ -391,7 +430,7 @@ def finish(cfg: Config, src: Path, out_path: Path) -> float:
     # loudnorm suréchantillonne en interne : on revient au format du flux,
     # le même pour tous les fichiers traités.
     report = _loudnorm_report(run(second, [
-        "-codec:a", "libmp3lame", "-b:a", str(cfg.audio["bitrate"]),
+        *_mp3_codec(cfg),
         "-ac", "1", "-ar", str(cfg.audio["sample_rate"]), str(out_path)]))
     return float(report["output_i"])
 

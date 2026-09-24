@@ -74,8 +74,9 @@ voices:
     radio : éveillé, clair, jamais solennel. Marquer une vraie respiration
     entre chaque sujet. Léa pose, Marc relance avec une once de relief.
 
-  # Voix sur mesure Gemini (Voice design), en essai pour le tour 2 du test à
-  # l'aveugle, choisies par « say --voice-set designed ». Elles n'existent
+  # Voix sur mesure Gemini (Voice design) — NON UTILISÉES EN PRODUCTION.
+  # Essayées au tour 2 du test à l'aveugle et écartées le 24/09 ; gardées
+  # pour « say --voice-set designed ». Elles n'existent
   # que pour les modèles gemini-3.8-* et expirent un an après leur création
   # (24/09/2026). Ce ne sont pas des secrets : un identifiant ne sert qu'avec
   # une clé du projet Google. Descriptions en deux phrases de traits
@@ -97,8 +98,9 @@ voices:
         conversationnel avec de petites relances naturelles, curieux, un peu
         pince-sans-rire.
 
-# ElevenLabs, en essai pour le tour 2 du test à l'aveugle, choisi par
-# « say --tts-provider elevenlabs ». La production reste sur Gemini.
+# ElevenLabs — NON UTILISÉ EN PRODUCTION. Essayé au tour 2 du test à
+# l'aveugle et écarté le 24/09 : moins bon à l'oreille, et environ 22 $/mois
+# contre 1 à 2 $ avec Gemini. Gardé pour « say --tts-provider elevenlabs ».
 elevenlabs:
   api_url: "https://api.elevenlabs.io/v1/text-to-dialogue"
   # Text to Dialogue n'existe qu'avec Eleven v3.
@@ -133,9 +135,11 @@ models:
   writer_fallbacks:
     - "gemini-3.5-flash"
   # Synthèse vocale. Facturé au token audio (25 tokens / seconde).
-  # Gagnant du test à l'aveugle du 24/09 contre 3.1-flash-tts-preview et
-  # 3.8-flash-lite-tts. Les modèles 3.8 lisent le texte mot pour mot :
-  # voices.direction ne leur est pas envoyée.
+  # Gagnant des deux tours du test à l'aveugle du 24/09, avec les voix
+  # Kore/Puck, en un seul appel et avec la finition : contre
+  # 3.1-flash-tts-preview et 3.8-flash-lite-tts au tour 1, contre les voix
+  # sur mesure et ElevenLabs au tour 2. Les modèles 3.8 lisent le texte
+  # mot pour mot : voices.direction ne leur est pas envoyée.
   tts: "gemini-3.8-flash-tts"
   # ⚠ NON IMPLÉMENTÉ. Le mode batch serait deux fois moins cher, mais la
   # synthèse appelle generate_content en synchrone. Le flag ne change rien
@@ -155,7 +159,8 @@ audio:
   # Au-delà, le script est découpé en plusieurs appels TTS puis recollé.
   # Chaque appel réinterprète les voix : à 150 mots par morceau, le test à
   # l'aveugle entendait les voix changer en cours de brief. 900 mots tient
-  # un brief entier en un seul appel.
+  # un brief entier en un seul appel, et c'est ce qui a supprimé les
+  # changements de voix : ne pas baisser. Un brief plus long serait découpé.
   max_words_per_chunk: 900
   # Silence inséré entre deux morceaux recollés. Chaque appel TTS rend un
   # audio bordé de silence : on le rabote, puis on impose cet écart-là, qui
@@ -165,16 +170,19 @@ audio:
   intro_file: null
   outro_file: null
 
-# Finition audio de « finish » : compression légère puis normalisation,
-# réencodage au débit et à la fréquence d'audio ci-dessus. Sert au tour 2 du
-# test à l'aveugle, pour que Gemini et ElevenLabs sonnent aussi fort et
-# s'écoutent au même format ; pas encore branchée sur la production.
+# Finition audio : compression légère puis normalisation, réencodage au
+# débit et à la fréquence d'audio ci-dessus. Appliquée à chaque brief (run,
+# say, dry-run) et par la commande « finish ». Retenue avec la voix gagnante
+# du test à l'aveugle du 24/09, qu'elle rend « plus pro ».
 finishing:
+  # false : le brief est encodé en mp3 tel que le TTS le rend, sans finition.
+  # Si elle est activée et échoue, le run échoue et ne publie rien.
+  enabled: true
   compressor:
     # Ne touche que les pics de voix : la parole normale reste sous le seuil.
     threshold_db: -20
     # 2:1, compression douce : resserre l'écart entre les deux voix sans
-    # écraser les intonations, qu'on cherche justement à juger.
+    # écraser les intonations.
     ratio: 2
     attack_ms: 20
     release_ms: 250

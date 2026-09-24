@@ -122,12 +122,13 @@ def cmd_run(args) -> int:
     mp3_name = f"brief-{date}.mp3"
 
     if args.dry_run:
-        # Un dry-run ne laisse rien dans docs/ : le silence part dans data/,
+        # Un dry-run ne laisse rien dans docs/ : l'audio part dans data/,
         # jamais parmi les épisodes publiés. Pour exercer la génération du
         # flux, la commande « rebuild-feed » est là pour ça.
         mp3_path = ROOT / "data" / "dry-run.mp3"
-        print("   (dry-run : silence local, hors des épisodes publiés)")
-        _write_silence(cfg, mp3_path, seconds=max(int(minutes * 60), 5))
+        print("   (dry-run : bruit de test local, hors des épisodes publiés)")
+        tts_mod.finalize(cfg, _test_signal(cfg, max(int(minutes * 60), 5)),
+                         mp3_path)
     else:
         mp3_path = feed_mod.EPISODES_DIR / mp3_name
         _print_voices(cfg)
@@ -361,16 +362,17 @@ def _iso_date(value: str) -> str:
             f"date invalide « {value} », format attendu AAAA-MM-JJ") from None
 
 
-def _write_silence(cfg, path: Path, seconds: int) -> None:
+def _test_signal(cfg, seconds: int) -> bytes:
+    """PCM au format du TTS pour --dry-run. Du bruit et non du silence : la
+    finition refuse un audio muet, et le dry-run doit la traverser."""
     import subprocess
-    path.parent.mkdir(parents=True, exist_ok=True)
-    subprocess.run(
-        ["ffmpeg", "-hide_banner", "-loglevel", "error", "-y",
-         "-f", "lavfi", "-i", f"anullsrc=r={cfg.audio['sample_rate']}:cl=mono",
-         "-t", str(seconds), "-codec:a", "libmp3lame",
-         "-b:a", str(cfg.audio["bitrate"]), str(path)],
-        check=True,
+    proc = subprocess.run(
+        ["ffmpeg", "-hide_banner", "-loglevel", "error",
+         "-f", "lavfi", "-i", f"anoisesrc=r={cfg.audio['sample_rate']}:color=pink",
+         "-t", str(seconds), "-ac", "1", "-f", "s16le", "pipe:1"],
+        capture_output=True, check=True,
     )
+    return proc.stdout
 
 
 def cmd_check_feeds(args) -> int:
@@ -407,7 +409,8 @@ def main(argv: list[str] | None = None) -> int:
 
     run = sub.add_parser("run", help="génère et publie le brief du jour")
     run.add_argument("--dry-run", action="store_true",
-                     help="aucun appel API payant, audio silencieux")
+                     help="aucun appel API payant, bruit de test à la "
+                          "place de la voix")
     run.add_argument("--no-audio", action="store_true",
                      help="écrit le script mais ne synthétise pas")
     run.add_argument("--force", action="store_true",

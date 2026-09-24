@@ -29,7 +29,7 @@ Pipeline : RSS → dédoublonnage → mémoire → LLM → TTS → mp3 → feed.
 ```bash
 python -m src.main run              # brief complet (s'arrête si déjà publié)
 python -m src.main run --force      # regénère même si l'épisode du jour existe
-python -m src.main run --dry-run    # aucun appel API payant, audio silencieux
+python -m src.main run --dry-run    # aucun appel API payant, bruit de test au lieu de la voix
 python -m src.main run --no-audio   # script seul, pour itérer sur le prompt
 python -m src.main say [AAAA-MM-JJ] # resynthèse d'un script existant, sans LLM
 python -m src.main check-feeds      # diagnostic des sources RSS

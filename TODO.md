@@ -12,79 +12,44 @@ suivants dès qu'un épisode du jour est publié. **Premier brief automatique :
 Casts avec téléchargement auto, automatisation Raccourcis sur l'arrêt de
 l'alarme.
 
-**Voix de production : `gemini-3.8-flash-tts` depuis le 24/09**, gagnant du
-tour 1 du test à l'aveugle, en un seul appel TTS par brief. **En cours : tour
-2**, pour trouver des voix plus humaines. La commande `say --out` resynthétise un script
-existant hors production, avec la clé du projet de test.
+**Voix de production : `gemini-3.8-flash-tts`, Kore/Puck, en un seul appel
+TTS par brief, avec la finition audio** (compression 2:1, −16 LUFS), choisie
+à l'aveugle le 24/09 au terme de deux tours. Le test de voix est clos. La
+commande `say --out` resynthétise un script existant hors production, avec la
+clé du projet de test.
 
 ## À faire
 
-### Test de voix à l'aveugle (en cours)
+### Test de voix à l'aveugle — clos le 24/09
 
-Remplace les essais 03 à 06 du protocole d'écoute. Trois modèles sur le même
-script, celui du 23/09, découpé en morceaux de 150 mots :
-`gemini-3.1-flash-tts-preview` (production), `gemini-3.8-flash-tts` et
-`gemini-3.8-flash-lite-tts`, cités ici dans un ordre sans rapport avec les
-lettres.
+Deux tours, juges : Adam et deux amis, à l'aveugle, lettres tirées au hasard,
+fichiers et clés dans `data/voice-test/` (ignoré par Git).
 
-Les fichiers sont dans `data/voice-test/` (ignoré par Git), avec des lettres
-tirées au hasard. La correspondance est dans `cle.txt`, à ne pas ouvrir avant
-la fin des écoutes.
-Juges : deux amis d'Adam, qui ne connaissent pas la correspondance.
+**Tour 1** (script du 23/09 entier, découpé en morceaux de 150 mots). Gagnant
+net : `gemini-3.8-flash-tts`, devant `gemini-3.1-flash-tts-preview` (la
+production d'alors) et `gemini-3.8-flash-lite-tts`. Passé en production le
+jour même. Défauts entendus : ensemble monotone, et la voix qui change par
+moments, attribuée au découpage (chaque morceau réinterprète les voix).
 
-- [x] Générer A et C
-- [x] Générer B
-- [x] Faire écouter les trois fichiers, recueillir les avis
-- [x] Ouvrir `cle.txt` seulement ensuite, et choisir le modèle
+**Tour 2** (extrait : répliques 6 à 11 du 23/09, ~45 s, même finition pour
+tous). **Z gagne à l'unanimité**, jugé « nettement plus pro » :
+`gemini-3.8-flash-tts`, voix Kore/Puck, sans style, en un seul appel, avec la
+finition commune. Perdants : X, voix sur mesure Gemini (Voice design) avec
+les intentions de `tour2/annotations.json` ; Y, ElevenLabs v3 (Victoire +
+Alexandre), fait à la main sur elevenlabs.io.
+
+Enseignements : les changements de voix disparaissent en un seul appel ; la
+finition contribue probablement à l'effet « pro » ; ElevenLabs ne justifie
+pas son coût (~22 $/mois pour un brief quotidien, contre 1 à 2 $ avec Gemini).
+
+Reste ouvert, sans urgence :
+
 - [ ] Relancer `tools/analyse_voix.py` et vérifier si `derive_demitons` baisse
-- [x] **Trancher** : agréable à écouter au réveil, oui ou non — non, pas
-      encore, d'où le tour 2
 - [ ] Réintégrer trim_silence et la lecture de audio.chunk_gap_ms (perdus,
-      jamais committés). Moins urgent : un brief tient désormais en un seul
-      morceau, sans raccord.
-
-**Verdict du tour 1 (24/09).** Gagnant net : C = `gemini-3.8-flash-tts`,
-devant la production d'alors (B, `gemini-3.1-flash-tts-preview`) et
-Flash-Lite (A). Passé en production le jour même. Mais C reste loin d'une
-voix humaine : intonations correctes, ensemble monotone, et **la voix change
-par moments**, comme s'il y avait plus de deux personnes. Cause la plus
-probable : le découpage en 5 morceaux de 150 mots, soit 5 générations
-séparées qui réinterprètent chacune les voix. La production tourne en un seul
-appel (`max_words_per_chunk: 900`), vérifié sur le script du 24/09 : 2 min 55
-en un morceau.
-
-### Test de voix à l'aveugle, tour 2 (en cours)
-
-Objectif d'Adam : des voix de radio chaleureuses, vivantes, qui réagissent à
-l'info. La qualité passe avant le coût. **Le tour 2 porte sur un extrait**,
-les répliques 6 à 11 du script du 23/09 (Groenland puis roman accusé d'IA,
-134 mots, ~45 s), parce que Z n'a été généré que sur cet extrait. Trois
-fichiers, lettres X, Y, Z tirées au hasard, correspondance dans
-`data/voice-test/tour2/cle.txt`, à ne pas ouvrir avant la fin des écoutes :
-`gemini-3.8-flash-tts` avec les voix de production sans style (le C du
-tour 1, régénéré en un appel), voix sur mesure Gemini (Voice design) avec les
-intentions de `tour2/annotations.json`, ElevenLabs v3 avec les balises
-équivalentes. Même finition pour les trois (`finish` : compression 2:1,
-−16 LUFS, 40 kbps 24 kHz) : aucun ne gagne parce qu'il sonne plus fort.
-
-- [x] Annoter le script du 23/09 (`tour2/annotations.json`)
-- [x] Créer les voix sur mesure Gemini (`voices.designed` dans
-      `config.yaml`), synthétiser le script complet :
-      `tour2/work-gemini-designed.mp3`, 2 min 57 en un appel
-- [x] Z, ElevenLabs v3, généré à la main sur elevenlabs.io (l'offre gratuite
-      refuse les voix de la bibliothèque par l'API : erreur 402). Extrait
-      seulement. Voix : Victoire (Léa) et Alexandre - Calm, Warm & Authentic
-      (Marc) ; Nicolas Petit, essayé pour Marc, écarté
-      (`work-elevenlabs-nicolas-petit-ecarte.mp3`, hors test). Le chemin API
-      (`say --tts-provider elevenlabs`) reste jamais testé au-delà du 402.
-- [x] Régénérer les deux extraits Gemini (`say --lines 6-11`), clé de test
-- [x] Finition commune (`finish`), réglages `finishing` dans `config.yaml`
-- [x] Tirage des lettres : `tour2/X.mp3`, `Y.mp3`, `Z.mp3`
-- [ ] Écoutes, puis ouverture de `tour2/cle.txt`
-- [ ] Ne pas écouter `data/voice-test/apercus-gemini/` ni les `work-*.mp3`
-      avant la fin des écoutes : leurs noms trahissent la correspondance
-- [ ] Selon le verdict : brancher `finish` sur la production ? Pas fait,
-      la finition ne sert qu'au test pour l'instant
+      jamais committés). Utile seulement si un brief repasse en plusieurs
+      morceaux.
+- Le chemin API ElevenLabs (`say --tts-provider elevenlabs`) n'a jamais été
+  testé au-delà du 402 de l'offre gratuite. Gardé dans le code, non utilisé.
 
 ### Clés API
 
@@ -132,9 +97,15 @@ diviserait la facture TTS par deux.
 - **Crédit Google Cloud de 257,47 €**, valable jusqu'à fin décembre 2026
   environ. Il ne couvre **pas** l'API Gemini, mais couvrirait Chirp 3 HD ou
   Cloud Storage. À utiliser avant son expiration ou à laisser filer.
-- **Un seul appel TTS par brief** (`max_words_per_chunk: 900`). Si un brief
-  dépasse 900 mots, il sera découpé et les voix risquent de changer au
-  raccord : surveiller la longueur des scripts.
+- **Un seul appel TTS par brief** (`max_words_per_chunk: 900`). C'est ce
+  qui a supprimé les changements de voix. Si un brief dépasse 900 mots, il
+  sera découpé et les voix risquent de changer au raccord, sans compter les
+  raccords non rabotés (trim_silence perdu) : surveiller la longueur des
+  scripts (558 mots le 24/09, cible ~760).
+- **Crêtes après finition** : −0,5 dBFS mesurés sur le mp3 du 24/09, pour un
+  plafond visé de −1,5 (l'encodage mp3 déborde après loudnorm). Sans effet
+  audible constaté ; baisser `finishing.loudness.true_peak_db` si un
+  lecteur sature.
 - **Ne plus toucher au prompt** avant d'avoir trois ou quatre briefs sur des
   journées différentes. Celui du 22 septembre a été lu six fois : on l'a déjà
   sur-ajusté.
@@ -167,6 +138,15 @@ diviserait la facture TTS par deux.
   aucune consigne de direction dans le texte.
 - `say --out` n'utilise que `GEMINI_API_KEY_TEST`, jamais la clé de
   production, et s'arrête si elle manque.
+- **Production sur `gemini-3.8-flash-tts`, voix Kore/Puck, en un seul appel,
+  avec finition** (compression 2:1 puis −16 LUFS, `finishing` dans
+  `config.yaml`), choisie à l'aveugle le 24/09 au terme de deux tours. Voix
+  sur mesure Gemini, intentions de jeu par réplique et ElevenLabs v3 ont été
+  essayés et écartés ; leurs chemins restent dans le code, marqués « non
+  utilisés en production » dans `config.yaml`.
+- La finition fait partie du brief : si elle échoue, le run échoue et ne
+  publie rien, pas de repli sur un audio non fini. `finishing.enabled: false`
+  la coupe sans toucher au code.
 - Voix sur mesure Gemini décrites en deux phrases de traits permanents,
   comme le recommande la doc : les réactions à l'info passent par
   `speech_metadata.style`, réplique par réplique. Elles expirent le
