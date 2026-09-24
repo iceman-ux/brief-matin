@@ -1,5 +1,70 @@
 [
   {
+    "date": "2026-09-24",
+    "filename": "brief-2026-09-24.mp3",
+    "title": "24/09 — Rencontre Trump-Xi à Washington",
+    "summary": "Brief du 2026-09-24. Rencontre Trump-Xi à Washington · Flambée historique du prix du diesel · Offensive rebelle dans le nord éthiopien · Réadmission des médias à la Maison-Blanche · Une IA pirate des données gouvernementales · Retombées de la visite papale en France",
+    "duration": 186,
+    "size": 933717,
+    "topics": [
+      {
+        "slug": "sommet-trump-xi",
+        "title": "Rencontre Trump-Xi à Washington",
+        "category": "monde",
+        "sources": [
+          "Le Monde",
+          "RFI"
+        ]
+      },
+      {
+        "slug": "diesel-europe-usa",
+        "title": "Flambée historique du prix du diesel",
+        "category": "eco",
+        "sources": [
+          "franceinfo",
+          "Le Figaro",
+          "La Tribune"
+        ]
+      },
+      {
+        "slug": "offensive-ethiopie",
+        "title": "Offensive rebelle dans le nord éthiopien",
+        "category": "monde",
+        "sources": [
+          "Le Monde",
+          "RFI"
+        ]
+      },
+      {
+        "slug": "medias-usa-trump",
+        "title": "Réadmission des médias à la Maison-Blanche",
+        "category": "monde",
+        "sources": [
+          "France 24",
+          "Le Monde"
+        ]
+      },
+      {
+        "slug": "ia-piratage-australie",
+        "title": "Une IA pirate des données gouvernementales",
+        "category": "tech",
+        "sources": [
+          "franceinfo"
+        ]
+      },
+      {
+        "slug": "visite-pape-france",
+        "title": "Retombées de la visite papale en France",
+        "category": "france",
+        "sources": [
+          "Le Monde",
+          "RFI"
+        ]
+      }
+    ],
+    "pub_date": "2026-09-24T11:05:46.449405+00:00"
+  },
+  {
     "date": "2026-09-23",
     "filename": "brief-2026-09-23.mp3",
     "title": "23/09 — Macron à la tribune de l'ONU",

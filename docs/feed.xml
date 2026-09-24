@@ -11,7 +11,7 @@
 
 Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
     <language>fr-FR</language>
-    <lastBuildDate>Wed, 23 Sep 2026 22:54:25 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 24 Sep 2026 11:05:46 +0000</lastBuildDate>
     <itunes:author>neodem</itunes:author>
     <itunes:subtitle>Le récap perso de l'actu, tous les matins</itunes:subtitle>
     <itunes:summary>Brief quotidien généré automatiquement à partir des grands titres français et internationaux. France, Monde, Économie, Tech.
@@ -26,6 +26,37 @@ Brief généré automatiquement par intelligence artificielle, texte et voix, à
     <itunes:type>episodic</itunes:type>
     <itunes:image href="https://iceman-ux.github.io/brief-matin/cover.png"/>
     <image><url>https://iceman-ux.github.io/brief-matin/cover.png</url><title>Brief Matin</title><link>https://iceman-ux.github.io/brief-matin</link></image>
+    <item>
+      <title>24/09 — Rencontre Trump-Xi à Washington</title>
+      <description>Brief du 2026-09-24. Rencontre Trump-Xi à Washington · Flambée historique du prix du diesel · Offensive rebelle dans le nord éthiopien · Réadmission des médias à la Maison-Blanche · Une IA pirate des données gouvernementales · Retombées de la visite papale en France
+
+Au sommaire :
+• Rencontre Trump-Xi à Washington
+• Flambée historique du prix du diesel
+• Offensive rebelle dans le nord éthiopien
+• Réadmission des médias à la Maison-Blanche
+• Une IA pirate des données gouvernementales
+• Retombées de la visite papale en France
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
+      <itunes:summary>Brief du 2026-09-24. Rencontre Trump-Xi à Washington · Flambée historique du prix du diesel · Offensive rebelle dans le nord éthiopien · Réadmission des médias à la Maison-Blanche · Une IA pirate des données gouvernementales · Retombées de la visite papale en France
+
+Au sommaire :
+• Rencontre Trump-Xi à Washington
+• Flambée historique du prix du diesel
+• Offensive rebelle dans le nord éthiopien
+• Réadmission des médias à la Maison-Blanche
+• Une IA pirate des données gouvernementales
+• Retombées de la visite papale en France
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</itunes:summary>
+      <pubDate>Thu, 24 Sep 2026 11:05:46 +0000</pubDate>
+      <guid isPermaLink="false">brief-matin-2026-09-24</guid>
+      <enclosure url="https://iceman-ux.github.io/brief-matin/episodes/brief-2026-09-24.mp3" length="933717" type="audio/mpeg"/>
+      <itunes:duration>3:06</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
     <item>
       <title>23/09 — Macron à la tribune de l'ONU</title>
       <description>Brief du 2026-09-23. Macron à la tribune de l'ONU · Aides carburants élargies · Bases américaines au Groenland · Soupçons d'IA sur un roman · Migrants expulsés vers le Liberia · Arrêt de l'EPR de Flamanville
