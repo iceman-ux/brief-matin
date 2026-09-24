@@ -12,6 +12,10 @@ suivants dès qu'un épisode du jour est publié. **Premier brief automatique :
 Casts avec téléchargement auto, automatisation Raccourcis sur l'arrêt de
 l'alarme.
 
+- [x] Raccourci « Brief Matin » partagé en lien iCloud le 24/09
+      (`onboarding.shortcut_url`) : le bouton « Ajouter le raccourci » de
+      `docs/installer.html` est actif.
+
 **Voix de production : `gemini-3.8-flash-tts`, Kore/Puck, en un seul appel
 TTS par brief, avec la finition audio** (compression 2:1, −16 LUFS), choisie
 à l'aveugle le 24/09 au terme de deux tours. Le test de voix est clos. La
@@ -102,10 +106,11 @@ diviserait la facture TTS par deux.
   sera découpé et les voix risquent de changer au raccord, sans compter les
   raccords non rabotés (trim_silence perdu) : surveiller la longueur des
   scripts (558 mots le 24/09, cible ~760).
-- **Crêtes après finition** : −0,5 dBFS mesurés sur le mp3 du 24/09, pour un
-  plafond visé de −1,5 (l'encodage mp3 déborde après loudnorm). Sans effet
-  audible constaté ; baisser `finishing.loudness.true_peak_db` si un
-  lecteur sature.
+- **Crêtes après finition** : loudnorm tient son plafond, mais le mp3 à
+  40 kbps fait déborder les crêtes de 1,5 à 2,6 dB (mesuré le 24/09 sur A, B
+  et C). Plafond passé de −1,5 à −3 dBFS : crêtes mp3 à −1,6, −1,6 et
+  −0,6 dBFS. À 64 kbps, −2 suffirait (débordement sous 0,5 dB), mais les
+  mp3 pèseraient ~60 % de plus.
 - **Ne plus toucher au prompt** avant d'avoir trois ou quatre briefs sur des
   journées différentes. Celui du 22 septembre a été lu six fois : on l'a déjà
   sur-ajusté.

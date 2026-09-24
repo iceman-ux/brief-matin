@@ -29,7 +29,7 @@ onboarding:
   # long sur le raccourci → Partager → Copier le lien iCloud). Tant qu'il est
   # vide, la page d'installation affiche « bientôt disponible » à l'étape 2
   # au lieu d'un lien mort.
-  shortcut_url: ""
+  shortcut_url: "https://www.icloud.com/shortcuts/59a054c0009e4246985f248b3c56fbb3"
 
 brief:
   target_minutes: 4           # durée visée (pilote le coût TTS)
@@ -189,8 +189,10 @@ finishing:
   loudness:
     # −16 LUFS : la référence des podcasts, celle d'Apple.
     integrated_lufs: -16
-    # Marge sous 0 dBFS : l'encodage mp3 fait déborder les crêtes.
-    true_peak_db: -1.5
+    # Marge sous 0 dBFS, prise large : le mp3 à 40 kbps fait déborder les
+    # crêtes de 1,5 à 2,6 dB (mesuré le 24/09). −2 laissait passer +0,6 dBFS ;
+    # −3 les garde sous −0,5. À 64 kbps, le débordement tombe sous 0,5 dB.
+    true_peak_db: -3
     # Plage de loudness tolérée, en LU. 11 laisse respirer la parole.
     range_lu: 11
 
