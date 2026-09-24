@@ -110,9 +110,11 @@ Ton flux est à `https://<ton-pseudo>.github.io/<repo>/feed.xml`.
 
 ### a. Ajouter le flux
 
-Apple Podcasts n'accepte pas une URL de flux arbitraire sur iOS. Utilise
-**Pocket Casts** (gratuit) ou **Overcast** :
+Le plus simple : ouvre `installer.html` sur le téléphone, avec ses boutons
+d'abonnement en un geste. Sinon, colle l'URL du `feed.xml` à la main :
 
+- Apple Podcasts : `Bibliothèque` → `…` → `Ajouter une émission par URL`
+  ([doc Apple](https://podcasters.apple.com/support/3993-subscribe-podcasts))
 - Pocket Casts : `Découvrir` → loupe → colle l'URL du `feed.xml`
 - Overcast : `+` → `Add URL`
 
