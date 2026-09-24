@@ -176,7 +176,7 @@ def cmd_say(args) -> int:
     # Avec --out, rien n'est publié : l'URL du flux n'est pas nécessaire.
     if not args.out and not _base_url_ready(cfg):
         return 2
-    if args.out:
+    if args.out and args.tts_provider == "gemini":
         # Un essai ne doit jamais consommer le quota gratuit de la production.
         try:
             test_api_key()
@@ -189,6 +189,20 @@ def cmd_say(args) -> int:
         cfg.models["tts"] = args.tts_model
     if args.max_words:
         cfg.audio["max_words_per_chunk"] = args.max_words
+    if args.tts_provider == "elevenlabs" and not args.out:
+        print("✗ ElevenLabs n'est qu'en essai : --out est obligatoire.",
+              file=sys.stderr)
+        return 2
+    cfg.tts_provider = args.tts_provider
+    # Les voix sont remplacées par nom de locuteur, en mémoire seulement.
+    if args.tts_provider == "elevenlabs":
+        _swap_voices(cfg, cfg.elevenlabs["speakers"])
+    elif args.voice_set == "designed":
+        if not tts_mod.uses_interactions(cfg):
+            print("✗ Les voix sur mesure n'existent que pour les modèles "
+                  "gemini-3.8-* : ajoute --tts-model.", file=sys.stderr)
+            return 2
+        _swap_voices(cfg, cfg.raw["voices"]["designed"])
 
     try:
         script = writer_mod.text_to_script(
@@ -198,6 +212,12 @@ def cmd_say(args) -> int:
               file=sys.stderr)
         return 2
     script = writer_mod.validate(cfg, {"script": script})["script"]
+    if args.annotations:
+        try:
+            _apply_annotations(script, Path(args.annotations))
+        except ValueError as exc:
+            print(f"✗ {args.annotations} : {exc}", file=sys.stderr)
+            return 2
     words = writer_mod.word_count(script)
     print(f"1. Script relu : {len(script)} répliques, {words} mots")
 
@@ -214,7 +234,9 @@ def cmd_say(args) -> int:
     mp3_name = f"brief-{date}.mp3"
     mp3_path = (Path(args.out).resolve() if args.out
                 else feed_mod.EPISODES_DIR / mp3_name)
-    print(f"   modèle : {cfg.models['tts']}")
+    print("   modèle : " + (cfg.elevenlabs["model_id"]
+                             if cfg.tts_provider == "elevenlabs"
+                             else cfg.models["tts"]))
     _print_voices(cfg)
     tts_mod.warn_if_batch_requested(cfg)
     tts_mod.synthesize(cfg, script, mp3_path)
@@ -240,7 +262,34 @@ def cmd_say(args) -> int:
     return 0
 
 
+def _swap_voices(cfg, speakers: list[dict]) -> None:
+    by_name = {s["name"]: s["voice"] for s in speakers}
+    for speaker in cfg.speakers:
+        speaker.voice = by_name.get(speaker.name, speaker.voice)
+
+
+def _apply_annotations(script: list[dict], path: Path) -> None:
+    """Intentions de jeu par réplique, tirées d'un fichier JSON préparé à la
+    main (data/voice-test/…/annotations.json)."""
+    import json
+
+    lines = json.loads(path.read_text(encoding="utf-8"))["lines"]
+    if len(lines) != len(script):
+        raise ValueError(f"{len(lines)} annotations pour {len(script)} "
+                         "répliques.")
+    for line, note in zip(script, lines):
+        # Le texte recopié sert de garde : un script retouché depuis
+        # l'annotation décalerait toutes les intentions d'une réplique.
+        if note["text"] != line["text"]:
+            raise ValueError(f"réplique {note['index']} : le texte ne "
+                             "correspond plus au script.")
+        line["style"] = note.get("gemini_style")
+        line["audio_tag"] = note.get("elevenlabs_tag")
+
+
 def _cost_label(cfg, seconds: float) -> str:
+    if cfg.tts_provider == "elevenlabs":
+        return "coût en crédits ElevenLabs, voir le compte"
     cost = tts_mod.estimate_cost_usd(cfg, seconds)
     if cost is None:
         return f"coût inconnu (tarif de {cfg.models['tts']} absent de la grille)"
@@ -341,6 +390,17 @@ def main(argv: list[str] | None = None) -> int:
     say.add_argument("--max-words", type=_positive_int, default=None,
                      help="remplace audio.max_words_per_chunk pour cet appel "
                           "seulement")
+    say.add_argument("--tts-provider", choices=["gemini", "elevenlabs"],
+                     default="gemini",
+                     help="elevenlabs : essai de Text to Dialogue (Eleven v3), "
+                          "exige --out")
+    say.add_argument("--voice-set", choices=["production", "designed"],
+                     default="production",
+                     help="designed : voix sur mesure de voices.designed "
+                          "(modèles gemini-3.8-* seulement)")
+    say.add_argument("--annotations", default=None,
+                     help="JSON des intentions de jeu par réplique, "
+                          "envoyées en style (Gemini 3.8) ou en balise (Eleven v3)")
     say.set_defaults(func=cmd_say)
 
     check = sub.add_parser("check-feeds", help="teste toutes les sources RSS")

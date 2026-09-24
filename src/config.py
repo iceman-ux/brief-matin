@@ -47,6 +47,8 @@ class Config:
     speakers: list[Speaker] = field(default_factory=list)
     # Posé par « say --out » : la synthèse passe par la clé du projet de test.
     use_test_key: bool = False
+    # Posé par « say --tts-provider » : la production reste sur Gemini.
+    tts_provider: str = "gemini"
 
     # --- accès pratiques -------------------------------------------------
     @property
@@ -68,6 +70,10 @@ class Config:
     @property
     def memory(self) -> dict[str, Any]:
         return self.raw["memory"]
+
+    @property
+    def elevenlabs(self) -> dict[str, Any]:
+        return self.raw["elevenlabs"]
 
     @property
     def two_voices(self) -> bool:
@@ -125,6 +131,25 @@ def test_api_key() -> str:
             f"{TEST_KEY_VAR} absente ou vide dans .env : les essais (say "
             "--out) n'utilisent jamais la clé de production. Ajoute la clé "
             "du projet de test dans .env.")
+    return key
+
+
+ELEVENLABS_KEY_VAR = "ELEVENLABS_API_KEY"
+
+
+def elevenlabs_api_key() -> str:
+    _load_dotenv()
+    key = os.environ.get(ELEVENLABS_KEY_VAR, "").strip()
+    if not key:
+        raise RuntimeError(f"{ELEVENLABS_KEY_VAR} absente ou vide dans .env.")
+    # Piège réel : la page des clés affiche un identifiant de 64 caractères
+    # qui ressemble à une clé, mais l'API le refuse.
+    if not key.startswith("sk_"):
+        raise RuntimeError(
+            f"{ELEVENLABS_KEY_VAR} ne commence pas par « sk_ » : c'est "
+            "probablement l'identifiant de la clé, pas la clé. Une clé ne "
+            "s'affiche qu'à sa création : crée-en une nouvelle sur "
+            "elevenlabs.io (Developers > API Keys).")
     return key
 
 

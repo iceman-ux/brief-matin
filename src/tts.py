@@ -1,4 +1,4 @@
-"""Synthèse vocale Gemini + encodage mp3.
+"""Synthèse vocale (Gemini, ElevenLabs en essai) + encodage mp3.
 
 Le modèle renvoie du PCM brut 24 kHz 16 bits mono (les modèles 3.8 un WAV,
 dont on retire l'en-tête pour revenir au PCM). Deux conséquences utiles :
@@ -128,7 +128,7 @@ def _synth_pcm(cfg: Config, text: str, multi: bool) -> bytes:
     return data
 
 
-def _uses_interactions(cfg: Config) -> bool:
+def uses_interactions(cfg: Config) -> bool:
     # Les modèles 3.8 refusent generate_content en multi-locuteurs : ils
     # exigent un locuteur attaché à chaque réplique, via l'API interactions.
     return cfg.models["tts"].startswith("gemini-3.8-")
@@ -138,7 +138,8 @@ def _synth_pcm_interactions(cfg: Config, chunk: list[dict]) -> bytes:
     """Chemin des modèles 3.8 : une entrée annotée par réplique.
 
     Ces modèles lisent le texte mot pour mot : ni cfg.direction ni consigne
-    de lecture, sinon elles seraient prononcées. Seules les répliques partent.
+    de lecture, sinon elles seraient prononcées. Seules les répliques partent,
+    avec leur intention de jeu éventuelle (clé « style ») en métadonnée.
     """
     import base64
 
@@ -153,8 +154,7 @@ def _synth_pcm_interactions(cfg: Config, chunk: list[dict]) -> bytes:
             model=cfg.models["tts"],
             input=[{"type": "user_input", "content": [
                 {"type": "text", "text": line["text"],
-                 "annotations": [{"type": "speech_metadata",
-                                  "speaker": line["speaker"]}]}
+                 "annotations": [_speech_metadata(line)]}
                 for line in chunk
             ]}],
             response_format={"type": "audio"},
@@ -176,6 +176,87 @@ def _synth_pcm_interactions(cfg: Config, chunk: list[dict]) -> bytes:
     if not audio.startswith(b"RIFF"):
         audio = base64.b64decode(audio)
     return _wav_to_pcm(audio, int(cfg.audio["sample_rate"]))
+
+
+def _speech_metadata(line: dict) -> dict:
+    meta = {"type": "speech_metadata", "speaker": line["speaker"]}
+    if line.get("style"):
+        meta["style"] = line["style"]
+    return meta
+
+
+def _dialogue_text(line: dict) -> str:
+    # Eleven v3 lit les balises entre crochets comme des indications de jeu,
+    # pas comme du texte : c'est son équivalent de speech_metadata.style.
+    tag = line.get("audio_tag")
+    return f"{tag} {line['text']}" if tag else line["text"]
+
+
+def _chunk_by_chars(script: list[dict], max_chars: int) -> list[list[dict]]:
+    """Découpe en préservant les répliques entières. Une réplique plus
+    longue que max_chars part seule : la couper casserait son intonation."""
+    chunks: list[list[dict]] = []
+    current: list[dict] = []
+    count = 0
+    for line in script:
+        size = len(_dialogue_text(line))
+        if current and count + size > max_chars:
+            chunks.append(current)
+            current, count = [], 0
+        current.append(line)
+        count += size
+    if current:
+        chunks.append(current)
+    return chunks
+
+
+def _synth_pcm_elevenlabs(cfg: Config, chunk: list[dict]) -> bytes:
+    """Text to Dialogue d'ElevenLabs : une entrée par réplique, voix par
+    locuteur. Bibliothèque standard seulement, pas de SDK à ajouter."""
+    import json
+    import urllib.error
+    import urllib.parse
+    import urllib.request
+
+    from .config import elevenlabs_api_key
+    from .retry import call_with_retry
+
+    el = cfg.elevenlabs
+    expected = f"pcm_{int(cfg.audio['sample_rate'])}"
+    if el["output_format"] != expected:
+        raise RuntimeError(
+            f"elevenlabs.output_format vaut {el['output_format']}, attendu "
+            f"{expected} : les octets sont recollés tels quels, sans décodage.")
+    voices = {s.name: s.voice for s in active_speakers(cfg)}
+    missing = sorted({l["speaker"] for l in chunk} - {n for n, v in voices.items() if v})
+    if missing:
+        raise RuntimeError("config.yaml : elevenlabs.speakers n'a pas de voix "
+                           f"pour {', '.join(missing)}.")
+    key = elevenlabs_api_key()
+    body = json.dumps({
+        "inputs": [{"text": _dialogue_text(l), "voice_id": voices[l["speaker"]]}
+                   for l in chunk],
+        "model_id": el["model_id"],
+        "language_code": el["language_code"],
+        "seed": int(el["seed"]),
+    }).encode("utf-8")
+    url = f"{el['api_url']}?{urllib.parse.urlencode({'output_format': el['output_format']})}"
+
+    def post() -> bytes:
+        request = urllib.request.Request(url, data=body, method="POST", headers={
+            "xi-api-key": key, "Content-Type": "application/json"})
+        with urllib.request.urlopen(request, timeout=float(el["timeout_s"])) as resp:
+            return resp.read()
+
+    try:
+        pcm = call_with_retry(post, label="synthèse vocale ElevenLabs")
+    except urllib.error.HTTPError as exc:
+        detail = exc.read().decode(errors="replace").replace(key, "***")
+        raise RuntimeError(f"ElevenLabs a refusé la requête ({exc.code}) : "
+                           f"{detail[:500]}") from exc
+    if not pcm:
+        raise RuntimeError("ElevenLabs a renvoyé un audio vide.")
+    return pcm
 
 
 def _wav_to_pcm(wav_bytes: bytes, sample_rate: int) -> bytes:
@@ -240,16 +321,22 @@ def synthesize(cfg: Config, script: list[dict], out_path: Path,
                verbose: bool = True) -> Path:
     """Script -> mp3. Retourne le chemin du fichier écrit."""
     multi = _is_multi(cfg)
-    max_words = int(cfg.audio.get("max_words_per_chunk", DEFAULT_MAX_WORDS_PER_CHUNK))
-    chunks = _chunk_script(script, max_words)
+    elevenlabs = cfg.tts_provider == "elevenlabs"
+    if elevenlabs:
+        chunks = _chunk_by_chars(script, int(cfg.elevenlabs["max_chars_per_request"]))
+    else:
+        max_words = int(cfg.audio.get("max_words_per_chunk", DEFAULT_MAX_WORDS_PER_CHUNK))
+        chunks = _chunk_script(script, max_words)
 
-    interactions = _uses_interactions(cfg)
+    interactions = uses_interactions(cfg)
     pcm = bytearray()
     for idx, chunk in enumerate(chunks, 1):
         if verbose:
             words = sum(len(l["text"].split()) for l in chunk)
             print(f"  synthèse {idx}/{len(chunks)} ({words} mots)…")
-        if interactions:
+        if elevenlabs:
+            pcm += _synth_pcm_elevenlabs(cfg, chunk)
+        elif interactions:
             pcm += _synth_pcm_interactions(cfg, chunk)
         else:
             pcm += _synth_pcm(cfg, _render_chunk_text(cfg, chunk, multi), multi)
@@ -289,9 +376,11 @@ def estimate_cost_usd(cfg: Config, seconds: float) -> float | None:
     Toujours au tarif standard : le mode batch, deux fois moins cher, n'est
     pas implémenté (_synth_pcm appelle generate_content en synchrone). Tant
     qu'il ne l'est pas, afficher un tarif réduit mentirait sur la facture.
-    None pour un modèle absent de la grille : mieux vaut « inconnu » qu'un
-    chiffre emprunté à un autre modèle.
+    None pour un modèle absent de la grille, ou hors Gemini : mieux vaut
+    « inconnu » qu'un chiffre emprunté à un autre modèle.
     """
+    if cfg.tts_provider != "gemini":
+        return None
     rate = USD_PAR_MILLION_TOKENS.get(cfg.models["tts"])
     if rate is None:
         return None

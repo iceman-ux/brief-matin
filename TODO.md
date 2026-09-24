@@ -63,11 +63,21 @@ C du tour 1 (copie), voix sur mesure Gemini (Voice design) en un seul appel,
 ElevenLabs v3 Text to Dialogue. Les deux derniers reçoivent les mêmes
 intentions de jeu par réplique, dans `tour2/annotations.json`.
 
-- [ ] Annoter le script du 23/09
-- [ ] Créer les voix sur mesure Gemini, synthétiser
-- [ ] Synthétiser avec ElevenLabs v3
-- [ ] Tirage des lettres
+- [x] Annoter le script du 23/09 (`tour2/annotations.json`)
+- [x] Créer les voix sur mesure Gemini (`voices.designed` dans
+      `config.yaml`), synthétiser : `tour2/work-gemini-designed.mp3`, 2 min 57
+      en un appel
+- [ ] **Z, ElevenLabs v3 : à générer à la main sur elevenlabs.io.** L'offre
+      gratuite refuse les voix de la bibliothèque par l'API (erreur 402,
+      « paid_plan_required »), et Adam ne prend pas d'abonnement. Texte
+      balisé, voix et réglages dans `tour2/z-elevenlabs.txt` ; déposer les
+      blocs générés en `tour2/z-1.mp3`, `z-2.mp3`, `z-3.mp3`. Le chemin API
+      (`say --tts-provider elevenlabs`) reste en place, jamais testé en réel
+      au-delà du refus 402.
+- [ ] Tirage des lettres, **après Z** : copie de `C.mp3`, Y, Z
 - [ ] Écoutes, puis ouverture de `tour2/cle.txt`
+- [ ] Ne pas écouter `data/voice-test/apercus-gemini/` avant la fin des
+      écoutes : ces aperçus trahissent les voix sur mesure
 
 ### Clés API
 
@@ -150,6 +160,12 @@ diviserait la facture TTS par deux.
   aucune consigne de direction dans le texte.
 - `say --out` n'utilise que `GEMINI_API_KEY_TEST`, jamais la clé de
   production, et s'arrête si elle manque.
+- Voix sur mesure Gemini décrites en deux phrases de traits permanents,
+  comme le recommande la doc : les réactions à l'info passent par
+  `speech_metadata.style`, réplique par réplique. Elles expirent le
+  24/09/2027.
+- ElevenLabs par la bibliothèque standard (urllib), sans SDK, et
+  seulement en essai via `say --out`.
 - **Palier payant Gemini activé le 24/09.** Les quatre runs du matin ont
   échoué sur des 503 des deux modèles de rédaction, même après la remise à
   zéro du quota : l'offre gratuite était saturée. Garde-fous : prépaiement de

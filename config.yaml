@@ -74,6 +74,55 @@ voices:
     radio : éveillé, clair, jamais solennel. Marquer une vraie respiration
     entre chaque sujet. Léa pose, Marc relance avec une once de relief.
 
+  # Voix sur mesure Gemini (Voice design), en essai pour le tour 2 du test à
+  # l'aveugle, choisies par « say --voice-set designed ». Elles n'existent
+  # que pour les modèles gemini-3.8-* et expirent un an après leur création
+  # (24/09/2026). Ce ne sont pas des secrets : un identifiant ne sert qu'avec
+  # une clé du projet Google. Descriptions en deux phrases de traits
+  # permanents, comme le recommande la doc : les réactions à l'info passent
+  # par les intentions de chaque réplique, pas par la voix.
+  designed:
+    - name: "Léa"
+      voice: "voice_kaoy0206y000"
+      description: >-
+        Animatrice de matinale radio française, la trentaine, accent standard
+        de France. Voix chaleureuse, lumineuse et énergique, sourire audible,
+        débit vivant, parle comme à un ami qu'elle réveille, jamais comme une
+        speakerine.
+    - name: "Marc"
+      voice: "voice_y8pe771eq6ho"
+      description: >-
+        Journaliste de matinale radio française, la quarantaine, accent
+        standard de France. Voix chaude et posée mais tonique, rythme
+        conversationnel avec de petites relances naturelles, curieux, un peu
+        pince-sans-rire.
+
+# ElevenLabs, en essai pour le tour 2 du test à l'aveugle, choisi par
+# « say --tts-provider elevenlabs ». La production reste sur Gemini.
+elevenlabs:
+  api_url: "https://api.elevenlabs.io/v1/text-to-dialogue"
+  # Text to Dialogue n'existe qu'avec Eleven v3.
+  model_id: "eleven_v3"
+  language_code: "fr"
+  # La doc garantit 2 000 caractères par requête ; au-delà, l'audio peut
+  # s'arrêter en route. Marge pour les balises d'intention ajoutées.
+  max_chars_per_request: 1900
+  # Même graine pour toutes les requêtes d'un brief : chaque requête
+  # réinterprète les voix, la graine limite l'écart d'une requête à l'autre.
+  seed: 20260923
+  # PCM 24 kHz 16 bits mono, le format des modèles Gemini : les morceaux se
+  # recollent et s'encodent par le même chemin, sans décodage mp3.
+  output_format: "pcm_24000"
+  timeout_s: 180
+  # Voix de la bibliothèque ElevenLabs, par nom de locuteur : natives
+  # fr-FR, parmi les plus utilisées en narration et actualité. Pas de clone
+  # « professional » : la doc les dit mal optimisés pour Eleven v3.
+  speakers:
+    - name: "Léa"
+      voice: "O31r762Gb3WFygrEOGh0"   # Victoria – Content Creator
+    - name: "Marc"
+      voice: "AmMsHJaCw4BtwV3KoUXF"   # Nicolas Petit – Convincing and Bright
+
 models:
   # Rédaction du script. Modèle texte, peu coûteux.
   writer: "gemini-3.8-flash"
