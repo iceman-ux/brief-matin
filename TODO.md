@@ -56,28 +56,35 @@ en un morceau.
 ### Test de voix à l'aveugle, tour 2 (en cours)
 
 Objectif d'Adam : des voix de radio chaleureuses, vivantes, qui réagissent à
-l'info. La qualité passe avant le coût. Trois fichiers sur le script du
-23/09, lettres X, Y, Z tirées au hasard, correspondance dans
+l'info. La qualité passe avant le coût. **Le tour 2 porte sur un extrait**,
+les répliques 6 à 11 du script du 23/09 (Groenland puis roman accusé d'IA,
+134 mots, ~45 s), parce que Z n'a été généré que sur cet extrait. Trois
+fichiers, lettres X, Y, Z tirées au hasard, correspondance dans
 `data/voice-test/tour2/cle.txt`, à ne pas ouvrir avant la fin des écoutes :
-C du tour 1 (copie), voix sur mesure Gemini (Voice design) en un seul appel,
-ElevenLabs v3 Text to Dialogue. Les deux derniers reçoivent les mêmes
-intentions de jeu par réplique, dans `tour2/annotations.json`.
+`gemini-3.8-flash-tts` avec les voix de production sans style (le C du
+tour 1, régénéré en un appel), voix sur mesure Gemini (Voice design) avec les
+intentions de `tour2/annotations.json`, ElevenLabs v3 avec les balises
+équivalentes. Même finition pour les trois (`finish` : compression 2:1,
+−16 LUFS, 40 kbps 24 kHz) : aucun ne gagne parce qu'il sonne plus fort.
 
 - [x] Annoter le script du 23/09 (`tour2/annotations.json`)
 - [x] Créer les voix sur mesure Gemini (`voices.designed` dans
-      `config.yaml`), synthétiser : `tour2/work-gemini-designed.mp3`, 2 min 57
-      en un appel
-- [ ] **Z, ElevenLabs v3 : à générer à la main sur elevenlabs.io.** L'offre
-      gratuite refuse les voix de la bibliothèque par l'API (erreur 402,
-      « paid_plan_required »), et Adam ne prend pas d'abonnement. Texte
-      balisé, voix et réglages dans `tour2/z-elevenlabs.txt` ; déposer les
-      blocs générés en `tour2/z-1.mp3`, `z-2.mp3`, `z-3.mp3`. Le chemin API
-      (`say --tts-provider elevenlabs`) reste en place, jamais testé en réel
-      au-delà du refus 402.
-- [ ] Tirage des lettres, **après Z** : copie de `C.mp3`, Y, Z
+      `config.yaml`), synthétiser le script complet :
+      `tour2/work-gemini-designed.mp3`, 2 min 57 en un appel
+- [x] Z, ElevenLabs v3, généré à la main sur elevenlabs.io (l'offre gratuite
+      refuse les voix de la bibliothèque par l'API : erreur 402). Extrait
+      seulement. Voix : Victoire (Léa) et Alexandre - Calm, Warm & Authentic
+      (Marc) ; Nicolas Petit, essayé pour Marc, écarté
+      (`work-elevenlabs-nicolas-petit-ecarte.mp3`, hors test). Le chemin API
+      (`say --tts-provider elevenlabs`) reste jamais testé au-delà du 402.
+- [x] Régénérer les deux extraits Gemini (`say --lines 6-11`), clé de test
+- [x] Finition commune (`finish`), réglages `finishing` dans `config.yaml`
+- [x] Tirage des lettres : `tour2/X.mp3`, `Y.mp3`, `Z.mp3`
 - [ ] Écoutes, puis ouverture de `tour2/cle.txt`
-- [ ] Ne pas écouter `data/voice-test/apercus-gemini/` avant la fin des
-      écoutes : ces aperçus trahissent les voix sur mesure
+- [ ] Ne pas écouter `data/voice-test/apercus-gemini/` ni les `work-*.mp3`
+      avant la fin des écoutes : leurs noms trahissent la correspondance
+- [ ] Selon le verdict : brancher `finish` sur la production ? Pas fait,
+      la finition ne sert qu'au test pour l'instant
 
 ### Clés API
 

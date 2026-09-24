@@ -115,13 +115,14 @@ elevenlabs:
   output_format: "pcm_24000"
   timeout_s: 180
   # Voix de la bibliothèque ElevenLabs, par nom de locuteur : natives
-  # fr-FR, parmi les plus utilisées en narration et actualité. Pas de clone
-  # « professional » : la doc les dit mal optimisés pour Eleven v3.
+  # fr-FR. Pas de clone « professional » : la doc les dit mal optimisés
+  # pour Eleven v3. Celles du Z du tour 2, choisies à l'oreille sur le site ;
+  # Nicolas Petit (AmMsHJaCw4BtwV3KoUXF) a été écouté puis écarté pour Marc.
   speakers:
     - name: "Léa"
-      voice: "O31r762Gb3WFygrEOGh0"   # Victoria – Content Creator
+      voice: "O31r762Gb3WFygrEOGh0"   # Victoire
     - name: "Marc"
-      voice: "AmMsHJaCw4BtwV3KoUXF"   # Nicolas Petit – Convincing and Bright
+      voice: "gP52hjM48hyNoVCbizxO"   # Alexandre - Calm, Warm & Authentic
 
 models:
   # Rédaction du script. Modèle texte, peu coûteux.
@@ -163,6 +164,27 @@ audio:
   # Jingle optionnel collé en tête (mets un mp3 dans assets/ et donne le nom)
   intro_file: null
   outro_file: null
+
+# Finition audio de « finish » : compression légère puis normalisation,
+# réencodage au débit et à la fréquence d'audio ci-dessus. Sert au tour 2 du
+# test à l'aveugle, pour que Gemini et ElevenLabs sonnent aussi fort et
+# s'écoutent au même format ; pas encore branchée sur la production.
+finishing:
+  compressor:
+    # Ne touche que les pics de voix : la parole normale reste sous le seuil.
+    threshold_db: -20
+    # 2:1, compression douce : resserre l'écart entre les deux voix sans
+    # écraser les intonations, qu'on cherche justement à juger.
+    ratio: 2
+    attack_ms: 20
+    release_ms: 250
+  loudness:
+    # −16 LUFS : la référence des podcasts, celle d'Apple.
+    integrated_lufs: -16
+    # Marge sous 0 dBFS : l'encodage mp3 fait déborder les crêtes.
+    true_peak_db: -1.5
+    # Plage de loudness tolérée, en LU. 11 laisse respirer la parole.
+    range_lu: 11
 
 # ─────────────────────────────────────────────────────────────
 #  Sources RSS

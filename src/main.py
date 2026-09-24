@@ -218,6 +218,18 @@ def cmd_say(args) -> int:
         except ValueError as exc:
             print(f"✗ {args.annotations} : {exc}", file=sys.stderr)
             return 2
+    if args.lines:
+        if not args.out:
+            print("✗ --lines ne sert qu'aux essais : --out est obligatoire.",
+                  file=sys.stderr)
+            return 2
+        # Découpé après les annotations, qui se calent sur le script entier.
+        first, last = args.lines
+        if last > len(script):
+            print(f"✗ --lines {first}-{last} : le script n'a que "
+                  f"{len(script)} répliques.", file=sys.stderr)
+            return 2
+        script = script[first - 1:last]
     words = writer_mod.word_count(script)
     print(f"1. Script relu : {len(script)} répliques, {words} mots")
 
@@ -330,6 +342,17 @@ def _positive_int(value: str) -> int:
     return number
 
 
+def _line_range(value: str) -> tuple[int, int]:
+    try:
+        first, last = (int(part) for part in value.split("-"))
+    except ValueError:
+        first = last = 0
+    if not 1 <= first <= last:
+        raise argparse.ArgumentTypeError(
+            f"« {value} » : plage attendue sous la forme 6-11, à partir de 1")
+    return first, last
+
+
 def _iso_date(value: str) -> str:
     try:
         return datetime.strptime(value, "%Y-%m-%d").strftime("%Y-%m-%d")
@@ -353,6 +376,21 @@ def _write_silence(cfg, path: Path, seconds: int) -> None:
 def cmd_check_feeds(args) -> int:
     cfg = load_config(args.config)
     return 1 if sources_mod.check_feeds(cfg) else 0
+
+
+def cmd_finish(args) -> int:
+    cfg = load_config(args.config)
+    for name in args.files:
+        src = Path(name)
+        if not src.exists():
+            print(f"✗ {src} introuvable.", file=sys.stderr)
+            return 2
+    for name in args.files:
+        src = Path(name)
+        out = src.with_name(f"{src.stem}{args.suffix}{src.suffix}")
+        loudness = tts_mod.finish(cfg, src, out)
+        print(f"   {src.name} → {out.name} · {loudness:.1f} LUFS")
+    return 0
 
 
 def cmd_rebuild_feed(args) -> int:
@@ -401,7 +439,18 @@ def main(argv: list[str] | None = None) -> int:
     say.add_argument("--annotations", default=None,
                      help="JSON des intentions de jeu par réplique, "
                           "envoyées en style (Gemini 3.8) ou en balise (Eleven v3)")
+    say.add_argument("--lines", type=_line_range, default=None,
+                     help="ne synthétise que les répliques N à M (ex. 6-11, "
+                          "à partir de 1), exige --out")
     say.set_defaults(func=cmd_say)
+
+    finish = sub.add_parser("finish", help="finition audio (compression, "
+                                           "loudness) de mp3 existants")
+    finish.add_argument("files", nargs="+", help="mp3 à traiter")
+    finish.add_argument("--suffix", default="-fini",
+                        help="ajouté au nom de chaque fichier écrit "
+                             "(défaut : -fini) ; l'original reste intact")
+    finish.set_defaults(func=cmd_finish)
 
     check = sub.add_parser("check-feeds", help="teste toutes les sources RSS")
     check.set_defaults(func=cmd_check_feeds)

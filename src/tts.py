@@ -347,6 +347,55 @@ def synthesize(cfg: Config, script: list[dict], out_path: Path,
     return out_path
 
 
+def _loudnorm_report(stderr: str) -> dict:
+    # loudnorm écrit son rapport JSON en dernier sur stderr, après le reste.
+    import json
+    start = stderr.rfind("{")
+    if start < 0:
+        raise RuntimeError(f"ffmpeg n'a pas rendu de mesure loudnorm :\n{stderr}")
+    return json.loads(stderr[start:stderr.rfind("}") + 1])
+
+
+def finish(cfg: Config, src: Path, out_path: Path) -> float:
+    """Compression légère puis normalisation, réencodé au format du flux.
+    Retourne la loudness intégrée du résultat, en LUFS.
+
+    Deux passes : la première mesure, la seconde applique un gain linéaire.
+    En une seule passe, loudnorm corrige à la volée et fait pomper le son.
+    """
+    fin = cfg.raw["finishing"]
+    comp, loud = fin["compressor"], fin["loudness"]
+    compressor = (f"acompressor=threshold={comp['threshold_db']}dB"
+                  f":ratio={comp['ratio']}:attack={comp['attack_ms']}"
+                  f":release={comp['release_ms']}")
+    target = (f"loudnorm=I={loud['integrated_lufs']}"
+              f":TP={loud['true_peak_db']}:LRA={loud['range_lu']}")
+
+    def run(filters: str, output: list[str]) -> str:
+        cmd = ["ffmpeg", "-hide_banner", "-nostats", "-y", "-i", str(src),
+               "-af", filters, *output]
+        proc = subprocess.run(cmd, capture_output=True)
+        stderr = proc.stderr.decode(errors="replace")
+        if proc.returncode != 0:
+            raise RuntimeError(f"ffmpeg a échoué sur {src.name} :\n{stderr}")
+        return stderr
+
+    measured = _loudnorm_report(
+        run(f"{compressor},{target}:print_format=json", ["-f", "null", "-"]))
+    second = (f"{compressor},{target}:linear=true:print_format=json"
+              f":measured_I={measured['input_i']}"
+              f":measured_TP={measured['input_tp']}"
+              f":measured_LRA={measured['input_lra']}"
+              f":measured_thresh={measured['input_thresh']}"
+              f":offset={measured['target_offset']}")
+    # loudnorm suréchantillonne en interne : on revient au format du flux,
+    # le même pour tous les fichiers traités.
+    report = _loudnorm_report(run(second, [
+        "-codec:a", "libmp3lame", "-b:a", str(cfg.audio["bitrate"]),
+        "-ac", "1", "-ar", str(cfg.audio["sample_rate"]), str(out_path)]))
+    return float(report["output_i"])
+
+
 def audio_duration_seconds(path: Path) -> int:
     """Durée réelle du mp3, lue par ffprobe (nécessaire pour le flux RSS)."""
     proc = subprocess.run(
