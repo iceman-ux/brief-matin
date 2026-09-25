@@ -97,6 +97,8 @@ def build_feed(cfg: Config, episodes: list[dict] | None = None) -> Path:
             notes = f"{notes}\n\nAu sommaire :\n{lines}"
         if disclosure:
             notes = f"{notes}\n\n{disclosure}"
+        # Le préfixe du guid reste « brief-matin » malgré le nom Lora : le
+        # changer ferait réapparaître tous les épisodes comme nouveaux.
         items.append(f"""    <item>
       <title>{escape(ep['title'])}</title>
       <description>{escape(notes)}</description>
@@ -249,8 +251,10 @@ def _write_installer(cfg: Config) -> None:
     pod = cfg.podcast
     feed_url = f"{base}/feed.xml"
     page_url = f"{base}/installer.html"
-    shortcut_url = ((cfg.raw.get("onboarding") or {}).get("shortcut_url")
-                    or "").strip()
+    onboarding = cfg.raw.get("onboarding") or {}
+    shortcut_url = (onboarding.get("shortcut_url") or "").strip()
+    # Le raccourci partagé garde son propre nom, distinct du podcast.
+    shortcut_name = (onboarding.get("shortcut_name") or "").strip() or pod["title"]
     disclosure = (pod.get("ai_disclosure") or "").strip()
     title = pod["title"]
 
@@ -331,7 +335,7 @@ def _write_installer(cfg: Config) -> None:
     <ol>
       <li>Ouvre Raccourcis, onglet Automatisation, puis touche +.</li>
       <li>Choisis Réveil, puis « Est arrêté », et Exécuter immédiatement.</li>
-      <li>Choisis le raccourci « {escape(title)} ».</li>
+      <li>Choisis le raccourci « {escape(shortcut_name)} ».</li>
     </ol>
     <p class="mut">Les libellés exacts peuvent varier selon la version d'iOS.</p>
 

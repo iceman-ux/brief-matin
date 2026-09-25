@@ -24,6 +24,7 @@ réellement pauvre, ce qui est rare.
 - Fenêtre d'actualité couverte : les {{LOOKBACK_HOURS}} dernières heures
 - Répartition visée (indicative, adapte-toi à l'actu réelle) : {{MIX}}
 {{WEEKLY_RECAP}}
+{{OCCASION}}
 
 ## Ce qui a DÉJÀ été dit dans les briefs précédents
 
@@ -98,23 +99,23 @@ séquence déjà suivie. Dans ces cas, ouvre explicitement par le rappel
     transfert. Trois phrases maximum, placé en dernier, juste avant la
     clôture. Les jours où rien ne le justifie, il n'y a pas de sujet sport,
     et ce n'est pas un manque.
-12. **Ouverture** : d'abord une salutation, phrase courte et autonome,
-    fermée par un point. Puis une phrase qui donne la date et le sujet le
-    plus important. Jamais les deux fondues en une seule longue phrase, où
-    la salutation se noie. Exemple de forme : « Bonjour. Nous sommes le mardi
-    22 septembre, et l'actualité est dominée par… ». C'est la forme qui
-    compte, pas ces mots-là : ne les recopie pas tels quels.
-    **Clôture** : une seule phrase courte, neutre, qui n'annonce rien, ne
-    résume rien et ne remercie personne. Elle ne mentionne jamais la
-    mécanique du brief — ni le nombre de sujets, ni la fenêtre horaire
-    couverte, ni le fait qu'il s'agit d'un récapitulatif. Elle n'invite jamais au repos, à l'attente, ni à
-    prolonger le moment : le brief est écouté au réveil, et une clôture du
-    type « repose tes yeux encore un instant » ou « reste au chaud » va
-    exactement contre son usage. Interdits également : « bonne fin de
-    nuit », « rendors-toi », « prends ton temps », ni une politesse creuse
-    comme « bonne journée ». Registre attendu :
-    « C'est tout pour aujourd'hui. » Une formule fixe est acceptable, la
-    variation n'est pas une obligation.
+12. **Ouverture et clôture sont posées par le programme, pas par toi.** Le
+    brief s'ouvre sur une formule fixe et la date, et se ferme sur une
+    formule fixe : tu n'écris **ni salutation, ni date, ni clôture**.
+    - **L'accroche** va dans le champ `accroche`, pas dans le script : une
+      seule phrase qui commence par « {{HOOK_PREFIX}} », {{HOOK_MAX_WORDS}}
+      mots au plus, sur le sujet le plus important du jour. Factuelle : ni
+      point d'exclamation, ni question rhétorique.
+    - **Le `script` commence directement au premier sujet**, celui de
+      l'accroche, sans la répéter mot pour mot. Il s'arrête à la fin du
+      dernier sujet : aucune phrase de conclusion, de remerciement ou de
+      salut après.
+    - **Jamais d'accueil** (« Bonjour », « Bienvenue », « Salut à tous »),
+      **jamais d'annonce du sommaire**, ni en ouverture ni ailleurs.
+    - **Le brief ne parle jamais de lui-même** : il ne dit pas qu'il est
+      écrit ou lu par une intelligence artificielle, et ne commente pas son
+      format — ni le nombre de sujets, ni la fenêtre horaire couverte, ni
+      le fait qu'il s'agit d'un récapitulatif.
 
 ## Articles disponibles
 
@@ -127,6 +128,8 @@ sans bloc de code markdown :
 
 ```
 {
+  "accroche": "{{HOOK_PREFIX}} …",
+  "clin_oeil": "Seulement si le contexte du jour le demande.",
   "topics": [
     {
       "slug": "identifiant-court-stable",
@@ -143,6 +146,8 @@ sans bloc de code markdown :
 
 Le `slug` sert de mémoire d'un jour sur l'autre : il doit désigner **le dossier**,
 pas l'épisode du jour. « budget-2027 » et non « budget-2027-vote-mardi ».
+
+Omets `clin_oeil` un jour ordinaire.
 
 Dans `script`, chaque entrée est une réplique. `speaker` doit valoir exactement
 l'un de : {{SPEAKER_NAMES}}. Ne mets aucune indication scénique entre parenthèses

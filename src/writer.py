@@ -7,15 +7,12 @@ import re
 from datetime import datetime
 from typing import Any, Callable, TypeVar
 
+from .brand import JOURS, MOIS, occasion
 from .config import ROOT, Config, api_key
 from .memory import Memory
 from .sources import Item
 
 T = TypeVar("T")
-
-_JOURS = ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"]
-_MOIS = ["", "janvier", "février", "mars", "avril", "mai", "juin", "juillet",
-         "août", "septembre", "octobre", "novembre", "décembre"]
 
 _FORMAT_DIALOGUE = """\
 Le brief est un **dialogue à deux voix**. C'est la règle qui fait toute la
@@ -72,7 +69,7 @@ et marque chaque changement de sujet par une rupture nette."""
 
 
 def _date_longue(dt: datetime) -> str:
-    return f"{_JOURS[dt.weekday()]} {dt.day} {_MOIS[dt.month]} {dt.year}"
+    return f"{JOURS[dt.weekday()]} {dt.day} {MOIS[dt.month]} {dt.year}"
 
 
 def _articles_block(items: list[Item], limit: int = 120) -> str:
@@ -107,6 +104,14 @@ def build_prompt(cfg: Config, items: list[Item], memory: Memory,
                   "semaine »** : trois lignes maximum, les fils qui se sont "
                   "vraiment déplacés depuis lundi. Pas une liste de rappels.")
 
+    today = occasion(cfg, now.date())
+    if today:
+        wink = (f"- **Aujourd'hui, c'est {today}.** Fournis le champ "
+                "`clin_oeil` : une seule phrase courte qui le salue, sans "
+                "point d'exclamation.")
+    else:
+        wink = "- Jour ordinaire : pas de champ `clin_oeil`."
+
     replacements = {
         "{{TARGET_WORDS}}": str(cfg.target_words),
         "{{TARGET_MINUTES}}": str(cfg.brief["target_minutes"]),
@@ -117,6 +122,9 @@ def build_prompt(cfg: Config, items: list[Item], memory: Memory,
         "{{LOOKBACK_HOURS}}": str(cfg.lookback_hours(now.weekday())),
         "{{MIX}}": mix,
         "{{WEEKLY_RECAP}}": weekly,
+        "{{OCCASION}}": wink,
+        "{{HOOK_PREFIX}}": cfg.brand["hook_prefix"],
+        "{{HOOK_MAX_WORDS}}": str(cfg.brand["hook_max_words"]),
         "{{MEMORY_BLOCK}}": memory.as_prompt_block(),
         "{{ARTICLES}}": _articles_block(items),
         "{{SPEAKER_NAMES}}": ", ".join(s.name for s in speakers),
@@ -140,7 +148,8 @@ def _extract_json(text: str) -> dict[str, Any]:
 
 def write_script(cfg: Config, items: list[Item], memory: Memory,
                  now: datetime) -> dict[str, Any]:
-    """Appelle le LLM et renvoie {"topics": [...], "script": [...]}"""
+    """Appelle le LLM et renvoie {"topics", "script", "accroche",
+    "clin_oeil"} ; le script n'a pas encore ses signatures (brand.assemble)."""
     from google import genai
     from google.genai import types
 
@@ -222,6 +231,8 @@ def validate(cfg: Config, data: dict[str, Any]) -> dict[str, Any]:
         raise ValueError("Script vide après nettoyage.")
     data["script"] = cleaned
     data.setdefault("topics", [])
+    data["accroche"] = str(data.get("accroche") or "").strip()
+    data["clin_oeil"] = str(data.get("clin_oeil") or "").strip()
     return data
 
 

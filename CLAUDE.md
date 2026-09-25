@@ -1,8 +1,20 @@
-# Brief Matin — contexte projet
+# Lora (dépôt brief-matin) — contexte projet
 
 Brief d'actualité personnel généré chaque nuit, publié dans un flux podcast
 privé sur GitHub Pages, lancé au réveil par une automatisation Raccourcis iOS.
 Auditeur unique : le propriétaire du repo. Ce n'est pas un produit.
+
+**Nom et identité : Lora**, depuis le 25/09/2026 (avant : « Brief Matin »,
+qui reste le nom du dépôt). DA : Art déco des années 30, nocturne et
+luxueuse ; palette #0B0E2A, #1B2466, #F2A33A, #C9953C, #8E1426. Sonal
+composé par Adam, à venir (`audio.intro_file` / `outro_file`).
+Signatures fixes, posées par le code (`src/brand.py`, section `brand` de
+`config.yaml`) et jamais demandées au modèle : ouverture « Lora. Il est
+l'heure. » + date (« Mardi 29 septembre. ») + clin d'œil d'un jour férié +
+accroche du modèle (« Ce matin, … », 20 mots au plus) ; clôture « C'était
+Lora. Belle journée. » (« Belle semaine. » le lundi, « Bon week-end. » le
+vendredi). Pas de mention d'IA dans le texte parlé : elle reste écrite, dans
+le flux et sur la page d'installation.
 
 ## Architecture
 
@@ -12,6 +24,7 @@ prompts/brief_fr.md  ligne éditoriale du brief (règles d'écriture numérotée
 src/config.py        chargement config + .env
 src/sources.py       RSS : récupération parallèle, fenêtre temporelle, regroupement
 src/memory.py        sujets déjà traités → data/covered.json
+src/brand.py         signatures d'ouverture et de clôture, jours fériés
 src/writer.py        construction du prompt, appel LLM, garde-fous sur la sortie
 src/tts.py           synthèse vocale, découpage, encodage mp3
 src/feed.py          flux RSS podcast, page d'accueil, rétention des épisodes
@@ -22,7 +35,7 @@ tools/analyse_voix.py  mesure audio pour le protocole d'écoute, hors pipeline
                        (numpy, scipy — hors requirements.txt, le run n'en a pas besoin)
 ```
 
-Pipeline : RSS → dédoublonnage → mémoire → LLM → TTS → mp3 → feed.xml.
+Pipeline : RSS → dédoublonnage → mémoire → LLM → signatures → TTS → mp3 → feed.xml.
 
 ## Commandes
 
@@ -74,6 +87,14 @@ Sur Windows, utiliser `py` plutôt que `python`.
   7 h UTC l'été, 8 h UTC l'hiver). Une garde d'idempotence arrête `run` si l'épisode du jour
   est déjà dans `docs/episodes.json` : pour regénérer, `run --force`.
   `say`, `--dry-run` et `--no-audio` ne sont pas concernés.
+- **Ne jamais renommer le dépôt GitHub en « lora »** : l'adresse du flux
+  (`iceman-ux.github.io/brief-matin/feed.xml`) changerait et tous les
+  abonnés perdraient le podcast. Le nom affiché se change dans
+  `podcast.title`. Même raison pour le préfixe `brief-matin-` des guid
+  d'épisode dans `feed.py` : le changer republierait tous les épisodes.
+- **Le raccourci iOS partagé s'appelle encore « Brief Matin »**
+  (`onboarding.shortcut_name`) : ne changer la clé qu'après avoir repartagé
+  un raccourci renommé « Lora » et mis à jour `onboarding.shortcut_url`.
 - **Le modèle n'a que les titres et chapôs**, jamais le texte des articles.
   Le prompt lui interdit d'inventer des liens de causalité — c'est le défaut
   le plus grave possible ici, parce qu'il est invisible à l'écoute.

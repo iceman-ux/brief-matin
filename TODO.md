@@ -1,4 +1,26 @@
-# Brief Matin — avancement
+# Lora (dépôt brief-matin) — avancement
+
+## Lora — identité, depuis le 25/09/2026
+
+- [x] Nom **Lora** affiché dans le flux, `index.html` et la page
+      d'installation (`podcast.title`). Dépôt et adresse du flux inchangés.
+- [x] Signatures fixes ajoutées par le code (`src/brand.py`, `brand` dans
+      `config.yaml`) : ouverture, date parlée, clin d'œil des jours fériés
+      (fixes + Pâques, lundi de Pâques, Ascension, Pentecôte calculés),
+      accroche du modèle vérifiée, clôture selon le jour. Prompt, règle 12
+      réécrite.
+- [ ] **Écouter `tests/lora-2026-09-24.mp3`** (ou juste
+      `tests/lora-ouverture.mp3`) : prononciation de « Lora. Il est
+      l'heure. ».
+- [ ] Surveiller les premiers briefs Lora : avertissements « accroche » ou
+      « retiré du script » dans les logs Actions.
+- [ ] **Sonal** composé par Adam : à brancher via `audio.intro_file` /
+      `outro_file`.
+- [ ] **Raccourci à renommer « Lora »**, repartager le lien iCloud, puis
+      mettre à jour `onboarding.shortcut_name` et `shortcut_url`.
+- [ ] Page d'installation à refaire dans la DA Lora (Art déco années 30,
+      nocturne ; palette #0B0E2A, #1B2466, #F2A33A, #C9953C, #8E1426).
+      Maquette en attente dans `Claude outputs/installer-maquette.html`.
 
 ## État au 24/09/2026
 

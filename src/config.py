@@ -11,6 +11,10 @@ import yaml
 
 ROOT = Path(__file__).resolve().parent.parent
 
+# Clés des réglages par jour de la semaine, dans l'ordre de weekday().
+DAY_NAMES = ["monday", "tuesday", "wednesday", "thursday",
+             "friday", "saturday", "sunday"]
+
 
 def _load_dotenv() -> None:
     """Charge un .env s'il existe, sans dépendance externe."""
@@ -72,6 +76,10 @@ class Config:
         return self.raw["memory"]
 
     @property
+    def brand(self) -> dict[str, Any]:
+        return self.raw["brand"]
+
+    @property
     def elevenlabs(self) -> dict[str, Any]:
         return self.raw["elevenlabs"]
 
@@ -93,14 +101,10 @@ class Config:
 
     def lookback_hours(self, weekday: int) -> int:
         table = self.brief["lookback_hours"]
-        names = ["monday", "tuesday", "wednesday", "thursday",
-                 "friday", "saturday", "sunday"]
-        return int(table.get(names[weekday], table["default"]))
+        return int(table.get(DAY_NAMES[weekday], table["default"]))
 
     def wants_weekly_recap(self, weekday: int) -> bool:
-        names = ["monday", "tuesday", "wednesday", "thursday",
-                 "friday", "saturday", "sunday"]
-        return names[weekday] in self.brief.get("weekly_recap_on", [])
+        return DAY_NAMES[weekday] in self.brief.get("weekly_recap_on", [])
 
 
 def load_config(path: str | Path | None = None) -> Config:

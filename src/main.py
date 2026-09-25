@@ -1,4 +1,4 @@
-"""Brief Matin — point d'entrée.
+"""Lora (dépôt brief-matin) — point d'entrée.
 
     python -m src.main run              # pipeline complet
     python -m src.main run --dry-run    # tout sauf les appels API payants
@@ -16,6 +16,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
+from . import brand as brand_mod
 from . import feed as feed_mod
 from . import sources as sources_mod
 from . import tts as tts_mod
@@ -44,8 +45,8 @@ def _fake_script(cfg) -> dict:
             {"speaker": a, "text": "Ceci est un brief de test. Le pipeline "
                                    "fonctionne de bout en bout."},
             {"speaker": b, "text": "Aucun appel payant n'a été effectué."},
-            {"speaker": a, "text": "À demain."},
         ],
+        "accroche": "Ce matin, le brief de test traverse tout le pipeline.",
     }
 
 
@@ -96,6 +97,7 @@ def cmd_run(args) -> int:
         data = writer_mod.validate(cfg, _fake_script(cfg))
     else:
         data = writer_mod.write_script(cfg, items, memory, now)
+    data = brand_mod.assemble(cfg, data, now.date())
     script = data["script"]
     words = writer_mod.word_count(script)
     minutes = words / cfg.brief["words_per_minute"]
