@@ -9,6 +9,11 @@
 - [x] Nouveau raccourci « Lora » (s'abonne dans Pocket Casts puis lance la
       lecture) et page d'installation en un geste, bonus « Lora au réveil »,
       autres applis repliées en bas.
+- [x] mp3 hébergés dans la Release GitHub `episodes` (`audio.storage`),
+      hors de l'historique Git ; repli sur `docs/episodes/` si l'envoi
+      échoue ; commande `stats` pour les téléchargements.
+- [ ] **Vérifier le 1er épisode servi par la Release dans Pocket Casts**
+      (Adam).
 - [ ] **Soumettre à Spotify for Creators** (Adam). Puis renseigner
       `onboarding.spotify_url` : le bouton Spotify apparaît tout seul.
 - [ ] **Filmer la création de l'automatisation, 15 s** (Adam). La poser dans

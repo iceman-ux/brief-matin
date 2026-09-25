@@ -32,7 +32,7 @@ podcast:
   # Format : https://<ton-pseudo-github>.github.io/<nom-du-repo>
   base_url: "https://iceman-ux.github.io/brief-matin"
   cover_image: "lora-cover.jpg"  # relatif à base_url, optionnel ; 3000 px de côté
-  retention_days: 30           # mp3 de plus de 30 jours retirés du flux ET supprimés de docs/
+  retention_days: 30           # mp3 de plus de 30 jours retirés du flux ET supprimés (docs/ et Release)
 
 onboarding:
   # Lien iCloud du raccourci « Lora » (iPhone : Raccourcis → appui long sur
@@ -320,6 +320,20 @@ audio:
   # gardée autour de la voix pour ne pas rogner une attaque ou une chute.
   trim_threshold_db: -40
   trim_margin_ms: 20
+  # Où vivent les mp3 publiés.
+  # releases : attachés à une Release GitHub, hors de l'historique Git (qui
+  #   grossirait de ~0,9 Go par an), et GitHub compte les téléchargements
+  #   (commande « stats »). Si l'envoi échoue, l'épisode part quand même
+  #   dans docs/episodes/, avec un avertissement.
+  # pages : commités dans docs/episodes/ et servis par GitHub Pages.
+  storage: releases
+  # Dépôt et tag de la Release unique qui porte tous les épisodes, créée au
+  # premier envoi. Changer l'un ou l'autre casse l'URL des épisodes publiés.
+  release_repo: "iceman-ux/brief-matin"
+  release_tag: "episodes"
+  # Au-delà, un appel à la CLI gh est abandonné : l'envoi bascule alors sur
+  # docs/episodes/ plutôt que de bloquer le run.
+  release_timeout_seconds: 180
 
 # Finition audio : compression légère puis normalisation, avant le montage
 # et l'unique encodage mp3 (débit et fréquence d'audio ci-dessus). Appliquée à chaque brief (run,

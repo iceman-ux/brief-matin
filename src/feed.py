@@ -5,11 +5,13 @@ from __future__ import annotations
 
 import json
 import re
+import sys
 from datetime import datetime, timedelta, timezone
 from email.utils import format_datetime
 from pathlib import Path
 from xml.sax.saxutils import escape
 
+from . import release as release_mod
 from .config import ROOT, Config
 
 DOCS = ROOT / "docs"
@@ -36,14 +38,44 @@ def find_episode(date: str) -> dict | None:
     return next((e for e in _load_index() if e["date"] == date), None)
 
 
-def register_episode(cfg: Config, *, date: str, filename: str, title: str,
-                     summary: str, duration: int, size: int,
-                     topics: list[dict]) -> list[dict]:
+def episode_url(cfg: Config, filename: str) -> str:
+    return f"{cfg.base_url}/episodes/{filename}"
+
+
+def publish_audio(cfg: Config, mp3_path: Path) -> tuple[str, str]:
+    """Met le mp3 en ligne selon audio.storage ; renvoie (url, stockage).
+
+    Un envoi à la Release qui échoue ne bloque jamais l'épisode : il reste
+    dans docs/episodes/, servi par GitHub Pages comme avant."""
+    if cfg.audio["storage"] == "releases":
+        try:
+            url = release_mod.upload(cfg, mp3_path)
+        except release_mod.ReleaseError as exc:
+            print(f"   ⚠⚠ ENVOI À LA RELEASE ÉCHOUÉ — {exc}\n"
+                  f"   ⚠⚠ Repli : l'épisode est servi depuis "
+                  f"docs/episodes/{mp3_path.name} (GitHub Pages).",
+                  file=sys.stderr)
+        else:
+            # Plus rien à committer : le fichier vit dans la Release. Un
+            # épisode du même jour déjà suivi par Git part avec lui.
+            mp3_path.unlink()
+            print(f"   → envoyé à la Release « {cfg.audio['release_tag']} »")
+            return url, "releases"
+    return episode_url(cfg, mp3_path.name), "pages"
+
+
+def register_episode(cfg: Config, *, date: str, filename: str, url: str,
+                     storage: str, title: str, summary: str, duration: int,
+                     size: int, topics: list[dict]) -> list[dict]:
     """Ajoute (ou remplace) l'épisode du jour, applique la rétention."""
     episodes = [e for e in _load_index() if e["date"] != date]
     episodes.append({
         "date": date,
         "filename": filename,
+        # Mémorisée à la publication : le flux ne la recalcule pas, sinon
+        # changer audio.storage déplacerait les épisodes déjà publiés.
+        "url": url,
+        "storage": storage,
         "title": title,
         "summary": summary,
         "duration": duration,
@@ -65,9 +97,31 @@ def register_episode(cfg: Config, *, date: str, filename: str, title: str,
         mp3 = EPISODES_DIR / old["filename"]
         if mp3.exists():
             mp3.unlink()
+    if (cfg.audio["storage"] == "releases"
+            or any(e.get("storage") == "releases" for e in dropped)):
+        _prune_release(cfg, cutoff)
 
     _save_index(episodes)
     return episodes
+
+
+def _prune_release(cfg: Config, cutoff: str) -> None:
+    # Un nettoyage raté ne coûte que de la place : l'épisode du jour sort
+    # quand même, et le run suivant rebalaiera toute la Release.
+    try:
+        removed = release_mod.prune(cfg, cutoff)
+    except release_mod.ReleaseError as exc:
+        print(f"   ⚠ Rétention de la Release non appliquée — {exc}",
+              file=sys.stderr)
+        return
+    if removed:
+        print(f"   → {len(removed)} épisode(s) expiré(s) retiré(s) de la "
+              "Release")
+
+
+def _audio_url(cfg: Config, episode: dict) -> str:
+    # Les épisodes publiés avant l'URL mémorisée étaient tous dans docs/.
+    return episode.get("url") or episode_url(cfg, episode["filename"])
 
 
 def _fmt_duration(seconds: int) -> str:
@@ -95,7 +149,7 @@ def build_feed(cfg: Config, episodes: list[dict] | None = None) -> Path:
 
     items = []
     for ep in episodes:
-        url = f"{base}/episodes/{ep['filename']}"
+        url = _audio_url(cfg, ep)
         notes = ep["summary"]
         if ep.get("topics"):
             lines = "\n".join(f"• {t.get('title', '')}" for t in ep["topics"])
@@ -172,7 +226,8 @@ def _write_landing(cfg: Config, episodes: list[dict]) -> None:
     base = cfg.base_url
     rows = "\n".join(
         f'      <li><span class="d">{e["date"]}</span> '
-        f'<a href="episodes/{e["filename"]}">{escape(e["title"])}</a> '
+        f'<a href="{escape(_audio_url(cfg, e))}">'
+        f'{escape(e["title"])}</a> '
         f'<span class="m">{_fmt_duration(e["duration"])}</span></li>'
         for e in episodes[:15]
     ) or "      <li>Aucun épisode pour l'instant.</li>"
@@ -316,7 +371,7 @@ def _write_installer(cfg: Config, episodes: list[dict]) -> None:
     if latest:
         note = f'{onboarding["pitch"]} {onboarding["listen_prompt"]}'
         player = (f'\n      <audio controls preload="none" src="'
-                  f'{attr(base + "/episodes/" + latest["filename"])}"></audio>')
+                  f'{attr(_audio_url(cfg, latest))}"></audio>')
     else:
         note = f'{onboarding["pitch"]} {onboarding["install_prompt"]}'
         player = ""

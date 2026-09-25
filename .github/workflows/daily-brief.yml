@@ -21,7 +21,7 @@ on:
         default: false
 
 permissions:
-  contents: write         # nécessaire pour committer l'épisode et la mémoire
+  contents: write         # committer l'épisode et la mémoire, attacher le mp3 à la Release
 
 concurrency:
   group: brief-matin
@@ -57,6 +57,9 @@ jobs:
       - name: Générer le brief
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          # Lu par la CLI gh pour attacher le mp3 à la Release ; GitHub le
+          # masque dans les logs, et le code ne l'affiche jamais.
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DRY_RUN: ${{ inputs.dry_run }}
         run: |
           if [ "$DRY_RUN" = "true" ]; then
@@ -70,6 +73,9 @@ jobs:
           git config user.name  "brief-matin[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add docs/ data/covered.json data/scripts/
+          # docs/episodes/*.mp3 est ignoré : il n'y reste un mp3 que si
+          # l'envoi à la Release a échoué, et ce repli doit être publié.
+          git add -f docs/episodes/
           if git diff --staged --quiet; then
             echo "Rien de nouveau à publier."
           else

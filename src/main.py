@@ -6,6 +6,7 @@
     python -m src.main say [AAAA-MM-JJ] # resynthèse d'un script existant
     python -m src.main check-feeds      # diagnostic des sources RSS
     python -m src.main rebuild-feed     # régénère feed.xml depuis l'index
+    python -m src.main stats            # téléchargements des épisodes (Release)
 """
 
 from __future__ import annotations
@@ -18,6 +19,7 @@ from zoneinfo import ZoneInfo
 
 from . import brand as brand_mod
 from . import feed as feed_mod
+from . import release as release_mod
 from . import sources as sources_mod
 from . import tts as tts_mod
 from . import writer as writer_mod
@@ -151,9 +153,11 @@ def cmd_run(args) -> int:
     # 5 ─ Publication
     print("\n5. Flux podcast")
     title, summary = _episode_texts(date, data["topics"])
+    url, storage = feed_mod.publish_audio(cfg, mp3_path)
     episodes = feed_mod.register_episode(
-        cfg, date=date, filename=mp3_name, title=title, summary=summary,
-        duration=duration, size=size, topics=data["topics"])
+        cfg, date=date, filename=mp3_name, url=url, storage=storage,
+        title=title, summary=summary, duration=duration, size=size,
+        topics=data["topics"])
     feed_path = feed_mod.build_feed(cfg, episodes)
     print(f"   → {len(episodes)} épisodes en ligne, "
           f"{feed_path.relative_to(ROOT)} régénéré")
@@ -269,9 +273,11 @@ def cmd_say(args) -> int:
 
     print("\n3. Flux podcast")
     title, summary = _episode_texts(date, topics)
+    url, storage = feed_mod.publish_audio(cfg, mp3_path)
     episodes = feed_mod.register_episode(
-        cfg, date=date, filename=mp3_name, title=title, summary=summary,
-        duration=duration, size=size, topics=topics)
+        cfg, date=date, filename=mp3_name, url=url, storage=storage,
+        title=title, summary=summary, duration=duration, size=size,
+        topics=topics)
     feed_path = feed_mod.build_feed(cfg, episodes)
     print(f"   → {len(episodes)} épisodes en ligne, "
           f"{feed_path.relative_to(ROOT)} régénéré")
@@ -422,6 +428,26 @@ def cmd_rebuild_feed(args) -> int:
     return 0
 
 
+def cmd_stats(args) -> int:
+    cfg = load_config(args.config)
+    try:
+        assets = release_mod.list_assets(cfg)
+    except release_mod.ReleaseError as exc:
+        print(f"✗ Release « {cfg.audio['release_tag']} » illisible — {exc}",
+              file=sys.stderr)
+        return 2
+    # Les téléchargements comptent aussi les nouvelles tentatives d'une
+    # appli : c'est un ordre de grandeur, pas un nombre d'auditeurs.
+    assets.sort(key=lambda a: a.name, reverse=True)
+    for asset in assets:
+        match = release_mod.EPISODE_ASSET.match(asset.name)
+        day = match.group(1) if match else asset.created[:10]
+        print(f"   {day}  {asset.downloads:>5}  {asset.name}")
+    total = sum(a.downloads for a in assets)
+    print(f"   {'total':<10}  {total:>5}  ({len(assets)} fichier(s))")
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="brief-matin", description=__doc__)
     parser.add_argument("--config", default=None, help="chemin d'un autre config.yaml")
@@ -480,6 +506,10 @@ def main(argv: list[str] | None = None) -> int:
 
     rebuild = sub.add_parser("rebuild-feed", help="régénère feed.xml et index.html")
     rebuild.set_defaults(func=cmd_rebuild_feed)
+
+    stats = sub.add_parser("stats", help="téléchargements de chaque épisode "
+                                         "de la Release, en lecture seule")
+    stats.set_defaults(func=cmd_stats)
 
     args = parser.parse_args(argv)
     try:

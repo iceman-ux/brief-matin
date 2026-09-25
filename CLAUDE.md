@@ -36,16 +36,19 @@ src/brand.py         réplique d'ouverture, fichiers de marque, jours fériés, 
 src/writer.py        construction du prompt, appel LLM, garde-fous sur la sortie
 src/tts.py           synthèse vocale, découpage, finition, montage des signatures, mp3
 src/feed.py          flux RSS podcast, page d'accueil, rétention des épisodes
+src/release.py       hébergement des mp3 dans la Release GitHub, par la CLI gh
 src/retry.py         réessais avec backoff exponentiel sur erreurs temporaires
 src/main.py          orchestration + CLI
-docs/                publié par GitHub Pages (feed.xml, index.html, installer.html, episodes/,
-                     cover et décor SVG de la page d'installation)
+docs/                publié par GitHub Pages (feed.xml, index.html, installer.html,
+                     episodes.json, cover et décor SVG de la page d'installation ;
+                     episodes/ ne garde que les mp3 d'avant la Release et les replis)
 assets/brand/        signatures enregistrées, figées (ouverture, clôtures du jour)
 tools/analyse_voix.py  mesure audio pour le protocole d'écoute, hors pipeline
                        (numpy, scipy — hors requirements.txt, le run n'en a pas besoin)
 ```
 
-Pipeline : RSS → dédoublonnage → mémoire → LLM → signatures → TTS → mp3 → feed.xml.
+Pipeline : RSS → dédoublonnage → mémoire → LLM → signatures → TTS → mp3 →
+Release → feed.xml.
 
 ## Commandes
 
@@ -57,6 +60,7 @@ python -m src.main run --no-audio   # script seul, pour itérer sur le prompt
 python -m src.main say [AAAA-MM-JJ] # resynthèse d'un script existant, sans LLM
 python -m src.main check-feeds      # diagnostic des sources RSS
 python -m src.main rebuild-feed     # régénère feed.xml depuis docs/episodes.json
+python -m src.main stats            # téléchargements de chaque épisode de la Release
 ```
 
 Sur Windows, utiliser `py` plutôt que `python`.
@@ -111,6 +115,20 @@ Sur Windows, utiliser `py` plutôt que `python`.
 - **Le raccourci iOS partagé s'appelle « Lora »** depuis le 25/09
   (`onboarding.shortcut_name`) : ne changer ce nom qu'avec
   `onboarding.shortcut_url`, après avoir repartagé le raccourci renommé.
+- **Les mp3 ne sont plus dans Git** depuis le 26/09 (`audio.storage:
+  releases`) : chaque épisode est attaché à la Release `episodes` par
+  `gh release upload` (jeton `GITHUB_TOKEN` du workflow, aucun secret
+  ajouté), puis retiré de `docs/`. URL :
+  `github.com/iceman-ux/brief-matin/releases/download/episodes/<fichier>`,
+  une redirection 302. **Repli** : si l'envoi échoue (gh absent, pas
+  connecté, réseau), l'épisode sort quand même depuis `docs/episodes/`,
+  avec un avertissement ⚠⚠ ; le workflow l'ajoute avec `git add -f`, car
+  `docs/episodes/*.mp3` est ignoré. L'URL de chaque épisode est mémorisée
+  dans `docs/episodes.json` (`url`, `storage`) : le flux ne la recalcule
+  jamais. La rétention supprime aussi les fichiers expirés de la Release.
+  `stats` donne les téléchargements comptés par GitHub, relances des
+  applis comprises : un ordre de grandeur, pas des auditeurs. En local,
+  sans `gh` connecté, `run` et `say` publient donc dans `docs/`.
 - **Le modèle n'a que les titres et chapôs**, jamais le texte des articles.
   Le prompt lui interdit d'inventer des liens de causalité — c'est le défaut
   le plus grave possible ici, parce qu'il est invisible à l'écoute.

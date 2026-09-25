@@ -20,3 +20,7 @@ Claude outputs/
 
 # Fichier local de Claude Code (tâches programmées de la session).
 .claude/scheduled_tasks.lock
+# Les mp3 vivent dans la Release « episodes » (audio.storage). Les fichiers
+# déjà suivis le restent jusqu'à leur expiration ; un épisode de repli, servi
+# depuis docs/, est ajouté de force par le workflow.
+docs/episodes/*.mp3
