@@ -1,5 +1,68 @@
 [
   {
+    "date": "2026-09-25",
+    "filename": "brief-2026-09-25.mp3",
+    "title": "25/09 — Macron intervient sur les carburants",
+    "summary": "Brief du 2026-09-25. Macron intervient sur les carburants · Repas à un euro : Crous saturés · Nétanyahou défie l'ONU · Salariés de SFR en grève · Uber : commissions jugées abusives · Frappe massive de drones sur Kiev",
+    "duration": 203,
+    "size": 1019757,
+    "topics": [
+      {
+        "slug": "carburants-crise-macron",
+        "title": "Macron intervient sur les carburants",
+        "category": "france",
+        "sources": [
+          "Le Monde",
+          "France 24",
+          "Le Figaro"
+        ]
+      },
+      {
+        "slug": "crous-repas-etudiants",
+        "title": "Repas à un euro : Crous saturés",
+        "category": "france",
+        "sources": [
+          "Le Monde"
+        ]
+      },
+      {
+        "slug": "onu-netanyahou",
+        "title": "Nétanyahou défie l'ONU",
+        "category": "monde",
+        "sources": [
+          "Le Monde",
+          "France 24",
+          "franceinfo"
+        ]
+      },
+      {
+        "slug": "sfr-rachat-salaries",
+        "title": "Salariés de SFR en grève",
+        "category": "france",
+        "sources": [
+          "Le Monde"
+        ]
+      },
+      {
+        "slug": "uber-tarification-chauffeurs",
+        "title": "Uber : commissions jugées abusives",
+        "category": "eco",
+        "sources": [
+          "Le Monde"
+        ]
+      },
+      {
+        "slug": "ukraine-frappes-drones",
+        "title": "Frappe massive de drones sur Kiev",
+        "category": "monde",
+        "sources": [
+          "Le Monde"
+        ]
+      }
+    ],
+    "pub_date": "2026-09-25T08:08:49.135426+00:00"
+  },
+  {
     "date": "2026-09-24",
     "filename": "brief-2026-09-24.mp3",
     "title": "24/09 — Rencontre Trump-Xi à Washington",
