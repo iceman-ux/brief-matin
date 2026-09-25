@@ -264,9 +264,10 @@ def _write_installer(cfg: Config, episodes: list[dict]) -> None:
     shortcut_name = (onboarding.get("shortcut_name") or "").strip() or pod["title"]
     disclosure = (pod.get("ai_disclosure") or "").strip()
     name = brand["name"]
-    signature = (f'{escape(brand["closing_prefix"])}'
+    closing_name, closing_wish = brand["closing_display"]
+    signature = (f'{escape(closing_name)}'
                  '<span class="losange" aria-hidden="true"></span>'
-                 f'{escape(brand["closing_by_day"]["default"])}')
+                 f'{escape(closing_wish)}')
 
     def attr(value: str) -> str:
         return escape(value, {'"': "&quot;"})
@@ -407,7 +408,7 @@ def _write_installer(cfg: Config, episodes: list[dict]) -> None:
 
   <main>
     <section class="ecoute" aria-label="Écouter le brief du jour">
-      <p class="formule">« {escape(brand["opening"])} »</p>
+      <p class="formule">« {escape(brand["opening_display"])} »</p>
       <p class="formule-note">{escape(note)}</p>{player}
     </section>
 

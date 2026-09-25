@@ -5,17 +5,28 @@
 - [x] Nom **Lora** affiché dans le flux, `index.html` et la page
       d'installation (`podcast.title`). Dépôt et adresse du flux inchangés.
 - [x] Signatures fixes ajoutées par le code (`src/brand.py`, `brand` dans
-      `config.yaml`) : ouverture, date parlée, clin d'œil des jours fériés
-      (fixes + Pâques, lundi de Pâques, Ascension, Pentecôte calculés),
-      accroche du modèle vérifiée, clôture selon le jour. Prompt, règle 12
-      réécrite.
-- [ ] **Écouter `tests/lora-2026-09-24.mp3`** (ou juste
-      `tests/lora-ouverture.mp3`) : prononciation de « Lora. Il est
-      l'heure. ».
-- [ ] Surveiller les premiers briefs Lora : avertissements « accroche » ou
-      « retiré du script » dans les logs Actions.
-- [ ] **Sonal** composé par Adam : à brancher via `audio.intro_file` /
-      `outro_file`.
+      `config.yaml`) : date parlée, clin d'œil des jours fériés (fixes +
+      Pâques, lundi de Pâques, Ascension, Pentecôte calculés), accroche du
+      modèle vérifiée. Prompt, règle 12 réécrite.
+- [x] **Ouverture choisie : I-marc-1** (« Ici Lora, il est l'heure. »,
+      Marc), seule prise où « Lora » ne s'entend pas « l'aurore ». **Clôture
+      choisie : C1-marc** (« C'était Lora. Belle journée. »). Figées dans
+      `assets/brand/` le 25/09, à −17 LUFS (limiteur léger, choix d'Adam :
+      −16 et TP ≤ −3 étaient incompatibles avec un simple gain). Jamais
+      régénérées.
+- [x] « Lora » ne passe plus jamais par le TTS : réplique variable
+      « Et aujourd'hui, … » dite par Marc, garde-fou `strip_brand_name`.
+- [x] Clôtures du lundi (« Belle semaine. », prise F-lundi-3) et du
+      vendredi (« Bon week-end. », F-vendredi-1), montées sur le « C'était
+      Lora. » de C1-marc. Autres prises et montages :
+      `tests/ident/ecoute-5.html`.
+- [ ] **Écouter `tests/episode-lora.mp3`** (épisode d'essai du 26/09,
+      non publié), puis pousser.
+- [ ] Surveiller les premiers briefs Lora : avertissements « accroche »,
+      « retiré du script » ou « Lora » dans les logs Actions.
+- [ ] **Sonal** composé par Adam : le poser dans `assets/brand/` et
+      renseigner `brand.sonal_file`. Joué avant l'ouverture, 150 ms avant
+      elle.
 - [ ] **Raccourci à renommer « Lora »**, repartager le lien iCloud, puis
       mettre à jour `onboarding.shortcut_name` et `shortcut_url`.
 - [x] Page d'installation dans la DA Lora (Art déco années 30, nocturne ;

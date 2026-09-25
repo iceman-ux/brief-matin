@@ -46,28 +46,57 @@ onboarding:
   listen_prompt: "Écoute celui d'aujourd'hui :"
   install_prompt: "Trois gestes pour l'installer."
 
-# Signatures de la marque. Ouverture et clôture sont ajoutées par le code,
-# jamais demandées au modèle : un modèle finit toujours par dévier d'une
-# formule censée rester immuable. Le modèle n'écrit que l'accroche (et le
-# clin d'œil d'un jour férié), l'ouverture fixe les encadre.
+# Signatures de la marque. L'ouverture et la clôture sont des fichiers audio
+# figés (assets/brand/, WAV 24 kHz mono, −17 LUFS, true peak ≤ −3 dBFS) :
+# le TTS prononce mal « Lora » une fois sur deux, et un modèle de rédaction
+# finit toujours par dévier d'une formule censée rester immuable. Le nom
+# « Lora » ne passe donc jamais par le TTS. Le modèle n'écrit que
+# l'accroche (et le clin d'œil d'un jour férié) ; le code les fait précéder
+# de date_lead et de la date, dans une réplique dite par speaker.
 brand:
   name: "Lora"
-  # Première phrase du brief, suivie de la date (« Mardi 29 septembre. »),
-  # du clin d'œil éventuel, puis de l'accroche du modèle.
-  opening: "Lora. Il est l'heure."
-  # L'accroche doit commencer par ce préfixe et tenir en ce nombre de mots
-  # au plus. Un écart donne un avertissement, jamais un échec du run.
-  hook_prefix: "Ce matin,"
+  # Fichiers, relatifs à la racine du dépôt. Un fichier absent n'arrête
+  # jamais le run : l'épisode sort sans lui, avec un avertissement.
+  # Ouverture : « Ici Lora, il est l'heure. » (prise I-marc-1, Marc).
+  opening_file: "assets/brand/ouverture.wav"
+  # Clôture selon le jour. Jours en anglais, comme dans
+  # brief.lookback_hours ; default vaut pour tous les autres. default est
+  # « C'était Lora. Belle journée. » (prise C1-marc) ; lundi et vendredi
+  # sont montés à partir de son « C'était Lora. » (cloture-nom.wav).
+  closing_files:
+    default: "assets/brand/cloture.wav"
+    monday: "assets/brand/cloture-lundi.wav"
+    friday: "assets/brand/cloture-vendredi.wav"
+  # Sonal composé par Adam, joué avant l'ouverture. Vide : pas de sonal.
+  # Tout format que ffmpeg lit ; il est décodé puis encodé une seule fois
+  # avec le reste de l'épisode.
+  sonal_file: ""
+  # Silences du montage, en ms, de voix à voix : les silences de tête et de
+  # queue de chaque morceau sont coupés avant, pour que ces écarts soient
+  # exacts. head : avant l'ouverture (après le sonal s'il y en a un).
+  gaps_ms:
+    head: 150
+    after_opening: 350
+    before_closing: 1000
+  # Le texte parlé du brief commence par ces mots, la date en minuscules
+  # (« Et aujourd'hui, jeudi 1er octobre. »), le clin d'œil éventuel, puis
+  # l'accroche du modèle.
+  date_lead: "Et aujourd'hui,"
+  # L'accroche tient en ce nombre de mots au plus. Un écart donne un
+  # avertissement, jamais un échec du run.
   hook_max_words: 20
-  # Clôture : préfixe fixe puis formule du jour. Jours en anglais, comme
-  # dans brief.lookback_hours ; default vaut pour tous les autres.
-  closing_prefix: "C'était Lora."
-  closing_by_day:
-    default: "Belle journée."
-    monday: "Belle semaine."
-    friday: "Bon week-end."
-  # Voix qui porte l'ouverture et la clôture (nom d'un voices.speakers).
-  speaker: "Léa"
+  # Débuts d'accroche retirés (avec avertissement), la majuscule rétablie :
+  # la réplique dit déjà « Et aujourd'hui, ».
+  hook_strip_prefixes:
+    - "Ce matin,"
+    - "Aujourd'hui,"
+  # Voix qui dit la réplique variable (nom d'un voices.speakers) : celle des
+  # fichiers figés, pour que l'enchaînement s'entende d'une seule voix.
+  speaker: "Marc"
+  # Textes des signatures affichés sur la page d'installation. Jamais
+  # envoyés au TTS : ils doivent seulement correspondre aux fichiers.
+  opening_display: "Ici Lora, il est l'heure."
+  closing_display: ["C'était Lora.", "Belle journée."]
   # Jours où le modèle écrit une phrase de clin d'œil après la date.
   # Fêtes à date fixe (MM-JJ). On peut y ajouter des dates symboliques.
   fixed_days:
@@ -95,8 +124,10 @@ brand:
     - "Bienvenue"
     - "Nous sommes le"
     - "On est le"
-    - "Lora."
+    - "Lora"
+    - "Ici Lora"
     - "Il est l'heure"
+    - "Et aujourd'hui"
   strip_closing:
     - "C'est tout pour"
     - "C'était"
@@ -243,9 +274,11 @@ audio:
   # audio bordé de silence : on le rabote, puis on impose cet écart-là, qui
   # correspond à une respiration normale entre deux sujets.
   chunk_gap_ms: 320
-  # Jingle optionnel collé en tête (mets un mp3 dans assets/ et donne le nom)
-  intro_file: null
-  outro_file: null
+  # Écart entre la voix et le bord pour couper les silences de tête et de
+  # queue avant le montage : seuil (dBFS, sur des fenêtres de 10 ms) et marge
+  # gardée autour de la voix pour ne pas rogner une attaque ou une chute.
+  trim_threshold_db: -40
+  trim_margin_ms: 20
 
 # Finition audio : compression légère puis normalisation, réencodage au
 # débit et à la fréquence d'audio ci-dessus. Appliquée à chaque brief (run,

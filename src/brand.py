@@ -1,23 +1,25 @@
-"""Signatures de la marque : ouverture et clôture fixes, jours fériés.
+"""Signatures de la marque : réplique d'ouverture, fichiers figés, jours fériés.
 
 Le modèle n'écrit que le corps du brief, l'accroche et l'éventuel clin
-d'œil : les formules fixes sont posées ici, parce qu'un modèle finit
-toujours par dévier d'une phrase censée rester immuable.
+d'œil. L'ouverture et la clôture sont des enregistrements figés, montés par
+tts.py : le TTS prononce mal « Lora », qui ne doit jamais lui être envoyé.
 """
 
 from __future__ import annotations
 
 import re
 from datetime import date, timedelta
+from pathlib import Path
 from typing import Any
 
-from .config import DAY_NAMES, Config
+from .config import DAY_NAMES, ROOT, Config
 
 JOURS = ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"]
 MOIS = ["", "janvier", "février", "mars", "avril", "mai", "juin", "juillet",
         "août", "septembre", "octobre", "novembre", "décembre"]
 
 _SENTENCE_END = re.compile(r"(?<=[.!?…])\s+")
+_BRAND_NAME = re.compile(r"\blora\b", re.I)
 
 
 def easter_sunday(year: int) -> date:
@@ -47,16 +49,37 @@ def occasion(cfg: Config, day: date) -> str | None:
 
 
 def spoken_date(day: date) -> str:
-    """« Mardi 29 septembre. » : sans l'année, qu'on n'entend pas au réveil."""
+    """« mardi 29 septembre. » : sans l'année, qu'on n'entend pas au réveil,
+    en minuscules parce qu'elle suit « Et aujourd'hui, »."""
     number = "1er" if day.day == 1 else str(day.day)
-    return f"{JOURS[day.weekday()].capitalize()} {number} {MOIS[day.month]}."
+    return f"{JOURS[day.weekday()]} {number} {MOIS[day.month]}."
 
 
-def closing_text(cfg: Config, day: date) -> str:
-    brand = cfg.brand
-    table = brand["closing_by_day"]
-    wish = table.get(DAY_NAMES[day.weekday()], table["default"])
-    return f"{brand['closing_prefix']} {wish}"
+def _asset(cfg: Config, relative: str | None, label: str) -> Path | None:
+    """Chemin d'un fichier de marque, None s'il n'est pas configuré ou
+    manque : l'épisode sort quand même, sans lui."""
+    if not relative:
+        return None
+    path = ROOT / relative
+    if not path.exists():
+        print(f"   ⚠⚠ {label} introuvable ({relative}) : l'épisode sort "
+              "SANS cette signature.")
+        return None
+    return path
+
+
+def opening_file(cfg: Config) -> Path | None:
+    return _asset(cfg, cfg.brand.get("opening_file"), "ouverture")
+
+
+def closing_file(cfg: Config, day: date) -> Path | None:
+    table = cfg.brand.get("closing_files") or {}
+    relative = table.get(DAY_NAMES[day.weekday()], table.get("default"))
+    return _asset(cfg, relative, "clôture")
+
+
+def sonal_file(cfg: Config) -> Path | None:
+    return _asset(cfg, cfg.brand.get("sonal_file"), "sonal")
 
 
 def signature_speaker(cfg: Config) -> str:
@@ -65,24 +88,49 @@ def signature_speaker(cfg: Config) -> str:
     return wanted if wanted in known else known[0]
 
 
-def hook_warnings(cfg: Config, hook: str) -> list[str]:
+def clean_hook(cfg: Config, hook: str) -> tuple[str, list[str]]:
+    """Retire un « Ce matin, » de tête : la réplique dit déjà « Et
+    aujourd'hui, ». Signale les autres écarts sans y toucher."""
     brand = cfg.brand
     if not hook:
-        return ["le modèle n'a pas fourni d'accroche : l'ouverture s'arrête "
-                "à la date."]
+        return hook, ["le modèle n'a pas fourni d'accroche : la réplique "
+                      "d'ouverture s'arrête à la date."]
+    warnings = []
+    for prefix in brand.get("hook_strip_prefixes") or []:
+        if _normalize(hook).startswith(_normalize(prefix)):
+            rest = hook[len(prefix):].lstrip()
+            if rest:
+                warnings.append(f"« {prefix} » retiré en tête de l'accroche : "
+                                f"« {hook} »")
+                hook = rest[0].upper() + rest[1:]
+            break
     problems = []
-    if not hook.startswith(brand["hook_prefix"]):
-        problems.append(f"ne commence pas par « {brand['hook_prefix']} »")
     words = len(hook.split())
     if words > brand["hook_max_words"]:
         problems.append(f"compte {words} mots, pour "
                         f"{brand['hook_max_words']} au plus")
     if "!" in hook or "?" in hook:
         problems.append("contient « ! » ou « ? »")
-    if not problems:
-        return []
-    return [f"accroche gardée telle quelle, mais elle {', '.join(problems)} : "
-            f"« {hook} »"]
+    if problems:
+        warnings.append(f"accroche gardée telle quelle, mais elle "
+                        f"{', '.join(problems)} : « {hook} »")
+    return hook, warnings
+
+
+def strip_brand_name(script: list[dict]) -> tuple[list[dict], list[str]]:
+    """Retire toute phrase qui contient « Lora » : le nom n'existe que dans
+    les fichiers figés, le TTS le prononce mal une fois sur deux."""
+    kept_lines: list[dict] = []
+    removed: list[str] = []
+    for line in script:
+        sentences = _SENTENCE_END.split(line["text"].strip())
+        kept = [s for s in sentences if not _BRAND_NAME.search(s)]
+        removed.extend(s for s in sentences if _BRAND_NAME.search(s))
+        if kept:
+            kept_lines.append({**line, "text": " ".join(kept)})
+    warnings = [f"phrase retirée, « Lora » ne passe jamais par le TTS : "
+                f"« {s} »" for s in removed]
+    return kept_lines, warnings
 
 
 def _normalize(text: str) -> str:
@@ -123,15 +171,15 @@ def strip_signatures(cfg: Config, script: list[dict]) -> tuple[list[dict], list[
 
 
 def assemble(cfg: Config, data: dict[str, Any], day: date) -> dict[str, Any]:
-    """Encadre le corps écrit par le modèle des signatures fixes.
+    """Fait précéder le corps écrit par le modèle de la réplique d'ouverture.
 
-    Les écarts du modèle sont signalés, jamais bloquants : un brief à
-    l'accroche trop longue vaut mieux que pas de brief.
+    Le script ne contient ni l'ouverture ni la clôture, qui sont des
+    fichiers montés par tts.py. Les écarts du modèle sont signalés, jamais
+    bloquants : un brief à l'accroche trop longue vaut mieux que pas de brief.
     """
     brand = cfg.brand
-    hook = str(data.get("accroche") or "").strip()
+    hook, warnings = clean_hook(cfg, str(data.get("accroche") or "").strip())
     wink = str(data.get("clin_oeil") or "").strip()
-    warnings = hook_warnings(cfg, hook)
 
     today = occasion(cfg, day)
     if wink and not today:
@@ -149,11 +197,12 @@ def assemble(cfg: Config, data: dict[str, Any], day: date) -> dict[str, Any]:
     if not body:
         raise ValueError("Script vide une fois salutation et clôture retirées.")
 
-    speaker = signature_speaker(cfg)
     opening = " ".join(part for part in
-                       (brand["opening"], spoken_date(day), wink, hook) if part)
-    data["script"] = [{"speaker": speaker, "text": opening}, *body,
-                      {"speaker": speaker, "text": closing_text(cfg, day)}]
+                       (brand["date_lead"], spoken_date(day), wink, hook) if part)
+    script, named = strip_brand_name(
+        [{"speaker": signature_speaker(cfg), "text": opening}, *body])
+    warnings.extend(named)
+    data["script"] = script
     for warning in warnings:
         print(f"   ⚠ {warning}")
     return data

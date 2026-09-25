@@ -4,17 +4,20 @@ audio et encodage mp3.
 Le modèle renvoie du PCM brut 24 kHz 16 bits mono (les modèles 3.8 un WAV,
 dont on retire l'en-tête pour revenir au PCM). Deux conséquences utiles :
 - on peut concaténer plusieurs morceaux en collant simplement les octets ;
-- tout le traitement ffmpeg (jingles, finition, mp3) se fait à la fin, sur
-  l'audio entier.
+- tout le traitement ffmpeg (finition, montage des signatures, mp3) se fait
+  à la fin, sur l'audio entier, avec un seul encodage mp3.
 """
 
 from __future__ import annotations
 
+import array
 import io
+import math
 import os
 import subprocess
 import tempfile
 import wave
+from datetime import date
 from pathlib import Path
 
 from .config import Config, api_key, test_api_key
@@ -288,31 +291,9 @@ def _pcm_to_wav(pcm: bytes, sample_rate: int) -> bytes:
 def _encode(wav_bytes: bytes, out_path: Path, cfg: Config,
             codec: list[str]) -> None:
     audio = cfg.audio
-    inputs = ["-i", "pipe:0"]
-    filter_args: list[str] = []
-
-    intro, outro = audio.get("intro_file"), audio.get("outro_file")
-    extra_files = [f for f in (intro, outro) if f]
-    if extra_files:
-        # Concaténation jingle + voix (+ outro) via le filtre concat.
-        from .config import ROOT
-        paths = []
-        if intro:
-            paths.append(str(ROOT / "assets" / intro))
-        paths.append("pipe:0")
-        if outro:
-            paths.append(str(ROOT / "assets" / outro))
-        inputs = []
-        for p in paths:
-            inputs += ["-i", p]
-        n = len(paths)
-        chain = "".join(f"[{i}:a]" for i in range(n))
-        filter_args = ["-filter_complex", f"{chain}concat=n={n}:v=0:a=1[out]",
-                       "-map", "[out]"]
-
     cmd = [
         "ffmpeg", "-hide_banner", "-loglevel", "error", "-y",
-        *inputs, *filter_args, *codec,
+        "-i", "pipe:0", *codec,
         "-ac", "1", "-ar", str(audio["sample_rate"]),
         str(out_path),
     ]
@@ -321,9 +302,126 @@ def _encode(wav_bytes: bytes, out_path: Path, cfg: Config,
         raise RuntimeError(f"ffmpeg a échoué :\n{proc.stderr.decode(errors='replace')}")
 
 
+def _decode_pcm(path: Path, sample_rate: int) -> bytes:
+    """N'importe quel fichier audio -> PCM 16 bits mono au format du TTS."""
+    proc = subprocess.run(
+        ["ffmpeg", "-hide_banner", "-loglevel", "error", "-i", str(path),
+         "-f", "s16le", "-ac", "1", "-ar", str(sample_rate), "pipe:1"],
+        capture_output=True)
+    if proc.returncode != 0 or not proc.stdout:
+        raise RuntimeError(proc.stderr.decode(errors="replace").strip()
+                           or "audio vide")
+    return proc.stdout
+
+
+def _trim(cfg: Config, pcm: bytes,
+          keep_tail: bool = False) -> tuple[bytes, int, int]:
+    """Coupe le silence de tête et de queue, en gardant une marge autour de
+    la voix. Renvoie aussi la marge réellement gardée de chaque côté, en
+    échantillons, pour que les écarts du montage se comptent de voix à voix.
+
+    La marge est passée en fondu : sans lui, la coupe tombe dans la chute
+    d'un mot, encore audible sous le seuil, et claque. keep_tail laisse la
+    queue intacte, pour la clôture qui finit l'épisode sur sa chute
+    naturelle. Seuls les bords sont parcourus : le cœur n'est jamais lu.
+    """
+    audio = cfg.audio
+    rate = int(audio["sample_rate"])
+    samples = array.array("h")
+    samples.frombytes(pcm)
+    window = rate // 100
+    count = len(samples) // window
+    limit = 32768 * 10 ** (float(audio["trim_threshold_db"]) / 20)
+
+    def voiced(index: int) -> bool:
+        chunk = samples[index * window:(index + 1) * window]
+        return math.sqrt(sum(v * v for v in chunk) / len(chunk)) > limit
+
+    first = next((i for i in range(count) if voiced(i)), None)
+    if first is None:
+        return pcm, 0, 0
+    last = next(i for i in range(count - 1, -1, -1) if voiced(i))
+    margin = int(rate * float(audio["trim_margin_ms"]) / 1000)
+    voice_start, voice_end = first * window, (last + 1) * window
+    start = max(voice_start - margin, 0)
+    end = len(samples) if keep_tail else min(voice_end + margin, len(samples))
+    head, tail = voice_start - start, end - voice_end
+    kept = samples[start:end]
+    for i in range(head):
+        kept[i] = int(kept[i] * i / head)
+    if not keep_tail:
+        for i in range(tail):
+            kept[-1 - i] = int(kept[-1 - i] * i / tail)
+    return kept.tobytes(), head, tail
+
+
+def _silence(samples: int) -> bytes:
+    return b"\x00\x00" * max(samples, 0)
+
+
+def _brand_pcm(cfg: Config, path: Path | None, label: str) -> bytes | None:
+    if path is None:
+        return None
+    try:
+        return _decode_pcm(path, int(cfg.audio["sample_rate"]))
+    except RuntimeError as exc:
+        print(f"   ⚠⚠ {label} illisible ({path.name}) : l'épisode sort SANS "
+              f"cette signature. {exc}")
+        return None
+
+
+def frame(cfg: Config, body: bytes, day: date) -> bytes:
+    """[sonal] → tête → ouverture → écart → corps → écart → clôture du jour.
+
+    Tout reste en PCM : les fichiers de marque, déjà à niveau, ne repassent
+    pas par la finition, et l'épisode n'est encodé qu'une fois. Un fichier
+    manquant ou illisible est sauté, jamais bloquant.
+    """
+    from . import brand as brand_mod
+
+    rate = int(cfg.audio["sample_rate"])
+    gaps = cfg.brand["gaps_ms"]
+
+    def ms(value: float) -> int:
+        return int(rate * float(value) / 1000)
+
+    sonal = _brand_pcm(cfg, brand_mod.sonal_file(cfg), "sonal")
+    opening = _brand_pcm(cfg, brand_mod.opening_file(cfg), "ouverture")
+    closing = _brand_pcm(cfg, brand_mod.closing_file(cfg, day), "clôture")
+
+    # Le sonal n'est pas rogné : sa fin musicale (réverbération, fondu) passe
+    # sous le seuil de coupe de la voix et serait tronquée.
+    parts: list[bytes] = [sonal] if sonal else []
+    body, body_head, body_tail = _trim(cfg, body)
+    if opening:
+        opening, head, tail = _trim(cfg, opening)
+        parts += [_silence(ms(gaps["head"]) - head), opening,
+                  _silence(ms(gaps["after_opening"]) - tail - body_head)]
+    else:
+        parts.append(_silence(ms(gaps["head"]) - body_head))
+    parts.append(body)
+    if closing:
+        closing, head, _ = _trim(cfg, closing, keep_tail=True)
+        parts += [_silence(ms(gaps["before_closing"]) - body_tail - head),
+                  closing]
+    return b"".join(parts)
+
+
 def synthesize(cfg: Config, script: list[dict], out_path: Path,
-               verbose: bool = True) -> Path:
-    """Script -> mp3. Retourne le chemin du fichier écrit."""
+               verbose: bool = True, day: date | None = None) -> Path:
+    """Script -> mp3. Retourne le chemin du fichier écrit.
+
+    Avec day, l'épisode est encadré des signatures enregistrées de ce jour.
+    """
+    from .brand import strip_brand_name
+
+    # Dernier rempart, y compris pour « say » qui relit un script ancien.
+    script, removed = strip_brand_name(script)
+    for warning in removed:
+        print(f"   ⚠ {warning}")
+    if not script:
+        raise ValueError("Script vide une fois retirées les phrases avec "
+                         "« Lora ».")
     multi = _is_multi(cfg)
     elevenlabs = cfg.tts_provider == "elevenlabs"
     if elevenlabs:
@@ -345,7 +443,7 @@ def synthesize(cfg: Config, script: list[dict], out_path: Path,
         else:
             pcm += _synth_pcm(cfg, _render_chunk_text(cfg, chunk, multi), multi)
 
-    return finalize(cfg, bytes(pcm), out_path, verbose)
+    return finalize(cfg, bytes(pcm), out_path, verbose, day)
 
 
 def _mp3_codec(cfg: Config) -> list[str]:
@@ -357,26 +455,31 @@ def finishing_enabled(cfg: Config) -> bool:
 
 
 def finalize(cfg: Config, pcm: bytes, out_path: Path,
-             verbose: bool = True) -> Path:
-    """PCM brut -> mp3 du flux, jingles et finition compris.
+             verbose: bool = True, day: date | None = None) -> Path:
+    """PCM brut -> mp3 du flux : finition du corps, montage des signatures
+    du jour si day est donné, puis un seul encodage mp3.
 
     Tout passe par des fichiers temporaires, remplacés d'un coup à la fin :
     un échec en route ne laisse ni mp3 tronqué ni audio non fini à la place
     de l'épisode, et un épisode déjà publié reste intact.
     """
-    wav_bytes = _pcm_to_wav(pcm, int(cfg.audio["sample_rate"]))
+    rate = int(cfg.audio["sample_rate"])
     out_path.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(dir=out_path.parent) as tmp:
         final = Path(tmp) / out_path.name
         if finishing_enabled(cfg):
-            # Intermédiaire sans perte : finir un mp3 le réencoderait deux fois.
+            # Intermédiaires sans perte : l'épisode n'est encodé en mp3
+            # qu'une fois, après le montage.
             raw = Path(tmp) / f"{out_path.stem}-brut.wav"
-            _encode(wav_bytes, raw, cfg, ["-codec:a", "pcm_s16le"])
-            loudness = finish(cfg, raw, final)
+            raw.write_bytes(_pcm_to_wav(pcm, rate))
+            finished = Path(tmp) / f"{out_path.stem}-fini.wav"
+            loudness = finish(cfg, raw, finished, ["-codec:a", "pcm_s16le"])
             if verbose:
                 print(f"  finition : {loudness:.1f} LUFS")
-        else:
-            _encode(wav_bytes, final, cfg, _mp3_codec(cfg))
+            pcm = _wav_to_pcm(finished.read_bytes(), rate)
+        if day is not None:
+            pcm = frame(cfg, pcm, day)
+        _encode(_pcm_to_wav(pcm, rate), final, cfg, _mp3_codec(cfg))
         os.replace(final, out_path)
     return out_path
 
@@ -390,9 +493,10 @@ def _loudnorm_report(stderr: str) -> dict:
     return json.loads(stderr[start:stderr.rfind("}") + 1])
 
 
-def finish(cfg: Config, src: Path, out_path: Path) -> float:
-    """Compression légère puis normalisation, réencodé au format du flux.
-    Retourne la loudness intégrée du résultat, en LUFS.
+def finish(cfg: Config, src: Path, out_path: Path,
+           codec: list[str] | None = None) -> float:
+    """Compression légère puis normalisation, encodée avec codec (mp3 du
+    flux par défaut). Retourne la loudness intégrée du résultat, en LUFS.
 
     Deux passes : la première mesure, la seconde applique un gain linéaire.
     En une seule passe, loudnorm corrige à la volée et fait pomper le son.
@@ -430,7 +534,7 @@ def finish(cfg: Config, src: Path, out_path: Path) -> float:
     # loudnorm suréchantillonne en interne : on revient au format du flux,
     # le même pour tous les fichiers traités.
     report = _loudnorm_report(run(second, [
-        *_mp3_codec(cfg),
+        *(codec or _mp3_codec(cfg)),
         "-ac", "1", "-ar", str(cfg.audio["sample_rate"]), str(out_path)]))
     return float(report["output_i"])
 

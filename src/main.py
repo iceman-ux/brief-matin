@@ -46,7 +46,7 @@ def _fake_script(cfg) -> dict:
                                    "fonctionne de bout en bout."},
             {"speaker": b, "text": "Aucun appel payant n'a été effectué."},
         ],
-        "accroche": "Ce matin, le brief de test traverse tout le pipeline.",
+        "accroche": "Le brief de test traverse tout le pipeline.",
     }
 
 
@@ -130,12 +130,12 @@ def cmd_run(args) -> int:
         mp3_path = ROOT / "data" / "dry-run.mp3"
         print("   (dry-run : bruit de test local, hors des épisodes publiés)")
         tts_mod.finalize(cfg, _test_signal(cfg, max(int(minutes * 60), 5)),
-                         mp3_path)
+                         mp3_path, day=now.date())
     else:
         mp3_path = feed_mod.EPISODES_DIR / mp3_name
         _print_voices(cfg)
         tts_mod.warn_if_batch_requested(cfg)
-        tts_mod.synthesize(cfg, script, mp3_path)
+        tts_mod.synthesize(cfg, script, mp3_path, day=now.date())
 
     duration = tts_mod.audio_duration_seconds(mp3_path)
     size = mp3_path.stat().st_size
@@ -254,7 +254,9 @@ def cmd_say(args) -> int:
                              else cfg.models["tts"]))
     _print_voices(cfg)
     tts_mod.warn_if_batch_requested(cfg)
-    tts_mod.synthesize(cfg, script, mp3_path)
+    # Un extrait (--lines) n'est pas un épisode : pas de signatures autour.
+    day = None if args.lines else datetime.strptime(date, "%Y-%m-%d").date()
+    tts_mod.synthesize(cfg, script, mp3_path, day=day)
     duration = tts_mod.audio_duration_seconds(mp3_path)
     size = mp3_path.stat().st_size
     print(f"   → {mp3_path.name} · {duration // 60}:{duration % 60:02d} · "

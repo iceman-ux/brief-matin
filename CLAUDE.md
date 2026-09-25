@@ -6,15 +6,23 @@ Auditeur unique : le propriétaire du repo. Ce n'est pas un produit.
 
 **Nom et identité : Lora**, depuis le 25/09/2026 (avant : « Brief Matin »,
 qui reste le nom du dépôt). DA : Art déco des années 30, nocturne et
-luxueuse ; palette #0B0E2A, #1B2466, #F2A33A, #C9953C, #8E1426. Sonal
-composé par Adam, à venir (`audio.intro_file` / `outro_file`).
-Signatures fixes, posées par le code (`src/brand.py`, section `brand` de
-`config.yaml`) et jamais demandées au modèle : ouverture « Lora. Il est
-l'heure. » + date (« Mardi 29 septembre. ») + clin d'œil d'un jour férié +
-accroche du modèle (« Ce matin, … », 20 mots au plus) ; clôture « C'était
-Lora. Belle journée. » (« Belle semaine. » le lundi, « Bon week-end. » le
-vendredi). Pas de mention d'IA dans le texte parlé : elle reste écrite, dans
-le flux et sur la page d'installation.
+luxueuse ; palette #0B0E2A, #1B2466, #F2A33A, #C9953C, #8E1426.
+
+**Signatures figées, enregistrées une fois pour toutes** dans `assets/brand/`
+(WAV 24 kHz mono, −17 LUFS, true peak ≤ −3 dBFS) et montées par
+`tts.frame` : ouverture « Ici Lora, il est l'heure. » (prise I-marc-1,
+Marc) ; clôture « C'était Lora. Belle journée. » (prise C1-marc), « Belle
+semaine. » le lundi et « Bon week-end. » le vendredi (montages sur le même
+« C'était Lora. »). **Le nom « Lora » ne passe jamais par le TTS**, qui le
+prononce mal une fois sur deux : `brand.strip_brand_name` retire toute
+phrase qui le contient, et on ne régénère jamais ces prises. Entre les deux,
+Marc dit une réplique variable posée par le code (`src/brand.py`) :
+« Et aujourd'hui, samedi 26 septembre. » + clin d'œil d'un jour férié +
+accroche du modèle (le fait directement, 20 mots au plus). Montage :
+[sonal] → 150 ms → ouverture → 350 ms → corps → 1 s → clôture, un seul
+encodage mp3. Sonal composé par Adam, à venir : `brand.sonal_file`, joué
+avant l'ouverture. Pas de mention d'IA dans le texte parlé : elle reste
+écrite, dans le flux et sur la page d'installation.
 
 ## Architecture
 
@@ -24,14 +32,15 @@ prompts/brief_fr.md  ligne éditoriale du brief (règles d'écriture numérotée
 src/config.py        chargement config + .env
 src/sources.py       RSS : récupération parallèle, fenêtre temporelle, regroupement
 src/memory.py        sujets déjà traités → data/covered.json
-src/brand.py         signatures d'ouverture et de clôture, jours fériés
+src/brand.py         réplique d'ouverture, fichiers de marque, jours fériés, garde « Lora »
 src/writer.py        construction du prompt, appel LLM, garde-fous sur la sortie
-src/tts.py           synthèse vocale, découpage, encodage mp3
+src/tts.py           synthèse vocale, découpage, finition, montage des signatures, mp3
 src/feed.py          flux RSS podcast, page d'accueil, rétention des épisodes
 src/retry.py         réessais avec backoff exponentiel sur erreurs temporaires
 src/main.py          orchestration + CLI
 docs/                publié par GitHub Pages (feed.xml, index.html, installer.html, episodes/,
                      cover et décor SVG de la page d'installation)
+assets/brand/        signatures enregistrées, figées (ouverture, clôtures du jour)
 tools/analyse_voix.py  mesure audio pour le protocole d'écoute, hors pipeline
                        (numpy, scipy — hors requirements.txt, le run n'en a pas besoin)
 ```
