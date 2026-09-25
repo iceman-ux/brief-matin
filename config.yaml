@@ -27,15 +27,15 @@ podcast:
   retention_days: 30           # on garde les 30 derniers épisodes
 
 onboarding:
-  # Lien iCloud du raccourci « Brief Matin » (iPhone : Raccourcis → appui
-  # long sur le raccourci → Partager → Copier le lien iCloud). Tant qu'il est
-  # vide, la page d'installation affiche « bientôt disponible » à l'étape 2
-  # au lieu d'un lien mort.
-  shortcut_url: "https://www.icloud.com/shortcuts/59a054c0009e4246985f248b3c56fbb3"
+  # Lien iCloud du raccourci « Lora » (iPhone : Raccourcis → appui long sur
+  # le raccourci → Partager → Copier le lien iCloud). Tant qu'il est vide, la
+  # page d'installation affiche « bientôt disponible » à l'étape 2 au lieu
+  # d'un lien mort. Repartagé sous le nom « Lora » le 25/09/2026.
+  shortcut_url: "https://www.icloud.com/shortcuts/ce699fbf63d24e469914ed1f193f716d"
   # Nom du raccourci tel qu'il apparaît chez le testeur après installation :
-  # celui du raccourci partagé, pas celui du podcast. À changer seulement
-  # quand un raccourci renommé « Lora » aura été repartagé.
-  shortcut_name: "Brief Matin"
+  # celui du raccourci partagé, pas celui du podcast. À changer avec
+  # shortcut_url, si un raccourci renommé est repartagé.
+  shortcut_name: "Lora"
   # Textes de l'affiche en tête de la page d'installation : surtitre au-dessus
   # du nom (brand.name), accroche en italique en dessous.
   kicker: "Le brief du matin"
@@ -242,6 +242,20 @@ models:
   # d'autant un run qui échoue. Liste vide pour désactiver la bascule.
   writer_fallbacks:
     - "gemini-3.5-flash"
+  # Réflexion du rédacteur et de ses replis avant d'écrire : minimal, low,
+  # medium ou high (paramètre thinking_level de la famille Gemini 3). Vide :
+  # le défaut du modèle, qui réfléchissait 21 326 tokens pour 1 757 écrits
+  # le 25/09. La réflexion est facturée comme de la sortie. Un modèle qui
+  # refuse le paramètre est rappelé sans lui, avec un avertissement.
+  # Laissé vide après essai le 25/09 : low et medium coûtent 5 et 2 fois
+  # moins, mais enfreignent les règles de dialogue du prompt (alternance
+  # mécanique, aucun sujet en solo). Scripts dans tests/reflexion/.
+  writer_thinking: ""
+  # Tarif de la rédaction en $ par million de tokens ; output compte aussi
+  # la réflexion. Relevé par Cowork le 2026-09-25, à revérifier. Un modèle
+  # absent de la grille affiche « coût inconnu ».
+  writer_prices:
+    "gemini-3.8-flash": {input: 0.75, output: 3.75}
   # Synthèse vocale. Facturé au token audio (25 tokens / seconde).
   # Gagnant des deux tours du test à l'aveugle du 24/09, avec les voix
   # Kore/Puck, en un seul appel et avec la finition : contre

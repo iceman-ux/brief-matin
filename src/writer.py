@@ -148,16 +148,22 @@ def _extract_json(text: str) -> dict[str, Any]:
 def write_script(cfg: Config, items: list[Item], memory: Memory,
                  now: datetime) -> dict[str, Any]:
     """Appelle le LLM et renvoie {"topics", "script", "accroche",
-    "clin_oeil"} ; le script n'a pas encore ses signatures (brand.assemble)."""
+    "clin_oeil", "usage"} ; le script n'a pas encore ses signatures
+    (brand.assemble). usage : modèle réellement utilisé et tokens facturés."""
     from google import genai
     from google.genai import types
 
-    from .retry import call_with_retry
+    from .retry import call_with_retry, status_code
 
     prompt = build_prompt(cfg, items, memory, now)
     client = genai.Client(api_key=api_key())
+    thinking = writer_thinking(cfg)
 
-    def generate(model: str):
+    def generate(model: str, with_thinking: bool):
+        extra = {}
+        if with_thinking:
+            extra["thinking_config"] = types.ThinkingConfig(
+                thinking_level=thinking)
         return client.models.generate_content(
             model=model,
             contents=prompt,
@@ -169,16 +175,61 @@ def write_script(cfg: Config, items: list[Item], memory: Memory,
                 automatic_function_calling=types.AutomaticFunctionCallingConfig(
                     disable=True
                 ),
+                **extra,
             ),
         )
 
-    response = generate_with_fallbacks(
-        writer_models(cfg),
-        lambda model: call_with_retry(lambda: generate(model),
-                                      label=f"rédaction ({model})"),
-    )
-    data = _extract_json(response.text)
-    return validate(cfg, data)
+    def attempt(model: str):
+        def call(with_thinking: bool):
+            return call_with_retry(lambda: generate(model, with_thinking),
+                                   label=f"rédaction ({model})")
+        if not thinking:
+            return model, call(False)
+        try:
+            return model, call(True)
+        except Exception as exc:
+            # Un repli d'une autre génération peut refuser thinking_level :
+            # mieux vaut sa réflexion par défaut, plus chère, qu'un run raté.
+            if status_code(exc) != 400:
+                raise
+            print(f"   ⚠ {model} refuse writer_thinking={thinking.lower()}, "
+                  "rappel avec sa réflexion par défaut")
+            return model, call(False)
+
+    model, response = generate_with_fallbacks(writer_models(cfg), attempt)
+    data = validate(cfg, _extract_json(response.text))
+    meta = response.usage_metadata
+    data["usage"] = {
+        "model": model,
+        "input": (meta and meta.prompt_token_count) or 0,
+        "output": (meta and meta.candidates_token_count) or 0,
+        "thinking": (meta and meta.thoughts_token_count) or 0,
+    }
+    return data
+
+
+THINKING_LEVELS = ("MINIMAL", "LOW", "MEDIUM", "HIGH")
+
+
+def writer_thinking(cfg: Config) -> str:
+    """Niveau de models.writer_thinking pour l'API, vide pour le défaut."""
+    level = str(cfg.models.get("writer_thinking") or "").strip().upper()
+    if level and level not in THINKING_LEVELS:
+        raise ValueError(
+            f"models.writer_thinking = « {level.lower()} » : attendu vide ou "
+            f"l'un de {', '.join(l.lower() for l in THINKING_LEVELS)}.")
+    return level
+
+
+def estimate_cost_usd(cfg: Config, usage: dict[str, Any]) -> float | None:
+    """Coût indicatif de la rédaction ; la réflexion est payée comme la
+    sortie. None pour un modèle absent de models.writer_prices."""
+    price = (cfg.models.get("writer_prices") or {}).get(usage["model"])
+    if not price:
+        return None
+    billed_output = usage["output"] + usage["thinking"]
+    return (usage["input"] * price["input"]
+            + billed_output * price["output"]) / 1_000_000
 
 
 def writer_models(cfg: Config) -> list[str]:

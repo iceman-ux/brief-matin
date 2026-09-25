@@ -87,7 +87,9 @@ Sur Windows, utiliser `py` plutôt que `python`.
   mensuel de 10 € : un run peut donc échouer faute de crédit. Les deux clés
   (prod et tests) sont dans le même projet et partagent sa facture.
   `models.writer_fallbacks` liste les modèles de rédaction essayés dans
-  l'ordre si le principal reste saturé.
+  l'ordre si le principal reste saturé. La réflexion du rédacteur coûte
+  plus que tout le reste (~0,10 $ sur ~0,15 $ par épisode) mais la baisser
+  (`models.writer_thinking`) casse les règles de dialogue : essais du 25/09.
 - **GitHub lance les runs planifiés en retard**, jusqu'à cinq heures le
   24/09, et en saute parfois un. Les créneaux de cron tombent en pleine
   nuit américaine, mais l'heure réelle de publication n'est pas garantie.
@@ -102,9 +104,9 @@ Sur Windows, utiliser `py` plutôt que `python`.
   abonnés perdraient le podcast. Le nom affiché se change dans
   `podcast.title`. Même raison pour le préfixe `brief-matin-` des guid
   d'épisode dans `feed.py` : le changer republierait tous les épisodes.
-- **Le raccourci iOS partagé s'appelle encore « Brief Matin »**
-  (`onboarding.shortcut_name`) : ne changer la clé qu'après avoir repartagé
-  un raccourci renommé « Lora » et mis à jour `onboarding.shortcut_url`.
+- **Le raccourci iOS partagé s'appelle « Lora »** depuis le 25/09
+  (`onboarding.shortcut_name`) : ne changer ce nom qu'avec
+  `onboarding.shortcut_url`, après avoir repartagé le raccourci renommé.
 - **Le modèle n'a que les titres et chapôs**, jamais le texte des articles.
   Le prompt lui interdit d'inventer des liens de causalité — c'est le défaut
   le plus grave possible ici, parce qu'il est invisible à l'écoute.

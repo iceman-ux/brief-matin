@@ -21,14 +21,27 @@
       Lora. » de C1-marc. Autres prises et montages :
       `tests/ident/ecoute-5.html`.
 - [ ] **Écouter `tests/episode-lora.mp3`** (épisode d'essai du 26/09,
-      non publié), puis pousser.
+      non publié). Le commit des signatures est poussé depuis le 25/09.
 - [ ] Surveiller les premiers briefs Lora : avertissements « accroche »,
       « retiré du script » ou « Lora » dans les logs Actions.
 - [ ] **Sonal** composé par Adam : le poser dans `assets/brand/` et
       renseigner `brand.sonal_file`. Joué avant l'ouverture, 150 ms avant
       elle.
-- [ ] **Raccourci à renommer « Lora »**, repartager le lien iCloud, puis
-      mettre à jour `onboarding.shortcut_name` et `shortcut_url`.
+- [x] Raccourci renommé « Lora » et repartagé le 25/09 :
+      `onboarding.shortcut_name` et `shortcut_url` à jour, page
+      d'installation régénérée.
+- [x] **Réflexion du rédacteur** : clé `models.writer_thinking`
+      (`thinking_level`, transmise aux replis, rappel sans elle si un modèle
+      la refuse). Essais du 25/09 pour le 26/09 : `low` ne réfléchit plus du
+      tout (452 mots, alternance Marc/Léa sur les 15 répliques), `medium`
+      (8 942 tokens) garde 7 répliques en alternance. Seule la réflexion par
+      défaut (~21 000 tokens) respecte les règles de dialogue : **gardée,
+      choix d'Adam**, ~0,10 $ de rédaction par épisode. Scripts dans
+      `tests/reflexion/`.
+- [x] Coût de la rédaction affiché par le run à côté de celui du TTS
+      (`models.writer_prices`, tarif relevé le 25/09, à revérifier).
+- [ ] Réessayer `medium` si la facture devient un sujet : un seul essai
+      par niveau, sur une seule actualité, ne suffit pas à conclure.
 - [x] Page d'installation dans la DA Lora (Art déco années 30, nocturne ;
       palette #0B0E2A, #1B2466, #F2A33A, #C9953C, #8E1426) le 25/09 :
       affiche, lecteur du dernier épisode, étapes à coins de laiton. Textes

@@ -97,6 +97,7 @@ def cmd_run(args) -> int:
         data = writer_mod.validate(cfg, _fake_script(cfg))
     else:
         data = writer_mod.write_script(cfg, items, memory, now)
+    writer_cost = _print_writer_usage(cfg, data.get("usage"))
     data = brand_mod.assemble(cfg, data, now.date())
     script = data["script"]
     words = writer_mod.word_count(script)
@@ -311,6 +312,21 @@ def _cost_label(cfg, seconds: float) -> str:
     if cost is None:
         return f"coût inconnu (tarif de {cfg.models['tts']} absent de la grille)"
     return f"~{cost:.3f} $ de TTS"
+
+
+def _print_writer_usage(cfg, usage: dict | None) -> str:
+    """Affiche les tokens de la rédaction ; renvoie son coût, à ajouter à
+    celui du TTS (vide en dry-run, où rien n'est appelé)."""
+    if not usage:
+        return ""
+    cost = writer_mod.estimate_cost_usd(cfg, usage)
+    label = (f"~{cost:.3f} $ de rédaction" if cost is not None else
+             f"coût de rédaction inconnu (tarif de {usage['model']} absent "
+             "de models.writer_prices)")
+    print(f"   → {usage['model']} : {usage['input']} tokens lus, "
+          f"{usage['output']} écrits, {usage['thinking']} de réflexion · "
+          f"{label}")
+    return f" + {label}"
 
 
 def _print_voices(cfg) -> None:
