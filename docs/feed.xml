@@ -11,17 +11,17 @@
 
 Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
     <language>fr-FR</language>
-    <lastBuildDate>Fri, 25 Sep 2026 20:22:50 +0000</lastBuildDate>
-    <itunes:author>neodem</itunes:author>
+    <lastBuildDate>Fri, 25 Sep 2026 22:46:01 +0000</lastBuildDate>
+    <itunes:author>Lora</itunes:author>
     <itunes:subtitle>L'essentiel de l'actu, chaque matin</itunes:subtitle>
     <itunes:summary>Brief quotidien généré automatiquement à partir des grands titres français et internationaux. France, Monde, Économie, Tech.
 
 Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</itunes:summary>
     <itunes:owner>
-      <itunes:name>neodem</itunes:name>
-      <itunes:email>annihilateurdedaronne@gmail.com</itunes:email>
+      <itunes:name>Lora</itunes:name>
+      <itunes:email>lora.dailybrief@proton.me</itunes:email>
     </itunes:owner>
-    <itunes:category text="News"/>
+    <itunes:category text="News"><itunes:category text="Daily News"/></itunes:category>
     <itunes:explicit>false</itunes:explicit>
     <itunes:type>episodic</itunes:type>
     <itunes:image href="https://iceman-ux.github.io/brief-matin/lora-cover.jpg"/>

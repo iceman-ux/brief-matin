@@ -288,13 +288,16 @@ def _pcm_to_wav(pcm: bytes, sample_rate: int) -> bytes:
     return buffer.getvalue()
 
 
+def _output_rate(cfg: Config) -> int:
+    return int(cfg.audio.get("output_sample_rate") or cfg.audio["sample_rate"])
+
+
 def _encode(wav_bytes: bytes, out_path: Path, cfg: Config,
             codec: list[str]) -> None:
-    audio = cfg.audio
     cmd = [
         "ffmpeg", "-hide_banner", "-loglevel", "error", "-y",
         "-i", "pipe:0", *codec,
-        "-ac", "1", "-ar", str(audio["sample_rate"]),
+        "-ac", "1", "-ar", str(_output_rate(cfg)),
         str(out_path),
     ]
     proc = subprocess.run(cmd, input=wav_bytes, capture_output=True)
@@ -531,11 +534,12 @@ def finish(cfg: Config, src: Path, out_path: Path,
               f":measured_LRA={measured['input_lra']}"
               f":measured_thresh={measured['input_thresh']}"
               f":offset={measured['target_offset']}")
-    # loudnorm suréchantillonne en interne : on revient au format du flux,
-    # le même pour tous les fichiers traités.
+    # loudnorm suréchantillonne en interne : on revient au format de travail
+    # pour un intermédiaire à monter, à celui du flux pour un mp3 final.
+    rate = cfg.audio["sample_rate"] if codec else _output_rate(cfg)
     report = _loudnorm_report(run(second, [
         *(codec or _mp3_codec(cfg)),
-        "-ac", "1", "-ar", str(cfg.audio["sample_rate"]), str(out_path)]))
+        "-ac", "1", "-ar", str(rate), str(out_path)]))
     return float(report["output_i"])
 
 

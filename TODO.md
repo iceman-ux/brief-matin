@@ -1,5 +1,23 @@
 # Lora (dépôt brief-matin) — avancement
 
+## Diffusion — Spotify, depuis le 26/09/2026
+
+- [x] Flux aux normes Spotify : propriétaire et auteur « Lora », adresse
+      publique `lora.dailybrief@proton.me` (plus d'adresse perso), catégorie
+      News › Daily News. mp3 à 96 kbps mono, 44,1 kHz. Rétention à la date
+      (30 jours), mp3 supprimés de `docs/`.
+- [x] Nouveau raccourci « Lora » (s'abonne dans Pocket Casts puis lance la
+      lecture) et page d'installation en un geste, bonus « Lora au réveil »,
+      autres applis repliées en bas.
+- [ ] **Soumettre à Spotify for Creators** (Adam). Puis renseigner
+      `onboarding.spotify_url` : le bouton Spotify apparaît tout seul.
+- [ ] **Filmer la création de l'automatisation, 15 s** (Adam). La poser dans
+      `docs/` et renseigner `onboarding.automation_video`.
+- [ ] Tester « Copier » sur un vrai iPhone, dans le bloc replié : non
+      vérifiable en navigateur headless.
+- Apple Podcasts écarté : mention orale d'IA obligatoire dans chaque
+  épisode, refusée par Adam.
+
 ## Lora — identité, depuis le 25/09/2026
 
 - [x] Nom **Lora** affiché dans le flux, `index.html` et la page

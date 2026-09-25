@@ -104,6 +104,10 @@ Sur Windows, utiliser `py` plutôt que `python`.
   abonnés perdraient le podcast. Le nom affiché se change dans
   `podcast.title`. Même raison pour le préfixe `brief-matin-` des guid
   d'épisode dans `feed.py` : le changer republierait tous les épisodes.
+- **L'adresse du flux (`podcast.email`) est publique** : elle sort dans
+  `<itunes:owner>` de `feed.xml`, lisible par tous, et Spotify for Creators
+  y envoie son code de vérification. Jamais d'adresse personnelle ni de nom
+  réel dans `podcast.author` ou `podcast.email`.
 - **Le raccourci iOS partagé s'appelle « Lora »** depuis le 25/09
   (`onboarding.shortcut_name`) : ne changer ce nom qu'avec
   `onboarding.shortcut_url`, après avoir repartagé le raccourci renommé.

@@ -53,9 +53,14 @@ def register_episode(cfg: Config, *, date: str, filename: str, title: str,
     })
     episodes.sort(key=lambda e: e["date"], reverse=True)
 
-    keep = int(cfg.podcast["retention_days"])
-    dropped = episodes[keep:]
-    episodes = episodes[:keep]
+    # Coupe à la date, pas au nombre d'épisodes : avec des runs sautés, les
+    # 30 derniers épisodes remonteraient à plus de 30 jours. Les dates ISO se
+    # comparent comme des chaînes.
+    cutoff = (datetime.strptime(date, "%Y-%m-%d")
+              - timedelta(days=int(cfg.podcast["retention_days"]))
+              ).strftime("%Y-%m-%d")
+    dropped = [e for e in episodes if e["date"] <= cutoff]
+    episodes = [e for e in episodes if e["date"] > cutoff]
     for old in dropped:
         mp3 = EPISODES_DIR / old["filename"]
         if mp3.exists():
@@ -111,6 +116,14 @@ def build_feed(cfg: Config, episodes: list[dict] | None = None) -> Path:
       <itunes:explicit>false</itunes:explicit>
     </item>""")
 
+    subcategory = (pod.get("subcategory") or "").strip()
+    if subcategory:
+        category = (f'<itunes:category text="{escape(pod["category"])}">'
+                    f'<itunes:category text="{escape(subcategory)}"/>'
+                    "</itunes:category>")
+    else:
+        category = f'<itunes:category text="{escape(pod["category"])}"/>'
+
     last_build = format_datetime(datetime.now(timezone.utc))
     image = ""
     if pod.get("cover_image"):
@@ -139,7 +152,7 @@ def build_feed(cfg: Config, episodes: list[dict] | None = None) -> Path:
       <itunes:name>{escape(pod['author'])}</itunes:name>
       <itunes:email>{escape(pod['email'])}</itunes:email>
     </itunes:owner>
-    <itunes:category text="{escape(pod['category'])}"/>
+    {category}
     <itunes:explicit>false</itunes:explicit>
     <itunes:type>episodic</itunes:type>
 {image}
@@ -272,16 +285,32 @@ def _write_installer(cfg: Config, episodes: list[dict]) -> None:
     def attr(value: str) -> str:
         return escape(value, {'"': "&quot;"})
 
+    player_app_url = (onboarding.get("player_app_url") or "").strip()
+    video = (onboarding.get("automation_video") or "").strip()
+    spotify_url = (onboarding.get("spotify_url") or "").strip()
+
+    # Sur iPhone, le raccourci abonne lui-même : ces boutons ne servent plus
+    # qu'aux autres applis et à Android, repliés en bas de page.
+    apps = subscribe_links(feed_url)
+    if spotify_url:
+        apps["Spotify"] = spotify_url
     buttons = "\n".join(
-        f'        <a class="btn{"" if i == 0 else " ghost"}" '
-        f'href="{attr(url)}">{escape(app)}</a>'
-        for i, (app, url) in enumerate(subscribe_links(feed_url).items()))
+        f'        <a class="btn ghost" href="{attr(url)}">{escape(app)}</a>'
+        for app, url in apps.items())
     if shortcut_url:
         shortcut = (f'<a class="btn" href="{attr(shortcut_url)}">'
-                    "Ajouter le raccourci</a>")
+                    f"Ajouter {escape(name)}</a>")
     else:
         shortcut = ('<span class="btn off" aria-disabled="true">'
-                    "Ajouter le raccourci — bientôt disponible</span>")
+                    f"Ajouter {escape(name)} — bientôt disponible</span>")
+    if player_app_url:
+        requirement = (f'Il te faut <a href="{attr(player_app_url)}">'
+                       "Pocket Casts</a>, gratuit.")
+    else:
+        requirement = "Il te faut Pocket Casts, gratuit."
+    video_tag = (f'\n      <video playsinline muted controls preload="none" '
+                 f'src="{attr(base + "/" + video.lstrip("/"))}"></video>'
+                 if video else "")
 
     latest = max(episodes, key=lambda e: e["date"]) if episodes else None
     if latest:
@@ -366,6 +395,15 @@ def _write_installer(cfg: Config, episodes: list[dict]) -> None:
   .btn.ghost {{ background: transparent; color: var(--ivoire); box-shadow: inset 0 0 0 1px var(--laiton); }}
   .btn.off {{ background: transparent; color: var(--sourd); box-shadow: inset 0 0 0 1px rgba(201,149,60,.35); }}
   .astuce {{ margin: 14px 0 0; color: var(--sourd); font-size: 18px; }}
+  .astuce.avant {{ margin: 0 0 14px; }}
+  .astuce a {{ color: var(--ambre); text-decoration: underline; text-underline-offset: 3px; }}
+  .etape.bonus {{ background: transparent; border-color: rgba(201,149,60,.3); padding: 22px 20px 20px; }}
+  .etape.bonus::before, .etape.bonus::after {{ display: none; }}
+  .etape.bonus h3 {{ margin: 0 0 10px; font-size: 21px; }}
+  .bonus-tag {{ margin: 0 0 6px; font: 600 12px/1.2 var(--ui); letter-spacing: .3em; text-transform: uppercase; color: var(--laiton); }}
+  video {{ display: block; width: 100%; height: auto; margin: 0 0 16px; border: 1px solid rgba(201,149,60,.35); }}
+  details.autre {{ margin-top: 0; padding-top: 16px; }}
+  details.autre .btns {{ margin: 10px 0 4px; }}
   details {{ margin-top: 16px; border-top: 1px solid rgba(201,149,60,.3); padding-top: 12px; }}
   summary {{ cursor: pointer; list-style: none; color: var(--ivoire); font-size: 18px; font-weight: 600; }}
   summary::-webkit-details-marker {{ display: none; }}
@@ -414,30 +452,21 @@ def _write_installer(cfg: Config, episodes: list[dict]) -> None:
 
     <div class="intertitre">
       <img class="symbole" src="{INSTALLER_SYMBOL}" alt="">
-      <h2>Trois gestes</h2>
+      <h2>Un geste</h2>
     </div>
 
     <section class="etape" aria-labelledby="e1">
-      <h3 id="e1"><span class="num">1</span>Abonne-toi</h3>
-      <p class="choix">Dans ton appli de podcast :</p>
-      <div class="btns">
-{buttons}
-      </div>
-      <p class="astuce">Active le téléchargement automatique : l'épisode t'attendra même sans réseau.</p>
-      <details>
-        <summary>Apple Podcasts ou une autre appli</summary>
-        <p>Dans Apple Podcasts : Bibliothèque → « … » → Ajouter une émission par URL, puis colle ce lien.</p>
-        <div class="copie"><code id="feed">{escape(feed_url)}</code><button type="button" id="copy">Copier</button></div>
-      </details>
-    </section>
-
-    <section class="etape" aria-labelledby="e2">
-      <h3 id="e2"><span class="num">2</span>Ajoute le raccourci</h3>
+      <h3 id="e1"><span class="num">1</span>Ajoute {escape(name)}</h3>
+      <p class="astuce avant">{requirement}</p>
       <div class="btns">{shortcut}</div>
+      <p class="astuce">Touche-le une fois : il t'abonne dans Pocket Casts et lance l'épisode du jour.</p>
+      <p class="astuce">Active le téléchargement automatique : l'épisode t'attendra même sans réseau.</p>
     </section>
 
-    <section class="etape" aria-labelledby="e3">
-      <h3 id="e3"><span class="num">3</span>Relie-le à ton réveil</h3>
+    <section class="etape bonus" aria-labelledby="bonus">
+      <p class="bonus-tag">Bonus · facultatif</p>
+      <h3 id="bonus">{escape(name)} au réveil</h3>
+      <p class="choix">{escape(name)} se lance quand tu coupes ton réveil. 1 minute, à faire une fois.</p>{video_tag}
       <ol class="gestes">
         <li><span>Raccourcis → <span class="fort">Automatisation</span> → <span class="fort">+</span></span></li>
         <li><span><span class="fort">Réveil</span> → « Est arrêté » → <span class="fort">Exécuter immédiatement</span></span></li>
@@ -445,6 +474,16 @@ def _write_installer(cfg: Config, episodes: list[dict]) -> None:
       </ol>
       <p class="note">Les libellés peuvent varier selon la version d'iOS.</p>
     </section>
+
+    <details class="autre">
+      <summary>Autre appli ou Android ?</summary>
+      <p>Abonne-toi dans ton appli de podcast :</p>
+      <div class="btns">
+{buttons}
+      </div>
+      <p>Dans Apple Podcasts : Bibliothèque → « … » → Ajouter une émission par URL, puis colle ce lien.</p>
+      <div class="copie"><code id="feed">{escape(feed_url)}</code><button type="button" id="copy">Copier</button></div>
+    </details>
   </main>
 
   <footer>
@@ -461,13 +500,18 @@ def _write_installer(cfg: Config, episodes: list[dict]) -> None:
       var btn = document.getElementById("copy");
       btn.addEventListener("click", function () {{
         function done() {{ btn.textContent = "Copié"; }}
-        if (navigator.clipboard && window.isSecureContext) {{
-          navigator.clipboard.writeText(feed).then(done);
-        }} else {{
+        // Presse-papiers refusé : le lien reste au moins sélectionné, prêt
+        // à copier à la main.
+        function select() {{
           var r = document.createRange();
           r.selectNodeContents(document.getElementById("feed"));
           var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
-          try {{ document.execCommand("copy"); done(); }} catch (e) {{}}
+          try {{ if (document.execCommand("copy")) done(); }} catch (e) {{}}
+        }}
+        if (navigator.clipboard && window.isSecureContext) {{
+          navigator.clipboard.writeText(feed).then(done, select);
+        }} else {{
+          select();
         }}
       }});
       if (window.QRCode && window.matchMedia("(min-width: 820px) and (hover: hover)").matches) {{

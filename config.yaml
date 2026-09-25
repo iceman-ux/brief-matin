@@ -16,22 +16,32 @@ podcast:
   ai_disclosure: >-
     Brief généré automatiquement par intelligence artificielle, texte et
     voix, à partir de titres et chapôs de presse.
-  author: "neodem"
-  email: "annihilateurdedaronne@gmail.com"
+  # Auteur affiché et nom du propriétaire (<itunes:owner>). Pas de nom
+  # d'artiste ni de nom réel : le podcast ne doit être associé à personne.
+  author: "Lora"
+  # ⚠ Adresse PUBLIQUE : elle est dans le flux, lisible par n'importe qui.
+  # Spotify for Creators y envoie le code qui prouve la propriété du flux.
+  # Jamais d'adresse personnelle ici.
+  email: "lora.dailybrief@proton.me"
   language: "fr-FR"
+  # Catégorie et sous-catégorie de la liste Apple, reprise par Spotify.
+  # subcategory vide : pas de sous-catégorie.
   category: "News"
+  subcategory: "Daily News"
   # ⚠️ À REMPLACER par l'URL de ta GitHub Page une fois le repo créé.
   # Format : https://<ton-pseudo-github>.github.io/<nom-du-repo>
   base_url: "https://iceman-ux.github.io/brief-matin"
   cover_image: "lora-cover.jpg"  # relatif à base_url, optionnel ; 3000 px de côté
-  retention_days: 30           # on garde les 30 derniers épisodes
+  retention_days: 30           # mp3 de plus de 30 jours retirés du flux ET supprimés de docs/
 
 onboarding:
   # Lien iCloud du raccourci « Lora » (iPhone : Raccourcis → appui long sur
   # le raccourci → Partager → Copier le lien iCloud). Tant qu'il est vide, la
-  # page d'installation affiche « bientôt disponible » à l'étape 2 au lieu
-  # d'un lien mort. Repartagé sous le nom « Lora » le 25/09/2026.
-  shortcut_url: "https://www.icloud.com/shortcuts/ce699fbf63d24e469914ed1f193f716d"
+  # page d'installation affiche « bientôt disponible » au lieu d'un lien
+  # mort. Version du 26/09/2026 : le raccourci ouvre d'abord le lien
+  # d'abonnement Pocket Casts, puis lance la lecture. Le toucher une fois
+  # suffit donc à s'abonner.
+  shortcut_url: "https://www.icloud.com/shortcuts/d91403fd0a2f4b799bee35c193f49b6e"
   # Nom du raccourci tel qu'il apparaît chez le testeur après installation :
   # celui du raccourci partagé, pas celui du podcast. À changer avec
   # shortcut_url, si un raccourci renommé est repartagé.
@@ -44,7 +54,17 @@ onboarding:
   # épisode est publié (le lecteur apparaît alors), sinon de install_prompt.
   pitch: "3 minutes d'actu, lancées par ton réveil."
   listen_prompt: "Écoute celui d'aujourd'hui :"
-  install_prompt: "Trois gestes pour l'installer."
+  install_prompt: "Un geste pour l'installer."
+  # Appli de podcast que le raccourci utilise, liée depuis l'étape 1 :
+  # sans elle, le raccourci n'a rien à ouvrir. Fiche App Store de Pocket Casts.
+  player_app_url: "https://apps.apple.com/app/id414834813"
+  # Vidéo de la création de l'automatisation « réveil », montrée dans le
+  # bonus au-dessus des gestes. Chemin relatif à base_url. Vide : pas de
+  # vidéo, les gestes seuls.
+  automation_video: ""
+  # Page Spotify du podcast, une fois accepté. Vide : pas de bouton Spotify
+  # dans « Autre appli ou Android ? ».
+  spotify_url: ""
 
 # Signatures de la marque. L'ouverture et la clôture sont des fichiers audio
 # figés (assets/brand/, WAV 24 kHz mono, −17 LUFS, true peak ≤ −3 dBFS) :
@@ -276,8 +296,15 @@ memory:
   path: "data/covered.json"
 
 audio:
-  bitrate: "40k"     # mono parlé à 24 kHz : 40 kbps reste transparent (~1,2 Mo / 4 min)
+  # Débit du mp3 publié, en mono. Spotify recommande 96 à 320 kbps : 96k
+  # est le plancher, ~2,5 Mo pour 3 min 30.
+  bitrate: "96k"
   sample_rate: 24000 # imposé par le modèle TTS (PCM 24 kHz 16 bits mono)
+  # Fréquence du mp3 publié seulement : tout le traitement (finition,
+  # montage) reste à sample_rate, et le rééchantillonnage se fait une fois,
+  # à l'encodage. 44,1 kHz, la fréquence attendue par les plateformes ; la
+  # voix ne gagne rien au-delà de 12 kHz, mais aucune ne s'en plaint.
+  output_sample_rate: 44100
   # Au-delà, le script est découpé en plusieurs appels TTS puis recollé.
   # Chaque appel réinterprète les voix : à 150 mots par morceau, le test à
   # l'aveugle entendait les voix changer en cours de brief. 900 mots tient
@@ -294,8 +321,8 @@ audio:
   trim_threshold_db: -40
   trim_margin_ms: 20
 
-# Finition audio : compression légère puis normalisation, réencodage au
-# débit et à la fréquence d'audio ci-dessus. Appliquée à chaque brief (run,
+# Finition audio : compression légère puis normalisation, avant le montage
+# et l'unique encodage mp3 (débit et fréquence d'audio ci-dessus). Appliquée à chaque brief (run,
 # say, dry-run) et par la commande « finish ». Retenue avec la voix gagnante
 # du test à l'aveugle du 24/09, qu'elle rend « plus pro ».
 finishing:
@@ -313,9 +340,10 @@ finishing:
   loudness:
     # −16 LUFS : la référence des podcasts, celle d'Apple.
     integrated_lufs: -16
-    # Marge sous 0 dBFS, prise large : le mp3 à 40 kbps fait déborder les
-    # crêtes de 1,5 à 2,6 dB (mesuré le 24/09). −2 laissait passer +0,6 dBFS ;
-    # −3 les garde sous −0,5. À 64 kbps, le débordement tombe sous 0,5 dB.
+    # Marge sous 0 dBFS pour l'encodage mp3, qui fait déborder les crêtes :
+    # de 1,5 à 2,6 dB à 40 kbps (mesuré le 24/09, d'où ce −3). À 96 kbps et
+    # 44,1 kHz, 0,4 dB seulement : −2,6 dBTP mesuré le 26/09 sur un brief
+    # complet avec ses signatures. On garde −3, qui laisse de la marge.
     true_peak_db: -3
     # Plage de loudness tolérée, en LU. 11 laisse respirer la parole.
     range_lu: 11
