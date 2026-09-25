@@ -30,7 +30,8 @@ src/tts.py           synthèse vocale, découpage, encodage mp3
 src/feed.py          flux RSS podcast, page d'accueil, rétention des épisodes
 src/retry.py         réessais avec backoff exponentiel sur erreurs temporaires
 src/main.py          orchestration + CLI
-docs/                publié par GitHub Pages (feed.xml, index.html, installer.html, episodes/)
+docs/                publié par GitHub Pages (feed.xml, index.html, installer.html, episodes/,
+                     cover et décor SVG de la page d'installation)
 tools/analyse_voix.py  mesure audio pour le protocole d'écoute, hors pipeline
                        (numpy, scipy — hors requirements.txt, le run n'en a pas besoin)
 ```

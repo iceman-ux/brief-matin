@@ -11,7 +11,7 @@
 
 Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
     <language>fr-FR</language>
-    <lastBuildDate>Fri, 25 Sep 2026 10:13:50 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 25 Sep 2026 10:42:50 +0000</lastBuildDate>
     <itunes:author>neodem</itunes:author>
     <itunes:subtitle>L'essentiel de l'actu, chaque matin</itunes:subtitle>
     <itunes:summary>Brief quotidien généré automatiquement à partir des grands titres français et internationaux. France, Monde, Économie, Tech.
@@ -24,8 +24,8 @@ Brief généré automatiquement par intelligence artificielle, texte et voix, à
     <itunes:category text="News"/>
     <itunes:explicit>false</itunes:explicit>
     <itunes:type>episodic</itunes:type>
-    <itunes:image href="https://iceman-ux.github.io/brief-matin/cover.png"/>
-    <image><url>https://iceman-ux.github.io/brief-matin/cover.png</url><title>Lora</title><link>https://iceman-ux.github.io/brief-matin</link></image>
+    <itunes:image href="https://iceman-ux.github.io/brief-matin/lora-cover.jpg"/>
+    <image><url>https://iceman-ux.github.io/brief-matin/lora-cover.jpg</url><title>Lora</title><link>https://iceman-ux.github.io/brief-matin</link></image>
     <item>
       <title>25/09 — Macron intervient sur les carburants</title>
       <description>Brief du 2026-09-25. Macron intervient sur les carburants · Repas à un euro : Crous saturés · Nétanyahou défie l'ONU · Salariés de SFR en grève · Uber : commissions jugées abusives · Frappe massive de drones sur Kiev

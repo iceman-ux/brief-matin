@@ -18,9 +18,13 @@
       `outro_file`.
 - [ ] **Raccourci à renommer « Lora »**, repartager le lien iCloud, puis
       mettre à jour `onboarding.shortcut_name` et `shortcut_url`.
-- [ ] Page d'installation à refaire dans la DA Lora (Art déco années 30,
-      nocturne ; palette #0B0E2A, #1B2466, #F2A33A, #C9953C, #8E1426).
-      Maquette en attente dans `Claude outputs/installer-maquette.html`.
+- [x] Page d'installation dans la DA Lora (Art déco années 30, nocturne ;
+      palette #0B0E2A, #1B2466, #F2A33A, #C9953C, #8E1426) le 25/09 :
+      affiche, lecteur du dernier épisode, étapes à coins de laiton. Textes
+      dans `onboarding` et `brand`, décor dans `docs/lora-scene.svg` et
+      `docs/lora-rayons.svg`.
+- [x] Cover Lora (`docs/lora-cover.jpg`, 3000 px) dans le flux le 25/09 ;
+      l'ancienne `cover.png` est supprimée.
 
 ## État au 24/09/2026
 

@@ -23,7 +23,7 @@ podcast:
   # ⚠️ À REMPLACER par l'URL de ta GitHub Page une fois le repo créé.
   # Format : https://<ton-pseudo-github>.github.io/<nom-du-repo>
   base_url: "https://iceman-ux.github.io/brief-matin"
-  cover_image: "cover.png"     # relatif à base_url, optionnel
+  cover_image: "lora-cover.jpg"  # relatif à base_url, optionnel ; 3000 px de côté
   retention_days: 30           # on garde les 30 derniers épisodes
 
 onboarding:
@@ -36,6 +36,15 @@ onboarding:
   # celui du raccourci partagé, pas celui du podcast. À changer seulement
   # quand un raccourci renommé « Lora » aura été repartagé.
   shortcut_name: "Brief Matin"
+  # Textes de l'affiche en tête de la page d'installation : surtitre au-dessus
+  # du nom (brand.name), accroche en italique en dessous.
+  kicker: "Le brief du matin"
+  tagline: "l'essentiel du jour, avant l'aube"
+  # Phrase sous la formule d'ouverture, suivie de listen_prompt quand un
+  # épisode est publié (le lecteur apparaît alors), sinon de install_prompt.
+  pitch: "3 minutes d'actu, lancées par ton réveil."
+  listen_prompt: "Écoute celui d'aujourd'hui :"
+  install_prompt: "Trois gestes pour l'installer."
 
 # Signatures de la marque. Ouverture et clôture sont ajoutées par le code,
 # jamais demandées au modèle : un modèle finit toujours par dévier d'une

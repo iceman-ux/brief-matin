@@ -214,7 +214,7 @@ def _write_landing(cfg: Config, episodes: list[dict]) -> None:
 </html>
 """
     (DOCS / "index.html").write_text(html, encoding="utf-8")
-    _write_installer(cfg)
+    _write_installer(cfg, episodes)
 
 
 # Liens d'abonnement, au format documenté par chaque appli. Apple Podcasts
@@ -244,11 +244,18 @@ def subscribe_links(feed_url: str) -> dict[str, str]:
     }
 
 
-def _write_installer(cfg: Config) -> None:
+# Décor fixe de la page d'installation, servi depuis docs/ : l'affiche (ville
+# à gradins, soleil levant) et le soleil à rayons des intertitres.
+INSTALLER_SCENE = "lora-scene.svg"
+INSTALLER_SYMBOL = "lora-rayons.svg"
+
+
+def _write_installer(cfg: Config, episodes: list[dict]) -> None:
     """Page d'installation : un testeur abonné et réveillé par le brief en
     moins de deux minutes, sans aide."""
     base = cfg.base_url
     pod = cfg.podcast
+    brand = cfg.brand
     feed_url = f"{base}/feed.xml"
     page_url = f"{base}/installer.html"
     onboarding = cfg.raw.get("onboarding") or {}
@@ -256,14 +263,18 @@ def _write_installer(cfg: Config) -> None:
     # Le raccourci partagé garde son propre nom, distinct du podcast.
     shortcut_name = (onboarding.get("shortcut_name") or "").strip() or pod["title"]
     disclosure = (pod.get("ai_disclosure") or "").strip()
-    title = pod["title"]
+    name = brand["name"]
+    signature = (f'{escape(brand["closing_prefix"])}'
+                 '<span class="losange" aria-hidden="true"></span>'
+                 f'{escape(brand["closing_by_day"]["default"])}')
 
     def attr(value: str) -> str:
         return escape(value, {'"': "&quot;"})
 
     buttons = "\n".join(
-        f'        <a class="btn" href="{attr(url)}">Ouvrir dans {escape(app)}</a>'
-        for app, url in subscribe_links(feed_url).items())
+        f'        <a class="btn{"" if i == 0 else " ghost"}" '
+        f'href="{attr(url)}">{escape(app)}</a>'
+        for i, (app, url) in enumerate(subscribe_links(feed_url).items()))
     if shortcut_url:
         shortcut = (f'<a class="btn" href="{attr(shortcut_url)}">'
                     "Ajouter le raccourci</a>")
@@ -271,82 +282,176 @@ def _write_installer(cfg: Config) -> None:
         shortcut = ('<span class="btn off" aria-disabled="true">'
                     "Ajouter le raccourci — bientôt disponible</span>")
 
+    latest = max(episodes, key=lambda e: e["date"]) if episodes else None
+    if latest:
+        note = f'{onboarding["pitch"]} {onboarding["listen_prompt"]}'
+        player = (f'\n      <audio controls preload="none" src="'
+                  f'{attr(base + "/episodes/" + latest["filename"])}"></audio>')
+    else:
+        note = f'{onboarding["pitch"]} {onboarding["install_prompt"]}'
+        player = ""
+    footer_note = f"\n    <p>{escape(disclosure)}</p>" if disclosure else ""
+
     html = f"""<!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Installer {escape(title)}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0B0E2A">
+<title>Installer {escape(name)}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Limelight&family=Josefin+Sans:wght@400;600;700&family=Bodoni+Moda:ital,opsz,wght@1,6..96,400&display=swap">
 <style>
-  :root {{ color-scheme: light dark; --bg:#fbfbfa; --fg:#1a1a18; --mut:#6b6b66; --line:#e4e4e0; --acc:#b4541f; --on:#ffffff; }}
-  @media (prefers-color-scheme: dark) {{
-    :root {{ --bg:#16161a; --fg:#ececeb; --mut:#93938d; --line:#2c2c31; --acc:#e08a52; --on:#16161a; }}
+  :root {{
+    color-scheme: dark;
+    --nuit: #0B0E2A; --indigo: #1B2466; --ambre: #F2A33A; --laiton: #C9953C; --velours: #8E1426;
+    --ivoire: #EFE8D8; --sourd: #B9B2A2; --panneau: #0e1235;
+    --display: "Limelight", "Didot", Georgia, serif;
+    --ui: "Josefin Sans", ui-sans-serif, -apple-system, "Segoe UI", system-ui, sans-serif;
+    --accroche: "Bodoni Moda", "Didot", Georgia, serif;
   }}
   * {{ box-sizing: border-box; }}
-  body {{ margin:0; background:var(--bg); color:var(--fg); padding:40px 16px 56px;
-         font:16px/1.6 ui-sans-serif,-apple-system,"Segoe UI",system-ui,sans-serif; }}
-  main {{ max-width: 560px; margin: 0 auto; }}
-  h1 {{ font-size: 1.6rem; margin: 0 0 8px; letter-spacing: -.02em; }}
-  h2 {{ font-size: 1.05rem; margin: 36px 0 12px; }}
-  p {{ margin: 0 0 12px; }}
-  .mut {{ color: var(--mut); font-size: .9rem; }}
-  .btns {{ display:flex; flex-direction:column; gap:10px; margin: 0 0 16px; }}
-  .btn {{ display:block; text-align:center; padding:13px 16px; border-radius:10px;
-          background:var(--acc); color:var(--on); text-decoration:none; font-weight:600; }}
-  .btn.off {{ background:transparent; color:var(--mut); border:1px dashed var(--line); font-weight:500; }}
-  .copy {{ display:flex; gap:8px; align-items:stretch; }}
-  .copy code {{ flex:1; min-width:0; word-break:break-all; font-size:.84rem; padding:10px 12px;
-                border:1px solid var(--line); border-radius:8px; }}
-  .copy button {{ font:inherit; font-size:.9rem; padding:0 14px; border-radius:8px; cursor:pointer;
-                  border:1px solid var(--line); background:transparent; color:var(--fg); }}
-  ol {{ padding-left: 1.3em; margin: 12px 0; }}
-  li {{ margin: 4px 0; }}
-  .qr {{ display:flex; gap:16px; align-items:center; }}
-  .qr div {{ background:#fff; padding:8px; border-radius:8px; line-height:0; flex:none; }}
-  hr {{ border:0; border-top:1px solid var(--line); margin:36px 0 0; }}
+  html {{ background: var(--nuit); }}
+  body {{ margin: 0; color: var(--ivoire); background: var(--nuit); font: 400 20px/1.5 var(--ui);
+         padding-bottom: max(40px, env(safe-area-inset-bottom)); }}
+
+  /* Affiche */
+  .hero {{ position: relative; max-width: 560px; margin: 0 auto; overflow: hidden; }}
+  .scene {{ display: block; width: 100%; height: auto; }}
+  .hero::after {{ content: ""; position: absolute; inset: 12px; pointer-events: none;
+    border: 1px solid var(--laiton); outline: 1px solid rgba(201,149,60,.4); outline-offset: 4px; }}
+  .titre {{ position: absolute; left: 0; right: 0; top: max(46px, calc(env(safe-area-inset-top) + 20px));
+           text-align: center; padding: 0 24px; }}
+  .surtitre {{ margin: 0; font: 600 13px/1 var(--ui); letter-spacing: .4em; text-transform: uppercase; color: var(--laiton); }}
+  h1 {{ margin: 14px 0 0; font: 400 clamp(72px, 24vw, 120px)/.9 var(--display); color: #E8B55A;
+       letter-spacing: .05em; text-transform: uppercase; text-shadow: 0 3px 22px rgba(11,14,42,.7); }}
+  .accroche {{ margin: 14px 0 0; font: italic 400 clamp(17px, 4.9vw, 21px)/1.3 var(--accroche); white-space: nowrap; color: var(--ivoire);
+              display: flex; align-items: center; justify-content: center; gap: 12px; }}
+  .accroche::before, .accroche::after {{ content: ""; flex: none; width: 22px; height: 1px; background: var(--laiton); }}
+
+  main {{ max-width: 520px; margin: 0 auto; padding: 30px 18px 0; display: grid; gap: 26px; }}
+
+  /* Écoute */
+  .ecoute {{ text-align: center; }}
+  .formule {{ margin: 0; font: italic 400 30px/1.2 var(--accroche); color: #E8B55A; }}
+  .formule-note {{ margin: 8px 0 16px; color: var(--sourd); font-size: 18px; }}
+  audio {{ width: 100%; height: 44px; }}
+
+  /* Intertitre Art déco */
+  .intertitre {{ display: grid; justify-items: center; gap: 10px; margin: 6px 0 0; text-align: center; }}
+  .symbole {{ width: 64px; height: 40px; }}
+  .intertitre h2 {{ margin: 0; font: 600 15px/1.2 var(--ui); letter-spacing: .32em; text-transform: uppercase; color: var(--laiton);
+                   display: flex; align-items: center; gap: 12px; }}
+  .intertitre h2::before, .intertitre h2::after {{ content: ""; width: 30px; height: 1px; background: var(--laiton); }}
+
+  /* Étapes */
+  .etape {{ position: relative; background: linear-gradient(180deg, var(--panneau), #0b0f2e);
+           border: 1px solid rgba(201,149,60,.5); padding: 26px 20px 24px; }}
+  .etape::before, .etape::after {{ content: ""; position: absolute; width: 18px; height: 18px; border: 2px solid var(--laiton); }}
+  .etape::before {{ top: -5px; left: -5px; border-right: 0; border-bottom: 0; }}
+  .etape::after {{ bottom: -5px; right: -5px; border-left: 0; border-top: 0; }}
+  .etape h3 {{ display: flex; align-items: center; gap: 14px; margin: 0 0 18px; font: 700 24px/1.2 var(--ui); }}
+  .num {{ flex: none; width: 44px; height: 44px; display: grid; place-items: center; border: 1px solid var(--laiton);
+         outline: 1px solid rgba(201,149,60,.35); outline-offset: 3px; border-radius: 50%;
+         font: 400 22px/1 var(--display); color: var(--ambre); padding-top: 3px; }}
+  .choix {{ margin: 0 0 12px; color: var(--sourd); font-size: 18px; }}
+  .btns {{ display: grid; gap: 12px; }}
+  .btn {{ display: flex; align-items: center; justify-content: center; text-align: center; min-height: 58px; padding: 4px 18px 0;
+         background: var(--ambre); color: var(--nuit); text-decoration: none; border: 0;
+         font: 700 18px/1.2 var(--ui); letter-spacing: .08em; text-transform: uppercase;
+         box-shadow: 0 0 0 1px var(--laiton), 0 8px 26px rgba(242,163,58,.22); }}
+  .btn:active {{ transform: translateY(1px); }}
+  .btn.ghost {{ background: transparent; color: var(--ivoire); box-shadow: inset 0 0 0 1px var(--laiton); }}
+  .btn.off {{ background: transparent; color: var(--sourd); box-shadow: inset 0 0 0 1px rgba(201,149,60,.35); }}
+  .astuce {{ margin: 14px 0 0; color: var(--sourd); font-size: 18px; }}
+  details {{ margin-top: 16px; border-top: 1px solid rgba(201,149,60,.3); padding-top: 12px; }}
+  summary {{ cursor: pointer; list-style: none; color: var(--ivoire); font-size: 18px; font-weight: 600; }}
+  summary::-webkit-details-marker {{ display: none; }}
+  summary::after {{ content: " +"; color: var(--ambre); }}
+  details[open] summary::after {{ content: " –"; }}
+  details p {{ margin: 10px 0; color: var(--sourd); font-size: 18px; }}
+  .copie {{ display: flex; gap: 8px; }}
+  .copie code {{ flex: 1; min-width: 0; padding: 12px; font-size: 14px; word-break: break-all; color: var(--ivoire);
+                background: rgba(0,0,0,.35); border: 1px solid rgba(201,149,60,.35); }}
+  .copie button {{ flex: none; padding: 4px 16px 0; cursor: pointer; border: 0; font: 700 15px var(--ui);
+                  letter-spacing: .1em; text-transform: uppercase; background: var(--ambre); color: var(--nuit); }}
+  ol.gestes {{ margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; counter-reset: g; }}
+  ol.gestes li {{ counter-increment: g; display: grid; grid-template-columns: 30px 1fr; gap: 8px; }}
+  ol.gestes li::before {{ content: counter(g); font: 400 20px/1.5 var(--display); color: var(--ambre); }}
+  .fort {{ font-weight: 700; }}
+  .note {{ margin: 14px 0 0; color: var(--sourd); font-size: 16px; }}
+  a:focus-visible, button:focus-visible, summary:focus-visible {{ outline: 3px solid var(--ambre); outline-offset: 3px; }}
+
+  footer {{ max-width: 520px; margin: 34px auto 0; padding: 0 18px; text-align: center; color: var(--sourd); font-size: 15px; }}
+  footer .symbole {{ display: block; margin: 0 auto 14px; width: 48px; height: 30px; }}
+  .signature {{ margin: 0 0 14px; font: italic 400 19px/1.3 var(--accroche); color: var(--ivoire); }}
+  .losange {{ display: inline-block; width: 7px; height: 7px; margin: 0 10px 2px; background: var(--velours); transform: rotate(45deg); }}
+  .qr {{ display: none; }}
+  @media (min-width: 820px) and (hover: hover) {{
+    .qr {{ display: flex; gap: 18px; align-items: center; justify-content: center; margin-bottom: 18px; text-align: left; font-size: 17px; color: var(--ivoire); }}
+    .qr #qr {{ background: #fff; padding: 8px; line-height: 0; }}
+  }}
 </style>
 </head>
 <body>
+  <header class="hero">
+    <img class="scene" src="{INSTALLER_SCENE}" width="400" height="600"
+         alt="Ville Art déco à l'aube, soleil levant entre les tours">
+    <div class="titre">
+      <p class="surtitre">{escape(onboarding["kicker"])}</p>
+      <h1>{escape(name)}</h1>
+      <p class="accroche">{escape(onboarding["tagline"])}</p>
+    </div>
+  </header>
+
   <main>
-    <h1>{escape(title)}</h1>
-    <p>Quelques minutes d'actu chaque matin, lancées par ton réveil.</p>
-    <p class="mut">{escape(disclosure)}</p>
+    <section class="ecoute" aria-label="Écouter le brief du jour">
+      <p class="formule">« {escape(brand["opening"])} »</p>
+      <p class="formule-note">{escape(note)}</p>{player}
+    </section>
 
-    <h2>Étape 1 — S'abonner</h2>
-    <div class="btns">
+    <div class="intertitre">
+      <img class="symbole" src="{INSTALLER_SYMBOL}" alt="">
+      <h2>Trois gestes</h2>
+    </div>
+
+    <section class="etape" aria-labelledby="e1">
+      <h3 id="e1"><span class="num">1</span>Abonne-toi</h3>
+      <p class="choix">Dans ton appli de podcast :</p>
+      <div class="btns">
 {buttons}
-    </div>
-    <p class="mut">Apple Podcasts ne propose pas de lien d'abonnement direct :
-      Bibliothèque → « … » → Ajouter une émission par URL, puis colle
-      l'adresse ci-dessous. Même adresse pour toute autre appli, et pour
-      Android.</p>
-    <div class="copy">
-      <code id="feed">{escape(feed_url)}</code>
-      <button type="button" id="copy">Copier</button>
-    </div>
-    <p class="mut" style="margin-top:12px">Dans l'appli de podcast, active le
-      téléchargement automatique : l'épisode sera là même sans réseau au
-      réveil.</p>
+      </div>
+      <p class="astuce">Active le téléchargement automatique : l'épisode t'attendra même sans réseau.</p>
+      <details>
+        <summary>Apple Podcasts ou une autre appli</summary>
+        <p>Dans Apple Podcasts : Bibliothèque → « … » → Ajouter une émission par URL, puis colle ce lien.</p>
+        <div class="copie"><code id="feed">{escape(feed_url)}</code><button type="button" id="copy">Copier</button></div>
+      </details>
+    </section>
 
-    <h2>Étape 2 — Lancer le brief au réveil</h2>
-    <div class="btns">
-      {shortcut}
-    </div>
-    <ol>
-      <li>Ouvre Raccourcis, onglet Automatisation, puis touche +.</li>
-      <li>Choisis Réveil, puis « Est arrêté », et Exécuter immédiatement.</li>
-      <li>Choisis le raccourci « {escape(shortcut_name)} ».</li>
-    </ol>
-    <p class="mut">Les libellés exacts peuvent varier selon la version d'iOS.</p>
+    <section class="etape" aria-labelledby="e2">
+      <h3 id="e2"><span class="num">2</span>Ajoute le raccourci</h3>
+      <div class="btns">{shortcut}</div>
+    </section>
 
-    <hr>
-    <h2>Depuis un ordinateur</h2>
-    <div class="qr">
-      <div id="qr"></div>
-      <p class="mut">Scanne ce code avec l'appareil photo du téléphone pour
-        ouvrir cette page dessus.</p>
-    </div>
+    <section class="etape" aria-labelledby="e3">
+      <h3 id="e3"><span class="num">3</span>Relie-le à ton réveil</h3>
+      <ol class="gestes">
+        <li><span>Raccourcis → <span class="fort">Automatisation</span> → <span class="fort">+</span></span></li>
+        <li><span><span class="fort">Réveil</span> → « Est arrêté » → <span class="fort">Exécuter immédiatement</span></span></li>
+        <li><span>Choisis le raccourci <span class="fort">« {escape(shortcut_name)} »</span></span></li>
+      </ol>
+      <p class="note">Les libellés peuvent varier selon la version d'iOS.</p>
+    </section>
   </main>
+
+  <footer>
+    <img class="symbole" src="{INSTALLER_SYMBOL}" alt="">
+    <p class="signature">{signature}</p>
+    <div class="qr"><div id="qr"></div><p>Sur ordinateur ?<br>Scanne avec ton téléphone.</p></div>{footer_note}
+  </footer>
+
   <script src="{QRCODE_JS}" integrity="{QRCODE_JS_SRI}"
           crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script>
@@ -364,11 +469,8 @@ def _write_installer(cfg: Config) -> None:
           try {{ document.execCommand("copy"); done(); }} catch (e) {{}}
         }}
       }});
-      if (window.QRCode) {{
-        new QRCode(document.getElementById("qr"), {{
-          text: {json.dumps(page_url)}, width: 132, height: 132,
-          colorDark: "#000000", colorLight: "#ffffff"
-        }});
+      if (window.QRCode && window.matchMedia("(min-width: 820px) and (hover: hover)").matches) {{
+        new QRCode(document.getElementById("qr"), {{ text: {json.dumps(page_url)}, width: 120, height: 120, colorDark: "#000000", colorLight: "#ffffff" }});
       }}
     }})();
   </script>
