@@ -88,17 +88,19 @@ brand:
     monday: "assets/brand/cloture-lundi.wav"
     friday: "assets/brand/cloture-vendredi.wav"
   # Sonal composé par Adam, joué avant l'ouverture. Vide : pas de sonal.
-  # assets/brand/sonal.wav, préparé par tools/preparer_sonal.py depuis
-  # assets/brand/sources/ ; à renseigner une fois A ou B choisi.
-  # Tout format que ffmpeg lit ; il est décodé puis encodé une seule fois
-  # avec le reste de l'épisode.
-  sonal_file: ""
+  # Préparé par tools/preparer_sonal.py depuis assets/brand/sources/ :
+  # −18,6 LUFS voulu (1,6 LU sous les signatures), true peak −3 dBFS, sans
+  # limiteur ; le monter à −17 LUFS aurait exigé un limiteur. Tout format que
+  # ffmpeg lit ; il est décodé puis encodé une seule fois avec le reste de
+  # l'épisode. Manquant ou illisible : l'épisode sort sans, avec un ⚠⚠.
+  sonal_file: "assets/brand/sonal.wav"
   # Chevauchement du sonal et de l'ouverture, en ms : la voix commence ce
   # temps avant la fin du sonal, sans baisser la musique. 0 : la voix suit
-  # le sonal après gaps_ms.head (montage A). ~1010 : elle entre quand le
-  # sonal est retombé 15 dB sous son maximum (montage B, 2,28 s sur 3,29).
-  # Voir tests/sonal/ecoute.html.
-  sonal_overlap_ms: 0
+  # le sonal après gaps_ms.head (montage A). Montage B retenu par Adam le
+  # 26/09 : 1010, la voix entre à 2,28 s sur 3,29, quand le sonal est
+  # retombé 15 dB sous son maximum. S'il gêne la voix : 790 la fait entrer
+  # à 2,5 s, 490 à 2,8 s.
+  sonal_overlap_ms: 1010
   # Silences du montage, en ms, de voix à voix : les silences de tête et de
   # queue de chaque morceau sont coupés avant, pour que ces écarts soient
   # exacts. head : avant l'ouverture (après le sonal s'il y en a un).

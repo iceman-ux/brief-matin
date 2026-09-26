@@ -19,12 +19,13 @@ phrase qui le contient, et on ne régénère jamais ces prises. Entre les deux,
 Marc dit une réplique variable posée par le code (`src/brand.py`) :
 « Et aujourd'hui, samedi 26 septembre. » + clin d'œil d'un jour férié +
 accroche du modèle (le fait directement, 20 mots au plus). Montage :
-[sonal] → 150 ms → ouverture → 350 ms → corps → 1 s → clôture, un seul
-encodage mp3. Sonal composé par Adam, préparé dans `assets/brand/sonal.wav`
-(source dans `assets/brand/sources/`, `tools/preparer_sonal.py`) mais pas
-encore en production : `brand.sonal_file` reste vide tant qu'Adam n'a pas
-choisi entre A (à la suite) et B (la voix entre dans sa queue,
-`brand.sonal_overlap_ms`). Pas de mention d'IA dans le texte parlé : elle reste
+sonal → ouverture en chevauchement → 350 ms → corps → 1 s → clôture, un
+seul encodage mp3. Sonal composé par Adam (`assets/brand/sonal.wav`, 3,29 s,
+−18,6 LUFS sans limiteur ; source dans `assets/brand/sources/`,
+`tools/preparer_sonal.py`), en production depuis le 26/09 en montage B :
+l'ouverture entre dans sa queue à 2,28 s (`brand.sonal_overlap_ms: 1010`),
+sans baisser la musique. Sonal manquant ou illisible : l'épisode sort sans,
+avec un ⚠⚠. Pas de mention d'IA dans le texte parlé : elle reste
 écrite, dans le flux et sur la page d'installation.
 
 ## Architecture

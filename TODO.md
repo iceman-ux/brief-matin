@@ -51,8 +51,12 @@
       `assets/brand/sonal.wav` (mono 24 kHz, 3,29 s, −18,6 LUFS, TP −3,0 :
       −17 LUFS aurait exigé un limiteur). Chevauchement réglable,
       `brand.sonal_overlap_ms`.
-- [ ] **Choisir A ou B** (`tests/sonal/ecoute.html`), puis renseigner
-      `brand.sonal_file` (et `brand.sonal_overlap_ms`, ~1010 pour B).
+- [x] **Choisir A ou B** : B retenu le 26/09 (la voix entre à 2,28 s,
+      `brand.sonal_overlap_ms: 1010`), −18,6 LUFS sans limiteur.
+- [x] **Sonal en production** le 26/09 : `brand.sonal_file` renseigné,
+      repli sans sonal (⚠⚠) si le fichier manque ou est illisible.
+- [ ] **Écouter le 1er épisode avec sonal** (Adam) : la voix gêne-t-elle
+      la queue du sonal ? Sinon, 790 ou 490 dans `sonal_overlap_ms`.
 - [ ] Relire `data/fidelite/` après une semaine : faux positifs,
       corrections utiles ?
 - [x] Raccourci renommé « Lora » et repartagé le 25/09 :
