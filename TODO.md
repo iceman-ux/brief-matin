@@ -47,9 +47,14 @@
       non publié). Le commit des signatures est poussé depuis le 25/09.
 - [ ] Surveiller les premiers briefs Lora : avertissements « accroche »,
       « retiré du script » ou « Lora » dans les logs Actions.
-- [ ] **Sonal** composé par Adam : le poser dans `assets/brand/` et
-      renseigner `brand.sonal_file`. Joué avant l'ouverture, 150 ms avant
-      elle.
+- [x] **Sonal** composé par Adam, préparé le 26/09 dans
+      `assets/brand/sonal.wav` (mono 24 kHz, 3,29 s, −18,6 LUFS, TP −3,0 :
+      −17 LUFS aurait exigé un limiteur). Chevauchement réglable,
+      `brand.sonal_overlap_ms`.
+- [ ] **Choisir A ou B** (`tests/sonal/ecoute.html`), puis renseigner
+      `brand.sonal_file` (et `brand.sonal_overlap_ms`, ~1010 pour B).
+- [ ] Relire `data/fidelite/` après une semaine : faux positifs,
+      corrections utiles ?
 - [x] Raccourci renommé « Lora » et repartagé le 25/09 :
       `onboarding.shortcut_name` et `shortcut_url` à jour, page
       d'installation régénérée.

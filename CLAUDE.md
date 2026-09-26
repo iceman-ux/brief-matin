@@ -20,8 +20,11 @@ Marc dit une réplique variable posée par le code (`src/brand.py`) :
 « Et aujourd'hui, samedi 26 septembre. » + clin d'œil d'un jour férié +
 accroche du modèle (le fait directement, 20 mots au plus). Montage :
 [sonal] → 150 ms → ouverture → 350 ms → corps → 1 s → clôture, un seul
-encodage mp3. Sonal composé par Adam, à venir : `brand.sonal_file`, joué
-avant l'ouverture. Pas de mention d'IA dans le texte parlé : elle reste
+encodage mp3. Sonal composé par Adam, préparé dans `assets/brand/sonal.wav`
+(source dans `assets/brand/sources/`, `tools/preparer_sonal.py`) mais pas
+encore en production : `brand.sonal_file` reste vide tant qu'Adam n'a pas
+choisi entre A (à la suite) et B (la voix entre dans sa queue,
+`brand.sonal_overlap_ms`). Pas de mention d'IA dans le texte parlé : elle reste
 écrite, dans le flux et sur la page d'installation.
 
 ## Architecture
@@ -29,11 +32,13 @@ avant l'ouverture. Pas de mention d'IA dans le texte parlé : elle reste
 ```
 config.yaml          tous les réglages — le code ne doit contenir AUCUNE valeur en dur
 prompts/brief_fr.md  ligne éditoriale du brief (règles d'écriture numérotées)
+prompts/fidelite_fr.md, correction_fr.md  consignes du garde-fou de fidélité
 src/config.py        chargement config + .env
 src/sources.py       RSS : récupération parallèle, fenêtre temporelle, regroupement
 src/memory.py        sujets déjà traités → data/covered.json
 src/brand.py         réplique d'ouverture, fichiers de marque, jours fériés, garde « Lora »
 src/writer.py        construction du prompt, appel LLM, garde-fous sur la sortie
+src/fidelite.py      garde-fou de fidélité aux sources (reprises, faits inventés)
 src/tts.py           synthèse vocale, découpage, finition, montage des signatures, mp3
 src/feed.py          flux RSS podcast, page d'accueil, rétention des épisodes
 src/release.py       hébergement des mp3 dans la Release GitHub, par la CLI gh
@@ -45,10 +50,14 @@ docs/                publié par GitHub Pages (feed.xml, index.html, installer.h
 assets/brand/        signatures enregistrées, figées (ouverture, clôtures du jour)
 tools/analyse_voix.py  mesure audio pour le protocole d'écoute, hors pipeline
                        (numpy, scipy — hors requirements.txt, le run n'en a pas besoin)
+tools/preparer_sonal.py  mise au format du sonal (mono, 24 kHz, gain fixe), idem
+data/sources/        articles envoyés au rédacteur, par jour (rétention des épisodes)
+data/fidelite/       trace du garde-fou, par épisode
+tests/test_fidelite.py  tests du contrôle de reprise : py -m unittest tests.test_fidelite
 ```
 
-Pipeline : RSS → dédoublonnage → mémoire → LLM → signatures → TTS → mp3 →
-Release → feed.xml.
+Pipeline : RSS → dédoublonnage → mémoire → LLM → signatures → fidélité →
+TTS → mp3 → Release → feed.xml.
 
 ## Commandes
 
@@ -61,6 +70,7 @@ python -m src.main say [AAAA-MM-JJ] # resynthèse d'un script existant, sans LLM
 python -m src.main check-feeds      # diagnostic des sources RSS
 python -m src.main rebuild-feed     # régénère feed.xml depuis docs/episodes.json
 python -m src.main stats            # téléchargements de chaque épisode de la Release
+python -m src.main fidelite [AAAA-MM-JJ] [--fix]  # rejoue le garde-fou, clé de test
 ```
 
 Sur Windows, utiliser `py` plutôt que `python`.
@@ -132,6 +142,21 @@ Sur Windows, utiliser `py` plutôt que `python`.
 - **Le modèle n'a que les titres et chapôs**, jamais le texte des articles.
   Le prompt lui interdit d'inventer des liens de causalité — c'est le défaut
   le plus grave possible ici, parce qu'il est invisible à l'écoute.
+- **Garde-fou de fidélité** (`src/fidelite.py`, section `fidelite`), depuis
+  le 26/09, entre les signatures et le TTS. (1) Sans API : toute suite de
+  8 mots ou plus recopiée d'un titre ou d'un chapô du jour est une reprise
+  (droit voisin de la presse) ; les citations « » de 20 mots au plus sont
+  comptées à part. (2) Un appel au modèle de rédaction (réflexion `low`)
+  liste les affirmations absentes des sources ; chiffre, nom, date et
+  citation sont « haute ». (3) S'il y a reprise ou « haute », un appel
+  réécrit ces seules répliques, puis le contrôle de reprise repasse.
+  ~0,013 $ le contrôle, ~0,014 $ la correction. **Il ne bloque jamais
+  l'épisode** : panne, API saturée ou réponse illisible, le script sort tel
+  quel avec un ⚠⚠ dans le log. Trace dans `data/fidelite/`, sources du
+  jour dans `data/sources/` (même rétention que les épisodes), versionnées
+  par le workflow pour rejouer un contrôle (`fidelite`). Le contrôle rate
+  des affirmations « autre » (conditions, conséquences inventées) : il
+  attrape surtout les faits précis.
 
 L'avancement et les tâches en cours sont dans `TODO.md` — à lire seulement
 quand la question porte dessus (`@TODO.md`), pas à chaque session.

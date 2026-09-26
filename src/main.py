@@ -7,6 +7,7 @@
     python -m src.main check-feeds      # diagnostic des sources RSS
     python -m src.main rebuild-feed     # régénère feed.xml depuis l'index
     python -m src.main stats            # téléchargements des épisodes (Release)
+    python -m src.main fidelite [AAAA-MM-JJ]  # rejoue le garde-fou de fidélité
 """
 
 from __future__ import annotations
@@ -19,6 +20,7 @@ from zoneinfo import ZoneInfo
 
 from . import brand as brand_mod
 from . import feed as feed_mod
+from . import fidelite as fidelite_mod
 from . import release as release_mod
 from . import sources as sources_mod
 from . import tts as tts_mod
@@ -85,6 +87,10 @@ def cmd_run(args) -> int:
         print("✗ Aucun article récupéré — brief annulé, rien n'est publié.",
               file=sys.stderr)
         return 1
+    sent = writer_mod.prompt_items(cfg, items)
+    if not args.dry_run:
+        fidelite_mod.save_sources(cfg, sent, date)
+        fidelite_mod.prune_sources(cfg, date)
 
     # 2 ─ Mémoire
     memory = load_memory(cfg)
@@ -101,6 +107,10 @@ def cmd_run(args) -> int:
         data = writer_mod.write_script(cfg, items, memory, now)
     writer_cost = _print_writer_usage(cfg, data.get("usage"))
     data = brand_mod.assemble(cfg, data, now.date())
+    # En dry-run, seul le contrôle de reprise tourne : il ne coûte rien.
+    data["script"], _ = fidelite_mod.guard(
+        cfg, data["script"], sent, now.date(), use_api=not args.dry_run,
+        report=None if args.dry_run else fidelite_mod.report_path(cfg, date))
     script = data["script"]
     words = writer_mod.word_count(script)
     minutes = words / cfg.brief["words_per_minute"]
@@ -448,6 +458,53 @@ def cmd_stats(args) -> int:
     return 0
 
 
+def cmd_fidelite(args) -> int:
+    cfg = load_config(args.config)
+    date = args.date or _now(cfg).strftime("%Y-%m-%d")
+    print(f"\n▌ Garde-fou de fidélité — {date}\n")
+    sources = (Path(args.sources) if args.sources
+               else fidelite_mod.sources_path(cfg, date))
+    script_path = Path(args.script) if args.script else (
+        ROOT / "data" / "scripts" / f"{date}.txt")
+    for path in (sources, script_path):
+        if not path.exists():
+            print(f"✗ {path} introuvable.", file=sys.stderr)
+            return 2
+    # Un contrôle rejoué est un essai : jamais sur le quota de la production.
+    try:
+        test_api_key()
+    except RuntimeError as exc:
+        print(f"✗ {exc}", file=sys.stderr)
+        return 2
+    cfg.use_test_key = True
+    try:
+        script = writer_mod.text_to_script(
+            cfg, script_path.read_text(encoding="utf-8"))
+    except ValueError as exc:
+        print(f"✗ {script_path} illisible, {exc}", file=sys.stderr)
+        return 2
+    day = datetime.strptime(date, "%Y-%m-%d").date()
+    result, trace = fidelite_mod.guard(
+        cfg, script, fidelite_mod.load_sources(sources), day,
+        use_api=not args.no_api, fix=args.fix,
+        report=Path(args.report) if args.report else None)
+    for copy in trace["reprises"]:
+        print(f"   reprise [{copy['replique']}] {copy['mots']} mots, "
+              f"{copy['source']} ({copy['champ']}) : « {copy['texte']} »")
+    for problem in trace["problemes"]:
+        print(f"   {problem['gravite']:5} [{problem['replique']}] "
+              f"{problem['type']} : « {problem['extrait']} » — "
+              f"{problem['explication']}")
+    for fix in trace["corrections"]:
+        print(f"   corrigée [{fix['replique']}] « {fix['apres']} »")
+    if args.out:
+        Path(args.out).write_text(
+            writer_mod.script_to_text(cfg, result, with_names=True),
+            encoding="utf-8")
+        print(f"\n✓ Script corrigé écrit dans {args.out}")
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="brief-matin", description=__doc__)
     parser.add_argument("--config", default=None, help="chemin d'un autre config.yaml")
@@ -510,6 +567,27 @@ def main(argv: list[str] | None = None) -> int:
     stats = sub.add_parser("stats", help="téléchargements de chaque épisode "
                                          "de la Release, en lecture seule")
     stats.set_defaults(func=cmd_stats)
+
+    fid = sub.add_parser("fidelite", help="rejoue le garde-fou de fidélité "
+                                          "sur un script et ses sources gardées, "
+                                          "avec GEMINI_API_KEY_TEST ; rien n'est "
+                                          "publié")
+    fid.add_argument("date", nargs="?", type=_iso_date, default=None,
+                     help="AAAA-MM-JJ des sources (par défaut : aujourd'hui)")
+    fid.add_argument("--script", default=None,
+                     help="script à contrôler (défaut : data/scripts/<date>.txt)")
+    fid.add_argument("--sources", default=None,
+                     help="sources JSON (défaut : celles gardées pour la date)")
+    fid.add_argument("--no-api", action="store_true",
+                     help="contrôle de reprise seul, sans appel au modèle")
+    fid.add_argument("--fix", action="store_true",
+                     help="tente aussi la correction (1 appel de plus au plus)")
+    fid.add_argument("--out", default=None,
+                     help="écrit ici le script, corrigé s'il y a lieu")
+    fid.add_argument("--report", default=None,
+                     help="écrit ici la trace JSON (défaut : aucune, la trace "
+                          "de production n'est jamais écrasée)")
+    fid.set_defaults(func=cmd_fidelite)
 
     args = parser.parse_args(argv)
     try:

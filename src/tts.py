@@ -376,6 +376,9 @@ def _brand_pcm(cfg: Config, path: Path | None, label: str) -> bytes | None:
 def frame(cfg: Config, body: bytes, day: date) -> bytes:
     """[sonal] → tête → ouverture → écart → corps → écart → clôture du jour.
 
+    Avec brand.sonal_overlap_ms, l'ouverture entre pendant la queue du sonal
+    au lieu de le suivre après l'écart de tête.
+
     Tout reste en PCM : les fichiers de marque, déjà à niveau, ne repassent
     pas par la finition, et l'épisode n'est encodé qu'une fois. Un fichier
     manquant ou illisible est sauté, jamais bloquant.
@@ -394,20 +397,40 @@ def frame(cfg: Config, body: bytes, day: date) -> bytes:
 
     # Le sonal n'est pas rogné : sa fin musicale (réverbération, fondu) passe
     # sous le seuil de coupe de la voix et serait tronquée.
-    parts: list[bytes] = [sonal] if sonal else []
+    overlap = ms(cfg.brand.get("sonal_overlap_ms") or 0) if sonal else 0
+    parts: list[bytes] = [sonal] if sonal and not overlap else []
     body, body_head, body_tail = _trim(cfg, body)
     if opening:
         opening, head, tail = _trim(cfg, opening)
         parts += [_silence(ms(gaps["head"]) - head), opening,
                   _silence(ms(gaps["after_opening"]) - tail - body_head)]
     else:
+        head = body_head
         parts.append(_silence(ms(gaps["head"]) - body_head))
     parts.append(body)
     if closing:
         closing, head, _ = _trim(cfg, closing, keep_tail=True)
         parts += [_silence(ms(gaps["before_closing"]) - body_tail - head),
                   closing]
-    return b"".join(parts)
+    if not overlap:
+        return b"".join(parts)
+    # La voix entre dans la queue du sonal : sans l'écart de tête, sa
+    # première attaque tombe à « overlap » de la fin du sonal.
+    voice = b"".join(parts)[2 * max(ms(gaps["head"]) - head, 0):]
+    return _mix_at(sonal, voice, max(len(sonal) // 2 - overlap - head, 0))
+
+
+def _mix_at(first: bytes, second: bytes, offset: int) -> bytes:
+    """second commence à offset échantillons dans first ; les deux sont
+    additionnés, sans ducking : la décroissance du sonal suffit."""
+    head = array.array("h")
+    head.frombytes(first)
+    voice = array.array("h")
+    voice.frombytes(second)
+    shared = min(len(head) - offset, len(voice))
+    for i in range(shared):
+        head[offset + i] = max(-32768, min(32767, head[offset + i] + voice[i]))
+    return head.tobytes() + voice[shared:].tobytes()
 
 
 def synthesize(cfg: Config, script: list[dict], out_path: Path,

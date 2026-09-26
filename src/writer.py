@@ -8,7 +8,7 @@ from datetime import datetime
 from typing import Any, Callable, TypeVar
 
 from .brand import JOURS, MOIS, occasion
-from .config import ROOT, Config, api_key
+from .config import ROOT, Config, api_key, test_api_key
 from .memory import Memory
 from .sources import Item
 
@@ -72,9 +72,15 @@ def _date_longue(dt: datetime) -> str:
     return f"{JOURS[dt.weekday()]} {dt.day} {MOIS[dt.month]} {dt.year}"
 
 
-def _articles_block(items: list[Item], limit: int = 120) -> str:
+def prompt_items(cfg: Config, items: list[Item]) -> list[Item]:
+    """Articles envoyés au rédacteur, les mieux classés d'abord : ce sont
+    aussi les sources du jour pour le garde-fou de fidélité."""
+    return items[:int(cfg.brief["prompt_articles"])]
+
+
+def articles_block(items: list[Item]) -> str:
     lines = []
-    for idx, item in enumerate(items[:limit], 1):
+    for idx, item in enumerate(items, 1):
         lines.append(
             f"{idx}. [{item.category}] {item.title}\n"
             f"   source : {item.source} | {item.published[:16]}\n"
@@ -125,7 +131,7 @@ def build_prompt(cfg: Config, items: list[Item], memory: Memory,
         "{{OCCASION}}": wink,
         "{{HOOK_MAX_WORDS}}": str(cfg.brand["hook_max_words"]),
         "{{MEMORY_BLOCK}}": memory.as_prompt_block(),
-        "{{ARTICLES}}": _articles_block(items),
+        "{{ARTICLES}}": articles_block(prompt_items(cfg, items)),
         "{{SPEAKER_NAMES}}": ", ".join(s.name for s in speakers),
     }
     for needle, value in replacements.items():
@@ -156,7 +162,8 @@ def write_script(cfg: Config, items: list[Item], memory: Memory,
     from .retry import call_with_retry, status_code
 
     prompt = build_prompt(cfg, items, memory, now)
-    client = genai.Client(api_key=api_key())
+    client = genai.Client(
+        api_key=test_api_key() if cfg.use_test_key else api_key())
     thinking = writer_thinking(cfg)
 
     def generate(model: str, with_thinking: bool):

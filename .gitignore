@@ -11,7 +11,9 @@ data/dry-run.mp3
 data/dry-run.txt
 
 # Les essais d'écoute : des mp3 lourds qui n'ont rien à faire dans l'historique.
-tests/
+# Seuls les tests unitaires sont versionnés.
+tests/*
+!tests/test_*.py
 # Le test de voix à l'aveugle : mp3 et clé de correspondance, jamais publiés.
 data/voice-test/
 

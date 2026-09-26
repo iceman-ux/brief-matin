@@ -88,9 +88,17 @@ brand:
     monday: "assets/brand/cloture-lundi.wav"
     friday: "assets/brand/cloture-vendredi.wav"
   # Sonal composé par Adam, joué avant l'ouverture. Vide : pas de sonal.
+  # assets/brand/sonal.wav, préparé par tools/preparer_sonal.py depuis
+  # assets/brand/sources/ ; à renseigner une fois A ou B choisi.
   # Tout format que ffmpeg lit ; il est décodé puis encodé une seule fois
   # avec le reste de l'épisode.
   sonal_file: ""
+  # Chevauchement du sonal et de l'ouverture, en ms : la voix commence ce
+  # temps avant la fin du sonal, sans baisser la musique. 0 : la voix suit
+  # le sonal après gaps_ms.head (montage A). ~1010 : elle entre quand le
+  # sonal est retombé 15 dB sous son maximum (montage B, 2,28 s sur 3,29).
+  # Voir tests/sonal/ecoute.html.
+  sonal_overlap_ms: 0
   # Silences du montage, en ms, de voix à voix : les silences de tête et de
   # queue de chaque morceau sont coupés avant, pour que ces écarts soient
   # exacts. head : avant l'ouverture (après le sonal s'il y en a un).
@@ -180,6 +188,11 @@ brief:
   # Seuil de regroupement des articles qui parlent du même sujet (0 → 1).
   # Plus bas = fusionne plus agressivement. 0.6 est un bon compromis.
   dedupe_threshold: 0.6
+
+  # Articles envoyés au rédacteur, les mieux classés d'abord (poids et
+  # reprises). Ce sont aussi les sources gardées pour le garde-fou de
+  # fidélité. Chaque article ajouté rallonge le prompt, donc la facture.
+  prompt_articles: 120
 
   # Répartition éditoriale visée (indicative, transmise au rédacteur).
   mix:
@@ -294,6 +307,45 @@ memory:
   # et a pour consigne de ne pas les rejouer, sauf vrai rebondissement.
   lookback_days: 7
   path: "data/covered.json"
+
+# Garde-fou de fidélité aux sources, entre la rédaction et la synthèse. Il
+# ne bloque JAMAIS l'épisode : une panne, une API saturée ou une réponse
+# illisible laissent sortir le script tel quel, avec un avertissement ⚠⚠.
+# Trace de chaque épisode dans reports_dir.
+fidelite:
+  enabled: true
+  # Reprise : une suite d'au moins ce nombre de mots consécutifs du script
+  # présente telle quelle dans un titre ou un chapô du jour (sans casse,
+  # accents ni ponctuation). Droit voisin de la presse : le script ne
+  # recopie pas les articles. Contrôle local, sans appel API.
+  copy_min_words: 8
+  # Un passage entre « » de ce nombre de mots au plus est une citation de
+  # personne : compté à part, jamais signalé comme reprise. Au-delà, il est
+  # contrôlé comme le reste du texte.
+  quote_max_words: 20
+  # Contrôle des faits : un appel au modèle de rédaction (models.writer,
+  # sans repli) cherche chiffres, noms, dates et citations absents des
+  # sources. ~0,01 à 0,02 $ par épisode.
+  check_facts: true
+  # Réflexion de ce contrôle (thinking_level) : il compare, il n'écrit pas.
+  thinking: "low"
+  # Types d'affirmation non sourcée jugés graves : eux seuls, avec les
+  # reprises, déclenchent une correction. Les autres (« autre »,
+  # « contexte ») restent dans la trace.
+  high_severity_types: ["chiffre", "nom", "date", "citation"]
+  # Correction : un appel au plus par épisode, qui réécrit seulement les
+  # répliques en cause. Suivie du seul contrôle de reprise, sans nouvel
+  # appel. Si elle échoue, le script d'origine est gardé.
+  fix: true
+  fix_thinking: "low"
+  # Tentatives par appel sur erreur 429/5xx. Bas : un contrôle qui attend
+  # une minute de plus retarde tout le run, et il peut sauter sans dommage.
+  retry_attempts: 2
+  # Sources envoyées au rédacteur, gardées pour pouvoir rejouer le contrôle
+  # (commande « fidelite »). Même rétention que les épisodes
+  # (podcast.retention_days). Versionnées avec les scripts.
+  sources_dir: "data/sources"
+  reports_dir: "data/fidelite"
 
 audio:
   # Débit du mp3 publié, en mono. Spotify recommande 96 à 320 kbps : 96k

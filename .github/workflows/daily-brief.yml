@@ -72,7 +72,9 @@ jobs:
         run: |
           git config user.name  "brief-matin[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/ data/covered.json data/scripts/
+          # Sources du jour et trace du garde-fou de fidélité : de quoi
+          # rejouer le contrôle d'un épisode après coup (commande fidelite).
+          git add docs/ data/covered.json data/scripts/ data/sources/ data/fidelite/
           # docs/episodes/*.mp3 est ignoré : il n'y reste un mp3 que si
           # l'envoi à la Release a échoué, et ce repli doit être publié.
           git add -f docs/episodes/
