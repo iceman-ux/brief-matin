@@ -11,7 +11,7 @@
 
 Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
     <language>fr-FR</language>
-    <lastBuildDate>Fri, 25 Sep 2026 23:12:36 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 26 Sep 2026 07:58:32 +0000</lastBuildDate>
     <itunes:author>Lora</itunes:author>
     <itunes:subtitle>L'essentiel de l'actu, chaque matin</itunes:subtitle>
     <itunes:summary>Brief quotidien généré automatiquement à partir des grands titres français et internationaux. France, Monde, Économie, Tech.
@@ -26,6 +26,37 @@ Brief généré automatiquement par intelligence artificielle, texte et voix, à
     <itunes:type>episodic</itunes:type>
     <itunes:image href="https://iceman-ux.github.io/brief-matin/lora-cover.jpg"/>
     <image><url>https://iceman-ux.github.io/brief-matin/lora-cover.jpg</url><title>Lora</title><link>https://iceman-ux.github.io/brief-matin</link></image>
+    <item>
+      <title>26/09 — Trump rejette l'offre iranienne sur Ormuz</title>
+      <description>Brief du 2026-09-26. Trump rejette l'offre iranienne sur Ormuz · Moyens militaires français envoyés en Arabie · Lourdes condamnations au procès Aramburu · Yannick Jadot suspendu par Les Écologistes · Volkswagen rappelle deux millions de voitures · Fuite d'images d'utilisateurs chez OpenAI
+
+Au sommaire :
+• Trump rejette l'offre iranienne sur Ormuz
+• Moyens militaires français envoyés en Arabie
+• Lourdes condamnations au procès Aramburu
+• Yannick Jadot suspendu par Les Écologistes
+• Volkswagen rappelle deux millions de voitures
+• Fuite d'images d'utilisateurs chez OpenAI
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
+      <itunes:summary>Brief du 2026-09-26. Trump rejette l'offre iranienne sur Ormuz · Moyens militaires français envoyés en Arabie · Lourdes condamnations au procès Aramburu · Yannick Jadot suspendu par Les Écologistes · Volkswagen rappelle deux millions de voitures · Fuite d'images d'utilisateurs chez OpenAI
+
+Au sommaire :
+• Trump rejette l'offre iranienne sur Ormuz
+• Moyens militaires français envoyés en Arabie
+• Lourdes condamnations au procès Aramburu
+• Yannick Jadot suspendu par Les Écologistes
+• Volkswagen rappelle deux millions de voitures
+• Fuite d'images d'utilisateurs chez OpenAI
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</itunes:summary>
+      <pubDate>Sat, 26 Sep 2026 07:58:32 +0000</pubDate>
+      <guid isPermaLink="false">brief-matin-2026-09-26</guid>
+      <enclosure url="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-09-26.mp3" length="2172387" type="audio/mpeg"/>
+      <itunes:duration>3:01</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
     <item>
       <title>25/09 — Macron intervient sur les carburants</title>
       <description>Brief du 2026-09-25. Macron intervient sur les carburants · Repas à un euro : Crous saturés · Nétanyahou défie l'ONU · Salariés de SFR en grève · Uber : commissions jugées abusives · Frappe massive de drones sur Kiev

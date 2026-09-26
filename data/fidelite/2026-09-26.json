@@ -1,0 +1,61 @@
+{
+ "date": "2026-09-26",
+ "reprises": [
+  {
+   "replique": 1,
+   "mots": 8,
+   "texte": "rouvrir le détroit d'Ormuz sous sept jours",
+   "source": "France 24 — FR",
+   "champ": "chapô",
+   "titre_source": "Trump refuse l'offre iranienne pour rouvrir le détroit d'Ormuz, rapporte le Wall Street Journal"
+  },
+  {
+   "replique": 11,
+   "mots": 8,
+   "texte": "la cour d'assises de Paris a rendu",
+   "source": "Le Monde — Une",
+   "champ": "chapô",
+   "titre_source": "Loïk Le Priol condamné à vingt-six ans de réclusion, Romain Bouvier à dix-neuf ans : « Federico Martin Aramburu a été la victime de l’alchimie funeste de ce duo »"
+  }
+ ],
+ "citations": [],
+ "problemes": [
+  {
+   "replique": 13,
+   "extrait": "issu de la mouvance d'extrême droite",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "Les sources mentionnent les condamnations de Loïk Le Priol et Romain Bouvier, mais ne précisent nulle part qu'ils sont issus de la mouvance d'extrême droite."
+  }
+ ],
+ "corrections": [
+  {
+   "replique": 1,
+   "avant": "Donald Trump rejette le plan iranien pour rouvrir le détroit d'Ormuz sous sept jours.",
+   "apres": "Donald Trump balaie la proposition de Téhéran pour débloquer le détroit d'Ormuz en une semaine."
+  },
+  {
+   "replique": 11,
+   "avant": "En France, la cour d'assises de Paris a rendu son verdict dans le dossier du meurtre de Federico Martin Aramburu, l'ancien international argentin de rugby abattu en mars 2022. Loïk Le Priol écope de vingt-six ans de réclusion criminelle, et son comparse Romain Bouvier de dix-neuf ans.",
+   "apres": "En France, les jurés parisiens ont tranché sur le meurtre de Federico Martin Aramburu, l'ancien international argentin de rugby abattu en mars 2022. Loïk Le Priol écope de vingt-six ans de réclusion criminelle, et son comparse Romain Bouvier de dix-neuf ans."
+  }
+ ],
+ "reprises_apres": [],
+ "appels": 2,
+ "cout_usd": 0.025,
+ "erreurs": [],
+ "usage": [
+  {
+   "model": "gemini-3.8-flash",
+   "input": 16097,
+   "output": 104,
+   "thinking": 0
+  },
+  {
+   "model": "gemini-3.8-flash",
+   "input": 15972,
+   "output": 156,
+   "thinking": 0
+  }
+ ]
+}

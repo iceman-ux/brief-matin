@@ -1,5 +1,69 @@
 [
   {
+    "date": "2026-09-26",
+    "filename": "brief-2026-09-26.mp3",
+    "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-09-26.mp3",
+    "storage": "releases",
+    "title": "26/09 — Trump rejette l'offre iranienne sur Ormuz",
+    "summary": "Brief du 2026-09-26. Trump rejette l'offre iranienne sur Ormuz · Moyens militaires français envoyés en Arabie · Lourdes condamnations au procès Aramburu · Yannick Jadot suspendu par Les Écologistes · Volkswagen rappelle deux millions de voitures · Fuite d'images d'utilisateurs chez OpenAI",
+    "duration": 181,
+    "size": 2172387,
+    "topics": [
+      {
+        "slug": "crise-detroit-ormuz",
+        "title": "Trump rejette l'offre iranienne sur Ormuz",
+        "category": "monde",
+        "sources": [
+          "France 24",
+          "Le Monde"
+        ]
+      },
+      {
+        "slug": "defense-france-arabie",
+        "title": "Moyens militaires français envoyés en Arabie",
+        "category": "monde",
+        "sources": [
+          "Le Monde"
+        ]
+      },
+      {
+        "slug": "proces-meurtre-aramburu",
+        "title": "Lourdes condamnations au procès Aramburu",
+        "category": "france",
+        "sources": [
+          "Le Monde",
+          "France 24"
+        ]
+      },
+      {
+        "slug": "crise-parti-ecologistes",
+        "title": "Yannick Jadot suspendu par Les Écologistes",
+        "category": "france",
+        "sources": [
+          "franceinfo",
+          "La Tribune"
+        ]
+      },
+      {
+        "slug": "rappel-vehicules-volkswagen",
+        "title": "Volkswagen rappelle deux millions de voitures",
+        "category": "eco",
+        "sources": [
+          "Le Monde"
+        ]
+      },
+      {
+        "slug": "securite-donnees-openai",
+        "title": "Fuite d'images d'utilisateurs chez OpenAI",
+        "category": "tech",
+        "sources": [
+          "Le Monde"
+        ]
+      }
+    ],
+    "pub_date": "2026-09-26T07:58:32.237910+00:00"
+  },
+  {
     "date": "2026-09-25",
     "filename": "brief-2026-09-25.mp3",
     "url": "https://iceman-ux.github.io/brief-matin/episodes/brief-2026-09-25.mp3",
