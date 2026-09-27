@@ -1,5 +1,69 @@
 [
   {
+    "date": "2026-09-27",
+    "filename": "brief-2026-09-27.mp3",
+    "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-09-27.mp3",
+    "storage": "releases",
+    "title": "27/09 — Léon XIV face aux victimes à Lourdes",
+    "summary": "Brief du 2026-09-27. Léon XIV face aux victimes à Lourdes · Fusillades meurtrières en Afrique du Sud · Madrid mobilisée contre les expulsions locatives · Lula interdit les paris sportifs en ligne · Marches pour le climat à travers la France · Volley : la France battue en finale",
+    "duration": 212,
+    "size": 2549178,
+    "topics": [
+      {
+        "slug": "visite-pape-france",
+        "title": "Léon XIV face aux victimes à Lourdes",
+        "category": "france",
+        "sources": [
+          "Le Monde",
+          "franceinfo"
+        ]
+      },
+      {
+        "slug": "fusillades-afrique-du-sud",
+        "title": "Fusillades meurtrières en Afrique du Sud",
+        "category": "monde",
+        "sources": [
+          "Le Monde"
+        ]
+      },
+      {
+        "slug": "crise-logement-espagne",
+        "title": "Madrid mobilisée contre les expulsions locatives",
+        "category": "monde",
+        "sources": [
+          "Le Monde",
+          "franceinfo"
+        ]
+      },
+      {
+        "slug": "paris-sportifs-bresil",
+        "title": "Lula interdit les paris sportifs en ligne",
+        "category": "eco",
+        "sources": [
+          "Le Monde"
+        ]
+      },
+      {
+        "slug": "climat-marches-france",
+        "title": "Marches pour le climat à travers la France",
+        "category": "france",
+        "sources": [
+          "Le Monde",
+          "franceinfo"
+        ]
+      },
+      {
+        "slug": "euro-volley-france-pologne",
+        "title": "Volley : la France battue en finale",
+        "category": "sport",
+        "sources": [
+          "franceinfo"
+        ]
+      }
+    ],
+    "pub_date": "2026-09-27T08:32:11.933475+00:00"
+  },
+  {
     "date": "2026-09-26",
     "filename": "brief-2026-09-26.mp3",
     "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-09-26.mp3",

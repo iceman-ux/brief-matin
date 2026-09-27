@@ -1,0 +1,83 @@
+{
+ "date": "2026-09-27",
+ "reprises": [
+  {
+   "replique": 7,
+   "mots": 11,
+   "texte": "À Johannesburg, huit assaillants armés de fusils d'assaut ont abattu",
+   "source": "Le Monde — International",
+   "champ": "chapô",
+   "titre_source": "Fusillades en Afrique du Sud : au moins 27 morts dans deux bars au Cap et à Johannesburg"
+  },
+  {
+   "replique": 7,
+   "mots": 10,
+   "texte": "personnes ont été tuées dans un township proche du Cap",
+   "source": "Le Monde — International",
+   "champ": "chapô",
+   "titre_source": "Fusillades en Afrique du Sud : au moins 27 morts dans deux bars au Cap et à Johannesburg"
+  },
+  {
+   "replique": 14,
+   "mots": 10,
+   "texte": "après un été marqué par des records de chaleur et",
+   "source": "France 24 — FR",
+   "champ": "chapô",
+   "titre_source": "Marche pour le climat : des milliers de personnes mobilisées partout en France"
+  }
+ ],
+ "citations": [],
+ "problemes": [
+  {
+   "replique": 7,
+   "extrait": "tous les tireurs ont réussi à prendre la fuite",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "La source indique que les motifs restent inconnus de la police, mais ne mentionne pas la fuite des tireurs."
+  },
+  {
+   "replique": 11,
+   "extrait": "demandent un moratoire immédiat sur les expulsions",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "Les sources indiquent qu'ils réclament une meilleure protection pour les locataires, sans mentionner de demande de moratoire immédiat ni de dénonciation de la spéculation immobilière."
+  },
+  {
+   "replique": 13,
+   "extrait": "pour enrayer le surendettement des familles modestes",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "La source cite Lula qualifiant la mesure de difficile, drastique et nécessaire, mais ne mentionne pas le surendettement des familles modestes."
+  }
+ ],
+ "corrections": [
+  {
+   "replique": 7,
+   "avant": "Autre drame ce matin, en Afrique du Sud. Deux fusillades ont fait au moins vingt-sept morts dans la nuit dans deux débits de boisson. À Johannesburg, huit assaillants armés de fusils d'assaut ont abattu dix-sept clients. Presque au même moment, dix autres personnes ont été tuées dans un township proche du Cap. La police sud-africaine n'avance pour l'instant aucun motif, et tous les tireurs ont réussi à prendre la fuite.",
+   "apres": "Autre drame ce matin, en Afrique du Sud. Deux fusillades ont fait au moins vingt-sept morts dans la nuit dans deux débits de boisson. À Johannesburg, un commando de huit hommes munis d'armes de guerre a ouvert le feu sur dix-sept clients. Presque au même moment, dix victimes ont perdu la vie dans un quartier déshérité aux abords du Cap. La police sud-africaine n'avance pour l'instant aucun motif."
+  },
+  {
+   "replique": 14,
+   "avant": "De retour en France, le débat environnemental redescend dans la rue. Samedi, environ cent vingt mille manifestants ont défilé dans plus de deux cent cinquante cortèges à travers le pays. De Paris à Bordeaux ou Rennes, les participants demandaient des mesures d'urgence face au réchauffement, après un été marqué par des records de chaleur et de violents incendies.",
+   "apres": "De retour en France, le débat environnemental redescend dans la rue. Samedi, environ cent vingt mille manifestants ont défilé dans plus de deux cent cinquante cortèges à travers le pays. De Paris à Bordeaux ou Rennes, les participants demandaient des mesures d'urgence face au réchauffement, dans la foulée d'une saison estivale étouffante et marquée par d'importants feux de forêt."
+  }
+ ],
+ "reprises_apres": [],
+ "appels": 2,
+ "cout_usd": 0.0259,
+ "erreurs": [],
+ "usage": [
+  {
+   "model": "gemini-3.8-flash",
+   "input": 16002,
+   "output": 260,
+   "thinking": 0
+  },
+  {
+   "model": "gemini-3.8-flash",
+   "input": 15999,
+   "output": 250,
+   "thinking": 0
+  }
+ ]
+}
