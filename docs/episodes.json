@@ -1,5 +1,70 @@
 [
   {
+    "date": "2026-09-28",
+    "filename": "brief-2026-09-28.mp3",
+    "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-09-28.mp3",
+    "storage": "releases",
+    "title": "28/09 — Groupe historique pour le RN au Sénat",
+    "summary": "Brief du 2026-09-28. Groupe historique pour le RN au Sénat · Arrestations près d'une base militaire britannique · TikTok paie pour éviter un procès · Fin de visite papale à Metz · Démission du président serbe Aleksandar Vucic · Alstom réclame la fin du sur-mesure",
+    "duration": 193,
+    "size": 2325360,
+    "topics": [
+      {
+        "slug": "senatoriales-france",
+        "title": "Groupe historique pour le RN au Sénat",
+        "category": "france",
+        "sources": [
+          "Le Monde",
+          "Le Figaro"
+        ]
+      },
+      {
+        "slug": "securite-base-fairford",
+        "title": "Arrestations près d'une base militaire britannique",
+        "category": "monde",
+        "sources": [
+          "Le Monde",
+          "France 24"
+        ]
+      },
+      {
+        "slug": "tiktok-accord-mineurs",
+        "title": "TikTok paie pour éviter un procès",
+        "category": "tech",
+        "sources": [
+          "Le Figaro"
+        ]
+      },
+      {
+        "slug": "visite-pape-france",
+        "title": "Fin de visite papale à Metz",
+        "category": "france",
+        "sources": [
+          "Le Monde",
+          "RFI"
+        ]
+      },
+      {
+        "slug": "crise-politique-serbie",
+        "title": "Démission du président serbe Aleksandar Vucic",
+        "category": "monde",
+        "sources": [
+          "France 24",
+          "Le Monde"
+        ]
+      },
+      {
+        "slug": "industrie-ferroviaire-standardisation",
+        "title": "Alstom réclame la fin du sur-mesure",
+        "category": "eco",
+        "sources": [
+          "Le Monde"
+        ]
+      }
+    ],
+    "pub_date": "2026-09-28T08:57:02.694107+00:00"
+  },
+  {
     "date": "2026-09-27",
     "filename": "brief-2026-09-27.mp3",
     "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-09-27.mp3",

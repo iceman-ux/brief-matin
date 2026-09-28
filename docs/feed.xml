@@ -11,7 +11,7 @@
 
 Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
     <language>fr-FR</language>
-    <lastBuildDate>Sun, 27 Sep 2026 08:32:12 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 28 Sep 2026 08:57:03 +0000</lastBuildDate>
     <itunes:author>Lora</itunes:author>
     <itunes:subtitle>L'essentiel de l'actu, chaque matin</itunes:subtitle>
     <itunes:summary>Brief quotidien généré automatiquement à partir des grands titres français et internationaux. France, Monde, Économie, Tech.
@@ -26,6 +26,37 @@ Brief généré automatiquement par intelligence artificielle, texte et voix, à
     <itunes:type>episodic</itunes:type>
     <itunes:image href="https://iceman-ux.github.io/brief-matin/lora-cover.jpg"/>
     <image><url>https://iceman-ux.github.io/brief-matin/lora-cover.jpg</url><title>Lora</title><link>https://iceman-ux.github.io/brief-matin</link></image>
+    <item>
+      <title>28/09 — Groupe historique pour le RN au Sénat</title>
+      <description>Brief du 2026-09-28. Groupe historique pour le RN au Sénat · Arrestations près d'une base militaire britannique · TikTok paie pour éviter un procès · Fin de visite papale à Metz · Démission du président serbe Aleksandar Vucic · Alstom réclame la fin du sur-mesure
+
+Au sommaire :
+• Groupe historique pour le RN au Sénat
+• Arrestations près d'une base militaire britannique
+• TikTok paie pour éviter un procès
+• Fin de visite papale à Metz
+• Démission du président serbe Aleksandar Vucic
+• Alstom réclame la fin du sur-mesure
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
+      <itunes:summary>Brief du 2026-09-28. Groupe historique pour le RN au Sénat · Arrestations près d'une base militaire britannique · TikTok paie pour éviter un procès · Fin de visite papale à Metz · Démission du président serbe Aleksandar Vucic · Alstom réclame la fin du sur-mesure
+
+Au sommaire :
+• Groupe historique pour le RN au Sénat
+• Arrestations près d'une base militaire britannique
+• TikTok paie pour éviter un procès
+• Fin de visite papale à Metz
+• Démission du président serbe Aleksandar Vucic
+• Alstom réclame la fin du sur-mesure
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</itunes:summary>
+      <pubDate>Mon, 28 Sep 2026 08:57:02 +0000</pubDate>
+      <guid isPermaLink="false">brief-matin-2026-09-28</guid>
+      <enclosure url="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-09-28.mp3" length="2325360" type="audio/mpeg"/>
+      <itunes:duration>3:13</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
     <item>
       <title>27/09 — Léon XIV face aux victimes à Lourdes</title>
       <description>Brief du 2026-09-27. Léon XIV face aux victimes à Lourdes · Fusillades meurtrières en Afrique du Sud · Madrid mobilisée contre les expulsions locatives · Lula interdit les paris sportifs en ligne · Marches pour le climat à travers la France · Volley : la France battue en finale

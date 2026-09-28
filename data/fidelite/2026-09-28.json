@@ -1,0 +1,48 @@
+{
+ "date": "2026-09-28",
+ "reprises": [
+  {
+   "replique": 7,
+   "mots": 8,
+   "texte": "utilisée par l'armée américaine. La police antiterroriste",
+   "source": "franceinfo — Titres",
+   "champ": "titre",
+   "titre_source": "Cinq personnes arrêtées en Angleterre après un \"incident majeur\" près d'une base militaire utilisée par l'armée américaine, la police antiterroriste saisie"
+  }
+ ],
+ "citations": [],
+ "problemes": [
+  {
+   "replique": 13,
+   "extrait": "L'Élysée a justifié cette présence imprévue par l'accueil",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "Les sources indiquent seulement qu'Emmanuel Macron assistera finalement à la messe, sans mentionner d'explication de l'Élysée ni de réactions des oppositions sur la laïcité."
+  }
+ ],
+ "corrections": [
+  {
+   "replique": 7,
+   "avant": "Autre alerte sécuritaire, au Royaume-Uni cette fois. Cinq hommes ont été arrêtés près de la base aérienne de Fairford, une installation militaire britannique utilisée par l'armée américaine. La police antiterroriste a pris la direction de l'enquête pour des soupçons liés à des explosifs. Des démineurs ont inspecté plusieurs véhicules suspects et quatre-vingt-cinq foyers voisins ont été évacués. Donald Trump a affirmé de son côté que les suspects visaient des dégâts majeurs.",
+   "apres": "Autre alerte sécuritaire, au Royaume-Uni cette fois. Cinq hommes ont été interpellés à proximité du site militaire de Fairford, où opèrent les forces américaines. L'enquête a été confiée aux services antiterroristes face à des soupçons d'infractions aux explosifs. Des démineurs ont fouillé plusieurs véhicules suspects et quatre-vingt-cinq foyers voisins ont été évacués. Donald Trump a affirmé de son côté que le groupe cherchait à causer d'importants dégâts."
+  }
+ ],
+ "reprises_apres": [],
+ "appels": 2,
+ "cout_usd": 0.0245,
+ "erreurs": [],
+ "usage": [
+  {
+   "model": "gemini-3.8-flash",
+   "input": 15726,
+   "output": 112,
+   "thinking": 0
+  },
+  {
+   "model": "gemini-3.8-flash",
+   "input": 15575,
+   "output": 149,
+   "thinking": 0
+  }
+ ]
+}
