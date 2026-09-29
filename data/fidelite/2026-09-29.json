@@ -1,0 +1,39 @@
+{
+ "date": "2026-09-29",
+ "reprises": [],
+ "citations": [],
+ "problemes": [
+  {
+   "replique": 7,
+   "extrait": "en 2024",
+   "type": "date",
+   "gravite": "haute",
+   "explication": "La source 8 mentionne que François Bayrou avait été relaxé en première instance, mais ne précise nulle part l'année 2024."
+  }
+ ],
+ "corrections": [
+  {
+   "replique": 7,
+   "avant": "Sur le terrain judiciaire, deux ans de prison avec sursis ont été requis lundi soir contre François Bayrou. Le président du MoDem comparaît devant la cour d'appel de Paris avec neuf autres cadres et anciens élus du parti, accusés de détournement de fonds publics européens. Les avocates générales ont dénoncé un système de collaborateurs parlementaires fictifs rémunérés par l'Union européenne pour travailler en réalité pour le parti. C'est la peine la plus lourde réclamée contre les prévenus, alors que François Bayrou avait été relaxé lors de son premier procès en 2024.",
+   "apres": "Sur le terrain judiciaire, deux ans de prison avec sursis ont été requis lundi soir contre François Bayrou. Le président du MoDem comparaît devant la cour d'appel avec neuf autres cadres et anciens élus du parti, accusés de détournement de fonds publics européens. Les avocates générales ont dénoncé des pratiques systématiques au profit du parti. C'est la peine la plus lourde réclamée contre les prévenus, alors que François Bayrou avait été relaxé en première instance."
+  }
+ ],
+ "reprises_apres": [],
+ "appels": 2,
+ "cout_usd": 0.0249,
+ "erreurs": [],
+ "usage": [
+  {
+   "model": "gemini-3.8-flash",
+   "input": 16066,
+   "output": 88,
+   "thinking": 0
+  },
+  {
+   "model": "gemini-3.8-flash",
+   "input": 15952,
+   "output": 136,
+   "thinking": 0
+  }
+ ]
+}

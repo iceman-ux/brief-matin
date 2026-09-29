@@ -1,5 +1,71 @@
 [
   {
+    "date": "2026-09-29",
+    "filename": "brief-2026-09-29.mp3",
+    "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-09-29.mp3",
+    "storage": "releases",
+    "title": "29/09 — Dette publique record à 119% du PIB",
+    "summary": "Brief du 2026-09-29. Dette publique record à 119% du PIB · Mobilisation dans la fonction publique · Deux ans requis contre Bayrou · Washington bloque des importations canadiennes · Starship atteint l'orbite terrestre · Victoire des Bleus en Belgique",
+    "duration": 184,
+    "size": 2212198,
+    "topics": [
+      {
+        "slug": "dette-publique-france",
+        "title": "Dette publique record à 119% du PIB",
+        "category": "eco",
+        "sources": [
+          "Le Monde",
+          "Le Figaro"
+        ]
+      },
+      {
+        "slug": "greve-fonction-publique",
+        "title": "Mobilisation dans la fonction publique",
+        "category": "france",
+        "sources": [
+          "Le Monde",
+          "franceinfo"
+        ]
+      },
+      {
+        "slug": "proces-modem",
+        "title": "Deux ans requis contre Bayrou",
+        "category": "france",
+        "sources": [
+          "Le Monde"
+        ]
+      },
+      {
+        "slug": "tensions-commerciales-usa-canada",
+        "title": "Washington bloque des importations canadiennes",
+        "category": "monde",
+        "sources": [
+          "Le Monde",
+          "franceinfo"
+        ]
+      },
+      {
+        "slug": "spacex-starship-orbite",
+        "title": "Starship atteint l'orbite terrestre",
+        "category": "tech",
+        "sources": [
+          "La Tribune",
+          "Le Monde"
+        ]
+      },
+      {
+        "slug": "ligue-des-nations-france-belgique",
+        "title": "Victoire des Bleus en Belgique",
+        "category": "sport",
+        "sources": [
+          "France 24",
+          "RFI"
+        ]
+      }
+    ],
+    "pub_date": "2026-09-29T08:59:16.726665+00:00"
+  },
+  {
     "date": "2026-09-28",
     "filename": "brief-2026-09-28.mp3",
     "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-09-28.mp3",
