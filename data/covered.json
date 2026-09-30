@@ -234,6 +234,41 @@
       "date": "2026-09-29",
       "slug": "ligue-des-nations-france-belgique",
       "headline": "Victoire des Bleus en Belgique"
+    },
+    {
+      "date": "2026-09-30",
+      "slug": "inflation-france",
+      "headline": "L'inflation remonte à 3 %"
+    },
+    {
+      "date": "2026-09-30",
+      "slug": "retrait-irak",
+      "headline": "Fin de la coalition en Irak"
+    },
+    {
+      "date": "2026-09-30",
+      "slug": "vigilance-inondations-sud",
+      "headline": "Vigilance rouge dans le Sud"
+    },
+    {
+      "date": "2026-09-30",
+      "slug": "expulsions-etats-unis",
+      "headline": "Expulsions vers des pays tiers"
+    },
+    {
+      "date": "2026-09-30",
+      "slug": "fermeture-rakuten-france",
+      "headline": "Rakuten France ferme ses portes"
+    },
+    {
+      "date": "2026-09-30",
+      "slug": "plainte-cyber-openai",
+      "headline": "OpenAI poursuivi pour cyberattaques"
+    },
+    {
+      "date": "2026-09-30",
+      "slug": "rachat-girondins-bordeaux",
+      "headline": "Bordeaux racheté un euro symbolique"
     }
   ]
 }

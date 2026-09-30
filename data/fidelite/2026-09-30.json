@@ -1,0 +1,80 @@
+{
+ "date": "2026-09-30",
+ "reprises": [
+  {
+   "replique": 4,
+   "mots": 11,
+   "texte": "la prime d'activité ne sera pas indexée sur l'inflation",
+   "source": "Le Figaro — Économie",
+   "champ": "titre",
+   "titre_source": "Budget 2027 : la prime d’activité ne sera pas indexée sur l’inflation, annonce le ministre du Travail"
+  },
+  {
+   "replique": 14,
+   "mots": 11,
+   "texte": "devant la justice pour infraction à la loi sur les cyberattaques",
+   "source": "Le Monde — Une",
+   "champ": "titre",
+   "titre_source": "Piratage de Hugging Face : une ONG assigne OpenAI devant la justice pour infraction à la loi sur les cyberattaques"
+  }
+ ],
+ "citations": [],
+ "problemes": [
+  {
+   "replique": 14,
+   "extrait": "à Paris",
+   "type": "nom",
+   "gravite": "haute",
+   "explication": "La source mentionne une assignation en justice par une ONG, mais ne précise nulle part que cela se déroule à Paris."
+  },
+  {
+   "replique": 17,
+   "extrait": "américain",
+   "type": "nom",
+   "gravite": "haute",
+   "explication": "La source mentionne le fonds d'investissement Park Bench, sans préciser sa nationalité."
+  },
+  {
+   "replique": 17,
+   "extrait": "Rétrogradé chez les amateurs après sa mise en faillite",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "La source mentionne uniquement le rachat à Gérard Lopez pour un euro symbolique et le statut de sextuple champion de France, sans évoquer de rétrogradation ni de faillite."
+  }
+ ],
+ "corrections": [
+  {
+   "replique": 4,
+   "avant": "Et les répercussions budgétaires sont immédiates. Le gouvernement a confirmé que la prime d'activité ne sera pas indexée sur l'inflation pour l'année 2027, alors que le revenu de solidarité active le sera.",
+   "apres": "Et les répercussions budgétaires sont immédiates. Le gouvernement a confirmé que la prime d'activité ne suivra pas la hausse des prix en 2027, alors que le revenu de solidarité active sera, lui, pleinement revalorisé."
+  },
+  {
+   "replique": 14,
+   "avant": "Dans le secteur technologique, OpenAI fait face à une offensive judiciaire inédite à Paris. Une organisation non gouvernementale assigne la start-up devant la justice pour infraction à la loi sur les cyberattaques, après un piratage survenu sur la plateforme Hugging Face.",
+   "apres": "Dans le secteur technologique, OpenAI fait face à une offensive judiciaire inédite. Une organisation non gouvernementale poursuit l'entreprise en justice pour non-respect de la législation contre le piratage informatique, après une intrusion sur la plateforme Hugging Face."
+  },
+  {
+   "replique": 17,
+   "avant": "On termine par le football français. Les Girondins de Bordeaux changent officiellement de propriétaire : le fonds américain Park Bench a racheté le club cette nuit pour un euro symbolique à Gérard Lopez. Rétrogradé chez les amateurs après sa mise en faillite, le club sextuple champion de France tente ainsi d'assurer sa survie financière.",
+   "apres": "On termine par le football français. Les Girondins de Bordeaux changent officiellement de propriétaire : le fonds d'investissement Park Bench a racheté le club cette nuit pour un euro symbolique à Gérard Lopez. Le club sextuple champion de France tente ainsi d'assurer sa survie financière."
+  }
+ ],
+ "reprises_apres": [],
+ "appels": 2,
+ "cout_usd": 0.0266,
+ "erreurs": [],
+ "usage": [
+  {
+   "model": "gemini-3.8-flash",
+   "input": 16511,
+   "output": 229,
+   "thinking": 0
+  },
+  {
+   "model": "gemini-3.8-flash",
+   "input": 16550,
+   "output": 245,
+   "thinking": 0
+  }
+ ]
+}

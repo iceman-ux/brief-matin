@@ -1,5 +1,76 @@
 [
   {
+    "date": "2026-09-30",
+    "filename": "brief-2026-09-30.mp3",
+    "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-09-30.mp3",
+    "storage": "releases",
+    "title": "30/09 — L'inflation remonte à 3 %",
+    "summary": "Brief du 2026-09-30. L'inflation remonte à 3 % · Fin de la coalition en Irak · Vigilance rouge dans le Sud · Expulsions vers des pays tiers · Rakuten France ferme ses portes · OpenAI poursuivi pour cyberattaques · Bordeaux racheté un euro symbolique",
+    "duration": 179,
+    "size": 2157027,
+    "topics": [
+      {
+        "slug": "inflation-france",
+        "title": "L'inflation remonte à 3 %",
+        "category": "eco",
+        "sources": [
+          "Le Monde",
+          "Le Figaro"
+        ]
+      },
+      {
+        "slug": "retrait-irak",
+        "title": "Fin de la coalition en Irak",
+        "category": "monde",
+        "sources": [
+          "France 24",
+          "RFI"
+        ]
+      },
+      {
+        "slug": "vigilance-inondations-sud",
+        "title": "Vigilance rouge dans le Sud",
+        "category": "france",
+        "sources": [
+          "Le Monde"
+        ]
+      },
+      {
+        "slug": "expulsions-etats-unis",
+        "title": "Expulsions vers des pays tiers",
+        "category": "monde",
+        "sources": [
+          "Le Monde"
+        ]
+      },
+      {
+        "slug": "fermeture-rakuten-france",
+        "title": "Rakuten France ferme ses portes",
+        "category": "france",
+        "sources": [
+          "Le Monde"
+        ]
+      },
+      {
+        "slug": "plainte-cyber-openai",
+        "title": "OpenAI poursuivi pour cyberattaques",
+        "category": "tech",
+        "sources": [
+          "Le Monde"
+        ]
+      },
+      {
+        "slug": "rachat-girondins-bordeaux",
+        "title": "Bordeaux racheté un euro symbolique",
+        "category": "sport",
+        "sources": [
+          "Le Monde"
+        ]
+      }
+    ],
+    "pub_date": "2026-09-30T08:57:28.244767+00:00"
+  },
+  {
     "date": "2026-09-29",
     "filename": "brief-2026-09-29.mp3",
     "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-09-29.mp3",
