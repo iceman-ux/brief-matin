@@ -1,0 +1,46 @@
+{
+ "date": "2026-10-01",
+ "reprises": [],
+ "citations": [],
+ "problemes": [
+  {
+   "replique": 17,
+   "extrait": "réclament une interdiction d'urgence",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "Les sources indiquent seulement que les eurodéputés écologistes alertent sur les résultats, sans mentionner qu'ils réclament une interdiction d'urgence."
+  },
+  {
+   "replique": 17,
+   "extrait": "d'ici la fin de l'année",
+   "type": "date",
+   "gravite": "haute",
+   "explication": "Aucune source ne mentionne que l'Union européenne doit trancher sur la classification du TFA d'ici la fin de l'année."
+  }
+ ],
+ "corrections": [
+  {
+   "replique": 17,
+   "avant": "Les eurodéputés écologistes à l'origine des tests réclament une interdiction d'urgence. L'Union européenne doit trancher sur la classification du produit d'ici la fin de l'année.",
+   "apres": "Face à ces résultats préoccupants, les eurodéputés écologistes à l'origine de l'étude tirent la sonnette d'alarme sur la prolifération de ces substances dans notre environnement."
+  }
+ ],
+ "reprises_apres": [],
+ "appels": 2,
+ "cout_usd": 0.0253,
+ "erreurs": [],
+ "usage": [
+  {
+   "model": "gemini-3.8-flash",
+   "input": 16336,
+   "output": 172,
+   "thinking": 0
+  },
+  {
+   "model": "gemini-3.8-flash",
+   "input": 16143,
+   "output": 79,
+   "thinking": 0
+  }
+ ]
+}

@@ -1,5 +1,74 @@
 [
   {
+    "date": "2026-10-01",
+    "filename": "brief-2026-10-01.mp3",
+    "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-01.mp3",
+    "storage": "releases",
+    "title": "01/10 — Budget 2027 : 54 milliards d'efforts",
+    "summary": "Brief du 2026-10-01. Budget 2027 : 54 milliards d'efforts · Vol Dubaï-Tel-Aviv dérouté d'urgence · La contestation scolaire et universitaire s'étend · Une exécution par injection létale échoue · Stellantis suspend quatre usines françaises · Polluants éternels détectés chez des Européens",
+    "duration": 203,
+    "size": 2442285,
+    "topics": [
+      {
+        "slug": "budget-2027",
+        "title": "Budget 2027 : 54 milliards d'efforts",
+        "category": "eco",
+        "sources": [
+          "Le Figaro",
+          "France 24",
+          "Le Monde"
+        ]
+      },
+      {
+        "slug": "vol-flydubai-attaque",
+        "title": "Vol Dubaï-Tel-Aviv dérouté d'urgence",
+        "category": "monde",
+        "sources": [
+          "franceinfo",
+          "Le Monde"
+        ]
+      },
+      {
+        "slug": "contestation-lyceenne-universitaire",
+        "title": "La contestation scolaire et universitaire s'étend",
+        "category": "france",
+        "sources": [
+          "Le Monde",
+          "Le Figaro",
+          "RFI"
+        ]
+      },
+      {
+        "slug": "peine-mort-tennessee",
+        "title": "Une exécution par injection létale échoue",
+        "category": "monde",
+        "sources": [
+          "Le Monde",
+          "France 24",
+          "franceinfo"
+        ]
+      },
+      {
+        "slug": "stellantis-chômage-partiel",
+        "title": "Stellantis suspend quatre usines françaises",
+        "category": "eco",
+        "sources": [
+          "Le Monde"
+        ]
+      },
+      {
+        "slug": "pollution-pfas-tfa",
+        "title": "Polluants éternels détectés chez des Européens",
+        "category": "france",
+        "sources": [
+          "Le Monde",
+          "franceinfo"
+        ]
+      }
+    ],
+    "pub_date": "2026-10-01T09:21:04.244681+00:00"
+  },
+  {
     "date": "2026-09-30",
     "filename": "brief-2026-09-30.mp3",
     "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-09-30.mp3",

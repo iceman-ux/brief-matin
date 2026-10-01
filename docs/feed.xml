@@ -11,7 +11,7 @@
 
 Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
     <language>fr-FR</language>
-    <lastBuildDate>Wed, 30 Sep 2026 08:57:28 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 01 Oct 2026 09:21:04 +0000</lastBuildDate>
     <itunes:author>Lora</itunes:author>
     <itunes:subtitle>L'essentiel de l'actu, chaque matin</itunes:subtitle>
     <itunes:summary>Brief quotidien généré automatiquement à partir des grands titres français et internationaux. France, Monde, Économie, Tech.
@@ -26,6 +26,37 @@ Brief généré automatiquement par intelligence artificielle, texte et voix, à
     <itunes:type>episodic</itunes:type>
     <itunes:image href="https://iceman-ux.github.io/brief-matin/lora-cover.jpg"/>
     <image><url>https://iceman-ux.github.io/brief-matin/lora-cover.jpg</url><title>Lora</title><link>https://iceman-ux.github.io/brief-matin</link></image>
+    <item>
+      <title>01/10 — Budget 2027 : 54 milliards d'efforts</title>
+      <description>Brief du 2026-10-01. Budget 2027 : 54 milliards d'efforts · Vol Dubaï-Tel-Aviv dérouté d'urgence · La contestation scolaire et universitaire s'étend · Une exécution par injection létale échoue · Stellantis suspend quatre usines françaises · Polluants éternels détectés chez des Européens
+
+Au sommaire :
+• Budget 2027 : 54 milliards d'efforts
+• Vol Dubaï-Tel-Aviv dérouté d'urgence
+• La contestation scolaire et universitaire s'étend
+• Une exécution par injection létale échoue
+• Stellantis suspend quatre usines françaises
+• Polluants éternels détectés chez des Européens
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
+      <itunes:summary>Brief du 2026-10-01. Budget 2027 : 54 milliards d'efforts · Vol Dubaï-Tel-Aviv dérouté d'urgence · La contestation scolaire et universitaire s'étend · Une exécution par injection létale échoue · Stellantis suspend quatre usines françaises · Polluants éternels détectés chez des Européens
+
+Au sommaire :
+• Budget 2027 : 54 milliards d'efforts
+• Vol Dubaï-Tel-Aviv dérouté d'urgence
+• La contestation scolaire et universitaire s'étend
+• Une exécution par injection létale échoue
+• Stellantis suspend quatre usines françaises
+• Polluants éternels détectés chez des Européens
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</itunes:summary>
+      <pubDate>Thu, 01 Oct 2026 09:21:04 +0000</pubDate>
+      <guid isPermaLink="false">brief-matin-2026-10-01</guid>
+      <enclosure url="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-01.mp3" length="2442285" type="audio/mpeg"/>
+      <itunes:duration>3:23</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
     <item>
       <title>30/09 — L'inflation remonte à 3 %</title>
       <description>Brief du 2026-09-30. L'inflation remonte à 3 % · Fin de la coalition en Irak · Vigilance rouge dans le Sud · Expulsions vers des pays tiers · Rakuten France ferme ses portes · OpenAI poursuivi pour cyberattaques · Bordeaux racheté un euro symbolique
