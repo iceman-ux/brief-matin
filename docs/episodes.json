@@ -1,5 +1,72 @@
 [
   {
+    "date": "2026-10-02",
+    "filename": "brief-2026-10-02.mp3",
+    "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-02.mp3",
+    "storage": "releases",
+    "title": "02/10 — Bardella visé par des révélations",
+    "summary": "Brief du 2026-10-02. Bardella visé par des révélations · Washington réclame le diesel européen · Les taux français frôlent 5% · Andy Burnham évoque le Breturn · L'été 2026 le plus chaud · Zidane retrouve l'Italie",
+    "duration": 199,
+    "size": 2392756,
+    "topics": [
+      {
+        "slug": "affaire-bardella-mediapart",
+        "title": "Bardella visé par des révélations",
+        "category": "france",
+        "sources": [
+          "Mediapart",
+          "Le Monde",
+          "franceinfo"
+        ]
+      },
+      {
+        "slug": "crise-carburants-diesel",
+        "title": "Washington réclame le diesel européen",
+        "category": "monde",
+        "sources": [
+          "Le Monde",
+          "franceinfo",
+          "France 24"
+        ]
+      },
+      {
+        "slug": "dette-publique-taux",
+        "title": "Les taux français frôlent 5%",
+        "category": "eco",
+        "sources": [
+          "Le Monde",
+          "La Tribune"
+        ]
+      },
+      {
+        "slug": "royaume-uni-breturn",
+        "title": "Andy Burnham évoque le Breturn",
+        "category": "monde",
+        "sources": [
+          "Le Monde"
+        ]
+      },
+      {
+        "slug": "climat-ete-record",
+        "title": "L'été 2026 le plus chaud",
+        "category": "monde",
+        "sources": [
+          "Le Monde",
+          "La Tribune"
+        ]
+      },
+      {
+        "slug": "ligue-des-nations-france-italie",
+        "title": "Zidane retrouve l'Italie",
+        "category": "sport",
+        "sources": [
+          "France 24"
+        ]
+      }
+    ],
+    "pub_date": "2026-10-02T08:55:04.771966+00:00"
+  },
+  {
     "date": "2026-10-01",
     "filename": "brief-2026-10-01.mp3",
     "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-01.mp3",

@@ -11,7 +11,7 @@
 
 Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
     <language>fr-FR</language>
-    <lastBuildDate>Thu, 01 Oct 2026 09:21:04 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 02 Oct 2026 08:55:05 +0000</lastBuildDate>
     <itunes:author>Lora</itunes:author>
     <itunes:subtitle>L'essentiel de l'actu, chaque matin</itunes:subtitle>
     <itunes:summary>Brief quotidien généré automatiquement à partir des grands titres français et internationaux. France, Monde, Économie, Tech.
@@ -26,6 +26,37 @@ Brief généré automatiquement par intelligence artificielle, texte et voix, à
     <itunes:type>episodic</itunes:type>
     <itunes:image href="https://iceman-ux.github.io/brief-matin/lora-cover.jpg"/>
     <image><url>https://iceman-ux.github.io/brief-matin/lora-cover.jpg</url><title>Lora</title><link>https://iceman-ux.github.io/brief-matin</link></image>
+    <item>
+      <title>02/10 — Bardella visé par des révélations</title>
+      <description>Brief du 2026-10-02. Bardella visé par des révélations · Washington réclame le diesel européen · Les taux français frôlent 5% · Andy Burnham évoque le Breturn · L'été 2026 le plus chaud · Zidane retrouve l'Italie
+
+Au sommaire :
+• Bardella visé par des révélations
+• Washington réclame le diesel européen
+• Les taux français frôlent 5%
+• Andy Burnham évoque le Breturn
+• L'été 2026 le plus chaud
+• Zidane retrouve l'Italie
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
+      <itunes:summary>Brief du 2026-10-02. Bardella visé par des révélations · Washington réclame le diesel européen · Les taux français frôlent 5% · Andy Burnham évoque le Breturn · L'été 2026 le plus chaud · Zidane retrouve l'Italie
+
+Au sommaire :
+• Bardella visé par des révélations
+• Washington réclame le diesel européen
+• Les taux français frôlent 5%
+• Andy Burnham évoque le Breturn
+• L'été 2026 le plus chaud
+• Zidane retrouve l'Italie
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</itunes:summary>
+      <pubDate>Fri, 02 Oct 2026 08:55:04 +0000</pubDate>
+      <guid isPermaLink="false">brief-matin-2026-10-02</guid>
+      <enclosure url="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-02.mp3" length="2392756" type="audio/mpeg"/>
+      <itunes:duration>3:19</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
     <item>
       <title>01/10 — Budget 2027 : 54 milliards d'efforts</title>
       <description>Brief du 2026-10-01. Budget 2027 : 54 milliards d'efforts · Vol Dubaï-Tel-Aviv dérouté d'urgence · La contestation scolaire et universitaire s'étend · Une exécution par injection létale échoue · Stellantis suspend quatre usines françaises · Polluants éternels détectés chez des Européens

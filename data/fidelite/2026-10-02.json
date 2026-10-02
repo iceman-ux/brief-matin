@@ -1,0 +1,74 @@
+{
+ "date": "2026-10-02",
+ "reprises": [
+  {
+   "replique": 15,
+   "mots": 9,
+   "texte": "déjà 180 millions d'euros de manque à gagner",
+   "source": "La Tribune",
+   "champ": "titre",
+   "titre_source": "Canicule, orages, tempêtes… Pour la SNCF, déjà 180 millions d’euros de manque à gagner en 2026"
+  }
+ ],
+ "citations": [
+  {
+   "replique": 13,
+   "texte": "Breturn"
+  }
+ ],
+ "problemes": [
+  {
+   "replique": 4,
+   "extrait": "a confirmé l'adresse électronique et les identifiants techniques",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "Les sources mentionnent que Meta a permis d'authentifier les messages ou des documents, mais ne précisent pas qu'elle a confirmé l'adresse électronique ou des identifiants techniques spécifiques."
+  },
+  {
+   "replique": 13,
+   "extrait": "subies par le commerce britannique depuis dix ans",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "La source indique seulement qu'Andy Burnham insiste sur les bénéfices économiques d'un retour, sans mentionner de pertes subies par le commerce depuis dix ans."
+  },
+  {
+   "replique": 13,
+   "extrait": "quelles concessions Londres accepterait pour réintégrer le marché unique",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "La source indique que Bruxelles reste prudent et que les formes de la réintégration restent floues, sans parler de concessions attendues pour réintégrer le marché unique."
+  },
+  {
+   "replique": 18,
+   "extrait": "C'est la première sortie officielle des Bleus sous ses ordres",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "La source mentionne qu'il s'apprête à vivre des retrouvailles avec le Stade de France, mais ne précise pas qu'il s'agit de son tout premier match officiel à la tête des Bleus."
+  }
+ ],
+ "corrections": [
+  {
+   "replique": 15,
+   "avant": "Les conséquences financières sont très directes pour les transports. La SNCF déplore déjà 180 millions d'euros de manque à gagner cette année, imputables aux canicules à répétition et aux incendies sur les voies ferrées.",
+   "apres": "Les conséquences financières sont très directes pour les transports. Pour la SNCF, l'addition grimpe à près de 180 millions d'euros de pertes depuis le début de l'année, à cause des fortes chaleurs à répétition et des feux le long des voies."
+  }
+ ],
+ "reprises_apres": [],
+ "appels": 2,
+ "cout_usd": 0.0261,
+ "erreurs": [],
+ "usage": [
+  {
+   "model": "gemini-3.8-flash",
+   "input": 16374,
+   "output": 366,
+   "thinking": 0
+  },
+  {
+   "model": "gemini-3.8-flash",
+   "input": 16162,
+   "output": 95,
+   "thinking": 0
+  }
+ ]
+}
