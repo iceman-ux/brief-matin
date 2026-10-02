@@ -1,6 +1,10 @@
 name: Brief quotidien
 
 on:
+  # Déclencheur principal : cron-job.org appelle l'API workflow_dispatch à
+  # 4 h 00 et 4 h 20 heure de Paris (guide dans « Claude outputs/ »). Un
+  # dispatch part en quelques secondes ; les crons GitHub ci-dessous partent
+  # avec 5 à 7 h de retard et ne servent plus que de secours.
   schedule:
     # Trois créneaux de nuit : 4 h 30, 5 h 30 et 6 h 30 heure de Paris en été.
     # GitHub abandonne régulièrement les runs planifiés (problème ouvert
@@ -22,7 +26,10 @@ on:
 
 permissions:
   contents: write         # committer l'épisode et la mémoire, attacher le mp3 à la Release
+  issues: write           # ouvrir l'alerte « échec du run »
 
+# Un seul run à la fois, sans annuler celui qui tourne : le suivant attend,
+# puis la garde d'idempotence l'arrête si l'épisode est sorti entre-temps.
 concurrency:
   group: brief-matin
   cancel-in-progress: false
@@ -45,8 +52,27 @@ jobs:
           python-version: "3.12"
           cache: pip
 
+      # L'image Ubuntu n'a pas ffmpeg, et apt-get est resté bloqué jusqu'au
+      # timeout du job les 30/09 et 01/10. D'où un essai apt borné, puis une
+      # archive statique figée dont l'empreinte est vérifiée.
       - name: Installer ffmpeg
-        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+        timeout-minutes: 6
+        env:
+          FFMPEG_STATIC_URL: https://www.johnvansickle.com/ffmpeg/old-releases/ffmpeg-6.0.1-amd64-static.tar.xz
+          FFMPEG_STATIC_SHA256: 28268bf402f1083833ea269331587f60a242848880073be8016501d864bd07a5
+        run: |
+          if command -v ffmpeg >/dev/null && command -v ffprobe >/dev/null; then
+            echo "ffmpeg déjà présent."
+          elif timeout 60 sudo apt-get update -qq                && timeout 120 sudo apt-get install -y -qq --no-install-recommends ffmpeg; then
+            echo "ffmpeg installé par apt."
+          else
+            echo "::warning::apt n'a pas installé ffmpeg, repli sur l'archive statique."
+            curl -fsSL --max-time 120 --retry 2 -o /tmp/ffmpeg.tar.xz "$FFMPEG_STATIC_URL"
+            echo "$FFMPEG_STATIC_SHA256  /tmp/ffmpeg.tar.xz" | sha256sum -c -
+            mkdir -p "$RUNNER_TEMP/ffmpeg"
+            tar -xJf /tmp/ffmpeg.tar.xz -C "$RUNNER_TEMP/ffmpeg" --strip-components=1
+            echo "$RUNNER_TEMP/ffmpeg" >> "$GITHUB_PATH"
+          fi
 
       - name: Installer les dépendances
         run: pip install -q -r requirements.txt
@@ -81,7 +107,7 @@ jobs:
           if git diff --staged --quiet; then
             echo "Rien de nouveau à publier."
           else
-            git commit -m "brief du $(date -u +%F)"
+            git commit -m "brief du $(TZ=Europe/Paris date +%F)"
             # Le run peut entrer en collision avec un push manuel : on rebase.
             git pull --rebase --autostash origin "${GITHUB_REF_NAME}"
             git push
@@ -93,9 +119,27 @@ jobs:
       - name: Résumé
         if: always()
         run: |
-          echo "### Brief du $(date -u +%F)" >> "$GITHUB_STEP_SUMMARY"
+          echo "### Brief du $(TZ=Europe/Paris date +%F)" >> "$GITHUB_STEP_SUMMARY"
           if [ -f docs/episodes.json ]; then
             jq -r '.[0].title' docs/episodes.json >> "$GITHUB_STEP_SUMMARY" || true
             echo "" >> "$GITHUB_STEP_SUMMARY"
             jq -r '.[0].topics[]?.title | "- " + .' docs/episodes.json >> "$GITHUB_STEP_SUMMARY" || true
+          fi
+
+      # Un e-mail de GitHub à chaque issue ouverte : l'alerte arrive avant le
+      # réveil. cancelled() couvre le dépassement du timeout du job, qui
+      # avait annulé les runs bloqués sur ffmpeg. Une seule issue ouverte
+      # par jour, même si les deux déclenchements de la nuit échouent.
+      - name: Alerter par une issue
+        if: failure() || cancelled()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          day=$(TZ=Europe/Paris date +%F)
+          title="Lora : échec du run du $day"
+          if gh issue list --state open --limit 100 --json title --jq '.[].title' | grep -Fxq "$title"; then
+            echo "Issue déjà ouverte : $title"
+          else
+            gh issue create --title "$title" --body "Le run $RUN_URL a échoué ou a été interrompu. Aucun épisode n'a été publié par ce run ; vérifier si un autre déclenchement l'a rattrapé."
           fi

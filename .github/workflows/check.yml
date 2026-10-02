@@ -1,0 +1,56 @@
+name: Contrôle du matin
+
+# Lancé à 6 h 30 heure de Paris par cron-job.org, par l'API
+# workflow_dispatch : un cron GitHub partirait trop tard pour prévenir
+# avant le réveil.
+on:
+  workflow_dispatch:
+    inputs:
+      date:
+        description: "Jour à contrôler (AAAA-MM-JJ) ; vide : aujourd'hui à Paris"
+        type: string
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+  issues: write           # ouvrir l'alerte « pas d'épisode »
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installer PyYAML
+        run: pip install -q PyYAML
+
+      - name: Vérifier l'épisode dans le flux en ligne
+        id: verif
+        env:
+          DAY: ${{ inputs.date }}
+        run: |
+          echo "day=${DAY:-$(TZ=Europe/Paris date +%F)}" >> "$GITHUB_OUTPUT"
+          python tools/verifier_flux.py "$DAY"
+
+      # Une seule issue ouverte par jour : un second contrôle la laisse telle
+      # quelle tant qu'elle n'est pas fermée.
+      - name: Alerter par une issue
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DAY: ${{ steps.verif.outputs.day }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          title="Lora : pas d'épisode le ${DAY:-$(TZ=Europe/Paris date +%F)}"
+          if gh issue list --state open --limit 100 --json title --jq '.[].title' | grep -Fxq "$title"; then
+            echo "Issue déjà ouverte : $title"
+          else
+            gh issue create --title "$title" --body "Le contrôle $RUN_URL ne trouve pas d'épisode écoutable dans le flux en ligne (absent, ou mp3 qui ne répond pas 200). Voir les runs du workflow « Brief quotidien »."
+          fi

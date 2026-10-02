@@ -389,6 +389,13 @@ audio:
   # docs/episodes/ plutôt que de bloquer le run.
   release_timeout_seconds: 180
 
+# Contrôle du matin (workflow check.yml, tools/verifier_flux.py) : l'épisode
+# du jour est-il dans le flux en ligne, et son mp3 répond-il ?
+controle:
+  # Au-delà, la lecture du flux ou de l'enclosure est abandonnée et le
+  # contrôle échoue : mieux vaut une alerte de trop qu'un contrôle bloqué.
+  timeout_seconds: 30
+
 # Finition audio : compression légère puis normalisation, avant le montage
 # et l'unique encodage mp3 (débit et fréquence d'audio ci-dessus). Appliquée à chaque brief (run,
 # say, dry-run) et par la commande « finish ». Retenue avec la voix gagnante
