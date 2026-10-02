@@ -1,5 +1,32 @@
 # Lora (dépôt brief-matin) — avancement
 
+## App iOS — branche `app`, depuis le 02/10/2026
+
+Remplace le montage Pocket Casts + raccourci + automatisation. Détail et
+commandes dans `app/README.md`.
+
+- [x] Squelette Expo SDK 57 dans `app/` : flux lu par `src/episodes.ts`
+      (liste de pistes), cache des mp3, lecture en arrière-plan
+      (`expo-audio`), alarme AlarmKit (`expo-alarm-kit` 0.1.11) avec le
+      sonal, lecture automatique à l'arrêt de l'alarme, écran de test.
+- [x] Config plugin local : iOS 26.1, `NSAlarmKitUsageDescription`, App
+      Group, sonal recopié de `assets/brand/` et vérifié au prebuild.
+- [x] `eas.json` (development, preview, production) ; tests du parseur et du
+      sonal (`npm test`).
+- [ ] **Confirmer l'identifiant `app.lora.brief`** (Adam) : figé dès la
+      première compilation TestFlight.
+- [ ] **Comptes Apple Developer (99 $/an) et Expo** (Adam), puis première
+      compilation `development` et `eas device:create`.
+- [ ] Sur l'iPhone : alarme de test, sonal à l'écoute, lecture automatique
+      après l'arrêt (app fermée, app en arrière-plan, téléphone verrouillé),
+      lecture en 4G avec l'épisode pas encore téléchargé.
+- [ ] Heure de publication : l'épisode sort vers 10 h-11 h (runs GitHub en
+      retard de 6 à 8 h) ; avant 7 h il faut un autre déclencheur que le cron.
+- [ ] Téléchargement en arrière-plan la nuit (aujourd'hui : à l'ouverture
+      seulement).
+- [ ] Écrans des maquettes (onboarding, accueil, lecture, réglages).
+- [ ] Segments par rubrique dans le flux, rubriques choisies dans l'app.
+
 ## Diffusion — Spotify, depuis le 26/09/2026
 
 - [x] Flux aux normes Spotify : propriétaire et auteur « Lora », adresse

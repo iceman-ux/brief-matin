@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+     xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
+     xmlns:atom="http://www.w3.org/2005/Atom"
+     xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Lora</title>
+    <link>https://iceman-ux.github.io/brief-matin</link>
+    <atom:link href="https://iceman-ux.github.io/brief-matin/feed.xml" rel="self" type="application/rss+xml"/>
+    <description>Brief quotidien généré automatiquement à partir des grands titres français et internationaux. France, Monde, Économie, Tech.
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
+    <language>fr-FR</language>
+    <lastBuildDate>Fri, 02 Oct 2026 08:55:05 +0000</lastBuildDate>
+    <itunes:author>Lora</itunes:author>
+    <itunes:subtitle>L'essentiel de l'actu, chaque matin</itunes:subtitle>
+    <itunes:summary>Brief quotidien généré automatiquement à partir des grands titres français et internationaux. France, Monde, Économie, Tech.
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</itunes:summary>
+    <itunes:owner>
+      <itunes:name>Lora</itunes:name>
+      <itunes:email>lora.dailybrief@proton.me</itunes:email>
+    </itunes:owner>
+    <itunes:category text="News"><itunes:category text="Daily News"/></itunes:category>
+    <itunes:explicit>false</itunes:explicit>
+    <itunes:type>episodic</itunes:type>
+    <itunes:image href="https://iceman-ux.github.io/brief-matin/lora-cover.jpg"/>
+    <image><url>https://iceman-ux.github.io/brief-matin/lora-cover.jpg</url><title>Lora</title><link>https://iceman-ux.github.io/brief-matin</link></image>
+    <item>
+      <title>02/10 — Bardella visé par des révélations</title>
+      <description>Brief du 2026-10-02. Bardella visé par des révélations · Washington réclame le diesel européen · Les taux français frôlent 5% · Andy Burnham évoque le Breturn · L'été 2026 le plus chaud · Zidane retrouve l'Italie
+
+Au sommaire :
+• Bardella visé par des révélations
+• Washington réclame le diesel européen
+• Les taux français frôlent 5%
+• Andy Burnham évoque le Breturn
+• L'été 2026 le plus chaud
+• Zidane retrouve l'Italie
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
+      <itunes:summary>Brief du 2026-10-02. Bardella visé par des révélations · Washington réclame le diesel européen · Les taux français frôlent 5% · Andy Burnham évoque le Breturn · L'été 2026 le plus chaud · Zidane retrouve l'Italie
+
+Au sommaire :
+• Bardella visé par des révélations
+• Washington réclame le diesel européen
+• Les taux français frôlent 5%
+• Andy Burnham évoque le Breturn
+• L'été 2026 le plus chaud
+• Zidane retrouve l'Italie
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</itunes:summary>
+      <pubDate>Fri, 02 Oct 2026 08:55:04 +0000</pubDate>
+      <guid isPermaLink="false">brief-matin-2026-10-02</guid>
+      <enclosure url="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-02.mp3" length="2392756" type="audio/mpeg"/>
+      <itunes:duration>3:19</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+    <item>
+      <title>01/10 — Budget 2027 : 54 milliards d'efforts</title>
+      <description>Brief du 2026-10-01. Budget 2027 : 54 milliards d'efforts · Vol Dubaï-Tel-Aviv dérouté d'urgence · La contestation scolaire et universitaire s'étend · Une exécution par injection létale échoue · Stellantis suspend quatre usines françaises · Polluants éternels détectés chez des Européens
+
+Au sommaire :
+• Budget 2027 : 54 milliards d'efforts
+• Vol Dubaï-Tel-Aviv dérouté d'urgence
+• La contestation scolaire et universitaire s'étend
+• Une exécution par injection létale échoue
+• Stellantis suspend quatre usines françaises
+• Polluants éternels détectés chez des Européens
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
+      <itunes:summary>Brief du 2026-10-01. Budget 2027 : 54 milliards d'efforts · Vol Dubaï-Tel-Aviv dérouté d'urgence · La contestation scolaire et universitaire s'étend · Une exécution par injection létale échoue · Stellantis suspend quatre usines françaises · Polluants éternels détectés chez des Européens
+
+Au sommaire :
+• Budget 2027 : 54 milliards d'efforts
+• Vol Dubaï-Tel-Aviv dérouté d'urgence
+• La contestation scolaire et universitaire s'étend
+• Une exécution par injection létale échoue
+• Stellantis suspend quatre usines françaises
+• Polluants éternels détectés chez des Européens
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</itunes:summary>
+      <pubDate>Thu, 01 Oct 2026 09:21:04 +0000</pubDate>
+      <guid isPermaLink="false">brief-matin-2026-10-01</guid>
+      <enclosure url="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-01.mp3" length="2442285" type="audio/mpeg"/>
+      <itunes:duration>3:23</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+    <item>
+      <title>30/09 — L'inflation remonte à 3 %</title>
+      <description>Brief du 2026-09-30. L'inflation remonte à 3 % · Fin de la coalition en Irak · Vigilance rouge dans le Sud · Expulsions vers des pays tiers · Rakuten France ferme ses portes · OpenAI poursuivi pour cyberattaques · Bordeaux racheté un euro symbolique
+
+Au sommaire :
+• L'inflation remonte à 3 %
+• Fin de la coalition en Irak
+• Vigilance rouge dans le Sud
+• Expulsions vers des pays tiers
+• Rakuten France ferme ses portes
+• OpenAI poursuivi pour cyberattaques
+• Bordeaux racheté un euro symbolique
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
+      <itunes:summary>Brief du 2026-09-30. L'inflation remonte à 3 % · Fin de la coalition en Irak · Vigilance rouge dans le Sud · Expulsions vers des pays tiers · Rakuten France ferme ses portes · OpenAI poursuivi pour cyberattaques · Bordeaux racheté un euro symbolique
+
+Au sommaire :
+• L'inflation remonte à 3 %
+• Fin de la coalition en Irak
+• Vigilance rouge dans le Sud
+• Expulsions vers des pays tiers
+• Rakuten France ferme ses portes
+• OpenAI poursuivi pour cyberattaques
+• Bordeaux racheté un euro symbolique
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</itunes:summary>
+      <pubDate>Wed, 30 Sep 2026 08:57:28 +0000</pubDate>
+      <guid isPermaLink="false">brief-matin-2026-09-30</guid>
+      <enclosure url="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-09-30.mp3" length="2157027" type="audio/mpeg"/>
+      <itunes:duration>2:59</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+    <item>
+      <title>29/09 — Dette publique record à 119% du PIB</title>
+      <description>Brief du 2026-09-29. Dette publique record à 119% du PIB · Mobilisation dans la fonction publique · Deux ans requis contre Bayrou · Washington bloque des importations canadiennes · Starship atteint l'orbite terrestre · Victoire des Bleus en Belgique
+
+Au sommaire :
+• Dette publique record à 119% du PIB
+• Mobilisation dans la fonction publique
+• Deux ans requis contre Bayrou
+• Washington bloque des importations canadiennes
+• Starship atteint l'orbite terrestre
+• Victoire des Bleus en Belgique
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
+      <itunes:summary>Brief du 2026-09-29. Dette publique record à 119% du PIB · Mobilisation dans la fonction publique · Deux ans requis contre Bayrou · Washington bloque des importations canadiennes · Starship atteint l'orbite terrestre · Victoire des Bleus en Belgique
+
+Au sommaire :
+• Dette publique record à 119% du PIB
+• Mobilisation dans la fonction publique
+• Deux ans requis contre Bayrou
+• Washington bloque des importations canadiennes
+• Starship atteint l'orbite terrestre
+• Victoire des Bleus en Belgique
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</itunes:summary>
+      <pubDate>Tue, 29 Sep 2026 08:59:16 +0000</pubDate>
+      <guid isPermaLink="false">brief-matin-2026-09-29</guid>
+      <enclosure url="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-09-29.mp3" length="2212198" type="audio/mpeg"/>
+      <itunes:duration>3:04</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+    <item>
+      <title>28/09 — Groupe historique pour le RN au Sénat</title>
+      <description>Brief du 2026-09-28. Groupe historique pour le RN au Sénat · Arrestations près d'une base militaire britannique · TikTok paie pour éviter un procès · Fin de visite papale à Metz · Démission du président serbe Aleksandar Vucic · Alstom réclame la fin du sur-mesure
+
+Au sommaire :
+• Groupe historique pour le RN au Sénat
+• Arrestations près d'une base militaire britannique
+• TikTok paie pour éviter un procès
+• Fin de visite papale à Metz
+• Démission du président serbe Aleksandar Vucic
+• Alstom réclame la fin du sur-mesure
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
+      <itunes:summary>Brief du 2026-09-28. Groupe historique pour le RN au Sénat · Arrestations près d'une base militaire britannique · TikTok paie pour éviter un procès · Fin de visite papale à Metz · Démission du président serbe Aleksandar Vucic · Alstom réclame la fin du sur-mesure
+
+Au sommaire :
+• Groupe historique pour le RN au Sénat
+• Arrestations près d'une base militaire britannique
+• TikTok paie pour éviter un procès
+• Fin de visite papale à Metz
+• Démission du président serbe Aleksandar Vucic
+• Alstom réclame la fin du sur-mesure
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</itunes:summary>
+      <pubDate>Mon, 28 Sep 2026 08:57:02 +0000</pubDate>
+      <guid isPermaLink="false">brief-matin-2026-09-28</guid>
+      <enclosure url="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-09-28.mp3" length="2325360" type="audio/mpeg"/>
+      <itunes:duration>3:13</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+    <item>
+      <title>27/09 — Léon XIV face aux victimes à Lourdes</title>
+      <description>Brief du 2026-09-27. Léon XIV face aux victimes à Lourdes · Fusillades meurtrières en Afrique du Sud · Madrid mobilisée contre les expulsions locatives · Lula interdit les paris sportifs en ligne · Marches pour le climat à travers la France · Volley : la France battue en finale
+
+Au sommaire :
+• Léon XIV face aux victimes à Lourdes
+• Fusillades meurtrières en Afrique du Sud
+• Madrid mobilisée contre les expulsions locatives
+• Lula interdit les paris sportifs en ligne
+• Marches pour le climat à travers la France
+• Volley : la France battue en finale
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
+      <itunes:summary>Brief du 2026-09-27. Léon XIV face aux victimes à Lourdes · Fusillades meurtrières en Afrique du Sud · Madrid mobilisée contre les expulsions locatives · Lula interdit les paris sportifs en ligne · Marches pour le climat à travers la France · Volley : la France battue en finale
+
+Au sommaire :
+• Léon XIV face aux victimes à Lourdes
+• Fusillades meurtrières en Afrique du Sud
+• Madrid mobilisée contre les expulsions locatives
+• Lula interdit les paris sportifs en ligne
+• Marches pour le climat à travers la France
+• Volley : la France battue en finale
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</itunes:summary>
+      <pubDate>Sun, 27 Sep 2026 08:32:11 +0000</pubDate>
+      <guid isPermaLink="false">brief-matin-2026-09-27</guid>
+      <enclosure url="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-09-27.mp3" length="2549178" type="audio/mpeg"/>
+      <itunes:duration>3:32</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+    <item>
+      <title>26/09 — Trump rejette l'offre iranienne sur Ormuz</title>
+      <description>Brief du 2026-09-26. Trump rejette l'offre iranienne sur Ormuz · Moyens militaires français envoyés en Arabie · Lourdes condamnations au procès Aramburu · Yannick Jadot suspendu par Les Écologistes · Volkswagen rappelle deux millions de voitures · Fuite d'images d'utilisateurs chez OpenAI
+
+Au sommaire :
+• Trump rejette l'offre iranienne sur Ormuz
+• Moyens militaires français envoyés en Arabie
+• Lourdes condamnations au procès Aramburu
+• Yannick Jadot suspendu par Les Écologistes
+• Volkswagen rappelle deux millions de voitures
+• Fuite d'images d'utilisateurs chez OpenAI
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
+      <itunes:summary>Brief du 2026-09-26. Trump rejette l'offre iranienne sur Ormuz · Moyens militaires français envoyés en Arabie · Lourdes condamnations au procès Aramburu · Yannick Jadot suspendu par Les Écologistes · Volkswagen rappelle deux millions de voitures · Fuite d'images d'utilisateurs chez OpenAI
+
+Au sommaire :
+• Trump rejette l'offre iranienne sur Ormuz
+• Moyens militaires français envoyés en Arabie
+• Lourdes condamnations au procès Aramburu
+• Yannick Jadot suspendu par Les Écologistes
+• Volkswagen rappelle deux millions de voitures
+• Fuite d'images d'utilisateurs chez OpenAI
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</itunes:summary>
+      <pubDate>Sat, 26 Sep 2026 07:58:32 +0000</pubDate>
+      <guid isPermaLink="false">brief-matin-2026-09-26</guid>
+      <enclosure url="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-09-26.mp3" length="2172387" type="audio/mpeg"/>
+      <itunes:duration>3:01</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+    <item>
+      <title>25/09 — Macron intervient sur les carburants</title>
+      <description>Brief du 2026-09-25. Macron intervient sur les carburants · Repas à un euro : Crous saturés · Nétanyahou défie l'ONU · Salariés de SFR en grève · Uber : commissions jugées abusives · Frappe massive de drones sur Kiev
+
+Au sommaire :
+• Macron intervient sur les carburants
+• Repas à un euro : Crous saturés
+• Nétanyahou défie l'ONU
+• Salariés de SFR en grève
+• Uber : commissions jugées abusives
+• Frappe massive de drones sur Kiev
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
+      <itunes:summary>Brief du 2026-09-25. Macron intervient sur les carburants · Repas à un euro : Crous saturés · Nétanyahou défie l'ONU · Salariés de SFR en grève · Uber : commissions jugées abusives · Frappe massive de drones sur Kiev
+
+Au sommaire :
+• Macron intervient sur les carburants
+• Repas à un euro : Crous saturés
+• Nétanyahou défie l'ONU
+• Salariés de SFR en grève
+• Uber : commissions jugées abusives
+• Frappe massive de drones sur Kiev
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</itunes:summary>
+      <pubDate>Fri, 25 Sep 2026 08:08:49 +0000</pubDate>
+      <guid isPermaLink="false">brief-matin-2026-09-25</guid>
+      <enclosure url="https://iceman-ux.github.io/brief-matin/episodes/brief-2026-09-25.mp3" length="1019757" type="audio/mpeg"/>
+      <itunes:duration>3:23</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+    <item>
+      <title>24/09 — Rencontre Trump-Xi à Washington</title>
+      <description>Brief du 2026-09-24. Rencontre Trump-Xi à Washington · Flambée historique du prix du diesel · Offensive rebelle dans le nord éthiopien · Réadmission des médias à la Maison-Blanche · Une IA pirate des données gouvernementales · Retombées de la visite papale en France
+
+Au sommaire :
+• Rencontre Trump-Xi à Washington
+• Flambée historique du prix du diesel
+• Offensive rebelle dans le nord éthiopien
+• Réadmission des médias à la Maison-Blanche
+• Une IA pirate des données gouvernementales
+• Retombées de la visite papale en France
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
+      <itunes:summary>Brief du 2026-09-24. Rencontre Trump-Xi à Washington · Flambée historique du prix du diesel · Offensive rebelle dans le nord éthiopien · Réadmission des médias à la Maison-Blanche · Une IA pirate des données gouvernementales · Retombées de la visite papale en France
+
+Au sommaire :
+• Rencontre Trump-Xi à Washington
+• Flambée historique du prix du diesel
+• Offensive rebelle dans le nord éthiopien
+• Réadmission des médias à la Maison-Blanche
+• Une IA pirate des données gouvernementales
+• Retombées de la visite papale en France
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</itunes:summary>
+      <pubDate>Thu, 24 Sep 2026 11:05:46 +0000</pubDate>
+      <guid isPermaLink="false">brief-matin-2026-09-24</guid>
+      <enclosure url="https://iceman-ux.github.io/brief-matin/episodes/brief-2026-09-24.mp3" length="933717" type="audio/mpeg"/>
+      <itunes:duration>3:06</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+    <item>
+      <title>23/09 — Macron à la tribune de l'ONU</title>
+      <description>Brief du 2026-09-23. Macron à la tribune de l'ONU · Aides carburants élargies · Bases américaines au Groenland · Soupçons d'IA sur un roman · Migrants expulsés vers le Liberia · Arrêt de l'EPR de Flamanville
+
+Au sommaire :
+• Macron à la tribune de l'ONU
+• Aides carburants élargies
+• Bases américaines au Groenland
+• Soupçons d'IA sur un roman
+• Migrants expulsés vers le Liberia
+• Arrêt de l'EPR de Flamanville
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
+      <itunes:summary>Brief du 2026-09-23. Macron à la tribune de l'ONU · Aides carburants élargies · Bases américaines au Groenland · Soupçons d'IA sur un roman · Migrants expulsés vers le Liberia · Arrêt de l'EPR de Flamanville
+
+Au sommaire :
+• Macron à la tribune de l'ONU
+• Aides carburants élargies
+• Bases américaines au Groenland
+• Soupçons d'IA sur un roman
+• Migrants expulsés vers le Liberia
+• Arrêt de l'EPR de Flamanville
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</itunes:summary>
+      <pubDate>Wed, 23 Sep 2026 09:31:10 +0000</pubDate>
+      <guid isPermaLink="false">brief-matin-2026-09-23</guid>
+      <enclosure url="https://iceman-ux.github.io/brief-matin/episodes/brief-2026-09-23.mp3" length="1549485" type="audio/mpeg"/>
+      <itunes:duration>3:13</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+    <item>
+      <title>22/09 — Boycott des médias contre Trump</title>
+      <description>Brief du 2026-09-22. Boycott des médias contre Trump · Le chancelier allemand fragilisé · La Cour des comptes s'attaque au budget · El Niño frappe la Californie et l'Asie · Premier entraînement de Zidane
+
+Au sommaire :
+• Boycott des médias contre Trump
+• Le chancelier allemand fragilisé
+• La Cour des comptes s'attaque au budget
+• El Niño frappe la Californie et l'Asie
+• Premier entraînement de Zidane
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
+      <itunes:summary>Brief du 2026-09-22. Boycott des médias contre Trump · Le chancelier allemand fragilisé · La Cour des comptes s'attaque au budget · El Niño frappe la Californie et l'Asie · Premier entraînement de Zidane
+
+Au sommaire :
+• Boycott des médias contre Trump
+• Le chancelier allemand fragilisé
+• La Cour des comptes s'attaque au budget
+• El Niño frappe la Californie et l'Asie
+• Premier entraînement de Zidane
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</itunes:summary>
+      <pubDate>Tue, 22 Sep 2026 15:44:39 +0000</pubDate>
+      <guid isPermaLink="false">brief-matin-2026-09-22</guid>
+      <enclosure url="https://iceman-ux.github.io/brief-matin/episodes/brief-2026-09-22.mp3" length="1231148" type="audio/mpeg"/>
+      <itunes:duration>2:33</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+  </channel>
+</rss>

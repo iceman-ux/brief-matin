@@ -1,0 +1,27 @@
+{
+  "name": "lora",
+  "version": "0.1.0",
+  "main": "index.ts",
+  "dependencies": {
+    "expo": "~57.0.26",
+    "expo-alarm-kit": "0.1.11",
+    "expo-asset": "~57.0.18",
+    "expo-audio": "~57.0.5",
+    "expo-dev-client": "~57.0.19",
+    "expo-file-system": "~57.0.7",
+    "expo-status-bar": "~57.0.1",
+    "react": "19.2.3",
+    "react-native": "0.86.3"
+  },
+  "devDependencies": {
+    "@types/react": "~19.2.2",
+    "typescript": "~6.0.3"
+  },
+  "scripts": {
+    "start": "expo start --dev-client",
+    "ios": "expo run:ios",
+    "typecheck": "tsc --noEmit",
+    "test": "node --no-warnings=MODULE_TYPELESS_PACKAGE_JSON --test \"tests/*.test.*\""
+  },
+  "private": true
+}
