@@ -52,6 +52,7 @@ assets/brand/        signatures enregistrées, figées (ouverture, clôtures du 
 tools/analyse_voix.py  mesure audio pour le protocole d'écoute, hors pipeline
                        (numpy, scipy — hors requirements.txt, le run n'en a pas besoin)
 tools/preparer_sonal.py  mise au format du sonal (mono, 24 kHz, gain fixe), idem
+tools/verifier_flux.py   épisode du jour présent et écoutable dans le flux en ligne (check.yml)
 data/sources/        articles envoyés au rédacteur, par jour (rétention des épisodes)
 data/fidelite/       trace du garde-fou, par épisode
 tests/test_fidelite.py  tests du contrôle de reprise : py -m unittest tests.test_fidelite
@@ -105,9 +106,27 @@ Sur Windows, utiliser `py` plutôt que `python`.
   l'ordre si le principal reste saturé. La réflexion du rédacteur coûte
   plus que tout le reste (~0,10 $ sur ~0,15 $ par épisode) mais la baisser
   (`models.writer_thinking`) casse les règles de dialogue : essais du 25/09.
-- **GitHub lance les runs planifiés en retard**, jusqu'à cinq heures le
-  24/09, et en saute parfois un. Les créneaux de cron tombent en pleine
-  nuit américaine, mais l'heure réelle de publication n'est pas garantie.
+- **Ne jamais compter sur les crons GitHub pour l'heure** : les runs
+  planifiés partent avec 5 h 30 à 7 h de retard, tous les jours (bilan du
+  02/10), et en sautent parfois un. **Déclencheur principal depuis le
+  02/10 : cron-job.org**, configuré par Adam (compte et jeton chez lui,
+  jamais dans le dépôt), appelle l'API `workflow_dispatch` de
+  `daily-brief.yml` à 4 h 00 et 4 h 20 heure de Paris ; un dispatch démarre
+  en quelques secondes. Les crons GitHub restent en secours. Le
+  `concurrency` empêche deux runs simultanés, et la garde d'idempotence
+  arrête les suivants. Jeton *fine-grained* limité au dépôt, Actions en
+  lecture/écriture, qui expire le 02/10/2027.
+- **Alertes par issue GitHub** (un e-mail à Adam), une seule issue ouverte
+  par titre : « Lora : échec du run du AAAA-MM-JJ » (dernière étape de
+  `daily-brief.yml`, sur échec ou timeout), et « Lora : pas d'épisode le
+  AAAA-MM-JJ » par `check.yml`, que cron-job.org lance à 6 h 30 : il lit le
+  flux **en ligne** (`tools/verifier_flux.py`) et demande l'enclosure, qui
+  doit répondre 200. Input `date` pour tester. Fermer l'issue une fois le
+  problème réglé, sinon les alertes suivantes du même jour sont muettes.
+- **ffmpeg n'est pas sur l'image Ubuntu**, et apt-get a bloqué deux runs
+  jusqu'au timeout (30/09, 01/10). Le workflow essaie apt avec un délai
+  borné, puis bascule sur une archive statique figée (johnvansickle,
+  `ffmpeg-6.0.1`), dont il vérifie l'empreinte SHA-256.
 - **GitHub abandonne des runs planifiés** depuis fin août 2026, d'où les
   trois créneaux de nuit, plus un quatrième à 8 h 10 UTC : filet de sécurité
   après la remise à zéro du quota gratuit Gemini (minuit heure du Pacifique,

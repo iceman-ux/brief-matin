@@ -1,5 +1,25 @@
 # Lora (dépôt brief-matin) — avancement
 
+## Déclenchement à l'heure et alertes, depuis le 02/10/2026
+
+- [x] `daily-brief.yml` : `workflow_dispatch` sans input obligatoire,
+      `concurrency` sans annulation, ffmpeg borné (apt avec timeout, puis
+      archive statique vérifiée), issue « Lora : échec du run du … » sans
+      doublon. Date de Paris dans le commit et le résumé.
+- [x] `check.yml` et `tools/verifier_flux.py` : contrôle de l'épisode du
+      jour dans le flux en ligne, enclosure à 200, issue « Lora : pas
+      d'épisode le … » sans doublon. Testé le 02/10 (démarrage en 5 s).
+- [ ] **Configurer cron-job.org** (Adam) : jeton fine-grained, puis trois
+      tâches (production à 4 h 00 et 4 h 20, contrôle à 6 h 30). Guide dans
+      `Claude outputs/guide-cron.md`.
+- [ ] **Tester un dispatch de production** (Adam ou session autorisée) : il
+      doit démarrer en moins de 5 min et s'arrêter sur la garde
+      d'idempotence. Bloqué le 02/10 par le filtre de permissions de Claude
+      Code.
+- [ ] Le lendemain : vérifier que l'épisode sort vers 4 h 05, puis envisager
+      de retirer des crons GitHub devenus inutiles.
+- [ ] **Renouveler le jeton** avant le 02/10/2027.
+
 ## Diffusion — Spotify, depuis le 26/09/2026
 
 - [x] Flux aux normes Spotify : propriétaire et auteur « Lora », adresse
@@ -176,10 +196,9 @@ diviserait la facture TTS par deux.
 - **Slugs de mémoire trop précis.** Vérifier que `data/covered.json` contient
   `budget-2027` et non `budget-2027-vote-mardi`, sinon l'anti-répétition ne
   sert à rien.
-- **Retards de GitHub sur les runs planifiés.** Le 24/09, les créneaux de nuit
-  ont démarré avec environ cinq heures de retard (9 h 45, 10 h 37, 11 h 26 à
-  Paris) et l'un d'eux n'a pas été lancé du tout. Si ça se répète, le brief
-  n'est pas prêt au réveil : envisager un déclencheur externe.
+- **Retards de GitHub sur les runs planifiés** : 5 h 30 à 7 h tous les
+  jours, Lora sortait vers 10 h – 11 h 20. Réglé le 02/10 par un déclencheur
+  externe (voir « Déclenchement à l'heure »).
 - **Crédit Google Cloud de 257,47 €**, valable jusqu'à fin décembre 2026
   environ. Il ne couvre **pas** l'API Gemini, mais couvrirait Chirp 3 HD ou
   Cloud Storage. À utiliser avant son expiration ou à laisser filer.
