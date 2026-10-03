@@ -1,5 +1,71 @@
 [
   {
+    "date": "2026-10-03",
+    "filename": "brief-2026-10-03.mp3",
+    "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-03.mp3",
+    "storage": "releases",
+    "title": "03/10 — Le G7 débloque ses réserves pétrolières",
+    "summary": "Brief du 2026-10-03. Le G7 débloque ses réserves pétrolières · La contestation lycéenne se durcit · Épidémie record d'Ebola en RDC · Validation du plan social chez Auchan · Rejet des décrets logement en Espagne · Jay Clayton nommé au dossier IA",
+    "duration": 215,
+    "size": 2589615,
+    "topics": [
+      {
+        "slug": "crise-carburants-diesel",
+        "title": "Le G7 débloque ses réserves pétrolières",
+        "category": "eco",
+        "sources": [
+          "Le Monde",
+          "Le Figaro"
+        ]
+      },
+      {
+        "slug": "contestation-lyceenne-universitaire",
+        "title": "La contestation lycéenne se durcit",
+        "category": "france",
+        "sources": [
+          "Le Monde",
+          "franceinfo"
+        ]
+      },
+      {
+        "slug": "ebola-rdc",
+        "title": "Épidémie record d'Ebola en RDC",
+        "category": "monde",
+        "sources": [
+          "Le Monde",
+          "RFI"
+        ]
+      },
+      {
+        "slug": "plan-social-auchan",
+        "title": "Validation du plan social chez Auchan",
+        "category": "eco",
+        "sources": [
+          "Le Monde",
+          "Le Figaro"
+        ]
+      },
+      {
+        "slug": "crise-logement-espagne",
+        "title": "Rejet des décrets logement en Espagne",
+        "category": "monde",
+        "sources": [
+          "Le Monde",
+          "France 24"
+        ]
+      },
+      {
+        "slug": "regulation-ia-etats-unis",
+        "title": "Jay Clayton nommé au dossier IA",
+        "category": "tech",
+        "sources": [
+          "Le Monde"
+        ]
+      }
+    ],
+    "pub_date": "2026-10-03T02:03:14.107535+00:00"
+  },
+  {
     "date": "2026-10-02",
     "filename": "brief-2026-10-02.mp3",
     "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-02.mp3",
