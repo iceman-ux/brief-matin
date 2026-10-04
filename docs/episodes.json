@@ -1,5 +1,78 @@
 [
   {
+    "date": "2026-10-04",
+    "filename": "brief-2026-10-04.mp3",
+    "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-04.mp3",
+    "storage": "releases",
+    "title": "04/10 — Premier tour présidentiel au Brésil",
+    "summary": "Brief du 2026-10-04. Premier tour présidentiel au Brésil · Lycées : projet casseur-payeur accéléré · Tennessee : démission après l'exécution ratée · Renault investit dans l'électrique français · Frappes russes sur les ponts de Kiev · Suspension de permis pour téléphone au volant · Piratage de prestataires dans les Hauts-de-France",
+    "duration": 204,
+    "size": 2455137,
+    "topics": [
+      {
+        "slug": "elections-bresil",
+        "title": "Premier tour présidentiel au Brésil",
+        "category": "monde",
+        "sources": [
+          "RFI",
+          "Le Figaro"
+        ]
+      },
+      {
+        "slug": "contestation-lyceenne-universitaire",
+        "title": "Lycées : projet casseur-payeur accéléré",
+        "category": "france",
+        "sources": [
+          "Le Figaro",
+          "franceinfo"
+        ]
+      },
+      {
+        "slug": "peine-mort-tennessee",
+        "title": "Tennessee : démission après l'exécution ratée",
+        "category": "monde",
+        "sources": [
+          "Le Monde",
+          "The Guardian"
+        ]
+      },
+      {
+        "slug": "investissement-renault-electrique",
+        "title": "Renault investit dans l'électrique français",
+        "category": "eco",
+        "sources": [
+          "Le Monde"
+        ]
+      },
+      {
+        "slug": "guerre-ukraine-kiev",
+        "title": "Frappes russes sur les ponts de Kiev",
+        "category": "monde",
+        "sources": [
+          "France 24",
+          "RFI"
+        ]
+      },
+      {
+        "slug": "securite-routiere-telephone",
+        "title": "Suspension de permis pour téléphone au volant",
+        "category": "france",
+        "sources": [
+          "franceinfo"
+        ]
+      },
+      {
+        "slug": "cyberattaque-hauts-de-france",
+        "title": "Piratage de prestataires dans les Hauts-de-France",
+        "category": "tech",
+        "sources": [
+          "franceinfo"
+        ]
+      }
+    ],
+    "pub_date": "2026-10-04T02:03:12.993211+00:00"
+  },
+  {
     "date": "2026-10-03",
     "filename": "brief-2026-10-03.mp3",
     "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-03.mp3",

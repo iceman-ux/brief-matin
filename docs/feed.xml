@@ -11,7 +11,7 @@
 
 Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
     <language>fr-FR</language>
-    <lastBuildDate>Sat, 03 Oct 2026 02:03:14 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 04 Oct 2026 02:03:13 +0000</lastBuildDate>
     <itunes:author>Lora</itunes:author>
     <itunes:subtitle>L'essentiel de l'actu, chaque matin</itunes:subtitle>
     <itunes:summary>Brief quotidien généré automatiquement à partir des grands titres français et internationaux. France, Monde, Économie, Tech.
@@ -26,6 +26,39 @@ Brief généré automatiquement par intelligence artificielle, texte et voix, à
     <itunes:type>episodic</itunes:type>
     <itunes:image href="https://iceman-ux.github.io/brief-matin/lora-cover.jpg"/>
     <image><url>https://iceman-ux.github.io/brief-matin/lora-cover.jpg</url><title>Lora</title><link>https://iceman-ux.github.io/brief-matin</link></image>
+    <item>
+      <title>04/10 — Premier tour présidentiel au Brésil</title>
+      <description>Brief du 2026-10-04. Premier tour présidentiel au Brésil · Lycées : projet casseur-payeur accéléré · Tennessee : démission après l'exécution ratée · Renault investit dans l'électrique français · Frappes russes sur les ponts de Kiev · Suspension de permis pour téléphone au volant · Piratage de prestataires dans les Hauts-de-France
+
+Au sommaire :
+• Premier tour présidentiel au Brésil
+• Lycées : projet casseur-payeur accéléré
+• Tennessee : démission après l'exécution ratée
+• Renault investit dans l'électrique français
+• Frappes russes sur les ponts de Kiev
+• Suspension de permis pour téléphone au volant
+• Piratage de prestataires dans les Hauts-de-France
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
+      <itunes:summary>Brief du 2026-10-04. Premier tour présidentiel au Brésil · Lycées : projet casseur-payeur accéléré · Tennessee : démission après l'exécution ratée · Renault investit dans l'électrique français · Frappes russes sur les ponts de Kiev · Suspension de permis pour téléphone au volant · Piratage de prestataires dans les Hauts-de-France
+
+Au sommaire :
+• Premier tour présidentiel au Brésil
+• Lycées : projet casseur-payeur accéléré
+• Tennessee : démission après l'exécution ratée
+• Renault investit dans l'électrique français
+• Frappes russes sur les ponts de Kiev
+• Suspension de permis pour téléphone au volant
+• Piratage de prestataires dans les Hauts-de-France
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</itunes:summary>
+      <pubDate>Sun, 04 Oct 2026 02:03:12 +0000</pubDate>
+      <guid isPermaLink="false">brief-matin-2026-10-04</guid>
+      <enclosure url="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-04.mp3" length="2455137" type="audio/mpeg"/>
+      <itunes:duration>3:24</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
     <item>
       <title>03/10 — Le G7 débloque ses réserves pétrolières</title>
       <description>Brief du 2026-10-03. Le G7 débloque ses réserves pétrolières · La contestation lycéenne se durcit · Épidémie record d'Ebola en RDC · Validation du plan social chez Auchan · Rejet des décrets logement en Espagne · Jay Clayton nommé au dossier IA
