@@ -1,0 +1,62 @@
+{
+ "date": "2026-10-05",
+ "reprises": [
+  {
+   "replique": 9,
+   "mots": 13,
+   "texte": "de la base militaire de Fairford, dans le sud-ouest de l'Angleterre",
+   "source": "Le Monde — Une",
+   "champ": "chapô",
+   "titre_source": "Les Etats-Unis retirent leurs bombardiers de la base britannique près de laquelle a eu lieu un incident"
+  }
+ ],
+ "citations": [],
+ "problemes": [
+  {
+   "replique": 5,
+   "extrait": "ils donnaient presque tous le président sortant devant",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "Les sources indiquent seulement que les sondages annonçaient un duel très serré ou au coude-à-coude, sans préciser qu'ils donnaient presque tous Lula devant."
+  },
+  {
+   "replique": 13,
+   "extrait": "le Canada traverse déjà des frictions commerciales avec Washington",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "Aucune source ne mentionne de tensions commerciales en cours entre le Canada et les États-Unis."
+  },
+  {
+   "replique": 19,
+   "extrait": "Plus de soixante-dix combattants ont été tués",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "La source 5 fait état de plus de 70 personnes mortes, sans spécifier qu'il s'agissait de combattants."
+  }
+ ],
+ "corrections": [
+  {
+   "replique": 9,
+   "avant": "On passe à la défense internationale. Les États-Unis ont décidé de retirer leurs bombardiers lourds de la base militaire de Fairford, dans le sud-ouest de l'Angleterre.",
+   "apres": "On passe à la défense internationale. Les États-Unis ont décidé de retirer leurs bombardiers lourds de Fairford, une base de la Royal Air Force située au sud-ouest du pays."
+  }
+ ],
+ "reprises_apres": [],
+ "appels": 2,
+ "cout_usd": 0.0247,
+ "erreurs": [],
+ "usage": [
+  {
+   "model": "gemini-3.8-flash",
+   "input": 15755,
+   "output": 249,
+   "thinking": 0
+  },
+  {
+   "model": "gemini-3.8-flash",
+   "input": 15537,
+   "output": 73,
+   "thinking": 0
+  }
+ ]
+}

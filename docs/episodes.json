@@ -1,5 +1,69 @@
 [
   {
+    "date": "2026-10-05",
+    "filename": "brief-2026-10-05.mp3",
+    "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-05.mp3",
+    "storage": "releases",
+    "title": "05/10 — Bolsonaro devance Lula au premier tour",
+    "summary": "Brief du 2026-10-05. Bolsonaro devance Lula au premier tour · Lycées bloqués et appels à rouvrir · Washington retire ses bombardiers d'Angleterre · Législatives sous tension au Québec · ASML ne vend rien en Europe · Offensive générale annoncée au Yémen",
+    "duration": 199,
+    "size": 2399966,
+    "topics": [
+      {
+        "slug": "elections-bresil",
+        "title": "Bolsonaro devance Lula au premier tour",
+        "category": "monde",
+        "sources": [
+          "Le Monde",
+          "franceinfo"
+        ]
+      },
+      {
+        "slug": "contestation-lyceenne-universitaire",
+        "title": "Lycées bloqués et appels à rouvrir",
+        "category": "france",
+        "sources": [
+          "Le Figaro",
+          "Le Monde"
+        ]
+      },
+      {
+        "slug": "securite-base-fairford",
+        "title": "Washington retire ses bombardiers d'Angleterre",
+        "category": "monde",
+        "sources": [
+          "Le Monde"
+        ]
+      },
+      {
+        "slug": "quebec-elections",
+        "title": "Législatives sous tension au Québec",
+        "category": "monde",
+        "sources": [
+          "Le Monde"
+        ]
+      },
+      {
+        "slug": "semi-conducteurs-europe-asml",
+        "title": "ASML ne vend rien en Europe",
+        "category": "eco",
+        "sources": [
+          "Le Monde"
+        ]
+      },
+      {
+        "slug": "yemen-conflit",
+        "title": "Offensive générale annoncée au Yémen",
+        "category": "monde",
+        "sources": [
+          "Le Monde",
+          "franceinfo"
+        ]
+      }
+    ],
+    "pub_date": "2026-10-05T02:02:20.215837+00:00"
+  },
+  {
     "date": "2026-10-04",
     "filename": "brief-2026-10-04.mp3",
     "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-04.mp3",
