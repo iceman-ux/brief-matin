@@ -1,5 +1,70 @@
 [
   {
+    "date": "2026-10-06",
+    "filename": "brief-2026-10-06.mp3",
+    "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-06.mp3",
+    "storage": "releases",
+    "title": "06/10 — Paris et Berlin ciblent la Chine",
+    "summary": "Brief du 2026-10-06. Paris et Berlin ciblent la Chine · Piratage massif de données au Danemark · Législatives anticipées convoquées en Espagne · Alerte sur la dette française · Frappes houthistes et riposte régionale · Les Bleus dominent la Belgique",
+    "duration": 187,
+    "size": 2252949,
+    "topics": [
+      {
+        "slug": "commerce-ue-chine",
+        "title": "Paris et Berlin ciblent la Chine",
+        "category": "eco",
+        "sources": [
+          "Le Monde"
+        ]
+      },
+      {
+        "slug": "cyberattaque-danemark",
+        "title": "Piratage massif de données au Danemark",
+        "category": "tech",
+        "sources": [
+          "Le Monde"
+        ]
+      },
+      {
+        "slug": "crise-logement-espagne",
+        "title": "Législatives anticipées convoquées en Espagne",
+        "category": "monde",
+        "sources": [
+          "Le Monde",
+          "RFI"
+        ]
+      },
+      {
+        "slug": "dette-publique-taux",
+        "title": "Alerte sur la dette française",
+        "category": "eco",
+        "sources": [
+          "Le Monde"
+        ]
+      },
+      {
+        "slug": "yemen-conflit",
+        "title": "Frappes houthistes et riposte régionale",
+        "category": "monde",
+        "sources": [
+          "Le Monde",
+          "France 24",
+          "franceinfo"
+        ]
+      },
+      {
+        "slug": "ligue-des-nations-france-belgique",
+        "title": "Les Bleus dominent la Belgique",
+        "category": "sport",
+        "sources": [
+          "France 24",
+          "Le Monde"
+        ]
+      }
+    ],
+    "pub_date": "2026-10-06T02:02:27.857606+00:00"
+  },
+  {
     "date": "2026-10-05",
     "filename": "brief-2026-10-05.mp3",
     "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-05.mp3",

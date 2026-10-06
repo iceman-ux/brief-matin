@@ -11,7 +11,7 @@
 
 Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
     <language>fr-FR</language>
-    <lastBuildDate>Mon, 05 Oct 2026 02:02:20 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 06 Oct 2026 02:02:28 +0000</lastBuildDate>
     <itunes:author>Lora</itunes:author>
     <itunes:subtitle>L'essentiel de l'actu, chaque matin</itunes:subtitle>
     <itunes:summary>Brief quotidien généré automatiquement à partir des grands titres français et internationaux. France, Monde, Économie, Tech.
@@ -26,6 +26,37 @@ Brief généré automatiquement par intelligence artificielle, texte et voix, à
     <itunes:type>episodic</itunes:type>
     <itunes:image href="https://iceman-ux.github.io/brief-matin/lora-cover.jpg"/>
     <image><url>https://iceman-ux.github.io/brief-matin/lora-cover.jpg</url><title>Lora</title><link>https://iceman-ux.github.io/brief-matin</link></image>
+    <item>
+      <title>06/10 — Paris et Berlin ciblent la Chine</title>
+      <description>Brief du 2026-10-06. Paris et Berlin ciblent la Chine · Piratage massif de données au Danemark · Législatives anticipées convoquées en Espagne · Alerte sur la dette française · Frappes houthistes et riposte régionale · Les Bleus dominent la Belgique
+
+Au sommaire :
+• Paris et Berlin ciblent la Chine
+• Piratage massif de données au Danemark
+• Législatives anticipées convoquées en Espagne
+• Alerte sur la dette française
+• Frappes houthistes et riposte régionale
+• Les Bleus dominent la Belgique
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
+      <itunes:summary>Brief du 2026-10-06. Paris et Berlin ciblent la Chine · Piratage massif de données au Danemark · Législatives anticipées convoquées en Espagne · Alerte sur la dette française · Frappes houthistes et riposte régionale · Les Bleus dominent la Belgique
+
+Au sommaire :
+• Paris et Berlin ciblent la Chine
+• Piratage massif de données au Danemark
+• Législatives anticipées convoquées en Espagne
+• Alerte sur la dette française
+• Frappes houthistes et riposte régionale
+• Les Bleus dominent la Belgique
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</itunes:summary>
+      <pubDate>Tue, 06 Oct 2026 02:02:27 +0000</pubDate>
+      <guid isPermaLink="false">brief-matin-2026-10-06</guid>
+      <enclosure url="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-06.mp3" length="2252949" type="audio/mpeg"/>
+      <itunes:duration>3:07</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
     <item>
       <title>05/10 — Bolsonaro devance Lula au premier tour</title>
       <description>Brief du 2026-10-05. Bolsonaro devance Lula au premier tour · Lycées bloqués et appels à rouvrir · Washington retire ses bombardiers d'Angleterre · Législatives sous tension au Québec · ASML ne vend rien en Europe · Offensive générale annoncée au Yémen
