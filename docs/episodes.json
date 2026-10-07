@@ -1,5 +1,70 @@
 [
   {
+    "date": "2026-10-07",
+    "filename": "brief-2026-10-07.mp3",
+    "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-07.mp3",
+    "storage": "releases",
+    "title": "07/10 — Mobilisation lycéenne et recul du gouvernement",
+    "summary": "Brief du 2026-10-07. Mobilisation lycéenne et recul du gouvernement · Paramount finalise le rachat de Warner · L'ancien chef du renseignement allemand arrêté · L'armée malienne reprend Kidal · Mistral AI dévoile Mistral Large 4 · Google sommé d'interrompre ses chantiers",
+    "duration": 195,
+    "size": 2348243,
+    "topics": [
+      {
+        "slug": "contestation-lyceenne-universitaire",
+        "title": "Mobilisation lycéenne et recul du gouvernement",
+        "category": "france",
+        "sources": [
+          "Le Monde",
+          "franceinfo",
+          "RFI"
+        ]
+      },
+      {
+        "slug": "fusion-paramount-warner",
+        "title": "Paramount finalise le rachat de Warner",
+        "category": "eco",
+        "sources": [
+          "Le Monde"
+        ]
+      },
+      {
+        "slug": "espionnage-bnd-allemagne",
+        "title": "L'ancien chef du renseignement allemand arrêté",
+        "category": "monde",
+        "sources": [
+          "Le Monde"
+        ]
+      },
+      {
+        "slug": "mali-reprise-kidal",
+        "title": "L'armée malienne reprend Kidal",
+        "category": "monde",
+        "sources": [
+          "Le Monde",
+          "RFI"
+        ]
+      },
+      {
+        "slug": "ia-mistral-large-quatre",
+        "title": "Mistral AI dévoile Mistral Large 4",
+        "category": "tech",
+        "sources": [
+          "Le Monde",
+          "La Tribune"
+        ]
+      },
+      {
+        "slug": "finlande-google-datacenters",
+        "title": "Google sommé d'interrompre ses chantiers",
+        "category": "monde",
+        "sources": [
+          "Le Monde"
+        ]
+      }
+    ],
+    "pub_date": "2026-10-07T02:07:44.877125+00:00"
+  },
+  {
     "date": "2026-10-06",
     "filename": "brief-2026-10-06.mp3",
     "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-06.mp3",

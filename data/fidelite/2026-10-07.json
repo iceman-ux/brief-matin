@@ -1,0 +1,68 @@
+{
+ "date": "2026-10-07",
+ "reprises": [
+  {
+   "replique": 4,
+   "mots": 8,
+   "texte": "suspension des cours en fin de semaine pour",
+   "source": "France 24 — FR",
+   "champ": "chapô",
+   "titre_source": "REPLAY : Sébastien Lecornu s'exprime à l'Assemblée nationale sur la mobilisation lycéenne"
+  },
+  {
+   "replique": 13,
+   "mots": 8,
+   "texte": "réduit l'écart avec les meilleurs standards mondiaux",
+   "source": "Le Figaro — Économie",
+   "champ": "chapô",
+   "titre_source": "Mistral AI annonce un nouveau modèle qui le rapproche d’OpenAI et Anthropic"
+  }
+ ],
+ "citations": [],
+ "problemes": [
+  {
+   "replique": 10,
+   "extrait": "C'est la première fois qu'un ancien dirigeant",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "La source 9 mentionne des soupçons d'espionnage et les failles de l'agence, mais ne précise nulle part qu'il s'agit d'une première historique ni qu'il est poursuivi pour trahison."
+  },
+  {
+   "replique": 11,
+   "extrait": "L'enquête cherche à déterminer quelles puissances",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "La source 9 indique seulement qu'il est accusé d'avoir transmis des informations à une puissance étrangère, sans mentionner les axes actuels de l'enquête."
+  }
+ ],
+ "corrections": [
+  {
+   "replique": 4,
+   "avant": "Devant l'Assemblée nationale, Sébastien Lecornu a annoncé la suspension des cours en fin de semaine pour ouvrir un temps de démocratie interne dans chaque lycée.",
+   "apres": "À la tribune de l'Assemblée nationale, Sébastien Lecornu a indiqué que les lycéens n'auraient pas classe vendredi afin d'aménager un temps de débat dans chaque établissement."
+  },
+  {
+   "replique": 13,
+   "avant": "On change complètement de registre avec un sursaut français dans l'intelligence artificielle. Mistral AI a dévoilé mardi Mistral Large 4, son tout nouveau modèle de pointe. La jeune pousse tricolore avait été critiquée ces derniers mois pour avoir pris du retard face aux géants américains OpenAI et Anthropic. Elle assure que cette version réduit l'écart avec les meilleurs standards mondiaux et rivalise avec les récentes avancées chinoises.",
+   "apres": "On change complètement de registre avec un sursaut français dans l'intelligence artificielle. Mistral AI a dévoilé mardi Mistral Large 4, sa toute nouvelle technologie de pointe. La jeune pousse tricolore avait été critiquée pour son retard face aux géants américains OpenAI et Anthropic. Elle affirme désormais rattraper le niveau des références internationales et concurrencer les modèles chinois."
+  }
+ ],
+ "reprises_apres": [],
+ "appels": 2,
+ "cout_usd": 0.025,
+ "erreurs": [],
+ "usage": [
+  {
+   "model": "gemini-3.8-flash",
+   "input": 15806,
+   "output": 197,
+   "thinking": 0
+  },
+  {
+   "model": "gemini-3.8-flash",
+   "input": 15702,
+   "output": 175,
+   "thinking": 0
+  }
+ ]
+}

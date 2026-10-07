@@ -11,7 +11,7 @@
 
 Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
     <language>fr-FR</language>
-    <lastBuildDate>Tue, 06 Oct 2026 02:02:28 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 07 Oct 2026 02:07:45 +0000</lastBuildDate>
     <itunes:author>Lora</itunes:author>
     <itunes:subtitle>L'essentiel de l'actu, chaque matin</itunes:subtitle>
     <itunes:summary>Brief quotidien généré automatiquement à partir des grands titres français et internationaux. France, Monde, Économie, Tech.
@@ -26,6 +26,37 @@ Brief généré automatiquement par intelligence artificielle, texte et voix, à
     <itunes:type>episodic</itunes:type>
     <itunes:image href="https://iceman-ux.github.io/brief-matin/lora-cover.jpg"/>
     <image><url>https://iceman-ux.github.io/brief-matin/lora-cover.jpg</url><title>Lora</title><link>https://iceman-ux.github.io/brief-matin</link></image>
+    <item>
+      <title>07/10 — Mobilisation lycéenne et recul du gouvernement</title>
+      <description>Brief du 2026-10-07. Mobilisation lycéenne et recul du gouvernement · Paramount finalise le rachat de Warner · L'ancien chef du renseignement allemand arrêté · L'armée malienne reprend Kidal · Mistral AI dévoile Mistral Large 4 · Google sommé d'interrompre ses chantiers
+
+Au sommaire :
+• Mobilisation lycéenne et recul du gouvernement
+• Paramount finalise le rachat de Warner
+• L'ancien chef du renseignement allemand arrêté
+• L'armée malienne reprend Kidal
+• Mistral AI dévoile Mistral Large 4
+• Google sommé d'interrompre ses chantiers
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
+      <itunes:summary>Brief du 2026-10-07. Mobilisation lycéenne et recul du gouvernement · Paramount finalise le rachat de Warner · L'ancien chef du renseignement allemand arrêté · L'armée malienne reprend Kidal · Mistral AI dévoile Mistral Large 4 · Google sommé d'interrompre ses chantiers
+
+Au sommaire :
+• Mobilisation lycéenne et recul du gouvernement
+• Paramount finalise le rachat de Warner
+• L'ancien chef du renseignement allemand arrêté
+• L'armée malienne reprend Kidal
+• Mistral AI dévoile Mistral Large 4
+• Google sommé d'interrompre ses chantiers
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</itunes:summary>
+      <pubDate>Wed, 07 Oct 2026 02:07:44 +0000</pubDate>
+      <guid isPermaLink="false">brief-matin-2026-10-07</guid>
+      <enclosure url="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-07.mp3" length="2348243" type="audio/mpeg"/>
+      <itunes:duration>3:15</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
     <item>
       <title>06/10 — Paris et Berlin ciblent la Chine</title>
       <description>Brief du 2026-10-06. Paris et Berlin ciblent la Chine · Piratage massif de données au Danemark · Législatives anticipées convoquées en Espagne · Alerte sur la dette française · Frappes houthistes et riposte régionale · Les Bleus dominent la Belgique
