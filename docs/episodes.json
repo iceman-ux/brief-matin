@@ -1,5 +1,69 @@
 [
   {
+    "date": "2026-10-08",
+    "filename": "brief-2026-10-08.mp3",
+    "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-08.mp3",
+    "storage": "releases",
+    "title": "08/10 — Baisse annoncée des prix du gazole",
+    "summary": "Brief du 2026-10-08. Baisse annoncée des prix du gazole · Inquiétudes sanitaires en Sibérie · Emprunt géant pour puces d'IA · Réveil de la condamnée au Tennessee · Confiscation d'enseignes occidentales à Moscou · Retour sur Terre de Sophie Adenot",
+    "duration": 180,
+    "size": 2162983,
+    "topics": [
+      {
+        "slug": "crise-carburants-mesures",
+        "title": "Baisse annoncée des prix du gazole",
+        "category": "eco",
+        "sources": [
+          "La Tribune",
+          "Le Monde"
+        ]
+      },
+      {
+        "slug": "peste-siberie-oms",
+        "title": "Inquiétudes sanitaires en Sibérie",
+        "category": "monde",
+        "sources": [
+          "franceinfo",
+          "Le Monde"
+        ]
+      },
+      {
+        "slug": "ia-spacex-dette",
+        "title": "Emprunt géant pour puces d'IA",
+        "category": "tech",
+        "sources": [
+          "Le Monde"
+        ]
+      },
+      {
+        "slug": "peine-mort-tennessee",
+        "title": "Réveil de la condamnée au Tennessee",
+        "category": "monde",
+        "sources": [
+          "Le Monde",
+          "Le Figaro"
+        ]
+      },
+      {
+        "slug": "russie-entreprises-occidentales",
+        "title": "Confiscation d'enseignes occidentales à Moscou",
+        "category": "eco",
+        "sources": [
+          "Le Monde"
+        ]
+      },
+      {
+        "slug": "espace-sophie-adenot",
+        "title": "Retour sur Terre de Sophie Adenot",
+        "category": "france",
+        "sources": [
+          "franceinfo"
+        ]
+      }
+    ],
+    "pub_date": "2026-10-08T02:02:25.154003+00:00"
+  },
+  {
     "date": "2026-10-07",
     "filename": "brief-2026-10-07.mp3",
     "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-07.mp3",

@@ -1,0 +1,67 @@
+{
+ "date": "2026-10-08",
+ "reprises": [
+  {
+   "replique": 17,
+   "mots": 8,
+   "texte": "Sophie Adenot a quitté la Station spatiale internationale",
+   "source": "franceinfo — Titres",
+   "champ": "titre",
+   "titre_source": "Sophie Adenot a quitté la Station spatiale internationale et doit arriver sur Terre jeudi après-midi"
+  }
+ ],
+ "citations": [],
+ "problemes": [
+  {
+   "replique": 13,
+   "extrait": "depuis une semaine",
+   "type": "date",
+   "gravite": "haute",
+   "explication": "Les sources ne précisent pas depuis quand cette affaire secoue le Tennessee ni la date exacte de l'exécution ratée."
+  },
+  {
+   "replique": 13,
+   "extrait": "un vide juridique complet sur le sort à lui réserver",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "Aucune source ne mentionne l'existence d'un vide juridique concernant la suite à donner pour la détenue."
+  },
+  {
+   "replique": 17,
+   "extrait": "après une mission de six mois en orbite",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "La durée de six mois de la mission n'est mentionnée dans aucune des sources."
+  }
+ ],
+ "corrections": [
+  {
+   "replique": 13,
+   "avant": "Aux États-Unis, rebondissement dans le dossier de la peine de mort qui secoue le Tennessee depuis une semaine. Christa Pike, la prisonnière dont l'injection létale avait échoué, s'est réveillée à l'hôpital. Elle était restée inconsciente plusieurs jours au point que l'équipe médicale envisageait de la débrancher. Ses avocats affirment qu'elle a recommencé à parler, qu'elle se dit désorientée et en colère, tout en restant menottée à son lit d'hôpital sous surveillance policière. La justice américaine se retrouve face à un vide juridique complet sur le sort à lui réserver.",
+   "apres": "Aux États-Unis, rebondissement dans le dossier de la peine de mort qui secoue le Tennessee. Christa Pike, la condamnée dont l'exécution par injection létale avait échoué, s'est réveillée à l'hôpital. Elle a même failli être débranchée avant de reprendre conscience, selon son avocat. Elle a recommencé à parler, se disant désorientée et en colère, tout en restant menottée à son lit médicalisé."
+  },
+  {
+   "replique": 17,
+   "avant": "On termine avec une bonne nouvelle scientifique en apesanteur. Sophie Adenot a quitté la Station spatiale internationale hier à bord d'une capsule privée. L'astronaute française et ses coéquipiers doivent amerrir cet après-midi, après une mission de six mois en orbite.",
+   "apres": "On termine avec une bonne nouvelle scientifique en orbite. Sophie Adenot est en route vers la Terre après avoir fait ses adieux à l'ISS hier à bord d'une capsule Crew Dragon. L'astronaute française et ses coéquipiers doivent atterrir cet après-midi."
+  }
+ ],
+ "reprises_apres": [],
+ "appels": 2,
+ "cout_usd": 0.0263,
+ "erreurs": [],
+ "usage": [
+  {
+   "model": "gemini-3.8-flash",
+   "input": 16468,
+   "output": 217,
+   "thinking": 0
+  },
+  {
+   "model": "gemini-3.8-flash",
+   "input": 16456,
+   "output": 216,
+   "thinking": 0
+  }
+ ]
+}
