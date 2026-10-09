@@ -11,7 +11,7 @@
 
 Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
     <language>fr-FR</language>
-    <lastBuildDate>Thu, 08 Oct 2026 02:02:25 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 09 Oct 2026 02:06:21 +0000</lastBuildDate>
     <itunes:author>Lora</itunes:author>
     <itunes:subtitle>L'essentiel de l'actu, chaque matin</itunes:subtitle>
     <itunes:summary>Brief quotidien généré automatiquement à partir des grands titres français et internationaux. France, Monde, Économie, Tech.
@@ -26,6 +26,37 @@ Brief généré automatiquement par intelligence artificielle, texte et voix, à
     <itunes:type>episodic</itunes:type>
     <itunes:image href="https://iceman-ux.github.io/brief-matin/lora-cover.jpg"/>
     <image><url>https://iceman-ux.github.io/brief-matin/lora-cover.jpg</url><title>Lora</title><link>https://iceman-ux.github.io/brief-matin</link></image>
+    <item>
+      <title>09/10 — Trump écarte les frappes en Iran</title>
+      <description>Brief du 2026-10-09. Trump écarte les frappes en Iran · Peloton d'exécution public aux États-Unis · Expulsion de deux agents nigériens · L'IA gèle l'embauche des débutants · Édouard Philippe cible les familles · À retenir de la semaine
+
+Au sommaire :
+• Trump écarte les frappes en Iran
+• Peloton d'exécution public aux États-Unis
+• Expulsion de deux agents nigériens
+• L'IA gèle l'embauche des débutants
+• Édouard Philippe cible les familles
+• À retenir de la semaine
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
+      <itunes:summary>Brief du 2026-10-09. Trump écarte les frappes en Iran · Peloton d'exécution public aux États-Unis · Expulsion de deux agents nigériens · L'IA gèle l'embauche des débutants · Édouard Philippe cible les familles · À retenir de la semaine
+
+Au sommaire :
+• Trump écarte les frappes en Iran
+• Peloton d'exécution public aux États-Unis
+• Expulsion de deux agents nigériens
+• L'IA gèle l'embauche des débutants
+• Édouard Philippe cible les familles
+• À retenir de la semaine
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</itunes:summary>
+      <pubDate>Fri, 09 Oct 2026 02:06:21 +0000</pubDate>
+      <guid isPermaLink="false">brief-matin-2026-10-09</guid>
+      <enclosure url="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-09.mp3" length="2388054" type="audio/mpeg"/>
+      <itunes:duration>3:18</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
     <item>
       <title>08/10 — Baisse annoncée des prix du gazole</title>
       <description>Brief du 2026-10-08. Baisse annoncée des prix du gazole · Inquiétudes sanitaires en Sibérie · Emprunt géant pour puces d'IA · Réveil de la condamnée au Tennessee · Confiscation d'enseignes occidentales à Moscou · Retour sur Terre de Sophie Adenot

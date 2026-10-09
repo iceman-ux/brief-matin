@@ -1,0 +1,87 @@
+{
+ "date": "2026-10-09",
+ "reprises": [
+  {
+   "replique": 6,
+   "mots": 8,
+   "texte": "de se dégrader depuis l'arrivée au pouvoir",
+   "source": "Le Monde — Une",
+   "champ": "chapô",
+   "titre_source": "La France expulse deux agents des services de renseignement nigériens"
+  },
+  {
+   "replique": 7,
+   "mots": 9,
+   "texte": "Une étude conjointe de la Banque de France et",
+   "source": "Le Monde — Économie",
+   "champ": "chapô",
+   "titre_source": "L’IA générative gèle l’embauche des jeunes dans les métiers exposés"
+  }
+ ],
+ "citations": [],
+ "problemes": [
+  {
+   "replique": 3,
+   "extrait": "Fort Hood",
+   "type": "nom",
+   "gravite": "haute",
+   "explication": "Les sources mentionnent seulement « une base militaire du Texas » sans préciser le nom de Fort Hood."
+  },
+  {
+   "replique": 5,
+   "extrait": "Les associations de juristes dénoncent une dérive spectaculaire",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "Aucune source ne fait état de réactions ou dénonciations d'associations de juristes concernant cette exécution."
+  },
+  {
+   "replique": 7,
+   "extrait": "comme la finance, le conseil ou l'informatique",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "La source ne précise pas quels sont les métiers exposés ni ne cite la finance, le conseil ou l'informatique."
+  },
+  {
+   "replique": 10,
+   "extrait": "financée en partie par un resserrement des aides sociales",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "Les sources mentionnent les propositions d'Édouard Philippe mais n'indiquent pas ce mode de financement."
+  }
+ ],
+ "corrections": [
+  {
+   "replique": 3,
+   "avant": "Autre dossier aux États-Unis, sur le terrain militaire : le Pentagone a annoncé que la prochaine exécution ordonnée par la justice de l'armée serait ouverte au public. Le condamné est Nidal Hasan, l'ancien psychiatre militaire qui avait tué treize personnes sur la base de Fort Hood, au Texas, en 2009. Il sera fusillé par un peloton de soldats.",
+   "apres": "Autre dossier aux États-Unis, sur le terrain militaire : le Pentagone a annoncé que la prochaine exécution ordonnée par la justice de l'armée serait ouverte au public. Le condamné est Nidal Hasan, l'ancien psychiatre militaire qui avait tué treize personnes sur une base texane en 2009. Il sera fusillé par un peloton de soldats."
+  },
+  {
+   "replique": 6,
+   "avant": "On change de registre avec ce dossier diplomatique entre Paris et Niamey. La France a expulsé hier deux agents des services de renseignement nigériens présents sur le territoire national. Selon des sources nigériennes, l'un des fonctionnaires visés surveillait des opposants politiques réfugiés dans l'Hexagone. Les relations bilatérales ne cessaient de se dégrader depuis l'arrivée au pouvoir de la junte prorusse en 2023. Cette décision confirme l'effondrement des canaux d'échange entre les deux pays.",
+   "apres": "On change de registre avec ce dossier diplomatique entre Paris et Niamey. La France a expulsé hier deux agents des services de renseignement nigériens présents sur le territoire national. Selon des sources nigériennes, l'un des fonctionnaires visés surveillait des opposants politiques réfugiés dans l'Hexagone. Les liens bilatéraux ont continué de s'envenimer depuis le coup de force d'une junte prorusse en 2023. Cette décision confirme l'effondrement des canaux d'échange entre les deux pays."
+  },
+  {
+   "replique": 7,
+   "avant": "Dans l'actualité économique, l'intelligence artificielle commence à freiner l'accès des jeunes diplômés à l'emploi. Une étude conjointe de la Banque de France et d'un laboratoire de l'école HEC montre que les embauches des vingt-et-un à vingt-neuf ans reculent nettement dans les métiers les plus exposés aux modèles génératifs, comme la finance, le conseil ou l'informatique. Les entreprises s'appuient désormais sur ces outils pour absorber le travail d'analyse ou de programmation confié d'ordinaire aux profils débutants, ce qui gèle les recrutements à la sortie des études.",
+   "apres": "Dans l'actualité économique, l'intelligence artificielle commence à freiner l'accès des jeunes diplômés à l'emploi. Menée de concert par la Banque de France et un laboratoire rattaché à HEC, une enquête montre que les embauches des vingt-et-un à vingt-neuf ans reculent nettement dans les métiers les plus exposés aux modèles génératifs, comme la finance, le conseil ou l'informatique. Les entreprises s'appuient désormais sur ces outils pour absorber le travail d'analyse ou de programmation confié d'ordinaire aux profils débutants, ce qui gèle les recrutements à la sortie des études."
+  }
+ ],
+ "reprises_apres": [],
+ "appels": 2,
+ "cout_usd": 0.0274,
+ "erreurs": [],
+ "usage": [
+  {
+   "model": "gemini-3.8-flash",
+   "input": 16398,
+   "output": 293,
+   "thinking": 0
+  },
+  {
+   "model": "gemini-3.8-flash",
+   "input": 16557,
+   "output": 420,
+   "thinking": 0
+  }
+ ]
+}
