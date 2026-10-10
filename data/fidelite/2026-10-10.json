@@ -1,0 +1,80 @@
+{
+ "date": "2026-10-10",
+ "reprises": [
+  {
+   "replique": 2,
+   "mots": 8,
+   "texte": "le marché américain et mondial sur plusieurs mois",
+   "source": "France 24 — FR",
+   "champ": "chapô",
+   "titre_source": "Trump annonce un accord avec Poutine pour des livraisons massives de diesel"
+  },
+  {
+   "replique": 10,
+   "mots": 8,
+   "texte": "de plus de moitié les exportations chinoises de",
+   "source": "La Tribune",
+   "champ": "chapô",
+   "titre_source": "Chine-UE : un accord pour freiner les exportations de voitures hybrides"
+  }
+ ],
+ "citations": [],
+ "problemes": [
+  {
+   "replique": 10,
+   "extrait": "quotas stricts et des engagements de prix minimum",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "Les sources 7, 42 et 86 mentionnent un accord pour limiter les exportations de véhicules hybrides, sans préciser de mécanismes de quotas ou de prix minimum."
+  },
+  {
+   "replique": 13,
+   "extrait": "superviser directement les grandes places boursières",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "Les sources 12 et 33 mentionnent un accord renforçant l'Esma et des concessions pour les régulateurs nationaux, sans détailler la supervision directe des grandes places ou infrastructures."
+  },
+  {
+   "replique": 16,
+   "extrait": "restée au point mort depuis dix ans",
+   "type": "chiffre",
+   "gravite": "haute",
+   "explication": "La source 12 mentionne une étape décisive pour unifier les marchés de capitaux, mais ne fait pas état d'un blocage qui durerait depuis dix ans."
+  }
+ ],
+ "corrections": [
+  {
+   "replique": 2,
+   "avant": "Donald Trump a créé une onde de choc diplomatique en officialisant un accord direct avec Vladimir Poutine. Moscou s'engage à livrer plusieurs millions de tonnes de diesel sur le marché américain et mondial sur plusieurs mois. Pour permettre ces livraisons, le président américain lève une partie des sanctions financières et commerciales contre la Russie. L'objectif affiché par Washington est de faire baisser le prix à la pompe avant les élections de mi-mandat.",
+   "apres": "Donald Trump a créé une onde de choc diplomatique en officialisant un accord direct avec Vladimir Poutine. Moscou s'engage à livrer plusieurs millions de tonnes de gazole destinés aux États-Unis et au reste de la planète, un approvisionnement étalé dans le temps. Pour permettre ces livraisons, le président américain lève une partie des sanctions financières et commerciales contre la Russie. L'objectif affiché par Washington est de faire baisser le prix à la pompe avant les élections de mi-mandat."
+  },
+  {
+   "replique": 10,
+   "avant": "Sur le front commercial, Bruxelles et Pékin viennent d'éviter l'escalade sur les voitures. Après deux jours de négociations directes dans la capitale chinoise, la Commission européenne a conclu un accord pour limiter de plus de moitié les exportations chinoises de véhicules hybrides vers le marché européen. Les constructeurs chinois devront respecter des quotas stricts et des engagements de prix minimum pour continuer à vendre en Europe.",
+   "apres": "Sur le front commercial, Bruxelles et Pékin viennent d'éviter l'escalade sur les voitures. Après deux jours de négociations directes dans la capitale chinoise, la Commission européenne a conclu un accord pour réduire de plus de 50 % les arrivages de modèles hybrides venus de Chine. Les constructeurs chinois devront respecter des quotas stricts et des engagements de prix minimum pour continuer à vendre en Europe."
+  },
+  {
+   "replique": 16,
+   "avant": "Les régulateurs nationaux conserveront la main sur leurs acteurs locaux, mais le compromis débloque enfin l'Union des marchés de capitaux, restée au point mort depuis dix ans.",
+   "apres": "Les régulateurs nationaux conserveront la main sur leurs acteurs locaux, mais le compromis débloque enfin une étape décisive pour l'intégration des marchés de capitaux européens."
+  }
+ ],
+ "reprises_apres": [],
+ "appels": 2,
+ "cout_usd": 0.0259,
+ "erreurs": [],
+ "usage": [
+  {
+   "model": "gemini-3.8-flash",
+   "input": 15779,
+   "output": 275,
+   "thinking": 0
+  },
+  {
+   "model": "gemini-3.8-flash",
+   "input": 15830,
+   "output": 308,
+   "thinking": 0
+  }
+ ]
+}

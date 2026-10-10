@@ -1,5 +1,71 @@
 [
   {
+    "date": "2026-10-10",
+    "filename": "brief-2026-10-10.mp3",
+    "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-10.mp3",
+    "storage": "releases",
+    "title": "10/10 — Accord pétrolier surprise entre Washington et Moscou",
+    "summary": "Brief du 2026-10-10. Accord pétrolier surprise entre Washington et Moscou · Nobel de la paix et sanctions américaines · Rejet du volet recettes en commission · Frein négocié sur les hybrides chinoises · L'Europe unifie sa surveillance boursière · Contrainte physique autorisée dans les écoles danoises",
+    "duration": 216,
+    "size": 2594317,
+    "topics": [
+      {
+        "slug": "accord-diesel-usa-russie",
+        "title": "Accord pétrolier surprise entre Washington et Moscou",
+        "category": "monde",
+        "sources": [
+          "France 24",
+          "Le Monde"
+        ]
+      },
+      {
+        "slug": "justice-internationale-nobel-cpi",
+        "title": "Nobel de la paix et sanctions américaines",
+        "category": "monde",
+        "sources": [
+          "Le Monde",
+          "RFI"
+        ]
+      },
+      {
+        "slug": "budget-france-2027",
+        "title": "Rejet du volet recettes en commission",
+        "category": "france",
+        "sources": [
+          "Le Monde",
+          "La Tribune"
+        ]
+      },
+      {
+        "slug": "commerce-ue-chine-automobile",
+        "title": "Frein négocié sur les hybrides chinoises",
+        "category": "eco",
+        "sources": [
+          "Le Monde",
+          "La Tribune"
+        ]
+      },
+      {
+        "slug": "marches-financiers-super-regulateur-ue",
+        "title": "L'Europe unifie sa surveillance boursière",
+        "category": "eco",
+        "sources": [
+          "Le Monde",
+          "franceinfo"
+        ]
+      },
+      {
+        "slug": "danemark-discipline-ecole",
+        "title": "Contrainte physique autorisée dans les écoles danoises",
+        "category": "monde",
+        "sources": [
+          "Le Monde"
+        ]
+      }
+    ],
+    "pub_date": "2026-10-10T02:02:41.222315+00:00"
+  },
+  {
     "date": "2026-10-09",
     "filename": "brief-2026-10-09.mp3",
     "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-09.mp3",
