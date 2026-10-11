@@ -1,5 +1,73 @@
 [
   {
+    "date": "2026-10-11",
+    "filename": "brief-2026-10-11.mp3",
+    "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-11.mp3",
+    "storage": "releases",
+    "title": "11/10 — Trump réclame un nouveau président ukrainien",
+    "summary": "Brief du 2026-10-11. Trump réclame un nouveau président ukrainien · Aéroport de Riyad frappé par un missile · Répression massive de la jeunesse à Delhi · Lycéen blessé à Lens : versions opposées · Faux témoignage de meurtre généré par l'IA · Paul Seixas s'impose en Lombardie",
+    "duration": 184,
+    "size": 2214079,
+    "topics": [
+      {
+        "slug": "guerre-ukraine-politique",
+        "title": "Trump réclame un nouveau président ukrainien",
+        "category": "monde",
+        "sources": [
+          "Le Monde",
+          "franceinfo"
+        ]
+      },
+      {
+        "slug": "arabie-saoudite-attaque-riyad",
+        "title": "Aéroport de Riyad frappé par un missile",
+        "category": "monde",
+        "sources": [
+          "Le Monde",
+          "France 24",
+          "RFI"
+        ]
+      },
+      {
+        "slug": "inde-contestation-jeunesse",
+        "title": "Répression massive de la jeunesse à Delhi",
+        "category": "monde",
+        "sources": [
+          "Le Monde",
+          "The Guardian",
+          "France 24"
+        ]
+      },
+      {
+        "slug": "contestation-lyceenne-lens",
+        "title": "Lycéen blessé à Lens : versions opposées",
+        "category": "france",
+        "sources": [
+          "Le Monde",
+          "franceinfo"
+        ]
+      },
+      {
+        "slug": "ia-anthropic-signalement-police",
+        "title": "Faux témoignage de meurtre généré par l'IA",
+        "category": "tech",
+        "sources": [
+          "Le Figaro"
+        ]
+      },
+      {
+        "slug": "cyclisme-tour-de-lombardie",
+        "title": "Paul Seixas s'impose en Lombardie",
+        "category": "sport",
+        "sources": [
+          "franceinfo",
+          "France 24"
+        ]
+      }
+    ],
+    "pub_date": "2026-10-11T02:06:16.349563+00:00"
+  },
+  {
     "date": "2026-10-10",
     "filename": "brief-2026-10-10.mp3",
     "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-10.mp3",

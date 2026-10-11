@@ -1,0 +1,113 @@
+{
+ "date": "2026-10-11",
+ "reprises": [
+  {
+   "replique": 6,
+   "mots": 11,
+   "texte": "occidentales ont demandé à leur personnel d'éviter l'aéroport pendant",
+   "source": "Le Monde — International",
+   "champ": "chapô",
+   "titre_source": "Arabie saoudite : douze morts et plus de 300 blessés dans une attaque contre l’aéroport de Riyad imputée aux houthistes"
+  },
+  {
+   "replique": 7,
+   "mots": 10,
+   "texte": "Abhijeet Dipke, le fondateur du Parti du peuple cafard, à",
+   "source": "Le Monde — International",
+   "champ": "chapô",
+   "titre_source": "En Inde, les images de la répression du mouvement d’opposition, le Parti du peuple cafard"
+  },
+  {
+   "replique": 10,
+   "mots": 8,
+   "texte": "la grenade et nie toute participation à des",
+   "source": "Le Monde — Une",
+   "champ": "titre",
+   "titre_source": "Le lycéen amputé d’une main à Lens « dément avoir ramassé la grenade » et « nie toute participation à des violences », affirme son avocate"
+  },
+  {
+   "replique": 11,
+   "mots": 8,
+   "texte": "aucune opération de maintien de l'ordre ne",
+   "source": "Le Monde — Une",
+   "champ": "chapô",
+   "titre_source": "Le lycéen amputé d’une main à Lens « dément avoir ramassé la grenade » et « nie toute participation à des violences », affirme son avocate"
+  }
+ ],
+ "citations": [],
+ "problemes": [
+  {
+   "replique": 2,
+   "extrait": "pour pouvoir négocier une sortie de conflit avec Moscou",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "Les sources indiquent seulement que Trump réclame un nouveau président à Kiev, sans mentionner cette condition pour négocier avec Moscou."
+  },
+  {
+   "replique": 5,
+   "extrait": "Washington n'a précisé aucun calendrier ni aucun mécanisme",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "Les sources ne précisent rien sur d'éventuelles précisions ou absences de calendrier données par Washington."
+  },
+  {
+   "replique": 8,
+   "extrait": "d'un adolescent de seize ans",
+   "type": "chiffre",
+   "gravite": "haute",
+   "explication": "Les sources parlent d'un lycéen ou adolescent sans jamais préciser son âge de seize ans."
+  },
+  {
+   "replique": 12,
+   "extrait": "Une enquête interne devra déterminer le déroulement exact",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "Aucune enquête interne n'est mentionnée dans les sources fournies."
+  }
+ ],
+ "corrections": [
+  {
+   "replique": 6,
+   "avant": "Dans la région du Golfe, la tension monte brusquement. Un tir de missile attribué aux rebelles yéménites houthistes a touché l'aéroport international de Riyad, en Arabie saoudite, faisant douze morts et plus de trois cents blessés. Des équipes médicales d'urgence ont été déployées en masse dans les hôpitaux de la capitale, et le trafic aérien a été suspendu. Plusieurs chancelleries occidentales ont demandé à leur personnel d'éviter l'aéroport pendant au moins une semaine, tandis que Riyad promet une réponse particulièrement ferme.",
+   "apres": "Dans la région du Golfe, la tension monte brusquement. Un tir de missile attribué aux rebelles yéménites houthistes a touché l'aéroport international de Riyad, en Arabie saoudite, faisant douze morts et plus de trois cents blessés. Des équipes médicales d'urgence ont été déployées en masse dans les hôpitaux de la capitale, et le trafic aérien a été suspendu. Plusieurs ambassades occidentales recommandent à leurs agents de ne pas approcher la zone durant sept jours, tandis que Riyad promet une réponse particulièrement ferme."
+  },
+  {
+   "replique": 7,
+   "avant": "On part en Inde, où le pouvoir a cadenassé la capitale pour briser dans l'œuf une vaste mobilisation de la jeunesse. À New Delhi, les forces de l'ordre ont procédé à des milliers d'arrestations et ont interpellé Abhijeet Dipke, le fondateur du Parti du peuple cafard, à la tête de la contestation étudiante. La révolte a éclaté après la radiation controversée de cent trente millions d'électeurs des registres électoraux, une mesure qui vise selon l'opposition à avantager le Premier ministre Narendra Modi.",
+   "apres": "On part en Inde, où le pouvoir a cadenassé la capitale pour briser dans l'œuf une vaste mobilisation de la jeunesse. À New Delhi, les forces de l'ordre ont procédé à des milliers d'arrestations et ont interpellé Abhijeet Dipke, qui a créé le mouvement des cafards pour porter la contestation étudiante. La révolte a éclaté après la radiation controversée de cent trente millions d'électeurs des registres électoraux, une mesure qui vise selon l'opposition à avantager le Premier ministre Narendra Modi."
+  },
+  {
+   "replique": 8,
+   "avant": "En France, la tension reste très vive autour de la mobilisation lycéenne. Après l'amputation de la main d'un adolescent de seize ans à Lens en marge d'un blocage, son avocate dément désormais formellement les premières conclusions avancées par la justice.",
+   "apres": "En France, la tension reste très vive autour de la mobilisation lycéenne. Après l'amputation de la main d'un lycéen à Lens en marge d'un blocage, son avocate dément désormais formellement les premières conclusions avancées par la justice."
+  },
+  {
+   "replique": 10,
+   "avant": "Les premiers éléments de l'enquête indiquaient que le jeune homme avait lui-même ramassé l'engin explosif au sol. L'adolescent conteste catégoriquement cette version : il affirme n'avoir jamais manipulé la grenade et nie toute participation à des actes de violence.",
+   "apres": "Les premiers éléments de l'enquête indiquaient que le jeune homme avait lui-même ramassé l'engin explosif au sol. L'adolescent conteste catégoriquement cette version : il affirme n'avoir jamais touché le projectile et réfute s'être mêlé au moindre affrontement."
+  },
+  {
+   "replique": 11,
+   "avant": "Son avocate rappelle qu'il est avant tout une victime et affirme qu'aucune opération de maintien de l'ordre ne peut justifier une telle blessure face à des mineurs.",
+   "apres": "Son avocate rappelle qu'il est avant tout une victime et affirme que rien, lors d'une intervention policière, ne peut justifier une telle blessure infligée à un adolescent."
+  }
+ ],
+ "reprises_apres": [],
+ "appels": 2,
+ "cout_usd": 0.0272,
+ "erreurs": [],
+ "usage": [
+  {
+   "model": "gemini-3.8-flash",
+   "input": 15934,
+   "output": 288,
+   "thinking": 0
+  },
+  {
+   "model": "gemini-3.8-flash",
+   "input": 16221,
+   "output": 522,
+   "thinking": 0
+  }
+ ]
+}
