@@ -19,8 +19,9 @@ const config: ExpoConfig = {
   orientation: 'portrait',
   icon: './assets/icon.png',
   userInterfaceStyle: 'dark',
-  // AlarmKit n'existe que sur iOS : pas de version Android prévue.
-  platforms: ['ios'],
+  // AlarmKit n'existe que sur iOS : pas de version Android prévue. Le web
+  // sert d'aperçu, avec une alarme simulée (src/alarm.web.ts).
+  platforms: ['ios', 'web'],
   ios: {
     bundleIdentifier: BUNDLE_ID,
     supportsTablet: false,
@@ -30,6 +31,10 @@ const config: ExpoConfig = {
       // question à chaque envoi sur TestFlight.
       ITSAppUsesNonExemptEncryption: false,
     },
+  },
+  web: {
+    bundler: 'metro',
+    output: 'single',
   },
   extra: {
     eas: {

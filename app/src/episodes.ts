@@ -18,6 +18,10 @@ export type Episode = {
   title: string;
   pubDate: Date;
   tracks: Track[];
+  /** Premier titre du jour, tiré de la description ; null si absent. */
+  hook: string | null;
+  /** Lignes « Au sommaire » de la description, vide si absentes. */
+  topics: string[];
 };
 
 const ENTITIES: Record<string, string> = {
@@ -67,12 +71,38 @@ export function parseDuration(text: string | null): number | null {
   return parts.reduce((total, p) => total * 60 + p, 0);
 }
 
+// Forme des notes d'épisode écrites par src/feed.py : « Brief du AAAA-MM-JJ.
+// titre · titre · … », puis « Au sommaire : » et une puce par sujet. Si le
+// pipeline change cette forme, l'accroche et le sommaire disparaissent de
+// l'app sans erreur, plutôt que d'afficher un texte mal découpé.
+const NOTES_HEAD = /^Brief du \d{4}-\d{2}-\d{2}\.\s+(.+)$/m;
+const HOOK_SEPARATOR = ' · ';
+const TOPICS_HEAD = 'Au sommaire :';
+const TOPIC_BULLET = /^\s*•\s*(.+?)\s*$/;
+
+export function parseNotes(notes: string | null): { hook: string | null; topics: string[] } {
+  if (!notes) return { hook: null, topics: [] };
+  const head = notes.match(NOTES_HEAD);
+  const hook = head ? head[1].split(HOOK_SEPARATOR)[0].trim() || null : null;
+  const topics: string[] = [];
+  const start = notes.indexOf(TOPICS_HEAD);
+  if (start >= 0) {
+    for (const line of notes.slice(start + TOPICS_HEAD.length).trim().split('\n')) {
+      const m = line.match(TOPIC_BULLET);
+      if (!m) break;
+      topics.push(m[1]);
+    }
+  }
+  return { hook, topics };
+}
+
 function parseItem(itemXml: string): Episode | null {
   const enclosure = tagAttributes(itemXml, 'enclosure');
   const pubDate = new Date(tagText(itemXml, 'pubDate') ?? '');
   if (!enclosure?.url || Number.isNaN(pubDate.getTime())) return null;
   const title = tagText(itemXml, 'title') ?? '';
   const size = Number(enclosure.length);
+  const notes = parseNotes(tagText(itemXml, 'description'));
   return {
     guid: tagText(itemXml, 'guid') ?? enclosure.url,
     title,
@@ -85,6 +115,7 @@ function parseItem(itemXml: string): Episode | null {
         sizeBytes: Number.isFinite(size) && size > 0 ? size : null,
       },
     ],
+    ...notes,
   };
 }
 
@@ -102,13 +133,39 @@ export function latestEpisode(xml: string): Episode | null {
   return parseFeed(xml)[0] ?? null;
 }
 
-export async function fetchLatestEpisode(feedUrl: string): Promise<Episode | null> {
+const GUID_DAY = /(\d{4})-(\d{2})-(\d{2})$/;
+
+/**
+ * Jour du brief. Pris dans le guid (brief-matin-AAAA-MM-JJ) plutôt que dans
+ * la date de publication, qui est en UTC et dépend de l'heure du run.
+ */
+export function episodeDay(episode: Pick<Episode, 'guid' | 'pubDate'>): Date {
+  const m = episode.guid.match(GUID_DAY);
+  if (m) return new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
+  const d = new Date(episode.pubDate);
+  return new Date(d.getFullYear(), d.getMonth(), d.getDate());
+}
+
+/** Durée totale annoncée par le flux, null si une piste ne la donne pas. */
+export function episodeDuration(episode: Episode): number | null {
+  let total = 0;
+  for (const t of episode.tracks) {
+    if (t.durationSec === null) return null;
+    total += t.durationSec;
+  }
+  return total;
+}
+
+export async function fetchEpisodes(feedUrl: string): Promise<Episode[]> {
   // GitHub Pages met le flux en cache 10 min : sans ce paramètre, l'app
   // ouverte juste après la publication peut recevoir la version de la veille.
+  // Pas d'en-tête Cache-Control : dans un navigateur, il impose une requête
+  // OPTIONS préalable, que GitHub Pages refuse (405), et l'aperçu web
+  // n'aurait plus de flux.
   const url = `${feedUrl}${feedUrl.includes('?') ? '&' : '?'}t=${Date.now()}`;
-  const response = await fetch(url, { headers: { 'Cache-Control': 'no-cache' } });
+  const response = await fetch(url);
   if (!response.ok) {
     throw new Error(`Flux indisponible (HTTP ${response.status})`);
   }
-  return latestEpisode(await response.text());
+  return parseFeed(await response.text());
 }

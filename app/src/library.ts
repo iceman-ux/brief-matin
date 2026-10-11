@@ -5,9 +5,10 @@ import { Directory, File, Paths } from 'expo-file-system';
 
 import { CACHE_KEEP_EPISODES } from '../constants';
 import type { Episode, Track } from './episodes';
+import { readJson, writeJson } from './storage';
 
 const episodesDir = new Directory(Paths.cache, 'episodes');
-const lastEpisodeFile = new File(Paths.document, 'last-episode.json');
+const LAST_EPISODE_KEY = 'last-episode';
 const PARTIAL_SUFFIX = '.part';
 
 function fileFor(track: Track): File {
@@ -68,15 +69,11 @@ function prune(): void {
 }
 
 export function saveLastEpisode(episode: Episode): void {
-  lastEpisodeFile.write(JSON.stringify(episode));
+  writeJson(LAST_EPISODE_KEY, episode);
 }
 
 export function loadLastEpisode(): Episode | null {
-  if (!lastEpisodeFile.exists) return null;
-  try {
-    const raw = JSON.parse(lastEpisodeFile.textSync());
-    return { ...raw, pubDate: new Date(raw.pubDate) };
-  } catch {
-    return null;
-  }
+  const raw = readJson<Omit<Episode, 'hook' | 'topics'> & Partial<Episode>>(LAST_EPISODE_KEY);
+  // Un épisode gardé par le squelette n'a ni accroche ni sommaire.
+  return raw && { hook: null, topics: [], ...raw, pubDate: new Date(raw.pubDate) };
 }

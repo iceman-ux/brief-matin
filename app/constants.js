@@ -27,4 +27,18 @@ module.exports = {
   // Épisodes gardés en cache : celui du jour et la veille, au cas où le run
   // de la nuit aurait échoué.
   CACHE_KEEP_EPISODES: 2,
+  // Pas des boutons − et + de l'heure du réveil, en minutes.
+  ALARM_STEP_MINUTES: 15,
+  // Réglages de lecture au premier lancement.
+  DEFAULT_PLAYBACK: { autoplayAfterAlarm: true, downloadOnCellular: true },
+  // Jours affichés sous l'épisode du jour, dans l'Accueil.
+  HISTORY_DAYS: 6,
+  // Saut des boutons −15 et +15 de la Lecture, en secondes.
+  SKIP_SECONDS: 15,
+  // Rubriques du brief, affichées dans les Réglages avant d'être au choix.
+  TOPICS: ['France', 'Monde', 'Économie', 'Tech'],
+  // Même texte que la mention du flux (podcast.ai_disclosure dans config.yaml) :
+  // l'IA n'est jamais dite à l'oral, elle doit l'être ici.
+  AI_NOTICE:
+    'Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.',
 };

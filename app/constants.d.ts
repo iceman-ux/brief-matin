@@ -10,3 +10,9 @@ export declare const ALARM_DISMISS_PAYLOAD: string;
 /** weekdays : 1 = dimanche … 7 = samedi, convention d'AlarmKit. */
 export declare const DEFAULT_ALARM: { hour: number; minute: number; weekdays: number[] };
 export declare const CACHE_KEEP_EPISODES: number;
+export declare const ALARM_STEP_MINUTES: number;
+export declare const DEFAULT_PLAYBACK: { autoplayAfterAlarm: boolean; downloadOnCellular: boolean };
+export declare const HISTORY_DAYS: number;
+export declare const SKIP_SECONDS: number;
+export declare const TOPICS: string[];
+export declare const AI_NOTICE: string;

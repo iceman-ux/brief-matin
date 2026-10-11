@@ -1,6 +1,5 @@
 // Alarme de réveil par AlarmKit (iOS 26), via expo-alarm-kit.
 import * as AlarmKit from 'expo-alarm-kit';
-import { File, Paths } from 'expo-file-system';
 
 import {
   ALARM_DISMISS_PAYLOAD,
@@ -8,15 +7,20 @@ import {
   ALARM_TITLE,
   APP_GROUP,
 } from '../constants';
+import type { AlarmSchedule } from './schedule';
+import { readJson, removeJson, writeJson } from './storage';
 
-export type AlarmSchedule = { hour: number; minute: number; weekdays: number[] };
+export type { AlarmSchedule };
 type SavedAlarm = AlarmSchedule & { id: string };
 
 // expo-alarm-kit retire une alarme de sa propre liste dès qu'on l'arrête, même
 // répétitive (elle reste pourtant programmée dans iOS) : on garde donc nous-
 // mêmes l'identifiant de l'alarme du réveil, pour pouvoir la remplacer.
-const savedAlarmFile = new File(Paths.document, 'alarm.json');
+const SAVED_ALARM_KEY = 'alarm';
 const TEST_DELAY_SECONDS = 60;
+
+/** Vrai dans l'aperçu web, où alarm.web.ts remplace ce module. */
+export const ALARM_SIMULATED = false;
 
 export type AuthorizationStatus = Awaited<ReturnType<typeof AlarmKit.requestAuthorization>>;
 
@@ -30,12 +34,7 @@ export function requestAuthorization(): Promise<AuthorizationStatus> {
 }
 
 export function loadSavedAlarm(): SavedAlarm | null {
-  if (!savedAlarmFile.exists) return null;
-  try {
-    return JSON.parse(savedAlarmFile.textSync());
-  } catch {
-    return null;
-  }
+  return readJson<SavedAlarm>(SAVED_ALARM_KEY);
 }
 
 const commonOptions = {
@@ -52,11 +51,18 @@ export async function scheduleWakeUp(schedule: AlarmSchedule): Promise<boolean> 
   const id = AlarmKit.generateUUID();
   const ok = await AlarmKit.scheduleRepeatingAlarm({ id, ...schedule, ...commonOptions });
   if (ok) {
-    savedAlarmFile.write(JSON.stringify({ id, ...schedule } satisfies SavedAlarm));
-  } else if (savedAlarmFile.exists) {
-    savedAlarmFile.delete();
+    writeJson(SAVED_ALARM_KEY, { id, ...schedule } satisfies SavedAlarm);
+  } else {
+    removeJson(SAVED_ALARM_KEY);
   }
   return ok;
+}
+
+/** Plus aucun jour coché : on retire l'alarme du réveil. */
+export async function cancelWakeUp(): Promise<void> {
+  const previous = loadSavedAlarm();
+  if (previous) await AlarmKit.cancelAlarm(previous.id);
+  removeJson(SAVED_ALARM_KEY);
 }
 
 export function scheduleTest(): Promise<boolean> {

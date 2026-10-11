@@ -5,7 +5,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 
-import { latestEpisode, parseDuration, parseFeed } from '../src/episodes.ts';
+import { episodeDay, latestEpisode, parseDuration, parseFeed, parseNotes } from '../src/episodes.ts';
 
 const feed = readFileSync(new URL('./fixtures/feed.xml', import.meta.url), 'utf8');
 
@@ -69,4 +69,27 @@ test('durées', () => {
   assert.equal(parseDuration('1:00:00'), 3600);
   assert.equal(parseDuration('trois minutes'), null);
   assert.equal(parseDuration(null), null);
+});
+
+test('accroche et sommaire, tirés des notes de l’épisode', () => {
+  const episode = latestEpisode(feed);
+  assert.equal(episode?.hook, 'Bardella visé par des révélations');
+  assert.deepEqual(episode?.topics, [
+    'Bardella visé par des révélations',
+    'Washington réclame le diesel européen',
+    'Les taux français frôlent 5%',
+    'Andy Burnham évoque le Breturn',
+    "L'été 2026 le plus chaud",
+    "Zidane retrouve l'Italie",
+  ]);
+});
+
+test('notes d’une autre forme : ni accroche ni sommaire, plutôt qu’un texte mal découpé', () => {
+  assert.deepEqual(parseNotes('Un épisode spécial.'), { hook: null, topics: [] });
+  assert.deepEqual(parseNotes(null), { hook: null, topics: [] });
+});
+
+test('le jour du brief vient du guid, pas de l’heure de publication', () => {
+  const day = episodeDay({ guid: 'brief-matin-2026-10-11', pubDate: new Date('2026-10-10T23:30:00Z') });
+  assert.deepEqual([day.getFullYear(), day.getMonth(), day.getDate()], [2026, 9, 11]);
 });
