@@ -1,0 +1,103 @@
+{
+ "date": "2026-10-12",
+ "reprises": [
+  {
+   "replique": 1,
+   "mots": 8,
+   "texte": "dès le premier tour avec 66 % des voix",
+   "source": "France 24 — FR",
+   "champ": "titre",
+   "titre_source": "🔴 Primaire sociale-démocrate : Raphaël Glucksmann l'emporte dès le premier tour avec 66 % des voix"
+  },
+  {
+   "replique": 8,
+   "mots": 8,
+   "texte": "Donald Tusk et son ministre de la Défense",
+   "source": "Le Monde — Une",
+   "champ": "titre",
+   "titre_source": "En Pologne, Donald Tusk et son ministre de la défense visés par un projet de tentative d’assassinat"
+  },
+  {
+   "replique": 8,
+   "mots": 8,
+   "texte": "visés par un projet de tentative d'assassinat",
+   "source": "Le Monde — Une",
+   "champ": "titre",
+   "titre_source": "En Pologne, Donald Tusk et son ministre de la défense visés par un projet de tentative d’assassinat"
+  },
+  {
+   "replique": 17,
+   "mots": 12,
+   "texte": "Français recevront automatiquement une aide de 100 euros dès le 16 octobre",
+   "source": "Le Figaro — Économie",
+   "champ": "titre",
+   "titre_source": "Carburants : 1,6 million de Français recevront automatiquement une aide de 100 euros dès le 16 octobre"
+  },
+  {
+   "replique": 18,
+   "mots": 9,
+   "texte": "Le ministre des Comptes publics David Amiel a précisé",
+   "source": "Le Figaro — Économie",
+   "champ": "chapô",
+   "titre_source": "Carburants : 1,6 million de Français recevront automatiquement une aide de 100 euros dès le 16 octobre"
+  },
+  {
+   "replique": 18,
+   "mots": 8,
+   "texte": "par une baisse des prix à la pompe",
+   "source": "Le Figaro — Économie",
+   "champ": "chapô",
+   "titre_source": "Carburants : 1,6 million de Français recevront automatiquement une aide de 100 euros dès le 16 octobre"
+  }
+ ],
+ "citations": [],
+ "problemes": [
+  {
+   "replique": 12,
+   "extrait": "lors d'un examen médical de routine",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "La source indique que le pape a annoncé l'intervention à l'issue d'une prière publique, sans préciser qu'il a été détecté lors d'un examen médical de routine."
+  }
+ ],
+ "corrections": [
+  {
+   "replique": 1,
+   "avant": "Raphaël Glucksmann remporte la primaire de la gauche sociale-démocrate dès le premier tour avec 66 % des voix.",
+   "apres": "Raphaël Glucksmann s'impose d'entrée lors de la primaire sociale-démocrate en raflant les deux tiers des suffrages."
+  },
+  {
+   "replique": 8,
+   "avant": "On passe au chapitre international. En Pologne, le Premier ministre Donald Tusk et son ministre de la Défense ont été visés par un projet de tentative d'assassinat. Un homme a été arrêté dimanche à Varsovie après la découverte de cette menace qualifiée de très sérieuse. Les services secrets ont convoqué une réunion de crise en urgence.",
+   "apres": "On passe au chapitre international. En Pologne, le chef du gouvernement et son ministre chargé des armées ont échappé à un complot visant à les éliminer. Un suspect a été arrêté dimanche à Varsovie après la découverte de cette menace qualifiée de très sérieuse. Les services secrets ont convoqué une réunion de crise en urgence."
+  },
+  {
+   "replique": 17,
+   "avant": "Côté portefeuille. Un million six cent mille Français recevront automatiquement une aide de 100 euros dès le 16 octobre pour faire face à la hausse des prix des carburants.",
+   "apres": "Côté portefeuille. Un million six cent mille ménages vont toucher directement un chèque carburant de 100 euros à partir de vendredi prochain pour faire face à la flambée du plein."
+  },
+  {
+   "replique": 18,
+   "avant": "Le ministre des Comptes publics David Amiel a précisé que le déblocage des réserves stratégiques se traduira aussi par une baisse des prix à la pompe.",
+   "apres": "Selon David Amiel, le ministre du Budget, l'ouverture des stocks de précaution doit également entraîner un reflux des tarifs pour les automobilistes."
+  }
+ ],
+ "reprises_apres": [],
+ "appels": 2,
+ "cout_usd": 0.0249,
+ "erreurs": [],
+ "usage": [
+  {
+   "model": "gemini-3.8-flash",
+   "input": 15683,
+   "output": 99,
+   "thinking": 0
+  },
+  {
+   "model": "gemini-3.8-flash",
+   "input": 15761,
+   "output": 243,
+   "thinking": 0
+  }
+ ]
+}

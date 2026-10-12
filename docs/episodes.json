@@ -1,5 +1,78 @@
 [
   {
+    "date": "2026-10-12",
+    "filename": "brief-2026-10-12.mp3",
+    "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-12.mp3",
+    "storage": "releases",
+    "title": "12/10 — Victoire de Glucksmann à la primaire",
+    "summary": "Brief du 2026-10-12. Victoire de Glucksmann à la primaire · Projet d'attentat déjoué en Pologne · Nouveau report des élections palestiniennes · Opération chirurgicale pour le Pape · Citroën dévoile sa 2 CV électrique · Aide gazole pour 1,6 million de Français · Frappe de drone sur Yandex",
+    "duration": 155,
+    "size": 1868009,
+    "topics": [
+      {
+        "slug": "election-presidentielle-2027",
+        "title": "Victoire de Glucksmann à la primaire",
+        "category": "france",
+        "sources": [
+          "Le Monde",
+          "France 24"
+        ]
+      },
+      {
+        "slug": "pologne-securite-tusk",
+        "title": "Projet d'attentat déjoué en Pologne",
+        "category": "monde",
+        "sources": [
+          "Le Monde",
+          "RFI"
+        ]
+      },
+      {
+        "slug": "palestine-elections-report",
+        "title": "Nouveau report des élections palestiniennes",
+        "category": "monde",
+        "sources": [
+          "Le Monde",
+          "RFI"
+        ]
+      },
+      {
+        "slug": "pape-sante-operation",
+        "title": "Opération chirurgicale pour le Pape",
+        "category": "monde",
+        "sources": [
+          "franceinfo"
+        ]
+      },
+      {
+        "slug": "automobile-citroen-2cv",
+        "title": "Citroën dévoile sa 2 CV électrique",
+        "category": "eco",
+        "sources": [
+          "Le Monde"
+        ]
+      },
+      {
+        "slug": "carburants-aide-100-euros",
+        "title": "Aide gazole pour 1,6 million de Français",
+        "category": "eco",
+        "sources": [
+          "Le Figaro"
+        ]
+      },
+      {
+        "slug": "russie-tech-yandex-attaque",
+        "title": "Frappe de drone sur Yandex",
+        "category": "tech",
+        "sources": [
+          "La Tribune",
+          "franceinfo"
+        ]
+      }
+    ],
+    "pub_date": "2026-10-12T02:08:17.192737+00:00"
+  },
+  {
     "date": "2026-10-11",
     "filename": "brief-2026-10-11.mp3",
     "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-11.mp3",
