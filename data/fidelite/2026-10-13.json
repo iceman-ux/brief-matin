@@ -1,0 +1,112 @@
+{
+ "date": "2026-10-13",
+ "reprises": [
+  {
+   "replique": 1,
+   "mots": 9,
+   "texte": "ans a ouvert le feu au fusil de chasse",
+   "source": "Le Figaro — Actualités",
+   "champ": "chapô",
+   "titre_source": "Principal d’un collège et une enseignante blessés à l’arme à feu à Aubagne : les réactions des politiques"
+  },
+  {
+   "replique": 2,
+   "mots": 9,
+   "texte": "ans a tiré au fusil de chasse lundi matin",
+   "source": "France 24 — FR",
+   "champ": "chapô",
+   "titre_source": "Un élève ouvre le feu dans un collège d'Aubagne, le proviseur et une enseignante blessés"
+  },
+  {
+   "replique": 2,
+   "mots": 8,
+   "texte": "Le principal de l'établissement et une enseignante",
+   "source": "Le Figaro — Actualités",
+   "champ": "chapô",
+   "titre_source": "Principal d’un collège et une enseignante blessés à l’arme à feu à Aubagne : les réactions des politiques"
+  },
+  {
+   "replique": 9,
+   "mots": 8,
+   "texte": "arraisonné un pétrolier au sud de La Réunion",
+   "source": "Le Monde — International",
+   "champ": "titre",
+   "titre_source": "La marine française arraisonne un pétrolier au sud de La Réunion, soupçonné d’appartenir à la flotte fantôme russe"
+  }
+ ],
+ "citations": [],
+ "problemes": [
+  {
+   "replique": 7,
+   "extrait": "mais les distributeurs réfutent tout défaut d'entretien",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "Aucune source ne mentionne que les distributeurs réfutent un quelconque défaut d'entretien."
+  },
+  {
+   "replique": 9,
+   "extrait": "vers le port de La Réunion",
+   "type": "nom",
+   "gravite": "haute",
+   "explication": "La source indique seulement que le bateau a été dérouté au sud de La Réunion, sans préciser qu'il a été conduit vers le port de La Réunion."
+  },
+  {
+   "replique": 13,
+   "extrait": "La présidence congolaise dénonce déjà une tentative de déstabilisation extérieure",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "Les sources ne rapportent aucune réaction ni déclaration de la présidence congolaise."
+  },
+  {
+   "replique": 14,
+   "extrait": "doivent s'adapter aux comportements des ménages et des entreprises en période d'inflation",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "Les sources mentionnent des travaux sur les fondements microéconomiques de la stabilisation macroéconomique, sans détailler les comportements des ménages ou l'inflation."
+  }
+ ],
+ "corrections": [
+  {
+   "replique": 1,
+   "avant": "Un collégien de quatorze ans a ouvert le feu au fusil de chasse dans son établissement à Aubagne.",
+   "apres": "Un élève de quatorze ans a fait usage d'une arme à feu dans son collège à Aubagne."
+  },
+  {
+   "replique": 2,
+   "avant": "Un adolescent de quatorze ans a tiré au fusil de chasse lundi matin au collège Joseph-Lakanal d'Aubagne. L'arme était dissimulée dans un étui de guitare. Le principal de l'établissement et une enseignante ont été blessés aux jambes avant qu'un membre du personnel ne parvienne à désarmer l'élève. Le parquet de Marseille a ouvert une enquête pour tentatives d'assassinat. Les parents du tireur ont été placés en garde à vue, tandis que le mobile de cette agression reste pour l'instant inconnu.",
+   "apres": "Le jeune garçon a tiré ce lundi matin au collège Joseph-Lakanal avec une arme cachée dans un étui de guitare. Le responsable de l'école ainsi qu'une professeure ont été touchés aux jambes, avant qu'un agent ne désarme l'adolescent. Le parquet de Marseille a ouvert une enquête pour tentatives d'assassinat. Les parents ont été placés en garde à vue et le mobile reste pour le moment ignoré."
+  },
+  {
+   "replique": 9,
+   "avant": "Toujours côté sécurité, mais en mer : la marine française a arraisonné un pétrolier au sud de La Réunion. Le navire, nommé DF Peak, battait pavillon béninois, mais les autorités le soupçonnent d'appartenir sous une fausse identité à la flotte fantôme de Moscou. Ce bâtiment figure sur la liste noire des sanctions de l'Union européenne. L'équipage a été dérouté vers le port de La Réunion par les forces armées.",
+   "apres": "Toujours côté sécurité, mais en mer : les forces navales françaises ont intercepté un navire pétrolier au large de La Réunion. Baptisé DF Peak, il naviguait sous les couleurs du Bénin, mais les autorités le soupçonnent de faire partie de la flotte fantôme de Moscou. Ce bateau figure d'ailleurs sur la liste des sanctions européennes, et il a été dérouté avec ses marins."
+  }
+ ],
+ "reprises_apres": [
+  {
+   "replique": 2,
+   "mots": 8,
+   "texte": "parents ont été placés en garde à vue",
+   "source": "Le Figaro — Actualités",
+   "champ": "chapô",
+   "titre_source": "« Son but était de tuer les profs » : à Aubagne, le périple terrifiant du collégien qui a ouvert le feu sur son principal et son enseignante"
+  }
+ ],
+ "appels": 2,
+ "cout_usd": 0.0275,
+ "erreurs": [],
+ "usage": [
+  {
+   "model": "gemini-3.8-flash",
+   "input": 16771,
+   "output": 323,
+   "thinking": 0
+  },
+  {
+   "model": "gemini-3.8-flash",
+   "input": 16910,
+   "output": 287,
+   "thinking": 0
+  }
+ ]
+}

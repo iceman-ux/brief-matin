@@ -11,7 +11,7 @@
 
 Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
     <language>fr-FR</language>
-    <lastBuildDate>Mon, 12 Oct 2026 02:08:17 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 13 Oct 2026 02:02:34 +0000</lastBuildDate>
     <itunes:author>Lora</itunes:author>
     <itunes:subtitle>L'essentiel de l'actu, chaque matin</itunes:subtitle>
     <itunes:summary>Brief quotidien généré automatiquement à partir des grands titres français et internationaux. France, Monde, Économie, Tech.
@@ -26,6 +26,37 @@ Brief généré automatiquement par intelligence artificielle, texte et voix, à
     <itunes:type>episodic</itunes:type>
     <itunes:image href="https://iceman-ux.github.io/brief-matin/lora-cover.jpg"/>
     <image><url>https://iceman-ux.github.io/brief-matin/lora-cover.jpg</url><title>Lora</title><link>https://iceman-ux.github.io/brief-matin</link></image>
+    <item>
+      <title>13/10 — Tirs dans un collège à Aubagne</title>
+      <description>Brief du 2026-10-13. Tirs dans un collège à Aubagne · Cyberattaque massive contre des supermarchés français · Pétrolier russe arraisonné à La Réunion · Joseph Kabila rejoint les rebelles · Le prix Nobel d'économie décerné · Microsoft défie Nvidia dans l'IA
+
+Au sommaire :
+• Tirs dans un collège à Aubagne
+• Cyberattaque massive contre des supermarchés français
+• Pétrolier russe arraisonné à La Réunion
+• Joseph Kabila rejoint les rebelles
+• Le prix Nobel d'économie décerné
+• Microsoft défie Nvidia dans l'IA
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
+      <itunes:summary>Brief du 2026-10-13. Tirs dans un collège à Aubagne · Cyberattaque massive contre des supermarchés français · Pétrolier russe arraisonné à La Réunion · Joseph Kabila rejoint les rebelles · Le prix Nobel d'économie décerné · Microsoft défie Nvidia dans l'IA
+
+Au sommaire :
+• Tirs dans un collège à Aubagne
+• Cyberattaque massive contre des supermarchés français
+• Pétrolier russe arraisonné à La Réunion
+• Joseph Kabila rejoint les rebelles
+• Le prix Nobel d'économie décerné
+• Microsoft défie Nvidia dans l'IA
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</itunes:summary>
+      <pubDate>Tue, 13 Oct 2026 02:02:34 +0000</pubDate>
+      <guid isPermaLink="false">brief-matin-2026-10-13</guid>
+      <enclosure url="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-13.mp3" length="2267055" type="audio/mpeg"/>
+      <itunes:duration>3:08</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
     <item>
       <title>12/10 — Victoire de Glucksmann à la primaire</title>
       <description>Brief du 2026-10-12. Victoire de Glucksmann à la primaire · Projet d'attentat déjoué en Pologne · Nouveau report des élections palestiniennes · Opération chirurgicale pour le Pape · Citroën dévoile sa 2 CV électrique · Aide gazole pour 1,6 million de Français · Frappe de drone sur Yandex

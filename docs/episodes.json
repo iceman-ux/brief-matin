@@ -1,5 +1,70 @@
 [
   {
+    "date": "2026-10-13",
+    "filename": "brief-2026-10-13.mp3",
+    "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-13.mp3",
+    "storage": "releases",
+    "title": "13/10 — Tirs dans un collège à Aubagne",
+    "summary": "Brief du 2026-10-13. Tirs dans un collège à Aubagne · Cyberattaque massive contre des supermarchés français · Pétrolier russe arraisonné à La Réunion · Joseph Kabila rejoint les rebelles · Le prix Nobel d'économie décerné · Microsoft défie Nvidia dans l'IA",
+    "duration": 188,
+    "size": 2267055,
+    "topics": [
+      {
+        "slug": "fusillade-college-aubagne",
+        "title": "Tirs dans un collège à Aubagne",
+        "category": "france",
+        "sources": [
+          "Le Figaro",
+          "Le Monde"
+        ]
+      },
+      {
+        "slug": "cyberattaque-chaine-du-froid",
+        "title": "Cyberattaque massive contre des supermarchés français",
+        "category": "france",
+        "sources": [
+          "Le Monde",
+          "Le Figaro",
+          "franceinfo"
+        ]
+      },
+      {
+        "slug": "flotte-fantome-russe-reunion",
+        "title": "Pétrolier russe arraisonné à La Réunion",
+        "category": "monde",
+        "sources": [
+          "Le Monde"
+        ]
+      },
+      {
+        "slug": "congo-kabila-m23",
+        "title": "Joseph Kabila rejoint les rebelles",
+        "category": "monde",
+        "sources": [
+          "Le Monde"
+        ]
+      },
+      {
+        "slug": "nobel-economie-2026",
+        "title": "Le prix Nobel d'économie décerné",
+        "category": "eco",
+        "sources": [
+          "Le Monde",
+          "Le Figaro"
+        ]
+      },
+      {
+        "slug": "microsoft-puce-ia-maia",
+        "title": "Microsoft défie Nvidia dans l'IA",
+        "category": "tech",
+        "sources": [
+          "La Tribune"
+        ]
+      }
+    ],
+    "pub_date": "2026-10-13T02:02:34.027555+00:00"
+  },
+  {
     "date": "2026-10-12",
     "filename": "brief-2026-10-12.mp3",
     "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-12.mp3",
