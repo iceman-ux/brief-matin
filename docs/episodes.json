@@ -1,5 +1,71 @@
 [
   {
+    "date": "2026-10-14",
+    "filename": "brief-2026-10-14.mp3",
+    "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-14.mp3",
+    "storage": "releases",
+    "title": "14/10 — Loi sur les violences sexuelles adoptée",
+    "summary": "Brief du 2026-10-14. Loi sur les violences sexuelles adoptée · Prévisions FMI et décrochage français · Frappes houthistes contre l'Arabie saoudite · Espionnage interne chez OpenAI · Abrogation des lois anti-LGBT en Hongrie · Nvidia entre au capital de Doctolib",
+    "duration": 187,
+    "size": 2249501,
+    "topics": [
+      {
+        "slug": "loi-violences-sexistes-sexuelles",
+        "title": "Loi sur les violences sexuelles adoptée",
+        "category": "france",
+        "sources": [
+          "Le Monde",
+          "franceinfo"
+        ]
+      },
+      {
+        "slug": "fmi-croissance-france-2026",
+        "title": "Prévisions FMI et décrochage français",
+        "category": "eco",
+        "sources": [
+          "Le Monde",
+          "Le Figaro"
+        ]
+      },
+      {
+        "slug": "conflit-arabie-saoudite-houthis",
+        "title": "Frappes houthistes contre l'Arabie saoudite",
+        "category": "monde",
+        "sources": [
+          "Le Monde",
+          "franceinfo"
+        ]
+      },
+      {
+        "slug": "espionnage-interne-openai",
+        "title": "Espionnage interne chez OpenAI",
+        "category": "tech",
+        "sources": [
+          "Le Monde"
+        ]
+      },
+      {
+        "slug": "hongrie-abrogation-lois-lgbt",
+        "title": "Abrogation des lois anti-LGBT en Hongrie",
+        "category": "monde",
+        "sources": [
+          "Le Monde",
+          "RFI"
+        ]
+      },
+      {
+        "slug": "nvidia-doctolib-entree-capital",
+        "title": "Nvidia entre au capital de Doctolib",
+        "category": "tech",
+        "sources": [
+          "Le Monde",
+          "Le Figaro"
+        ]
+      }
+    ],
+    "pub_date": "2026-10-14T02:04:52.049936+00:00"
+  },
+  {
     "date": "2026-10-13",
     "filename": "brief-2026-10-13.mp3",
     "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-13.mp3",

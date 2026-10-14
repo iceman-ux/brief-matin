@@ -1,0 +1,135 @@
+{
+ "date": "2026-10-14",
+ "reprises": [
+  {
+   "replique": 2,
+   "mots": 10,
+   "texte": "proposition de loi intégrale contre les violences sexistes et sexuelles",
+   "source": "Le Monde — Une",
+   "champ": "titre",
+   "titre_source": "VSS : l’Assemblée adopte la proposition de loi intégrale contre les violences sexistes et sexuelles, à l’unanimité des votants"
+  },
+  {
+   "replique": 8,
+   "mots": 9,
+   "texte": "du géant pétrolier Aramco dans l'est du royaume",
+   "source": "Le Monde — International",
+   "champ": "chapô",
+   "titre_source": "La coalition saoudienne frappe près de Sanaa, les houthistes ripostent en visant l’est de l’Arabie saoudite"
+  },
+  {
+   "replique": 12,
+   "mots": 13,
+   "texte": "en installer d'autres dans des espaces sensibles. Il a été licencié le",
+   "source": "Le Monde — Une",
+   "champ": "chapô",
+   "titre_source": "OpenAI annonce l’arrestation d’un employé soupçonné d’avoir posé un micro dans l’entreprise"
+  },
+  {
+   "replique": 13,
+   "mots": 8,
+   "texte": "dispositions interdisant l'évocation de l'homosexualité devant",
+   "source": "Le Monde — International",
+   "champ": "titre",
+   "titre_source": "La Hongrie abolit les dispositions interdisant l’évocation de l’homosexualité devant des enfants"
+  },
+  {
+   "replique": 18,
+   "mots": 9,
+   "texte": "lancer la révolution de l'intelligence artificielle en Europe",
+   "source": "Le Monde — Économie",
+   "champ": "chapô",
+   "titre_source": "IA : l’entreprise américaine Nvidia entre au capital du français Doctolib en tant qu’actionnaire minoritaire"
+  }
+ ],
+ "citations": [],
+ "problemes": [
+  {
+   "replique": 11,
+   "extrait": "craint surtout l'impact du carburant sur l'inflation",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "Les sources indiquent seulement que Donald Trump accuse les houthistes de chercher à faire grimper les cours du pétrole avant les élections, sans mentionner une crainte spécifique de la Maison-Blanche sur l'inflation."
+  },
+  {
+   "replique": 14,
+   "extrait": "C'était impensable il y a encore six mois",
+   "type": "date",
+   "gravite": "haute",
+   "explication": "Cette notion de délai de six mois n'est mentionnée dans aucune des sources."
+  },
+  {
+   "replique": 16,
+   "extrait": "Les sanctions financières européennes pesaient lourdement sur Budapest",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "Les sources précisent que Budapest se met en conformité avec le droit européen après des condamnations de l'UE, mais ne mentionnent pas de sanctions financières pesant sur la Hongrie."
+  },
+  {
+   "replique": 18,
+   "extrait": "directement dans ses logiciels destinés aux soignants",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "Les sources mentionnent seulement l'accélération du déploiement de services enrichis à l'IA sans préciser l'intégration d'outils médicaux dans des logiciels pour soignants."
+  }
+ ],
+ "corrections": [
+  {
+   "replique": 2,
+   "avant": "L'Assemblée nationale a voté hier à l'unanimité une proposition de loi intégrale contre les violences sexistes et sexuelles. Le texte avait été repris par le gouvernement dans le sillage de l'affaire Lyhanna, cette collégienne de onze ans violée et tuée dans le Gers en juin.",
+   "apres": "Les députés ont voté hier un texte global visant à lutter contre les agressions sexistes et sexuelles. Le gouvernement s'en était emparé après le drame de Lyhanna, cette collégienne de onze ans retrouvée morte et violée dans le Gers en juin."
+  },
+  {
+   "replique": 8,
+   "avant": "Au Moyen-Orient, les tensions militaires ont franchi un cran hier soir entre l'Arabie saoudite et les rebelles yéménites. Une attaque de drones revendiquée par les houthistes a touché un site du géant pétrolier Aramco dans l'est du royaume, tandis qu'une explosion retentissait dans la capitale, Riyad. Des compagnies aériennes comme Etihad ont immédiatement annulé leurs vols vers la région.",
+   "apres": "Au Moyen-Orient, les tensions militaires ont franchi un cran hier soir entre l'Arabie saoudite et les rebelles yéménites. Une attaque de drones revendiquée par les houthistes a frappé des installations du groupe pétrolier Aramco dans l'est du pays, tandis qu'une explosion retentissait dans la capitale, Riyad. Des compagnies aériennes comme Etihad ont immédiatement annulé leurs vols vers la région."
+  },
+  {
+   "replique": 12,
+   "avant": "On passe à la tech avec une affaire d'espionnage interne chez OpenAI. L'entreprise conceptrice de ChatGPT a fait interpeller l'un de ses employés par la police fédérale américaine. L'homme est accusé d'avoir dissimulé un micro perfectionné dans une salle de réunion et de chercher à en installer d'autres dans des espaces sensibles. Il a été licencié le jour même de son arrestation par le FBI. OpenAI n'a pas révélé l'identité des destinataires visés par ces enregistrements clandestins.",
+   "apres": "On passe à la tech avec une affaire d'espionnage interne chez OpenAI. L'entreprise conceptrice de ChatGPT a fait interpeller l'un de ses employés par la police fédérale américaine. L'homme est accusé d'avoir dissimulé un micro perfectionné dans une salle de réunion et de prévoir d'en placer d'autres dans des pièces stratégiques. La firme l'a renvoyé dès son arrestation par le FBI. OpenAI n'a pas révélé l'identité des destinataires visés par ces enregistrements clandestins."
+  },
+  {
+   "replique": 13,
+   "avant": "En Europe centrale, le Parlement hongrois vient de voter la suppression des dispositions interdisant l'évocation de l'homosexualité devant les mineurs. C'était la mesure phare d'une législation adoptée en 2021 sous Viktor Orbán.",
+   "apres": "En Europe centrale, le Parlement hongrois vient d'abroger les mesures qui empêchaient de parler d'homosexualité aux enfants. C'était le volet emblématique d'un texte voté en 2021 sous Viktor Orbán."
+  },
+  {
+   "replique": 14,
+   "avant": "C'était impensable il y a encore six mois.",
+   "apres": ""
+  },
+  {
+   "replique": 18,
+   "avant": "Son patron Jensen Huang affirme vouloir lancer la révolution de l'intelligence artificielle en Europe. Pour Doctolib, cet accord doit permettre d'intégrer de nouveaux outils d'aide médicale directement dans ses logiciels destinés aux soignants.",
+   "apres": "Son dirigeant Jensen Huang dit vouloir amorcer un grand tournant pour l'IA sur le Vieux Continent. Pour Doctolib, cet accord doit permettre d'intégrer de nouveaux outils d'aide médicale directement dans ses logiciels destinés aux soignants."
+  }
+ ],
+ "reprises_apres": [
+  {
+   "replique": 2,
+   "mots": 10,
+   "texte": "ans retrouvée morte et violée dans le Gers en juin",
+   "source": "Le Monde — Une",
+   "champ": "chapô",
+   "titre_source": "VSS : l’Assemblée adopte la proposition de loi intégrale contre les violences sexistes et sexuelles, à l’unanimité des votants"
+  }
+ ],
+ "appels": 2,
+ "cout_usd": 0.0274,
+ "erreurs": [],
+ "usage": [
+  {
+   "model": "gemini-3.8-flash",
+   "input": 15956,
+   "output": 355,
+   "thinking": 0
+  },
+  {
+   "model": "gemini-3.8-flash",
+   "input": 16281,
+   "output": 517,
+   "thinking": 0
+  }
+ ]
+}
