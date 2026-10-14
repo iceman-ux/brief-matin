@@ -1,6 +1,7 @@
 // Boutons de sujet, en bas de l'Accueil : numéro et ville. Le sujet actif a
 // un fond plus clair et un trait de sa couleur en haut. Au-delà de quatre
 // sujets, la rangée défile.
+import { useEffect, useRef } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { tintOf, useSkin } from '../skins';
@@ -17,6 +18,15 @@ type Props = { topics: Topic[]; active: number; onPick: (index: number) => void 
 export function TopicChips({ topics, active, onPick }: Props) {
   const skin = useSkin();
   const scrolls = topics.length > ROW_MAX;
+  const scroller = useRef<ScrollView>(null);
+
+  // Le sujet actif reste visible : la rangée défile jusqu'à lui, avec son
+  // voisin de gauche en vue.
+  useEffect(() => {
+    if (!scrolls) return;
+    const x = Math.max(0, (active - 1) * (SCROLL_CHIP_WIDTH + spacing.m));
+    scroller.current?.scrollTo({ x, animated: true });
+  }, [active, scrolls]);
   const chips = topics.map((topic, i) => {
     const on = i === active;
     const tint = tintOf(skin, i);
@@ -44,7 +54,7 @@ export function TopicChips({ topics, active, onPick }: Props) {
   });
   if (!scrolls) return <View style={styles.row}>{chips}</View>;
   return (
-    <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.row}>
+    <ScrollView ref={scroller} horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.row}>
       {chips}
     </ScrollView>
   );

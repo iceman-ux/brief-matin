@@ -5,6 +5,7 @@ import { test } from 'node:test';
 import {
   formatCoordinates,
   hasStarts,
+  timedTopics,
   localTime,
   readTopic,
   topicAt,
@@ -20,14 +21,19 @@ test('un titre seul, venu du cache d’une version précédente', () => {
   assert.equal(readTopic(42), null);
 });
 
-test('débuts : utilisés seulement s’ils sont tous là, dans l’ordre', () => {
+test('débuts : chacun utilisé s’il existe, tous ignorés s’ils sont dans le désordre', () => {
   const ok = [{ title: 'a', start: 12 }, { title: 'b', start: 58 }, { title: 'c', start: 101 }];
   assert.equal(hasStarts(ok), true);
   assert.equal(topicAt(ok, 0), null);
   assert.equal(topicAt(ok, 12), 0);
   assert.equal(topicAt(ok, 100), 1);
   assert.equal(topicAt(ok, 500), 2);
-  assert.equal(hasStarts([{ title: 'a', start: 12 }, { title: 'b' }]), false);
+  // Un sujet sans début : les autres gardent le leur, lui ne devient jamais actif.
+  const partial = [{ title: 'a', start: 12 }, { title: 'b' }, { title: 'c', start: 90 }];
+  assert.equal(hasStarts(partial), true);
+  assert.deepEqual(timedTopics(partial), [0, 2]);
+  assert.equal(topicAt(partial, 60), 0);
+  assert.equal(topicAt(partial, 95), 2);
   assert.equal(hasStarts([{ title: 'a', start: 50 }, { title: 'b', start: 20 }]), false);
   assert.equal(topicAt([{ title: 'a' }], 30), null);
 });

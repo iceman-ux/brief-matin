@@ -10,7 +10,7 @@ export type Settings = {
   /** Bienvenue terminé : l'app s'ouvre ensuite sur l'Accueil. */
   onboarded: boolean;
   autoplayAfterAlarm: boolean;
-  /** Stocké, sans effet tant que le téléchargement de nuit n'existe pas. */
+  /** Coupé : l'épisode n'est mis en cache qu'en Wi-Fi ; en 4G / 5G, il est lu en direct. */
   downloadOnCellular: boolean;
   /** Carte, spectre et globe en mouvement ; « Réduire les animations » d'iOS l'emporte. */
   animations: boolean;

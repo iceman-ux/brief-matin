@@ -36,7 +36,7 @@ export function Welcome({ schedule, onChange, onActivate, busy, error, places }:
           Le monde en 3 minutes, au réveil.
         </Text>
         <Text style={[type.body, styles.subtitle, { color: skin.text2 }]}>
-          Ton réveil lance le brief : 4 sujets, 2 voix, et la carte de chaque actu.
+          Ton réveil lance le brief : l’essentiel du jour en deux voix, avec les sources de chaque sujet.
         </Text>
       </View>
 

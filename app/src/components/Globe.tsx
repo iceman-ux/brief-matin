@@ -46,7 +46,7 @@ export function Globe({ size, places }: { size: number; places: (Place | undefin
 
   const center: [number, number] = [start[0] - turn, start[1]];
   const points = places.map((p) => (p ? ([p.lon, p.lat] as [number, number]) : ([0, 0] as [number, number])));
-  // Recalculé à chaque image : un graticule de 10° et quatre points, c'est peu.
+  // Recalculé à chaque image : un graticule de 10° et une poignée de points, c'est peu.
   const shape = globeShape(size, center, points);
 
   return (

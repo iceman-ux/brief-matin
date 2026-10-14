@@ -16,7 +16,7 @@ import { type Episode, episodeDay, episodeDuration } from '../episodes';
 import { ChevronLeftIcon, NextIcon, PreviousIcon } from '../icons';
 import { formatClock, formatDayMonth, formatLcd } from '../schedule';
 import { tintOf, useSkin } from '../skins';
-import { hasStarts, topicAt, topicNumber } from '../topics';
+import { timedTopics, topicAt, topicNumber } from '../topics';
 import { layout, radii, sizes, spacing, type } from '../theme';
 import { GhostButton, Label, Lcd } from '../ui';
 
@@ -57,25 +57,29 @@ export function Player({ episode, playback, now, onToggle, onSeek, onRate, onClo
   const duration = (loaded && playback.duration > 0 ? playback.duration : episodeDuration(episode)) || 0;
   const current = loaded ? Math.min(playback.currentTime, duration) : 0;
   const playing = loaded && playback.playing;
-  const starts = hasStarts(topics);
+  const timed = timedTopics(topics);
+  const starts = timed.length > 0;
   const active = topicAt(topics, current);
   const activeTopic = active === null ? null : topics[active];
   const tint = active === null ? skin.text3 : tintOf(skin, active);
 
   const seekBy = (delta: number) => onSeek(Math.max(0, Math.min(duration, current + delta)));
   const goTo = (i: number) => onSeek(topics[i].start as number);
+  // Précédent et suivant ne passent que par les sujets datés.
+  const at = active === null ? -1 : timed.indexOf(active);
   const previous = () => {
-    if (active === null) return goTo(0);
+    if (active === null) return goTo(timed[0]);
     const start = topics[active].start as number;
-    goTo(current - start > RESTART_THRESHOLD_S || active === 0 ? active : active - 1);
+    goTo(current - start > RESTART_THRESHOLD_S || at === 0 ? active : timed[at - 1]);
   };
-  const next = () => goTo(Math.min(topics.length - 1, (active ?? -1) + 1));
+  const next = () => goTo(timed[Math.min(timed.length - 1, at + 1)]);
   const nextRate = PLAYBACK_RATES[(PLAYBACK_RATES.indexOf(playback.rate) + 1) % PLAYBACK_RATES.length];
 
   const marks: Mark[] =
-    starts && duration > 0
-      ? topics.map((t, i) => ({
-          at: (t.start as number) / duration,
+    duration > 0
+      ? timed.map((i) => ({
+          at: (topics[i].start as number) / duration,
+          topic: i,
           label: `Aller au sujet ${i + 1}`,
           active: i === active,
           onPress: () => goTo(i),
@@ -150,7 +154,7 @@ export function Player({ episode, playback, now, onToggle, onSeek, onRate, onClo
           onPress={onToggle}
         />
         {starts && (
-          <GhostButton label="Sujet suivant" round={sizes.control} onPress={next} disabled={active === topics.length - 1}>
+          <GhostButton label="Sujet suivant" round={sizes.control} onPress={next} disabled={at === timed.length - 1}>
             <NextIcon size={sizes.iconMedium} color={skin.text} />
           </GhostButton>
         )}
@@ -179,7 +183,7 @@ export function Player({ episode, playback, now, onToggle, onSeek, onRate, onClo
               </>
             );
             const style = [styles.row, on && { backgroundColor: skin.surface2 }];
-            return starts ? (
+            return t.start !== undefined && timed.includes(i) ? (
               <Pressable
                 key={i}
                 accessibilityRole="button"

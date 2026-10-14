@@ -14,8 +14,8 @@ export const chrome: Skin = {
   brand: 'linear-gradient(180deg,#FFFFFF 0%,#DCE1E9 42%,#7A8394 56%,#EEF1F5 100%)',
   seg: 'linear-gradient(0deg,#39FF6A 0%,#39FF6A 60%,#3FE6FF 60%,#3FE6FF 84%,#FF6A13 84%)',
   dotOff: '#3A404C', labelBg: 'rgba(10,11,15,0.82)', shadow: 'rgba(0,0,0,0.55)', pin: '#FF3B3B',
-  tints: ['#F5C542', '#FF6B9A', '#A98BFF', '#5CC8FF'],
+  tints: ['#F5C542', '#FF6B9A', '#A98BFF', '#5CC8FF', '#3DD6C6', '#E2C9A4'],
   onAccent: '#140A04', knobShade: 'rgba(0,0,0,0.3)', switchOff: '#60666F',
   thumb: 'radial-gradient(circle at 35% 30%,#FFFFFF 0%,#C9CED7 70%)',
-  scrim: 'rgba(0,0,0,0.55)', statusBar: 'light',
+  scrim: 'rgba(0,0,0,0.55)', statusBar: 'light', grain: 0.5,
 };

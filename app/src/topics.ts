@@ -66,21 +66,29 @@ export function readTopics(raw: unknown): Topic[] {
 }
 
 /**
- * Les débuts ne servent que s'ils sont tous connus et dans l'ordre : sinon
- * la barre afficherait des repères faux.
+ * Sujets dont le début est connu, dans l'ordre. Le pipeline omet le début
+ * d'un sujet qu'il n'a pas su caler sur une pause : les autres restent
+ * utilisables. Des débuts dans le désordre ne servent à rien : la barre
+ * afficherait des repères faux.
  */
-export function hasStarts(topics: Topic[]): boolean {
-  if (topics.length === 0) return false;
-  return topics.every((t, i) => t.start !== undefined && (i === 0 || t.start > (topics[i - 1].start as number)));
+export function timedTopics(topics: Topic[]): number[] {
+  const timed = topics.flatMap((t, i) => (t.start === undefined ? [] : [i]));
+  const ordered = timed.every((t, k) => k === 0 || (topics[t].start as number) > (topics[timed[k - 1]].start as number));
+  return ordered ? timed : [];
 }
 
-/** Sujet en cours à `seconds`, ou null avant le premier sujet ou sans débuts. */
+export const hasStarts = (topics: Topic[]) => timedTopics(topics).length > 0;
+
+/**
+ * Sujet en cours à `seconds` : le dernier sujet daté déjà commencé. Null
+ * avant lui, ou sans débuts. Un sujet sans début ne devient jamais actif :
+ * on ne sait pas où il commence.
+ */
 export function topicAt(topics: Topic[], seconds: number): number | null {
-  if (!hasStarts(topics)) return null;
   let index: number | null = null;
-  topics.forEach((t, i) => {
-    if ((t.start as number) <= seconds) index = i;
-  });
+  for (const i of timedTopics(topics)) {
+    if ((topics[i].start as number) <= seconds) index = i;
+  }
   return index;
 }
 

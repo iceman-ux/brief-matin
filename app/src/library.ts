@@ -2,6 +2,7 @@
 // Le dernier épisode est gardé pour que l'alarme lance quand même quelque
 // chose si le flux ne répond pas au réveil (pas de réseau, GitHub en panne).
 import { Directory, File, Paths } from 'expo-file-system';
+import * as Network from 'expo-network';
 
 import { CACHE_KEEP_EPISODES } from '../constants';
 import type { Episode, Track } from './episodes';
@@ -29,6 +30,24 @@ export function cachedUri(track: Track): string | null {
 /** Ce que le lecteur doit jouer : le fichier local s'il est complet, l'URL sinon. */
 export function playableSources(episode: Episode): { uri: string; name: string }[] {
   return episode.tracks.map((t) => ({ uri: cachedUri(t) ?? t.url, name: t.title }));
+}
+
+// Réseaux où l'on télécharge même si « Télécharger en 4G / 5G » est coupé.
+const UNMETERED = [Network.NetworkStateType.WIFI, Network.NetworkStateType.ETHERNET];
+
+/**
+ * Faut-il mettre l'épisode en cache maintenant ? Réglage coupé : seulement
+ * en Wi-Fi (ou filaire) ; ailleurs, l'épisode est lu en direct, sans
+ * préchargement. Réseau inconnu : on s'abstient, comme en 4G.
+ */
+export async function mayDownload(allowCellular: boolean): Promise<boolean> {
+  if (allowCellular) return true;
+  try {
+    const state = await Network.getNetworkStateAsync();
+    return state.type !== undefined && UNMETERED.includes(state.type);
+  } catch {
+    return false;
+  }
 }
 
 export function isEpisodeCached(episode: Episode): boolean {

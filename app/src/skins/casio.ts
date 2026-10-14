@@ -14,8 +14,8 @@ export const casio: Skin = {
   brand: 'linear-gradient(180deg,#F2762E,#F2762E)',
   seg: 'linear-gradient(0deg,#1C2414,#1C2414)',
   dotOff: 'rgba(28,36,20,0.35)', labelBg: 'rgba(12,13,11,0.86)', shadow: 'rgba(0,0,0,0.55)', pin: '#E63946',
-  tints: ['#E9C46A', '#FF7EA8', '#B39DFF', '#6CC6E8'],
+  tints: ['#E9C46A', '#FF7EA8', '#B39DFF', '#6CC6E8', '#4FD1C5', '#E0CBA8'],
   onAccent: '#140A04', knobShade: 'rgba(0,0,0,0.3)', switchOff: '#696C61',
   thumb: 'radial-gradient(circle at 35% 30%,#FFFFFF 0%,#C9CBC0 70%)',
-  scrim: 'rgba(0,0,0,0.55)', statusBar: 'light',
+  scrim: 'rgba(0,0,0,0.55)', statusBar: 'light', grain: 0.45,
 };

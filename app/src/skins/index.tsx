@@ -27,5 +27,5 @@ export function SkinProvider({ name, children }: { name: SkinName; children: Rea
 
 export const useSkin = () => useContext(SkinContext);
 
-/** Couleur du sujet n (0, 1, 2…) : au-delà de quatre sujets, les teintes reviennent. */
+/** Couleur du sujet n (0, 1, 2…) : au-delà de six sujets, les teintes reviennent. */
 export const tintOf = (skin: Skin, index: number) => skin.tints[index % skin.tints.length];

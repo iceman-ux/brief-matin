@@ -18,7 +18,7 @@ import { type Episode, episodeDay, episodeDuration } from '../episodes';
 import { BellIcon, PlaySmallIcon } from '../icons';
 import { type AlarmSchedule, formatClock, formatDayTitle, formatDuration, formatLcd, formatMinutes, formatTime, nextAlarm } from '../schedule';
 import { tintOf, useSkin } from '../skins';
-import { hasStarts, topicAt } from '../topics';
+import { timedTopics, topicAt } from '../topics';
 import { layout, radii, sizes, spacing, type } from '../theme';
 import { Brand, DemoNotice, GhostButton, Label, Lcd, WebNotice } from '../ui';
 import type { Playback } from './Player';
@@ -55,7 +55,7 @@ export function Home(props: Props) {
   const playing = loaded && playback.playing;
   const duration = (loaded && playback.duration > 0 ? playback.duration : episode && episodeDuration(episode)) || 0;
   const current = loaded ? Math.min(playback.currentTime, duration) : 0;
-  const starts = hasStarts(topics);
+  const timed = timedTopics(topics);
   const playingTopic = loaded ? topicAt(topics, current) : null;
 
   // Pendant la lecture, le sujet affiché suit l'audio.
@@ -70,16 +70,17 @@ export function Home(props: Props) {
   const pick = (i: number) => {
     setSelected(i);
     const start = topics[i]?.start;
-    if (loaded && starts && start !== undefined) props.onSeek(start);
+    if (loaded && timed.includes(i) && start !== undefined) props.onSeek(start);
   };
 
   const marks: Mark[] =
-    starts && duration > 0
-      ? topics.map((t, i) => ({
-          at: (t.start as number) / duration,
+    duration > 0
+      ? timed.map((i) => ({
+          at: (topics[i].start as number) / duration,
+          topic: i,
           label: `Aller au sujet ${i + 1}`,
           active: i === index,
-          onPress: () => (loaded ? pick(i) : episode && props.onPlayAt(episode, t.start as number)),
+          onPress: () => (loaded ? pick(i) : episode && props.onPlayAt(episode, topics[i].start as number)),
         }))
       : [];
 

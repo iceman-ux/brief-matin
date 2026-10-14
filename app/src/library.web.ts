@@ -14,6 +14,10 @@ export function isEpisodeCached(_episode: Episode): boolean {
   return false;
 }
 
+export async function mayDownload(_allowCellular: boolean): Promise<boolean> {
+  return false;
+}
+
 export async function downloadEpisode(_episode: Episode): Promise<void> {}
 
 export function saveLastEpisode(episode: Episode): void {

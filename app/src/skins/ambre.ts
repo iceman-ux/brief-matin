@@ -14,8 +14,8 @@ export const ambre: Skin = {
   brand: 'linear-gradient(180deg,#FFE9C7 0%,#D49A4E 55%,#FFE3B8 100%)',
   seg: 'linear-gradient(0deg,#FFB000 0%,#FFB000 70%,#FF6A13 70%)',
   dotOff: '#4A3826', labelBg: 'rgba(11,8,6,0.86)', shadow: 'rgba(0,0,0,0.55)', pin: '#FF4D3D',
-  tints: ['#FFD166', '#FF7E9F', '#B39DFF', '#7FD1FF'],
+  tints: ['#FFD166', '#FF7E9F', '#B39DFF', '#7FD1FF', '#5ED6C8', '#E8D2B0'],
   onAccent: '#1A1006', knobShade: 'rgba(0,0,0,0.3)', switchOff: '#76624C',
   thumb: 'radial-gradient(circle at 35% 30%,#FFF4E3 0%,#D8BE98 70%)',
-  scrim: 'rgba(0,0,0,0.55)', statusBar: 'light',
+  scrim: 'rgba(0,0,0,0.55)', statusBar: 'light', grain: 0.5,
 };

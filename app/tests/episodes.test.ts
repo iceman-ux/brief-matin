@@ -118,3 +118,18 @@ test('<lora:topics> illisible : on garde les titres du sommaire', () => {
     '<lora:topics>{pas du json</lora:topics></item></channel></rss>';
   assert.deepEqual(latestEpisode(xml)?.topics, [{ title: 'A' }, { title: 'B' }]);
 });
+
+test('<lora:topics> écrit par le pipeline (exemple figé de tests/test_topics.py sur main)', () => {
+  const extensions = readFileSync(new URL('./fixtures/lora-topics-item.xml', import.meta.url), 'utf8');
+  const xml =
+    '<rss><channel><item><title>t</title><pubDate>11 Oct 2026 02:06:16 +0000</pubDate>' +
+    '<enclosure url="https://exemple.org/a.mp3" length="10" type="audio/mpeg"/>' +
+    `${extensions}</item></channel></rss>`;
+  const kyiv = { city: 'Kyiv', country: 'Ukraine', lat: 50.45, lon: 30.52, tz: 'Europe/Kyiv' };
+  const riyad = { city: 'Riyad', country: 'Arabie saoudite', lat: 24.71, lon: 46.68, tz: 'Asia/Riyadh' };
+  assert.deepEqual(latestEpisode(xml)?.topics, [
+    { title: 'Trump réclame un nouveau président ukrainien', start: 16.2, place: kyiv, sources: ['Le Monde', 'franceinfo'], related7d: 0 },
+    { title: 'Aéroport de Riyad frappé par un missile', start: 58.4, place: riyad, sources: ['Le Monde', 'France 24', 'RFI'], related7d: 0 },
+    { title: "Paul Seixas s'impose en Lombardie", start: 141, sources: ['franceinfo'], related7d: 0 },
+  ]);
+});

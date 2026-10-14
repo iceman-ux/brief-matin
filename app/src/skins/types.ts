@@ -5,7 +5,7 @@
 // - accent : les actions (play, bouton principal, réveil, interrupteurs ON,
 //   progression), rien d'autre ;
 // - lcd : les écrans (heure, temps, spectre), rien d'autre ;
-// - tints : les sujets 1 à 4, jamais une action.
+// - tints : les sujets 1 à 6, jamais une action.
 //
 // Les dégradés (knob, glass, rim, brand, seg, thumb) sont écrits en CSS,
 // recopiés des maquettes ; gradient.ts les traduit pour React Native.
@@ -42,7 +42,7 @@ export type Skin = {
   labelBg: string;
   shadow: string;
   pin: string;
-  tints: [string, string, string, string];
+  tints: [string, string, string, string, string, string];
   // Clés ajoutées à la spec V11 : couleurs que les maquettes écrivaient en dur.
   /** Texte du bouton plein « Activer le réveil ». */
   onAccent: string;
@@ -56,4 +56,6 @@ export type Skin = {
   scrim: string;
   /** Texte de la barre d'état iOS. */
   statusBar: 'light' | 'dark';
+  /** Opacité de la texture de grain posée sur tout l'écran (0 à 1). */
+  grain: number;
 };

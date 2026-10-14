@@ -21,7 +21,7 @@ import {
   scheduleWakeUp,
 } from './src/alarm';
 import { type Episode, fetchEpisodes } from './src/episodes';
-import { downloadEpisode, loadLastEpisode, playableSources, saveLastEpisode } from './src/library';
+import { downloadEpisode, loadLastEpisode, mayDownload, playableSources, saveLastEpisode } from './src/library';
 import { MotionProvider } from './src/motion';
 import { PREVIEW } from './src/preview';
 import { type AlarmSchedule, previousAlarm } from './src/schedule';
@@ -85,6 +85,9 @@ export default function App() {
   const playlist = useAudioPlaylist();
   const status = useAudioPlaylistStatus(playlist);
   const loadedGuid = useRef<string | null>(null);
+  // Lu par loadEpisodes, appelé hors rendu (retour au premier plan).
+  const allowCellular = useRef(settings.downloadOnCellular);
+  allowCellular.current = settings.downloadOnCellular;
   const alarmQueue = useRef<Promise<unknown>>(Promise.resolve());
   const alarmTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -130,7 +133,7 @@ export default function App() {
       }
       setEpisodes(list);
       saveLastEpisode(list[0]);
-      await downloadEpisode(list[0]);
+      if (await mayDownload(allowCellular.current)) await downloadEpisode(list[0]);
     } catch (e) {
       setFeedError(e instanceof Error ? e.message : String(e));
     }

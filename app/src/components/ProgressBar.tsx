@@ -6,7 +6,8 @@ import { Pressable, StyleSheet, View } from 'react-native';
 import { tintOf, useSkin } from '../skins';
 import { sizes } from '../theme';
 
-export type Mark = { at: number; label: string; active: boolean; onPress: () => void };
+/** topic : numéro du sujet (0, 1…), qui donne la couleur du repère actif. */
+export type Mark = { at: number; topic: number; label: string; active: boolean; onPress: () => void };
 
 type Props = {
   /** 0 à 1. */
@@ -51,7 +52,7 @@ export function ProgressBar({ progress, duration, current, marks, onSeek }: Prop
             style={[
               styles.dot,
               {
-                backgroundColor: mark.active ? tintOf(skin, i) : skin.dotOff,
+                backgroundColor: mark.active ? tintOf(skin, mark.topic) : skin.dotOff,
                 boxShadow: `0 0 0 ${sizes.dotRing}px ${skin.glassBase}`,
               },
             ]}
