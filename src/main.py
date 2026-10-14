@@ -292,7 +292,8 @@ def cmd_say(args) -> int:
     topics = [{k: v for k, v in t.items() if k != "start"} for t in topics]
     if synthesis.starts and len(synthesis.starts) == len(topics):
         for topic, start in zip(topics, synthesis.starts):
-            topic["start"] = start
+            if start is not None:
+                topic["start"] = start
     duration = tts_mod.audio_duration_seconds(mp3_path)
     size = mp3_path.stat().st_size
     print(f"   → {mp3_path.name} · {duration // 60}:{duration % 60:02d} · "
@@ -340,11 +341,8 @@ def _load_line_topics(script_path: Path, script: list[dict]) -> list | None:
 
 def _print_topic_data(topics: list[dict]) -> None:
     starts = [t.get("start") for t in topics]
-    if all(s is not None for s in starts):
-        print("   → débuts : " + " · ".join(
-            f"{int(s) // 60}:{int(s) % 60:02d}" for s in starts))
-    else:
-        print("   ⚠ débuts de sujet absents")
+    print("   → débuts : " + " · ".join(
+        "—" if s is None else f"{int(s) // 60}:{int(s) % 60:02d}" for s in starts))
     places = [t["place"]["city"] for t in topics if "place" in t]
     print(f"   → lieux contrôlés : {len(places)}/{len(topics)}"
           + (f" ({', '.join(places)})" if places else ""))

@@ -190,9 +190,9 @@ Sur Windows, utiliser `py` plutôt que `python`.
   même appel. Le lieu est rejeté s'il tombe hors du pays annoncé ; le
   fuseau vient de `zone1970.tab`, jamais du modèle. **Les débuts ne sont
   pas des durées de segments** : le brief part en un seul appel TTS, on
-  cale chaque début sur la vraie pause la plus proche de sa place attendue
-  (au prorata des caractères) ; sans pause à moins de 4 s, l'épisode sort
-  sans débuts. Le sujet de chaque réplique est gardé à côté du script
+  cale chaque début au milieu de la vraie pause la plus proche de sa place
+  attendue (au prorata des caractères) ; un sujet sans pause nette à moins
+  de 5 s n'a pas de début, les autres gardent le leur. Le sujet de chaque réplique est gardé à côté du script
   (`data/scripts/AAAA-MM-JJ.sujets.json`) pour que `say` les recalcule.
   `trend7d` n'est pas produit (aucun lien article ↔ sujet). Chapitres
   Podcasting 2.0 dans `docs/chapters/`.

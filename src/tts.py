@@ -445,9 +445,9 @@ def _mix_at(first: bytes, second: bytes, offset: int) -> bytes:
 
 class Synthesis(NamedTuple):
     path: Path
-    # Début de chaque sujet dans le mp3, en secondes ; None si on ne sait
-    # pas les situer tous sur une vraie pause.
-    starts: list[float] | None
+    # Début de chaque sujet dans le mp3, en secondes (None pour un sujet sans
+    # pause nette près de sa place) ; None si aucun n'a pu être situé.
+    starts: list[float | None] | None
 
 
 def _voiced_windows(cfg: Config, pcm: bytes) -> list[bool]:
@@ -464,22 +464,24 @@ def _voiced_windows(cfg: Config, pcm: bytes) -> list[bool]:
 
 
 def topic_marks(cfg: Config, pcm: bytes, script: list[dict],
-                topic_count: int) -> list[int] | None:
+                topic_count: int) -> list[int | None] | None:
     """Début de chaque sujet dans le PCM du corps, en échantillons.
 
     Le brief est synthétisé d'un seul tenant : aucun segment ne dit où
     commence chaque réplique. On situe la première réplique de chaque sujet
-    au prorata des caractères sur la durée de voix, puis on la cale sur la
-    reprise de voix, après une vraie pause, la plus proche. Sans pause assez
-    près pour un seul sujet, rien n'est renvoyé : un début faux serait pire
-    qu'absent."""
+    au prorata des caractères sur la durée de voix, puis on cale son début
+    au milieu de la vraie pause la plus proche. Un sujet sans pause nette à
+    moins de max_snap_s n'a pas de début (None) : un début faux serait pire
+    qu'absent. None pour tout l'épisode si les répliques ne disent pas leur
+    sujet, ou dans le désordre."""
     params = cfg.raw["topics"]
     first_line: dict[int, int] = {}
     for index, line in enumerate(script):
         if "topic" in line:
             first_line.setdefault(line["topic"], index)
     lines = [first_line.get(n) for n in range(1, topic_count + 1)]
-    if topic_count == 0 or None in lines or lines != sorted(lines):
+    known = [line for line in lines if line is not None]
+    if not known or known != sorted(known):
         return None
 
     voiced = _voiced_windows(cfg, pcm)
@@ -487,12 +489,14 @@ def topic_marks(cfg: Config, pcm: bytes, script: list[dict],
         return None
     first = voiced.index(True)
     last = len(voiced) - 1 - voiced[::-1].index(True)
+    # Milieu de chaque silence d'au moins min_pause_ms entre deux voix, en
+    # fenêtres de 10 ms.
     min_pause = max(1, int(float(params["min_pause_ms"]) / 10))
-    onsets, silent = [], 0
+    pauses, silent = [], 0
     for i in range(first, last + 1):
         if voiced[i]:
             if silent >= min_pause:
-                onsets.append(i)
+                pauses.append(i - silent / 2)
             silent = 0
         else:
             silent += 1
@@ -501,20 +505,31 @@ def topic_marks(cfg: Config, pcm: bytes, script: list[dict],
     total = sum(sizes)
     span = last + 1 - first
     tolerance = float(params["max_snap_s"]) * 100
-    marks, previous = [], first - 1
-    for line in lines:
+    window = int(cfg.audio["sample_rate"]) // 100
+    chosen: dict[int, float] = {}
+    candidates = []
+    for topic, line in enumerate(lines):
+        if line is None:
+            continue
         if line == 0:
-            chosen = first
-        else:
-            expected = first + span * sum(sizes[:line]) / total
-            near = [o for o in onsets
-                    if o > previous and abs(o - expected) <= tolerance]
-            if not near:
-                return None
-            chosen = min(near, key=lambda o: abs(o - expected))
-        marks.append(chosen * (int(cfg.audio["sample_rate"]) // 100))
-        previous = chosen
-    return marks
+            # Le corps commence par ce sujet : pas de pause avant lui.
+            chosen[topic] = float(first)
+            continue
+        expected = first + span * sum(sizes[:line]) / total
+        candidates += [(abs(p - expected), topic, p) for p in pauses
+                       if abs(p - expected) <= tolerance]
+    # Les couples sujet-pause les plus proches d'abord : un sujet ne prend
+    # pas la pause d'un voisin qui en est plus près. Chaque pause sert une
+    # fois, et les débuts restent dans l'ordre des sujets.
+    for _, topic, pause in sorted(candidates):
+        if topic in chosen or pause in chosen.values():
+            continue
+        before = [chosen[t] for t in chosen if t < topic]
+        after = [chosen[t] for t in chosen if t > topic]
+        if all(b < pause for b in before) and all(pause < a for a in after):
+            chosen[topic] = pause
+    return [round(chosen[t] * window) if t in chosen else None
+            for t in range(len(lines))]
 
 
 def synthesize(cfg: Config, script: list[dict], out_path: Path,
@@ -556,9 +571,10 @@ def synthesize(cfg: Config, script: list[dict], out_path: Path,
             pcm += _synth_pcm(cfg, _render_chunk_text(cfg, chunk, multi), multi)
 
     marks = topic_marks(cfg, bytes(pcm), script, topic_count)
-    if topic_count and marks is None and verbose:
-        print("   ⚠ débuts de sujet non situés (marqueurs absents ou pas de "
-              "pause assez proche) : l'épisode sort sans")
+    missing = topic_count if marks is None else marks.count(None)
+    if topic_count and missing and verbose:
+        print(f"   ⚠ {missing} début(s) de sujet non situé(s) (marqueur absent "
+              "ou pas de pause nette assez proche) : publiés sans")
     return finalize(cfg, bytes(pcm), out_path, verbose, day, marks)
 
 
@@ -572,7 +588,7 @@ def finishing_enabled(cfg: Config) -> bool:
 
 def finalize(cfg: Config, pcm: bytes, out_path: Path,
              verbose: bool = True, day: date | None = None,
-             marks: list[int] | None = None) -> Synthesis:
+             marks: list[int | None] | None = None) -> Synthesis:
     """PCM brut -> mp3 du flux : finition du corps, montage des signatures
     du jour si day est donné, puis un seul encodage mp3. Les marks (instants
     du corps, en échantillons) ressortent en secondes de l'épisode monté.
@@ -602,7 +618,7 @@ def finalize(cfg: Config, pcm: bytes, out_path: Path,
         _encode(_pcm_to_wav(pcm, rate), final, cfg, _mp3_codec(cfg))
         os.replace(final, out_path)
     starts = None if marks is None else [
-        round(max(m + shift, 0) / rate, 1) for m in marks]
+        None if m is None else round(max(m + shift, 0) / rate, 1) for m in marks]
     return Synthesis(out_path, starts)
 
 

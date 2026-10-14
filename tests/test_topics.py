@@ -35,8 +35,8 @@ def silence(seconds: float) -> array.array:
 
 
 class TopicMarksTest(unittest.TestCase):
-    """Trois répliques de même longueur, séparées par de vraies pauses : le
-    sujet 2 commence à la troisième, à la reprise de voix après 0,4 s."""
+    """Trois répliques de même longueur, séparées par de vraies pauses de
+    0,4 s : chaque sujet commence au milieu de la pause qui le précède."""
 
     def setUp(self):
         self.audio = silence(0.5) + tone(3) + silence(0.4) + tone(3) + silence(0.4) + tone(3)
@@ -44,19 +44,39 @@ class TopicMarksTest(unittest.TestCase):
                        {"speaker": "Léa", "text": "b" * 100, "topic": 1},
                        {"speaker": "Marc", "text": "c" * 100, "topic": 2}]
 
-    def test_debuts_sur_les_reprises_de_voix(self):
+    def test_debuts_au_milieu_des_pauses(self):
         marks = tts.topic_marks(CFG, self.audio.tobytes(), self.script, 2)
-        self.assertIsNotNone(marks)
-        self.assertAlmostEqual(marks[0] / RATE, 3.9, delta=0.02)
-        self.assertAlmostEqual(marks[1] / RATE, 7.3, delta=0.02)
+        self.assertAlmostEqual(marks[0] / RATE, 3.7, delta=0.02)
+        self.assertAlmostEqual(marks[1] / RATE, 7.1, delta=0.02)
 
-    def test_sans_pause_proche_aucun_debut(self):
+    def test_sans_pause_nette_pas_de_debut_pour_ce_sujet_seulement(self):
+        # Une seule pause, plus près de la place du sujet 2 (7,0 s) que de
+        # celle du sujet 1 (3,8 s) : elle revient au sujet 2, le sujet 1
+        # reste sans début.
+        audio = silence(0.5) + tone(6.4) + silence(0.4) + tone(3)
+        marks = tts.topic_marks(CFG, audio.tobytes(), self.script, 2)
+        self.assertIsNone(marks[0])
+        self.assertAlmostEqual(marks[1] / RATE, 7.1, delta=0.02)
         continuous = (silence(0.5) + tone(9.8)).tobytes()
-        self.assertIsNone(tts.topic_marks(CFG, continuous, self.script, 2))
+        self.assertEqual(tts.topic_marks(CFG, continuous, self.script, 2), [None, None])
+
+    def test_pause_trop_loin_de_la_place_attendue(self):
+        # Une seule pause, à 12,7 s : à 8,5 s de la place attendue du sujet 1
+        # (4,2 s), à 1,2 s de celle du sujet 2 (11,5 s).
+        audio = silence(0.5) + tone(12) + silence(0.4) + tone(3.4)
+        script = [{"speaker": "Marc", "text": "a" * 100},
+                  {"speaker": "Léa", "text": "b" * 100, "topic": 1},
+                  {"speaker": "Marc", "text": "c" * 100},
+                  {"speaker": "Marc", "text": "d" * 100, "topic": 2},
+                  {"speaker": "Marc", "text": "e" * 30}]
+        marks = tts.topic_marks(CFG, audio.tobytes(), script, 2)
+        self.assertIsNone(marks[0])
+        self.assertAlmostEqual(marks[1] / RATE, 12.7, delta=0.02)
 
     def test_sujet_sans_replique_ou_dans_le_desordre(self):
         pcm = self.audio.tobytes()
-        self.assertIsNone(tts.topic_marks(CFG, pcm, self.script, 3))
+        self.assertIsNone(tts.topic_marks(CFG, pcm, self.script, 3)[2])
+        self.assertIsNone(tts.topic_marks(CFG, pcm, [dict(l, topic=None) for l in self.script], 2))
         shuffled = [dict(self.script[0]), {**self.script[1], "topic": 2},
                     {**self.script[2], "topic": 1}]
         self.assertIsNone(tts.topic_marks(CFG, pcm, shuffled, 2))
@@ -123,6 +143,9 @@ class EnrichTest(unittest.TestCase):
         self.assertEqual(result[1]["related7d"], 0)
         no_starts = topics.enrich(CFG, raw, "2026-10-14", None, [])
         self.assertNotIn("start", no_starts[0])
+        partial = topics.enrich(CFG, raw, "2026-10-14", [None, 58.5], [])
+        self.assertNotIn("start", partial[0])
+        self.assertEqual(partial[1]["start"], 58.5)
 
 
 class WriterTest(unittest.TestCase):
@@ -186,7 +209,11 @@ class FeedTest(unittest.TestCase):
         self.assertEqual(doc["version"], "1.2.0")
         self.assertEqual([c["startTime"] for c in doc["chapters"]], [0, 16.2, 58.4, 141.0])
         self.assertEqual(doc["chapters"][0]["title"], CFG.raw["topics"]["intro_chapter"])
-        self.assertIsNone(topics.chapters(CFG, [{"title": "A", "start": 3}, {"title": "B"}]))
+        # Un sujet sans début reste dans le chapitre précédent.
+        partial = topics.chapters(CFG, [{"title": "A", "start": 3}, {"title": "B"}, {"title": "C", "start": 90}])
+        self.assertEqual([c["title"] for c in partial["chapters"]],
+                         [CFG.raw["topics"]["intro_chapter"], "A", "C"])
+        self.assertIsNone(topics.chapters(CFG, [{"title": "A"}, {"title": "B"}]))
 
     def test_sujets_pour_l_app(self):
         data = json.loads(self.item().findtext("lora:topics", namespaces=NAMESPACES))

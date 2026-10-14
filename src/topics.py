@@ -71,7 +71,7 @@ def related_count(cfg: Config, topic: dict, date: str,
 
 
 def enrich(cfg: Config, topics: list[dict], date: str,
-           starts: list[float] | None, episodes: list[dict]) -> list[dict]:
+           starts: list[float | None] | None, episodes: list[dict]) -> list[dict]:
     """Sujets du jour complétés : place contrôlée (ou retirée), start,
     related7d. Le champ place disparaît s'il est douteux, au lieu de valoir
     null : un épisode n'affiche que ce qu'il sait."""
@@ -81,7 +81,7 @@ def enrich(cfg: Config, topics: list[dict], date: str,
         place = clean_place(cfg, topic.get("place"))
         if place:
             item["place"] = place
-        if starts and len(starts) == len(topics):
+        if starts and len(starts) == len(topics) and starts[index] is not None:
             item["start"] = starts[index]
         item["related7d"] = related_count(cfg, topic, date, episodes)
         enriched.append(item)
@@ -102,11 +102,13 @@ def app_topics(topics: list[dict]) -> list[dict]:
 
 
 def chapters(cfg: Config, topics: list[dict]) -> dict | None:
-    """Chapitres Podcasting 2.0 (version 1.2.0), un par sujet, plus
-    l'ouverture avant le premier. None si les débuts ne sont pas tous connus."""
-    if not topics or any("start" not in t for t in topics):
+    """Chapitres Podcasting 2.0 (version 1.2.0) : un par sujet dont le début
+    est connu, plus l'ouverture avant le premier. Un sujet sans début reste
+    dans le chapitre précédent. None si aucun début n'est connu."""
+    marks = [{"startTime": t["start"], "title": t.get("title", "")}
+             for t in topics if "start" in t]
+    if not marks:
         return None
-    marks = [{"startTime": t["start"], "title": t.get("title", "")} for t in topics]
     if marks[0]["startTime"] > 0:
         marks.insert(0, {"startTime": 0,
                          "title": cfg.raw["topics"]["intro_chapter"]})

@@ -325,14 +325,14 @@ topics:
   related_days: 7
   related_title_overlap: 0.5
   # Débuts de sujet. L'audio est synthétisé d'un seul tenant (voir
-  # audio.max_words_per_chunk) : on cale chaque début sur une vraie pause de
-  # la voix, la plus proche de sa place attendue au prorata des caractères.
+  # audio.max_words_per_chunk) : on cale chaque début au milieu de la vraie
+  # pause la plus proche de sa place attendue, au prorata des caractères.
   # Pause : au moins min_pause_ms sous pause_threshold_db (dBFS, fenêtres de
-  # 10 ms). Si un début n'a pas de pause à moins de max_snap_s, aucun début
-  # n'est publié pour l'épisode.
+  # 10 ms). Un sujet sans pause nette à moins de max_snap_s n'a pas de
+  # début ; les autres gardent le leur.
   pause_threshold_db: -40
   min_pause_ms: 250
-  max_snap_s: 4
+  max_snap_s: 5
   # Chapitres Podcasting 2.0 (Pocket Casts les affiche), un fichier JSON par
   # épisode dans docs/<chapters_dir>/. Avant le premier sujet, un chapitre
   # intro_chapter couvre l'ouverture.
