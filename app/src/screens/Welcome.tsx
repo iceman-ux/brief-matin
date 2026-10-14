@@ -1,11 +1,14 @@
 // Bienvenue : premier lancement seulement. On choisit l'heure et les jours,
-// puis « Activer mon réveil » demande l'autorisation et programme l'alarme.
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+// puis « Activer le réveil » demande l'autorisation et programme l'alarme.
+import { StyleSheet, Text, View } from 'react-native';
 
-import { Illustration } from '../Illustration';
+import { Globe } from '../components/Globe';
+import { Screen } from '../components/Screen';
 import { type AlarmSchedule, shiftTime, toggleDay } from '../schedule';
-import { colors, layout, spacing, type } from '../theme';
-import { DayPicker, Overline, PrimaryButton, TimeStepper, WebNotice, useAppWidth } from '../ui';
+import { useSkin } from '../skins';
+import type { Place } from '../topics';
+import { sizes, spacing, type } from '../theme';
+import { Brand, DayPicker, Label, PrimaryButton, TimeSetter, WebNotice } from '../ui';
 
 type Props = {
   schedule: AlarmSchedule;
@@ -13,61 +16,57 @@ type Props = {
   onActivate: () => void;
   busy: boolean;
   error: string | null;
+  /** Lieux des sujets du jour, quand le flux les donne : points du globe. */
+  places: (Place | undefined)[];
 };
 
-export function Welcome({ schedule, onChange, onActivate, busy, error }: Props) {
-  const width = useAppWidth();
+export function Welcome({ schedule, onChange, onActivate, busy, error, places }: Props) {
+  const skin = useSkin();
   return (
-    <ScrollView style={styles.screen} contentContainerStyle={styles.content} bounces={false}>
-      <Illustration variant="hero" width={width} />
-      <View style={styles.body}>
-        <View style={styles.brand}>
-          <Text style={type.brandOverline}>LE BRIEF DU MATIN</Text>
-          <Text style={type.logoHero} accessibilityRole="header">
-            Lora
-          </Text>
-          <Text style={type.tagline}>l'essentiel du jour, avant l'aube</Text>
-        </View>
-
-        <View style={styles.alarm}>
-          <Overline large>RÉVEILLE-MOI À</Overline>
-          <TimeStepper schedule={schedule} onShift={(m) => onChange(shiftTime(schedule, m))} />
-          <DayPicker weekdays={schedule.weekdays} onToggle={(d) => onChange(toggleDay(schedule, d))} />
-        </View>
-
-        <View style={styles.footer}>
-          <PrimaryButton
-            label="Activer mon réveil"
-            onPress={onActivate}
-            disabled={busy || schedule.weekdays.length === 0}
-          />
-          {error ? (
-            <Text style={[type.note, styles.centered, styles.error]}>{error}</Text>
-          ) : (
-            <Text style={[type.note, styles.centered]}>
-              Lora sonne comme une alarme, puis lance le brief du jour. iOS te demandera l'autorisation.
-            </Text>
-          )}
-          <WebNotice />
-        </View>
+    <Screen contentStyle={styles.content}>
+      <View style={styles.brand}>
+        <Brand />
       </View>
-    </ScrollView>
+      <View style={styles.globe}>
+        <Globe size={sizes.globe} places={places} />
+      </View>
+
+      <View style={styles.pitch}>
+        <Text style={[type.screenTitle, { color: skin.text }]} accessibilityRole="header">
+          Le monde en 3 minutes, au réveil.
+        </Text>
+        <Text style={[type.body, styles.subtitle, { color: skin.text2 }]}>
+          Ton réveil lance le brief : 4 sujets, 2 voix, et la carte de chaque actu.
+        </Text>
+      </View>
+
+      <View style={styles.alarm}>
+        <TimeSetter schedule={schedule} onShift={(m) => onChange(shiftTime(schedule, m))} />
+        <DayPicker weekdays={schedule.weekdays} onToggle={(d) => onChange(toggleDay(schedule, d))} />
+      </View>
+
+      <View style={styles.footer}>
+        <PrimaryButton label="Activer le réveil" onPress={onActivate} disabled={busy || schedule.weekdays.length === 0} />
+        {error ? (
+          <Text style={[type.hint, styles.centered, { color: skin.text }]}>{error}</Text>
+        ) : (
+          <Label color={skin.text4} style={styles.centered}>
+            Sans compte · sans pub
+          </Label>
+        )}
+        <WebNotice />
+      </View>
+    </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: colors.background },
-  content: { flexGrow: 1 },
-  body: {
-    flexGrow: 1,
-    paddingHorizontal: layout.welcomeGutter,
-    paddingTop: layout.welcomeGutter,
-    paddingBottom: layout.bottomLoose,
-    gap: spacing.section,
-  },
-  brand: { alignItems: 'center', gap: spacing.m },
-  alarm: { alignItems: 'center', gap: spacing.l },
-  footer: { marginTop: 'auto', gap: spacing.l },
+  content: { gap: spacing.section },
+  brand: { alignItems: 'center' },
+  globe: { alignItems: 'center' },
+  pitch: { gap: spacing.l },
+  subtitle: { paddingRight: spacing.xxl },
+  alarm: { gap: spacing.xxl },
+  footer: { marginTop: 'auto', gap: spacing.xxl },
   centered: { textAlign: 'center' },
-  error: { color: colors.accent },
 });

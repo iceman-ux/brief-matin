@@ -38,6 +38,10 @@ export async function scheduleTest(): Promise<boolean> {
   return true;
 }
 
+export async function scheduleSnooze(_minutes: number): Promise<boolean> {
+  return true;
+}
+
 export function pendingAlarmIds(): string[] {
   return [];
 }

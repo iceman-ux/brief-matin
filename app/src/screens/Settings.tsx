@@ -1,16 +1,39 @@
-// Réglages : réveil, lecture, rubriques (bientôt), mention IA. Un appui long
-// sur le logo programme une alarme de test dans une minute (accès caché).
+// Réglages : réveil, lecture, affichage, à propos. Un appui long sur le logo
+// ouvre l'accès caché : alarme de test dans une minute, et les skins pas
+// encore proposés.
 import { type ReactNode, useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 
-import { AI_NOTICE, TOPICS } from '../../constants';
+import { AI_NOTICE, CONTACT_EMAIL } from '../../constants';
+import { Device } from '../components/Device';
+import { Screen } from '../components/Screen';
+import { Switch } from '../components/Switch';
+import type { Episode } from '../episodes';
 import { ChevronLeftIcon } from '../icons';
-import { formatTime, shiftTime, shortDays, toggleDay } from '../schedule';
+import { useReducedMotion } from '../motion';
+import { formatStamp, shiftTime, toggleDay } from '../schedule';
 import type { Settings as SettingsData } from '../settings';
-import { colors, layout, radii, sizes, spacing, type } from '../theme';
-import { Checkbox, DayPicker, Overline, TimeStepper, WebNotice } from '../ui';
+import { PUBLIC_SKINS, SKINS, type SkinName, useSkin } from '../skins';
+import { layout, radii, sizes, spacing, type } from '../theme';
+import { Brand, DayPicker, GhostButton, Label, TimeSetter, WebNotice } from '../ui';
 
-type PlaybackKey = 'autoplayAfterAlarm' | 'downloadOnCellular';
+type Toggle = { key: 'autoplayAfterAlarm' | 'downloadOnCellular' | 'animations'; label: string; hint: string };
+
+const GROUPS: { name: string; items: Toggle[] }[] = [
+  {
+    name: 'Lecture',
+    items: [
+      { key: 'autoplayAfterAlarm', label: 'Lecture auto au réveil', hint: 'Le brief démarre avec l’alarme' },
+      { key: 'downloadOnCellular', label: 'Télécharger en 4G / 5G', hint: 'Sinon, uniquement en Wi-Fi' },
+    ],
+  },
+  {
+    name: 'Affichage',
+    items: [{ key: 'animations', label: 'Animations', hint: 'Carte, spectre et globe en mouvement' }],
+  },
+];
+
+const REDUCED_HINT = 'Coupées : « Réduire les animations » est activé sur l’iPhone';
 
 type Props = {
   settings: SettingsData;
@@ -18,196 +41,165 @@ type Props = {
   onBack: () => void;
   /** Rend le message à afficher sous le logo. */
   onTestAlarm: () => Promise<string>;
+  lastEpisode: Episode | null;
 };
 
-const PLAYBACK_ROWS: { key: PlaybackKey; label: string }[] = [
-  { key: 'autoplayAfterAlarm', label: 'Lancer Lora après l’alarme' },
-  { key: 'downloadOnCellular', label: 'Télécharger en 4G / 5G' },
-];
-
-export function Settings({ settings, onChange, onBack, onTestAlarm }: Props) {
-  const [editing, setEditing] = useState<'time' | 'days' | null>(null);
+export function Settings({ settings, onChange, onBack, onTestAlarm, lastEpisode }: Props) {
+  const skin = useSkin();
+  const reduced = useReducedMotion();
+  const [hidden, setHidden] = useState(false);
   const [testMessage, setTestMessage] = useState<string | null>(null);
   const alarm = settings.alarm;
-  const toggleEditing = (row: 'time' | 'days') => setEditing((e) => (e === row ? null : row));
+  const skins = (hidden ? Object.keys(SKINS) : PUBLIC_SKINS) as SkinName[];
 
   return (
-    <ScrollView style={styles.screen} contentContainerStyle={styles.content}>
-      <View style={styles.header}>
-        <Pressable accessibilityRole="button" accessibilityLabel="Retour" onPress={onBack} style={styles.back}>
-          <ChevronLeftIcon size={sizes.icon} color={colors.ornament} />
-        </Pressable>
-        <Text style={type.pageTitle} accessibilityRole="header">
-          Réglages
-        </Text>
-      </View>
+    <Screen>
+      <GhostButton label="Retour à l'accueil" round={sizes.touch} onPress={onBack}>
+        <ChevronLeftIcon size={sizes.icon} color={skin.text} />
+      </GhostButton>
+      <Text style={[type.screenTitle, styles.title, { color: skin.text }]} accessibilityRole="header">
+        Réglages
+      </Text>
 
-      <Section title="RÉVEIL">
-        <Group>
-          <Row
-            label="Heure"
-            divider
-            expanded={editing === 'time'}
-            onPress={() => toggleEditing('time')}
-            value={<Text style={type.timeRow}>{formatTime(alarm.hour, alarm.minute)}</Text>}
-          />
-          {editing === 'time' && (
-            <View style={[styles.editor, styles.divider]}>
-              <TimeStepper
-                schedule={alarm}
-                onShift={(m) => onChange({ ...settings, alarm: shiftTime(alarm, m) })}
-              />
-            </View>
-          )}
-          <Row
-            label="Jours"
-            divider
-            expanded={editing === 'days'}
-            onPress={() => toggleEditing('days')}
-            value={<Text style={type.value}>{shortDays(alarm.weekdays)}</Text>}
-          />
-          {editing === 'days' && (
-            <View style={[styles.editor, styles.divider]}>
-              <DayPicker
-                weekdays={alarm.weekdays}
-                onToggle={(d) => onChange({ ...settings, alarm: toggleDay(alarm, d) })}
-              />
-            </View>
-          )}
+      <Section title="Réveil" first>
+        <Device contentStyle={styles.alarm}>
+          <TimeSetter framed={false} schedule={alarm} onShift={(m) => onChange({ ...settings, alarm: shiftTime(alarm, m) })} />
+          <DayPicker weekdays={alarm.weekdays} onToggle={(d) => onChange({ ...settings, alarm: toggleDay(alarm, d) })} />
+          <View style={[styles.hair, { backgroundColor: skin.line }]} />
           {/* Un seul son pour l'instant : la ligne n'ouvre rien. */}
-          <Row label="Son de l'alarme" value={<Text style={type.value}>Sonal Lora</Text>} />
-        </Group>
+          <View style={styles.sound} accessible>
+            <Text style={[type.body, { color: skin.text }]}>Son du réveil</Text>
+            <Text style={[type.value, { color: skin.text2 }]}>Sonal Lora</Text>
+          </View>
+        </Device>
         <WebNotice />
       </Section>
 
-      <Section title="LECTURE">
-        <Group>
-          {PLAYBACK_ROWS.map((row, i) => (
-            <Pressable
-              key={row.key}
-              accessibilityRole="checkbox"
-              accessibilityState={{ checked: settings[row.key] }}
-              onPress={() => onChange({ ...settings, [row.key]: !settings[row.key] })}
-              style={[styles.row, i < PLAYBACK_ROWS.length - 1 && styles.divider]}
-            >
-              <Text style={type.body}>{row.label}</Text>
-              <Checkbox checked={settings[row.key]} />
-            </Pressable>
-          ))}
-        </Group>
-      </Section>
+      {GROUPS.map((group) => (
+        <Section key={group.name} title={group.name}>
+          <Card>
+            {group.items.map((item, i) => {
+              const on = settings[item.key];
+              const hint = item.key === 'animations' && reduced ? REDUCED_HINT : item.hint;
+              return (
+                <Pressable
+                  key={item.key}
+                  accessibilityRole="switch"
+                  accessibilityLabel={item.label}
+                  accessibilityHint={hint}
+                  accessibilityState={{ checked: on }}
+                  onPress={() => onChange({ ...settings, [item.key]: !on })}
+                  style={[styles.toggle, i > 0 && { borderTopWidth: sizes.hairline, borderTopColor: skin.line }]}
+                >
+                  <View style={styles.toggleText}>
+                    <Text style={[type.body, { color: skin.text }]}>{item.label}</Text>
+                    <Text style={[type.hint, { color: skin.text3 }]}>{hint}</Text>
+                  </View>
+                  <Switch on={on} />
+                </Pressable>
+              );
+            })}
+          </Card>
+        </Section>
+      ))}
 
-      <Section title="RUBRIQUES" aside="Bientôt à la carte">
-        <View style={styles.tiles}>
-          {TOPICS.map((topic) => (
-            <View key={topic} style={styles.tile} accessibilityState={{ disabled: true }}>
-              <Text style={type.tile}>{topic}</Text>
+      {skins.length > 1 && (
+        <Section title="Skin">
+          <View style={styles.skins}>
+            {skins.map((name) => (
+              <GhostButton
+                key={name}
+                label={`Skin ${name}`}
+                selected={settings.skin === name}
+                onPress={() => onChange({ ...settings, skin: name })}
+                style={[styles.skin, settings.skin === name && { backgroundColor: skin.surface2 }]}
+              >
+                <Text style={[type.button, { color: settings.skin === name ? skin.text : skin.text3 }]}>{name}</Text>
+              </GhostButton>
+            ))}
+          </View>
+        </Section>
+      )}
+
+      <Section title="À propos">
+        <Card padded>
+          <Text style={[type.about, { color: skin.text2 }]}>{AI_NOTICE}</Text>
+          <View style={[styles.hair, { backgroundColor: skin.line }]} />
+          {lastEpisode && (
+            <View style={styles.about} accessible>
+              <Label>Dernier brief</Label>
+              <Text style={[type.dataMedium, { color: skin.text }]}>{formatStamp(lastEpisode.pubDate)}</Text>
             </View>
-          ))}
-        </View>
+          )}
+          <View style={styles.about} accessible>
+            <Label>Contact</Label>
+            <Text style={[type.dataMedium, styles.email, { color: skin.text }]}>{CONTACT_EMAIL}</Text>
+          </View>
+        </Card>
       </Section>
 
       <View style={styles.footer}>
         <Pressable
           accessibilityLabel="Lora"
-          onLongPress={async () => setTestMessage(await onTestAlarm())}
+          accessibilityHint="Appui long : accès caché"
+          onLongPress={() => setHidden(true)}
           style={styles.footerLogo}
         >
-          <Text style={type.logoFooter}>Lora</Text>
+          <Brand small />
         </Pressable>
-        {testMessage && <Text style={[type.small, styles.centered]}>{testMessage}</Text>}
-        <Text style={[type.small, styles.centered, styles.notice]}>{AI_NOTICE}</Text>
+        {hidden && (
+          <GhostButton label="Alarme de test dans 1 min" onPress={async () => setTestMessage(await onTestAlarm())}>
+            <Text style={[type.button, { color: skin.text2 }]}>Alarme de test dans 1 min</Text>
+          </GhostButton>
+        )}
+        {testMessage && <Label style={styles.centered}>{testMessage}</Label>}
       </View>
-    </ScrollView>
+    </Screen>
   );
 }
 
-function Section({ title, aside, children }: { title: string; aside?: string; children: ReactNode }) {
+function Section({ title, first = false, children }: { title: string; first?: boolean; children: ReactNode }) {
   return (
-    <View style={styles.section}>
-      <View style={styles.sectionTitle}>
-        <Overline>{title}</Overline>
-        {aside && <Text style={type.small}>{aside}</Text>}
-      </View>
+    <View style={[styles.section, !first && styles.sectionGap]}>
+      <Label style={styles.sectionTitle}>{title}</Label>
       {children}
     </View>
   );
 }
 
-function Group({ children }: { children: ReactNode }) {
-  return <View style={styles.group}>{children}</View>;
-}
-
-function Row(props: { label: string; value: ReactNode; divider?: boolean; expanded?: boolean; onPress?: () => void }) {
-  const content = (
-    <>
-      <Text style={type.body}>{props.label}</Text>
-      {props.value}
-    </>
-  );
-  const style = [styles.row, props.divider && styles.divider];
-  if (!props.onPress) return <View style={style}>{content}</View>;
+function Card({ children, padded = false }: { children: ReactNode; padded?: boolean }) {
+  const skin = useSkin();
   return (
-    <Pressable
-      accessibilityRole="button"
-      accessibilityHint={props.expanded ? 'Fermer le réglage' : 'Modifier'}
-      accessibilityState={{ expanded: props.expanded }}
-      onPress={props.onPress}
-      style={style}
-    >
-      {content}
-    </Pressable>
+    <View style={[styles.card, padded && styles.cardPadded, { backgroundColor: skin.surface, borderColor: skin.line }]}>
+      {children}
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: colors.background },
-  content: {
-    flexGrow: 1,
-    paddingTop: layout.screenTop,
-    paddingHorizontal: layout.gutter,
-    paddingBottom: layout.bottom,
-    gap: spacing.xxl,
-  },
-  header: { flexDirection: 'row', alignItems: 'center', gap: spacing.m },
-  back: {
-    width: sizes.touch,
-    height: sizes.touch,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginLeft: layout.backOffset,
-  },
-  section: { gap: spacing.m },
-  sectionTitle: { flexDirection: 'row', alignItems: 'baseline', justifyContent: 'space-between' },
-  group: {
-    borderRadius: radii.group,
-    backgroundColor: colors.card,
-    borderWidth: sizes.hairline,
-    borderColor: colors.border,
-  },
-  row: {
-    minHeight: sizes.row,
-    paddingHorizontal: layout.rowPaddingH,
+  title: { marginTop: spacing.block, marginBottom: spacing.sectionLoose },
+  section: { gap: spacing.l },
+  sectionGap: { marginTop: spacing.group },
+  sectionTitle: { marginLeft: spacing.xs },
+  alarm: { padding: layout.cardPadding, gap: spacing.xxl },
+  hair: { height: sizes.hairline },
+  sound: { minHeight: sizes.mark, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
+  card: { borderRadius: radii.card, borderWidth: sizes.hairline, paddingHorizontal: layout.cardPadding },
+  cardPadded: { paddingVertical: layout.cardPadding, gap: spacing.xl },
+  toggle: {
+    minHeight: sizes.touch + spacing.sectionLoose - spacing.xs,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    gap: spacing.xxl,
+    paddingVertical: spacing.l,
   },
-  divider: { borderBottomWidth: sizes.hairline, borderBottomColor: colors.divider },
-  editor: { paddingVertical: spacing.l, alignItems: 'center' },
-  tiles: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing.m },
-  tile: {
-    // Deux colonnes : la moitié de la ligne, moins la moitié de l'espace.
-    flexBasis: '48%',
-    flexGrow: 1,
-    height: sizes.tile,
-    borderRadius: radii.tile,
-    borderWidth: sizes.hairline,
-    borderColor: colors.accent,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  footer: { marginTop: 'auto', gap: spacing.s, alignItems: 'center' },
-  footerLogo: { minHeight: sizes.touch, minWidth: sizes.touch, alignItems: 'center', justifyContent: 'center' },
+  toggleText: { flexShrink: 1, gap: spacing.xs },
+  skins: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing.m },
+  skin: { flexGrow: 1 },
+  about: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: spacing.l, flexWrap: 'wrap' },
+  email: { flexShrink: 1 },
+  footer: { marginTop: spacing.group, alignItems: 'center', gap: spacing.l },
+  footerLogo: { minHeight: sizes.touch, minWidth: sizes.touch * 2, alignItems: 'center', justifyContent: 'center' },
   centered: { textAlign: 'center' },
-  notice: { maxWidth: sizes.noticeMaxWidth },
 });

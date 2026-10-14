@@ -113,3 +113,49 @@ export function formatClock(seconds: number): string {
   const s = Math.max(0, Math.floor(seconds));
   return `${Math.floor(s / 60)}:${pad(s % 60)}`;
 }
+
+const WEEKDAYS = [2, 3, 4, 5, 6];
+
+/** Sous l'heure LCD : « En semaine », « Tous les jours », « 3 jours », « Désactivé ». */
+export function daysSummary(weekdays: number[]): string {
+  const days = ordered(weekdays);
+  if (days.length === 0) return 'Désactivé';
+  if (days.length === DAYS_IN_WEEK) return 'Tous les jours';
+  if (sameDays(days, WEEKDAYS)) return 'En semaine';
+  return days.length === 1 ? capitalize(dayName(days[0])) : `${days.length} jours`;
+}
+
+// « juin », « mai » et « août » restent entiers ; « juil. », « sept. » non.
+const SHORT_MONTH_LENGTH = 3;
+
+/** « lun. 12 oct. », pour l'écran Réveil. */
+export function formatShortDate(date: Date): string {
+  const month = MONTH_NAMES[date.getMonth()];
+  const shortMonth = month.length <= 4 ? month : `${month.slice(0, SHORT_MONTH_LENGTH)}.`;
+  return `${shortName(date.getDay() + 1)} ${date.getDate()} ${shortMonth}`;
+}
+
+/** « 12 octobre », pour le titre du Lecteur. */
+export const formatDayMonth = (date: Date) => `${date.getDate()} ${MONTH_NAMES[date.getMonth()]}`;
+
+/** Dernière sonnerie à `now` ou avant, ou null si aucun jour n'est coché. */
+export function previousAlarm(s: AlarmSchedule, now: Date): Date | null {
+  for (let offset = 0; offset <= DAYS_IN_WEEK; offset++) {
+    const candidate = new Date(now.getFullYear(), now.getMonth(), now.getDate() - offset, s.hour, s.minute);
+    if (candidate <= now && s.weekdays.includes(candidate.getDay() + 1)) return candidate;
+  }
+  return null;
+}
+
+/** « 00:58 », pour les écrans LCD. */
+export function formatLcd(seconds: number): string {
+  const s = Math.max(0, Math.floor(seconds));
+  return `${pad(Math.floor(s / 60))}:${pad(s % 60)}`;
+}
+
+/** « 3 min », durée arrondie à la minute (au moins 1). */
+export const formatMinutes = (seconds: number) => `${Math.max(1, Math.round(seconds / 60))} min`;
+
+/** « 12.10 · 04:00 », date et heure de publication du dernier brief. */
+export const formatStamp = (date: Date) =>
+  `${pad(date.getDate())}.${pad(date.getMonth() + 1)} · ${formatTime(date.getHours(), date.getMinutes())}`;

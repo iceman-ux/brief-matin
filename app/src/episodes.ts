@@ -5,6 +5,7 @@
 // Un épisode est une liste de pistes jouées à la suite. Aujourd'hui le flux
 // n'en donne qu'une (l'enclosure) ; demain, un segment par rubrique, que l'app
 // filtrera selon les rubriques choisies.
+import { type Topic, readTopic, readTopics } from './topics.ts';
 
 export type Track = {
   url: string;
@@ -20,8 +21,11 @@ export type Episode = {
   tracks: Track[];
   /** Premier titre du jour, tiré de la description ; null si absent. */
   hook: string | null;
-  /** Lignes « Au sommaire » de la description, vide si absentes. */
-  topics: string[];
+  /**
+   * Sujets du jour : les lignes « Au sommaire » de la description, ou la
+   * liste détaillée de <lora:topics> quand le flux la donne. Vide si absents.
+   */
+  topics: Topic[];
 };
 
 const ENTITIES: Record<string, string> = {
@@ -96,13 +100,29 @@ export function parseNotes(notes: string | null): { hook: string | null; topics:
   return { hook, topics };
 }
 
+// Élément prévu pour la tâche pipeline qui ajoutera lieux, débuts et sources :
+// un tableau JSON de sujets (forme de Topic, dans topics.ts). Illisible, il
+// est ignoré et l'app garde les titres du sommaire.
+const TOPICS_TAG = 'lora:topics';
+
+function parseTopics(itemXml: string, titles: string[]): Topic[] {
+  const json = tagText(itemXml, TOPICS_TAG);
+  if (json) {
+    try {
+      const detailed = readTopics(JSON.parse(json));
+      if (detailed.length > 0) return detailed;
+    } catch {}
+  }
+  return titles.map(readTopic).filter((t): t is Topic => t !== null);
+}
+
 function parseItem(itemXml: string): Episode | null {
   const enclosure = tagAttributes(itemXml, 'enclosure');
   const pubDate = new Date(tagText(itemXml, 'pubDate') ?? '');
   if (!enclosure?.url || Number.isNaN(pubDate.getTime())) return null;
   const title = tagText(itemXml, 'title') ?? '';
   const size = Number(enclosure.length);
-  const notes = parseNotes(tagText(itemXml, 'description'));
+  const { hook, topics } = parseNotes(tagText(itemXml, 'description'));
   return {
     guid: tagText(itemXml, 'guid') ?? enclosure.url,
     title,
@@ -115,7 +135,8 @@ function parseItem(itemXml: string): Episode | null {
         sizeBytes: Number.isFinite(size) && size > 0 ? size : null,
       },
     ],
-    ...notes,
+    hook,
+    topics: parseTopics(itemXml, topics),
   };
 }
 

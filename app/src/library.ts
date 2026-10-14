@@ -6,6 +6,7 @@ import { Directory, File, Paths } from 'expo-file-system';
 import { CACHE_KEEP_EPISODES } from '../constants';
 import type { Episode, Track } from './episodes';
 import { readJson, writeJson } from './storage';
+import { readTopics } from './topics';
 
 const episodesDir = new Directory(Paths.cache, 'episodes');
 const LAST_EPISODE_KEY = 'last-episode';
@@ -75,5 +76,6 @@ export function saveLastEpisode(episode: Episode): void {
 export function loadLastEpisode(): Episode | null {
   const raw = readJson<Omit<Episode, 'hook' | 'topics'> & Partial<Episode>>(LAST_EPISODE_KEY);
   // Un épisode gardé par le squelette n'a ni accroche ni sommaire.
-  return raw && { hook: null, topics: [], ...raw, pubDate: new Date(raw.pubDate) };
+  // Les versions précédentes gardaient les sujets comme de simples titres.
+  return raw && { hook: null, ...raw, topics: readTopics(raw.topics), pubDate: new Date(raw.pubDate) };
 }

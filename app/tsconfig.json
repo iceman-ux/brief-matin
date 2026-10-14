@@ -1,7 +1,9 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
-    "strict": true
+    "strict": true,
+    // Les modules testés par node --test s'importent avec leur extension.
+    "allowImportingTsExtensions": true
   },
   "exclude": ["node_modules", "ios", "android", "tests"]
 }

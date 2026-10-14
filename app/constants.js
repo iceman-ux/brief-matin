@@ -27,16 +27,25 @@ module.exports = {
   // Épisodes gardés en cache : celui du jour et la veille, au cas où le run
   // de la nuit aurait échoué.
   CACHE_KEEP_EPISODES: 2,
-  // Pas des boutons − et + de l'heure du réveil, en minutes.
-  ALARM_STEP_MINUTES: 15,
+  // Pas des boutons − et + de l'heure du réveil, en minutes (maquettes V11).
+  ALARM_STEP_MINUTES: 5,
+  // « Répéter » de l'écran Réveil : nouvelle sonnerie dans ce délai.
+  SNOOZE_MINUTES: 9,
+  // L'écran Réveil s'affiche aussi si l'app est ouverte dans ce délai après
+  // une sonnerie, même sans passer par le bouton d'arrêt de l'alarme.
+  WAKE_SCREEN_MINUTES: 10,
   // Réglages de lecture au premier lancement.
   DEFAULT_PLAYBACK: { autoplayAfterAlarm: true, downloadOnCellular: true },
-  // Jours affichés sous l'épisode du jour, dans l'Accueil.
+  // Réglage d'affichage au premier lancement.
+  DEFAULT_DISPLAY: { animations: true },
+  // Briefs précédents, dans la liste ouverte depuis la date de l'Accueil.
   HISTORY_DAYS: 6,
   // Saut des boutons −15 et +15 de la Lecture, en secondes.
   SKIP_SECONDS: 15,
-  // Rubriques du brief, affichées dans les Réglages avant d'être au choix.
-  TOPICS: ['France', 'Monde', 'Économie', 'Tech'],
+  // Même adresse que podcast.email dans config.yaml : publique, déjà dans le flux.
+  CONTACT_EMAIL: 'lora.dailybrief@proton.me',
+  // Vitesses de lecture proposées par le Lecteur, dans l'ordre du bouton.
+  PLAYBACK_RATES: [1, 1.25, 1.5],
   // Même texte que la mention du flux (podcast.ai_disclosure dans config.yaml) :
   // l'IA n'est jamais dite à l'oral, elle doit l'être ici.
   AI_NOTICE:

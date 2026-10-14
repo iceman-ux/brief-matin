@@ -2,6 +2,7 @@
 // depuis la Release. Le dernier épisode connu reste gardé, comme sur iPhone.
 import type { Episode } from './episodes';
 import { readJson, writeJson } from './storage';
+import { readTopics } from './topics';
 
 const LAST_EPISODE_KEY = 'last-episode';
 
@@ -21,5 +22,6 @@ export function saveLastEpisode(episode: Episode): void {
 
 export function loadLastEpisode(): Episode | null {
   const raw = readJson<Omit<Episode, 'hook' | 'topics'> & Partial<Episode>>(LAST_EPISODE_KEY);
-  return raw && { hook: null, topics: [], ...raw, pubDate: new Date(raw.pubDate) };
+  // Les versions précédentes gardaient les sujets comme de simples titres.
+  return raw && { hook: null, ...raw, topics: readTopics(raw.topics), pubDate: new Date(raw.pubDate) };
 }

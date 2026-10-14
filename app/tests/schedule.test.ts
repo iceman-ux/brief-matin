@@ -79,3 +79,32 @@ test('formats des maquettes', () => {
   assert.equal(formatClock(42), '0:42');
   assert.equal(formatClock(166), '2:46');
 });
+
+test('résumé des jours sous l’heure LCD', async () => {
+  const { daysSummary } = await import('../src/schedule.ts');
+  assert.equal(daysSummary(WEEKDAYS), 'En semaine');
+  assert.equal(daysSummary([1, 2, 3, 4, 5, 6, 7]), 'Tous les jours');
+  assert.equal(daysSummary([]), 'Désactivé');
+  assert.equal(daysSummary([2, 4, 6]), '3 jours');
+  assert.equal(daysSummary([7]), 'Samedi');
+});
+
+test('dates courtes de l’écran Réveil et du Lecteur', async () => {
+  const { formatShortDate, formatDayMonth, formatLcd, formatMinutes, formatStamp } = await import('../src/schedule.ts');
+  assert.equal(formatShortDate(at(12, 7)), 'lun. 12 oct.');
+  assert.equal(formatShortDate(new Date(2026, 5, 2)), 'mar. 2 juin');
+  assert.equal(formatDayMonth(at(12, 7)), '12 octobre');
+  assert.equal(formatLcd(58), '00:58');
+  assert.equal(formatLcd(184), '03:04');
+  assert.equal(formatMinutes(184), '3 min');
+  assert.equal(formatMinutes(10), '1 min');
+  assert.equal(formatStamp(at(12, 4, 5)), '12.10 · 04:05');
+});
+
+test('dernière sonnerie : celle du matin même, ou la précédente', async () => {
+  const { previousAlarm } = await import('../src/schedule.ts');
+  const s = { hour: 7, minute: 0, weekdays: WEEKDAYS };
+  assert.deepEqual(previousAlarm(s, at(12, 7, 5)), at(12, 7));
+  assert.deepEqual(previousAlarm(s, at(12, 6, 59)), at(9, 7));
+  assert.equal(previousAlarm({ ...s, weekdays: [] }, at(12, 8)), null);
+});

@@ -74,7 +74,7 @@ test('durées', () => {
 test('accroche et sommaire, tirés des notes de l’épisode', () => {
   const episode = latestEpisode(feed);
   assert.equal(episode?.hook, 'Bardella visé par des révélations');
-  assert.deepEqual(episode?.topics, [
+  assert.deepEqual(episode?.topics.map((t) => t.title), [
     'Bardella visé par des révélations',
     'Washington réclame le diesel européen',
     'Les taux français frôlent 5%',
@@ -92,4 +92,29 @@ test('notes d’une autre forme : ni accroche ni sommaire, plutôt qu’un texte
 test('le jour du brief vient du guid, pas de l’heure de publication', () => {
   const day = episodeDay({ guid: 'brief-matin-2026-10-11', pubDate: new Date('2026-10-10T23:30:00Z') });
   assert.deepEqual([day.getFullYear(), day.getMonth(), day.getDate()], [2026, 9, 11]);
+});
+
+test('sujets détaillés de <lora:topics> : ce qui est mal formé est ignoré', () => {
+  const topics = JSON.stringify([
+    { title: 'A', start: 12, place: { city: 'Kyiv', country: 'Ukraine', lat: 50.45, lon: 30.52, tz: 'Europe/Kyiv' } },
+    { title: 'B', start: -3, place: { city: 'Nulle part', country: 'X', lat: 200, lon: 0 }, sources: ['RFI', 3] },
+    { start: 40 },
+  ]);
+  const xml =
+    '<rss><channel><item><title>t</title><pubDate>01 Oct 2026 08:00:00 +0000</pubDate>' +
+    '<enclosure url="https://exemple.org/a.mp3" length="10" type="audio/mpeg"/>' +
+    `<lora:topics><![CDATA[${topics}]]></lora:topics></item></channel></rss>`;
+  assert.deepEqual(latestEpisode(xml)?.topics, [
+    { title: 'A', start: 12, place: { city: 'Kyiv', country: 'Ukraine', lat: 50.45, lon: 30.52, tz: 'Europe/Kyiv' } },
+    { title: 'B', sources: ['RFI'] },
+  ]);
+});
+
+test('<lora:topics> illisible : on garde les titres du sommaire', () => {
+  const xml =
+    '<rss><channel><item><title>t</title><pubDate>01 Oct 2026 08:00:00 +0000</pubDate>' +
+    '<enclosure url="https://exemple.org/a.mp3" length="10" type="audio/mpeg"/>' +
+    '<description>Brief du 2026-10-01. A · B\n\nAu sommaire :\n• A\n• B</description>' +
+    '<lora:topics>{pas du json</lora:topics></item></channel></rss>';
+  assert.deepEqual(latestEpisode(xml)?.topics, [{ title: 'A' }, { title: 'B' }]);
 });

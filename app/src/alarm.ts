@@ -65,13 +65,18 @@ export async function cancelWakeUp(): Promise<void> {
   removeJson(SAVED_ALARM_KEY);
 }
 
-export function scheduleTest(): Promise<boolean> {
+function scheduleOnce(delaySeconds: number): Promise<boolean> {
   return AlarmKit.scheduleAlarm({
     id: AlarmKit.generateUUID(),
-    epochSeconds: Math.ceil(Date.now() / 1000) + TEST_DELAY_SECONDS,
+    epochSeconds: Math.ceil(Date.now() / 1000) + delaySeconds,
     ...commonOptions,
   });
 }
+
+export const scheduleTest = () => scheduleOnce(TEST_DELAY_SECONDS);
+
+/** « Répéter » de l'écran Réveil : une sonnerie ponctuelle, sans toucher au réveil. */
+export const scheduleSnooze = (minutes: number) => scheduleOnce(minutes * 60);
 
 /** Alarmes encore connues d'expo-alarm-kit (les ponctuelles pas encore arrêtées). */
 export function pendingAlarmIds(): string[] {

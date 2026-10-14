@@ -12,7 +12,11 @@ export declare const DEFAULT_ALARM: { hour: number; minute: number; weekdays: nu
 export declare const CACHE_KEEP_EPISODES: number;
 export declare const ALARM_STEP_MINUTES: number;
 export declare const DEFAULT_PLAYBACK: { autoplayAfterAlarm: boolean; downloadOnCellular: boolean };
+export declare const SNOOZE_MINUTES: number;
+export declare const WAKE_SCREEN_MINUTES: number;
+export declare const DEFAULT_DISPLAY: { animations: boolean };
 export declare const HISTORY_DAYS: number;
 export declare const SKIP_SECONDS: number;
-export declare const TOPICS: string[];
+export declare const CONTACT_EMAIL: string;
+export declare const PLAYBACK_RATES: number[];
 export declare const AI_NOTICE: string;

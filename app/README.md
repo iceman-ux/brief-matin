@@ -4,9 +4,11 @@ Ce dossier remplace, à terme, le montage Pocket Casts + raccourci +
 automatisation. Le pipeline de la nuit ne change pas : l'app lit le flux
 `https://iceman-ux.github.io/brief-matin/feed.xml`.
 
-Quatre écrans, d'après les maquettes validées : Bienvenue (premier
-lancement seulement), Accueil, Lecture, Réglages. On peut les voir et les
-manipuler dans un navigateur, sans iPhone ni compte Apple.
+Cinq écrans, d'après les maquettes V11 validées (objet lecteur chromé, écran
+LCD vert, carte du pays du sujet) : Bienvenue (premier lancement seulement),
+Réveil (ouverture par l'alarme), Accueil (avec la fiche zone et les briefs
+précédents), Lecteur, Réglages. On peut les voir et les manipuler dans un
+navigateur, sans iPhone ni compte Apple.
 
 ## Voir l'app dans le navigateur
 
@@ -36,9 +38,9 @@ pour l'installation.
    `http://localhost:8081`. S'il ne s'ouvre pas, taper `w` dans PowerShell,
    ou ouvrir cette adresse à la main.
 
-**Ce qui doit s'afficher** : l'écran Bienvenue (soleil, « Lora », heure et
-jours). « Activer mon réveil » mène à l'Accueil, avec le vrai épisode du
-jour tiré du flux ; « Écouter Lora » le joue pour de vrai. Pour voir l'app
+**Ce qui doit s'afficher** : l'écran Bienvenue (globe, « LORA », heure et
+jours). « Activer le réveil » mène à l'Accueil, avec le vrai épisode du
+jour tiré du flux ; le bouton play le joue pour de vrai. Pour voir l'app
 à la taille d'un iPhone : F12, puis l'icône téléphone (Ctrl+Maj+M), et
 choisir un iPhone.
 
@@ -50,6 +52,22 @@ choisir un iPhone.
   clés `lora:…`, puis recharger la page.
 - **Une modification du code** se voit tout de suite, sans relancer.
 
+**Choisir l'écran, le skin, la démonstration** (aperçu web seulement, rien
+de tout ça n'existe sur iPhone), en ajoutant à l'adresse :
+
+| Paramètre | Effet |
+| --- | --- |
+| `?ecran=reveil` | ouvre un écran : `bienvenue`, `reveil`, `accueil`, `lecteur`, `reglages` |
+| `?demo=1` | jeu de démonstration (brief du 11/10 avec lieux, débuts et courbes posés à la main), avec la mention « Données de démonstration » |
+| `?skin=casio` | skin : `chrome`, `casio`, `ambre`, `papier` |
+| `?sujet=2` | sujet choisi sur l'Accueil |
+| `?fiche=2` | fiche zone ouverte sur ce sujet |
+| `?lecture=58` | lance la lecture à 58 s |
+
+Exemple : `http://localhost:8081/?ecran=accueil&demo=1&lecture=58`. Sans
+`?demo=1`, l'app n'affiche que ce que le flux donne vraiment : aujourd'hui
+les titres, sans carte ni débuts de sujet.
+
 **Arrêter** : Ctrl+C dans PowerShell (répondre `O` si Windows demande de
 terminer le traitement), puis fermer l'onglet. Pour revenir au pipeline :
 `cd ..` puis `git checkout main`.
@@ -58,15 +76,30 @@ terminer le traitement), puis fermer l'onglet. Pour revenir au pipeline :
 
 - **Alarme** : une vraie alarme iOS (AlarmKit, iOS 26.1 au minimum), qui
   sonne avec le sonal de Lora même si l'app est fermée ou le téléphone en
-  silencieux. Heure par pas de 15 min et jours, choisis dans Bienvenue puis
+  silencieux. Heure par pas de 5 min et jours, choisis dans Bienvenue puis
   dans Réglages (l'alarme est reprogrammée à chaque changement). Accès
-  caché à l'alarme de test : appui long sur « Lora », en bas des Réglages.
-- **Lancement du brief** : le bouton d'arrêt de l'alarme ouvre l'app, qui
-  lance l'épisode du jour tout de suite (réglage « Lancer Lora après
-  l'alarme »).
-- **Accroche et sommaire** : tirés de la description de chaque épisode du
-  flux. L'accroche est le premier titre du jour ; le sommaire, les lignes
-  « Au sommaire ».
+  caché : appui long sur « LORA », en bas des Réglages (alarme de test dans
+  1 min, et les skins casio, ambre, papier, pas encore proposés).
+- **Écran Réveil** : le bouton d'arrêt de l'alarme ouvre l'app sur l'écran
+  Réveil, comme une ouverture dans les 10 min qui suivent une sonnerie. Si
+  « Lecture auto au réveil » est actif, le brief démarre aussitôt. Le gros
+  bouton ouvre le Lecteur (et lance le brief s'il ne joue pas encore) ;
+  « Répéter » programme une sonnerie ponctuelle dans 9 min ; « Arrêter »
+  coupe le son et mène à l'Accueil.
+- **Sujets** : tirés de la description de chaque épisode (lignes « Au
+  sommaire »). Le modèle `Topic` (`src/topics.ts`) prévoit aussi le début
+  dans l'audio, le lieu, les sources, la courbe sur 7 jours et les sujets
+  liés : le flux pourra les donner dans un élément `<lora:topics>` (tableau
+  JSON). **Une donnée absente fait disparaître ce qui l'affiche** : sans
+  lieu, pas de carte ni de fiche, et les boutons de sujet disent « Sujet 1 » ;
+  sans débuts, pas de repères sur la barre, pas de « Écouter ce sujet », ni
+  de boutons sujet précédent / suivant.
+- **Skins** : couleurs et matières dans `src/skins/`, jamais dans les
+  écrans. Seul `chrome` est proposé ; un skin ne change ni la mise en page,
+  ni les tailles, ni les polices.
+- **Animations** (spectre, point de la carte, globe, halo du réveil) :
+  coupées par le réglage « Animations » ou par « Réduire les animations »
+  d'iOS.
 - **Épisode** : à chaque ouverture, l'app lit le flux, prend l'épisode le
   plus récent et le télécharge dans le cache (les deux derniers sont
   gardés). Tant qu'il n'est pas téléchargé, il est lu en direct, en Wi-Fi
@@ -81,22 +114,31 @@ terminer le traitement), puis fermer l'onglet. Pour revenir au pipeline :
 
 | Fichier | Rôle |
 | --- | --- |
-| `constants.js` | Tous les réglages : identifiant de l'app, App Group, adresse du flux, son d'alarme, réveil par défaut, pas de l'heure, mention IA |
+| `constants.js` | Tous les réglages : identifiant de l'app, App Group, adresse du flux, son d'alarme, réveil par défaut, pas de l'heure, répétition, vitesses, mention IA |
 | `app.config.ts` | Configuration Expo, construite à partir de `constants.js` |
 | `plugins/with-lora-alarm.js` | Réglages natifs d'AlarmKit, à la place de Xcode : clé Info.plist, App Group, sonal |
-| `src/theme.ts` | **Toute l'apparence** : couleurs, polices, tailles, espacements, arrondis |
-| `src/Illustration.tsx` | L'illustration (soleil Art déco), seul fichier à remplacer pour en changer |
-| `src/screens/` | Les quatre écrans ; aucune couleur ni police en dur |
-| `src/ui.tsx`, `src/icons.tsx` | Éléments communs (boutons, heure, jours) et icônes |
+| `src/skins/` | **Couleurs et matières** : un fichier par skin, `types.ts` (les clés), `gradient.ts` (dégradés CSS → React Native) |
+| `src/theme.ts` | Ce qui ne change pas d'un skin à l'autre : polices, tailles, espacements, rayons |
+| `src/components/` | Objet lecteur, bouton play, spectre, barre de progression, carte, boutons de sujet, feuille, interrupteur, globe, fiche zone |
+| `src/screens/` | Les cinq écrans ; aucune couleur en dur |
+| `src/ui.tsx`, `src/icons.tsx` | Éléments communs (étiquettes, LCD, logo, boutons, heure, jours) et icônes |
 | `src/episodes.ts` | Lecture du flux ; un épisode est une **liste de pistes** |
-| `src/schedule.ts` | Prochain réveil, libellés de jours et de durées en français |
-| `src/settings.ts`, `src/storage.ts` | Réglages gardés entre deux lancements |
+| `src/topics.ts` | Modèle `Topic`, lecture tolérante, sujet en cours, heure locale |
+| `src/geo.ts` | Carte du pays (Natural Earth 1:50m, `world-atlas`, 756 Ko) et globe, projetés par `d3-geo` |
+| `src/motion.tsx` | Animations permises ou non (réglage et « Réduire les animations ») |
+| `src/schedule.ts` | Prochain et dernier réveil, libellés de jours, dates et durées en français |
+| `src/settings.ts`, `src/storage.ts` | Réglages gardés entre deux lancements (dont skin et animations) |
 | `src/library.ts` | Cache des mp3, dernier épisode connu |
-| `src/alarm.ts` | Programmation des alarmes, détection du lancement par l'alarme |
+| `src/alarm.ts` | Programmation des alarmes (réveil, test, répétition), détection du lancement par l'alarme |
+| `src/preview.web.ts`, `src/demo.ts` | Aperçu web : paramètres d'adresse et jeu de démonstration, absents de l'app iPhone |
 | `*.web.ts` | Remplaçants pour le navigateur : alarme simulée, pas de cache, localStorage |
-| `App.tsx` | Navigation entre les écrans, lecteur, flux |
+| `App.tsx` | Navigation entre les écrans, lecteur, flux, écran Réveil |
 | `eas.json` | Profils de compilation dans le cloud |
-| `tests/` | Tests du parseur (sur une copie du flux du 02/10), du prochain réveil et du sonal |
+| `tests/` | Tests du parseur (sur une copie du flux du 02/10), des sujets, des dates et du sonal |
+
+Polices : Schibsted Grotesk (texte), Geist Mono (étiquettes, données),
+Michroma (logo), DSEG7 Classic Bold (chiffres LCD, paquet npm `dseg`,
+licence OFL).
 
 Le sonal n'est pas recopié dans ce dossier : le plugin le prend dans
 `assets/brand/sonal.wav` à chaque compilation et vérifie qu'iOS l'acceptera
@@ -134,14 +176,16 @@ Plus tard :
 1. Appui long sur « Lora » en bas des Réglages (alarme de test dans 1 min),
    accepter l'autorisation, verrouiller le téléphone.
 2. L'alarme doit sonner avec le sonal (pas le son par défaut).
-3. L'arrêter : l'app s'ouvre (après déverrouillage) et lit l'épisode.
+3. L'arrêter : l'app s'ouvre (après déverrouillage) sur l'écran Réveil et
+   lit l'épisode si « Lecture auto au réveil » est actif. Essayer aussi
+   « Répéter · 9 min ».
 4. Recommencer app fermée (balayée), puis app en arrière-plan.
 5. Couper le Wi-Fi, vider l'app, relancer : lecture en direct en 4G.
 
 ## Vérifications sans Mac
 
 ```bash
-npm test                          # parseur du flux, prochain réveil, sonal
+npm test                          # parseur du flux, sujets, dates, sonal
 npx tsc --noEmit                  # types
 npx expo-doctor                   # dépendances et configuration
 npx expo export --platform web    # l'aperçu web se construit
