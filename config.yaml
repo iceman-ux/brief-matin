@@ -46,15 +46,17 @@ onboarding:
   # celui du raccourci partagé, pas celui du podcast. À changer avec
   # shortcut_url, si un raccourci renommé est repartagé.
   shortcut_name: "Lora"
-  # Textes de l'affiche en tête de la page d'installation : surtitre au-dessus
-  # du nom (brand.name), accroche en italique en dessous.
+  # Textes de la page d'installation (docs/installer.html) : étiquette en
+  # haut à droite, titre, présentation, et description pour les aperçus de
+  # lien (og:description). L'heure affichée sur l'écran LCD de l'en-tête est
+  # un décor : celle d'un réveil type.
   kicker: "Le brief du matin"
-  tagline: "l'essentiel du jour, avant l'aube"
-  # Phrase sous la formule d'ouverture, suivie de listen_prompt quand un
-  # épisode est publié (le lecteur apparaît alors), sinon de install_prompt.
-  pitch: "3 minutes d'actu, lancées par ton réveil."
-  listen_prompt: "Écoute celui d'aujourd'hui :"
-  install_prompt: "Un geste pour l'installer."
+  headline: "Le monde en 3 minutes, au réveil."
+  pitch: >-
+    Chaque matin, un brief audio de l'actu se lance quand ton réveil sonne.
+    Deux voix, l'essentiel, et les sources de chaque sujet.
+  page_description: "Chaque matin, un brief audio de l'actu lancé par ton réveil."
+  display_time: "07:00"
   # Appli de podcast que le raccourci utilise, liée depuis l'étape 1 :
   # sans elle, le raccourci n'a rien à ouvrir. Fiche App Store de Pocket Casts.
   player_app_url: "https://apps.apple.com/app/id414834813"
@@ -309,6 +311,37 @@ memory:
   # et a pour consigne de ne pas les rejouer, sauf vrai rebondissement.
   lookback_days: 7
   path: "data/covered.json"
+
+# Données des sujets publiées pour l'app (élément <lora:topics> du flux et
+# docs/episodes.json) et chapitres Podcasting 2.0. Rien n'est inventé : une
+# donnée douteuse ou absente est omise, et l'app masque ce qui l'affiche.
+topics:
+  # Le lieu donné par le modèle est rejeté si le point tombe hors du pays
+  # annoncé, au-delà de cette distance de son tracé (Natural Earth 1:50m,
+  # simplifié : une ville côtière peut tomber juste dehors).
+  place_tolerance_km: 25
+  # Sujets liés : même slug, ou titres qui partagent au moins cette part de
+  # mots, dans les épisodes des related_days jours précédents.
+  related_days: 7
+  related_title_overlap: 0.5
+  # Débuts de sujet. L'audio est synthétisé d'un seul tenant (voir
+  # audio.max_words_per_chunk) : on cale chaque début sur une vraie pause de
+  # la voix, la plus proche de sa place attendue au prorata des caractères.
+  # Pause : au moins min_pause_ms sous pause_threshold_db (dBFS, fenêtres de
+  # 10 ms). Si un début n'a pas de pause à moins de max_snap_s, aucun début
+  # n'est publié pour l'épisode.
+  pause_threshold_db: -40
+  min_pause_ms: 250
+  max_snap_s: 4
+  # Chapitres Podcasting 2.0 (Pocket Casts les affiche), un fichier JSON par
+  # épisode dans docs/<chapters_dir>/. Avant le premier sujet, un chapitre
+  # intro_chapter couvre l'ouverture.
+  chapters_dir: "chapters"
+  intro_chapter: "Ouverture"
+  # Espace de noms XML de <lora:topics>. Il ne se résout pas : c'est un
+  # identifiant. Ne pas le changer, l'app ne le vérifie pas mais d'autres
+  # lecteurs pourraient.
+  namespace: "https://iceman-ux.github.io/brief-matin/ns/lora"
 
 # Garde-fou de fidélité aux sources, entre la rédaction et la synthèse. Il
 # ne bloque JAMAIS l'épisode : une panne, une API saturée ou une réponse

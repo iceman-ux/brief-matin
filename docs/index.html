@@ -2,61 +2,123 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Lora</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0A0B0F">
+<title>Lora — épisodes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&amp;family=Geist+Mono:wght@400;500&amp;family=Michroma&amp;display=swap">
 <style>
-  :root { color-scheme: light dark; --bg:#fbfbfa; --fg:#1a1a18; --mut:#6b6b66; --line:#e4e4e0; --acc:#b4541f; }
-  @media (prefers-color-scheme: dark) {
-    :root { --bg:#16161a; --fg:#ececeb; --mut:#93938d; --line:#2c2c31; --acc:#e08a52; }
+  @font-face { font-family: "DSEG7"; src: url("dseg7-bold.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+  :root {
+    color-scheme: dark;
+    --bg:#0A0B0F; --surface:#111318; --surface2:#1B1E25; --text:#EEF0F4; --text2:#A3AAB6; --text3:#8A919E; --text4:#7A818E;
+    --line:rgba(255,255,255,.07); --line2:rgba(255,255,255,.14); --ghost:rgba(255,255,255,.045);
+    --accent:#FF6A13; --accentGlow:rgba(255,106,19,.45); --onKnob:#141822; --lcd:#39FF6A; --lcdGlow:rgba(57,255,106,.55);
+    --glass:linear-gradient(180deg,#06080B 0%,#0B0E12 100%); --track:rgba(255,255,255,.1);
+    --rim:linear-gradient(180deg,#F4F6F9 0%,#A3ABB8 30%,#3E4450 52%,#8E96A4 75%,#D6DAE1 100%);
+    --knob:radial-gradient(circle at 34% 28%,#FFFFFF 0%,#D9DEE6 26%,#9098A8 62%,#4B5262 100%);
+    --brand:linear-gradient(180deg,#FFFFFF 0%,#DCE1E9 42%,#7A8394 56%,#EEF1F5 100%);
+    --t1:#F5C542; --t2:#FF6B9A; --t3:#A98BFF; --t4:#5CC8FF; --t5:#3DD6C6; --t6:#E2C9A4;
+    --ui:"Schibsted Grotesk", -apple-system, system-ui, sans-serif; --mono:"Geist Mono", ui-monospace, monospace;
   }
   * { box-sizing: border-box; }
-  body { margin:0; background:var(--bg); color:var(--fg); padding:48px 16px;
-         font:16px/1.6 ui-sans-serif,-apple-system,"Segoe UI",system-ui,sans-serif; }
-  main { max-width: 620px; margin: 0 auto; }
-  h1 { font-size: 1.7rem; margin: 0 0 4px; letter-spacing: -.02em; }
-  p.sub { color: var(--mut); margin: 0 0 32px; }
-  .feed { border:1px solid var(--line); border-radius:10px; padding:16px; margin-bottom:36px; }
-  .feed b { display:block; font-size:.78rem; text-transform:uppercase;
-             letter-spacing:.07em; color:var(--mut); margin-bottom:8px; }
-  code { display:block; word-break:break-all; font-size:.86rem;
-          background:transparent; color:var(--acc); }
-  ul { list-style:none; padding:0; margin:0; }
-  li { padding:10px 0; border-bottom:1px solid var(--line); display:flex;
-        gap:12px; align-items:baseline; flex-wrap:wrap; }
-  .d { color:var(--mut); font-variant-numeric:tabular-nums; font-size:.85rem; min-width:88px; }
-  .m { color:var(--mut); font-size:.85rem; margin-left:auto; }
-  a { color:inherit; text-decoration:none; border-bottom:1px solid var(--line); }
-  a:hover { border-color:var(--acc); }
+  html { background: var(--bg); }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 400 16px/1.5 var(--ui); -webkit-font-smoothing: antialiased;
+         padding: max(28px, env(safe-area-inset-top)) 0 max(40px, env(safe-area-inset-bottom)); }
+  a { color: inherit; }
+  .wrap { max-width: 480px; margin: 0 auto; padding: 0 20px; }
+  .label { font: 500 12px/1.3 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--text3); margin: 0; }
+  .brand { font-family: Michroma, sans-serif; letter-spacing: .28em; line-height: 1; background: var(--brand);
+           -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .rim { padding: 1.5px; border-radius: 24px; background: var(--rim); box-shadow: 0 18px 40px rgba(0,0,0,.55); }
+  .glass { border-radius: 22.5px; background: var(--glass); box-shadow: inset 0 1px 0 rgba(255,255,255,.07), inset 0 12px 30px rgba(0,0,0,.7); }
+  .lcd { font-family: "DSEG7", var(--mono); font-weight: 700; color: var(--lcd); text-shadow: 0 0 8px var(--lcdGlow); line-height: 1; }
+  [hidden] { display: none !important; }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+  header { display: flex; justify-content: space-between; align-items: center; height: 40px; }
+  header .brand { font-size: 16px; }
+  section { margin-top: 48px; }
+  .head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px; }
+  .btn { display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 56px; margin-top: 16px; border-radius: 28px;
+         font: 700 17px/1.2 var(--ui); text-decoration: none; cursor: pointer; border: 0; }
+  .btn:active { transform: scale(.97); }
+  .btn.primary { background: var(--accent); color: #140A04; box-shadow: 0 10px 30px rgba(255,106,19,.35), inset 0 1px 0 rgba(255,255,255,.35); }
+  .btn.ghost { background: var(--ghost); color: var(--text); border: 1px solid var(--line2); min-height: 52px; font-size: 16px; }
+  .btn.off { background: transparent; color: var(--text3); border: 1px solid var(--line2); cursor: default; }
+  .copie { display: flex; gap: 8px; }
+  .copie code { flex: 1; min-width: 0; padding: 12px; border-radius: 12px; font: 400 12px/1.4 var(--mono); word-break: break-all;
+                color: var(--text2); background: #07090C; border: 1px solid var(--line); }
+  .copie button { flex: none; min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid var(--line2); background: var(--ghost);
+                  color: var(--text); font: 600 14px var(--ui); cursor: pointer; }
+  footer { margin-top: 56px; text-align: center; }
+  .ia { margin: 14px auto 0; max-width: 26em; font-size: 13px; color: var(--text4); }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+  h1 { margin: 32px 0 0; font: 800 38px/1.02 var(--ui); letter-spacing: -.025em; }
+  .sub { margin: 12px 0 0; color: var(--text2); }
+  ul { list-style: none; margin: 0; padding: 0 20px; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; }
+  li { display: flex; align-items: baseline; gap: 12px; min-height: 52px; padding: 14px 0; border-top: 1px solid var(--line); }
+  li:first-child { border-top: 0; }
+  .d { flex: none; width: 92px; font: 400 12px var(--mono); color: var(--text3); text-transform: uppercase; }
+  .t { flex: 1; text-decoration: none; font-size: 15px; }
+  .t:hover { color: var(--accent); }
+  .m { flex: none; font: 400 12px var(--mono); color: var(--text4); }
+  .vide { color: var(--text3); }
+  .install { margin-top: 24px; }
 </style>
 </head>
 <body>
-  <main>
-    <h1>Lora</h1>
-    <p class="sub">L'essentiel de l'actu, chaque matin</p>
-    <div class="feed">
-      <b>Flux à coller dans Pocket Casts ou Overcast</b>
-      <code>https://iceman-ux.github.io/brief-matin/feed.xml</code>
-    </div>
+<div class="wrap">
+  <header>
+    <span class="brand" role="heading" aria-level="1" aria-label="Lora">LORA</span>
+    <p class="label">Le brief du matin</p>
+  </header>
+  <h1>L'essentiel de l'actu, chaque matin</h1>
+  <a class="btn primary install" href="installer.html">Installer Lora sur un téléphone</a>
+
+  <section aria-labelledby="flux">
+    <div class="head"><h2 id="flux" class="label">Adresse du flux</h2></div>
+    <div class="copie"><code id="feed">https://iceman-ux.github.io/brief-matin/feed.xml</code><button type="button" id="copy">Copier</button></div>
+  </section>
+
+  <section aria-labelledby="episodes">
+    <div class="head"><h2 id="episodes" class="label">Épisodes</h2></div>
     <ul>
-      <li><span class="d">2026-10-14</span> <a href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-14.mp3">14/10 — Loi sur les violences sexuelles adoptée</a> <span class="m">3:07</span></li>
-      <li><span class="d">2026-10-13</span> <a href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-13.mp3">13/10 — Tirs dans un collège à Aubagne</a> <span class="m">3:08</span></li>
-      <li><span class="d">2026-10-12</span> <a href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-12.mp3">12/10 — Victoire de Glucksmann à la primaire</a> <span class="m">2:35</span></li>
-      <li><span class="d">2026-10-11</span> <a href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-11.mp3">11/10 — Trump réclame un nouveau président ukrainien</a> <span class="m">3:04</span></li>
-      <li><span class="d">2026-10-10</span> <a href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-10.mp3">10/10 — Accord pétrolier surprise entre Washington et Moscou</a> <span class="m">3:36</span></li>
-      <li><span class="d">2026-10-09</span> <a href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-09.mp3">09/10 — Trump écarte les frappes en Iran</a> <span class="m">3:18</span></li>
-      <li><span class="d">2026-10-08</span> <a href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-08.mp3">08/10 — Baisse annoncée des prix du gazole</a> <span class="m">3:00</span></li>
-      <li><span class="d">2026-10-07</span> <a href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-07.mp3">07/10 — Mobilisation lycéenne et recul du gouvernement</a> <span class="m">3:15</span></li>
-      <li><span class="d">2026-10-06</span> <a href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-06.mp3">06/10 — Paris et Berlin ciblent la Chine</a> <span class="m">3:07</span></li>
-      <li><span class="d">2026-10-05</span> <a href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-05.mp3">05/10 — Bolsonaro devance Lula au premier tour</a> <span class="m">3:19</span></li>
-      <li><span class="d">2026-10-04</span> <a href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-04.mp3">04/10 — Premier tour présidentiel au Brésil</a> <span class="m">3:24</span></li>
-      <li><span class="d">2026-10-03</span> <a href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-03.mp3">03/10 — Le G7 débloque ses réserves pétrolières</a> <span class="m">3:35</span></li>
-      <li><span class="d">2026-10-02</span> <a href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-02.mp3">02/10 — Bardella visé par des révélations</a> <span class="m">3:19</span></li>
-      <li><span class="d">2026-10-01</span> <a href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-01.mp3">01/10 — Budget 2027 : 54 milliards d'efforts</a> <span class="m">3:23</span></li>
-      <li><span class="d">2026-09-30</span> <a href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-09-30.mp3">30/09 — L'inflation remonte à 3 %</a> <span class="m">2:59</span></li>
+      <li><span class="d">Mer. 14 oct.</span><a class="t" href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-14.mp3">14/10 — Loi sur les violences sexuelles adoptée</a><span class="m">3:07</span></li>
+      <li><span class="d">Mar. 13 oct.</span><a class="t" href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-13.mp3">13/10 — Tirs dans un collège à Aubagne</a><span class="m">3:08</span></li>
+      <li><span class="d">Lun. 12 oct.</span><a class="t" href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-12.mp3">12/10 — Victoire de Glucksmann à la primaire</a><span class="m">2:35</span></li>
+      <li><span class="d">Dim. 11 oct.</span><a class="t" href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-11.mp3">11/10 — Trump réclame un nouveau président ukrainien</a><span class="m">3:04</span></li>
+      <li><span class="d">Sam. 10 oct.</span><a class="t" href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-10.mp3">10/10 — Accord pétrolier surprise entre Washington et Moscou</a><span class="m">3:36</span></li>
+      <li><span class="d">Ven. 9 oct.</span><a class="t" href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-09.mp3">09/10 — Trump écarte les frappes en Iran</a><span class="m">3:18</span></li>
+      <li><span class="d">Jeu. 8 oct.</span><a class="t" href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-08.mp3">08/10 — Baisse annoncée des prix du gazole</a><span class="m">3:00</span></li>
+      <li><span class="d">Mer. 7 oct.</span><a class="t" href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-07.mp3">07/10 — Mobilisation lycéenne et recul du gouvernement</a><span class="m">3:15</span></li>
+      <li><span class="d">Mar. 6 oct.</span><a class="t" href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-06.mp3">06/10 — Paris et Berlin ciblent la Chine</a><span class="m">3:07</span></li>
+      <li><span class="d">Lun. 5 oct.</span><a class="t" href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-05.mp3">05/10 — Bolsonaro devance Lula au premier tour</a><span class="m">3:19</span></li>
+      <li><span class="d">Dim. 4 oct.</span><a class="t" href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-04.mp3">04/10 — Premier tour présidentiel au Brésil</a><span class="m">3:24</span></li>
+      <li><span class="d">Sam. 3 oct.</span><a class="t" href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-03.mp3">03/10 — Le G7 débloque ses réserves pétrolières</a><span class="m">3:35</span></li>
+      <li><span class="d">Ven. 2 oct.</span><a class="t" href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-02.mp3">02/10 — Bardella visé par des révélations</a><span class="m">3:19</span></li>
+      <li><span class="d">Jeu. 1 oct.</span><a class="t" href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-01.mp3">01/10 — Budget 2027 : 54 milliards d'efforts</a><span class="m">3:23</span></li>
+      <li><span class="d">Mer. 30 sep.</span><a class="t" href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-09-30.mp3">30/09 — L'inflation remonte à 3 %</a><span class="m">2:59</span></li>
     </ul>
-    <p class="sub" style="margin-top:28px;font-size:.85rem">
-      <a href="installer.html">Installer le brief sur un téléphone</a>
-    </p>
-  </main>
+  </section>
+
+  <footer><p class="ia">Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</p></footer>
+</div>
+<script>
+  (function () {
+    var btn = document.getElementById("copy"), box = document.getElementById("feed");
+    if (!btn || !box) return;
+    btn.addEventListener("click", function () {
+      function done() { btn.textContent = "Copié"; }
+      function select() {
+        var r = document.createRange(); r.selectNodeContents(box);
+        var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+        try { if (document.execCommand("copy")) done(); } catch (e) {}
+      }
+      if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(box.textContent).then(done, select); else select();
+    });
+  })();
+</script>
 </body>
 </html>

@@ -12,6 +12,7 @@ from pathlib import Path
 from xml.sax.saxutils import escape
 
 from . import release as release_mod
+from . import topics as topics_mod
 from .config import ROOT, Config
 
 DOCS = ROOT / "docs"
@@ -19,7 +20,7 @@ EPISODES_DIR = DOCS / "episodes"
 INDEX = DOCS / "episodes.json"
 
 
-def _load_index() -> list[dict]:
+def load_index() -> list[dict]:
     if not INDEX.exists():
         return []
     try:
@@ -35,7 +36,7 @@ def _save_index(episodes: list[dict]) -> None:
 
 
 def find_episode(date: str) -> dict | None:
-    return next((e for e in _load_index() if e["date"] == date), None)
+    return next((e for e in load_index() if e["date"] == date), None)
 
 
 def episode_url(cfg: Config, filename: str) -> str:
@@ -66,10 +67,11 @@ def publish_audio(cfg: Config, mp3_path: Path) -> tuple[str, str]:
 
 def register_episode(cfg: Config, *, date: str, filename: str, url: str,
                      storage: str, title: str, summary: str, duration: int,
-                     size: int, topics: list[dict]) -> list[dict]:
+                     size: int, topics: list[dict],
+                     hook: str = "") -> list[dict]:
     """Ajoute (ou remplace) l'épisode du jour, applique la rétention."""
-    episodes = [e for e in _load_index() if e["date"] != date]
-    episodes.append({
+    episodes = [e for e in load_index() if e["date"] != date]
+    entry = {
         "date": date,
         "filename": filename,
         # Mémorisée à la publication : le flux ne la recalcule pas, sinon
@@ -82,7 +84,12 @@ def register_episode(cfg: Config, *, date: str, filename: str, url: str,
         "size": size,
         "topics": topics,
         "pub_date": datetime.now(timezone.utc).isoformat(),
-    })
+    }
+    # L'accroche dite par Marc : absente des épisodes d'avant, et des runs
+    # qui n'en ont pas, plutôt que vide.
+    if hook:
+        entry["hook"] = hook
+    episodes.append(entry)
     episodes.sort(key=lambda e: e["date"], reverse=True)
 
     # Coupe à la date, pas au nombre d'épisodes : avec des runs sautés, les
@@ -138,8 +145,56 @@ def _pub_datetime(episode: dict) -> datetime:
             tzinfo=timezone.utc)
 
 
+def _cdata(text: str) -> str:
+    # « ]]> » fermerait la section : on la coupe en deux.
+    return "<![CDATA[" + text.replace("]]>", "]]]]><![CDATA[>") + "]]>"
+
+
+def chapters_url(cfg: Config, date: str) -> str:
+    return f"{cfg.base_url}/{cfg.raw['topics']['chapters_dir']}/brief-{date}.json"
+
+
+def _write_chapters(cfg: Config, episodes: list[dict]) -> set[str]:
+    """Un fichier de chapitres par épisode dont tous les débuts sont connus ;
+    les fichiers d'épisodes retirés du flux sont effacés. Renvoie les dates
+    qui ont des chapitres."""
+    folder = DOCS / cfg.raw["topics"]["chapters_dir"]
+    written = set()
+    for ep in episodes:
+        doc = topics_mod.chapters(cfg, ep.get("topics") or [])
+        if doc is None:
+            continue
+        folder.mkdir(parents=True, exist_ok=True)
+        (folder / f"brief-{ep['date']}.json").write_text(
+            json.dumps(doc, ensure_ascii=False, indent=2), encoding="utf-8")
+        written.add(ep["date"])
+    if folder.exists():
+        for old in folder.glob("brief-*.json"):
+            if old.stem.removeprefix("brief-") not in written:
+                old.unlink()
+    return written
+
+
+def item_extensions(cfg: Config, ep: dict, has_chapters: bool) -> str:
+    """Éléments ajoutés à un <item> : accroche, chapitres, sujets pour l'app."""
+    extra = ""
+    if ep.get("hook"):
+        extra += f"\n      <itunes:subtitle>{escape(ep['hook'])}</itunes:subtitle>"
+    if has_chapters:
+        extra += (f'\n      <podcast:chapters url="{escape(chapters_url(cfg, ep["date"]))}"'
+                  ' type="application/json+chapters"/>')
+    # Sujets détaillés pour l'app (app/src/topics.ts), en JSON.
+    app_topics = topics_mod.app_topics(ep.get("topics") or [])
+    if app_topics:
+        extra += ("\n      <lora:topics>"
+                  + _cdata(json.dumps(app_topics, ensure_ascii=False))
+                  + "</lora:topics>")
+    return extra
+
+
 def build_feed(cfg: Config, episodes: list[dict] | None = None) -> Path:
-    episodes = episodes if episodes is not None else _load_index()
+    episodes = episodes if episodes is not None else load_index()
+    with_chapters = _write_chapters(cfg, episodes)
     pod = cfg.podcast
     base = cfg.base_url
     disclosure = (pod.get("ai_disclosure") or "").strip()
@@ -156,11 +211,12 @@ def build_feed(cfg: Config, episodes: list[dict] | None = None) -> Path:
             notes = f"{notes}\n\nAu sommaire :\n{lines}"
         if disclosure:
             notes = f"{notes}\n\n{disclosure}"
+        extra = item_extensions(cfg, ep, ep["date"] in with_chapters)
         # Le préfixe du guid reste « brief-matin » malgré le nom Lora : le
         # changer ferait réapparaître tous les épisodes comme nouveaux.
         items.append(f"""    <item>
       <title>{escape(ep['title'])}</title>
-      <description>{escape(notes)}</description>
+      <description>{escape(notes)}</description>{extra}
       <itunes:summary>{escape(notes)}</itunes:summary>
       <pubDate>{format_datetime(_pub_datetime(ep))}</pubDate>
       <guid isPermaLink="false">brief-matin-{ep['date']}</guid>
@@ -191,7 +247,9 @@ def build_feed(cfg: Config, episodes: list[dict] | None = None) -> Path:
 <rss version="2.0"
      xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
      xmlns:atom="http://www.w3.org/2005/Atom"
-     xmlns:content="http://purl.org/rss/1.0/modules/content/">
+     xmlns:content="http://purl.org/rss/1.0/modules/content/"
+     xmlns:podcast="https://podcastindex.org/namespace/1.0"
+     xmlns:lora="{escape(cfg.raw['topics']['namespace'])}">
   <channel>
     <title>{escape(pod['title'])}</title>
     <link>{escape(base)}</link>
@@ -221,63 +279,166 @@ def build_feed(cfg: Config, episodes: list[dict] | None = None) -> Path:
     return out
 
 
+def _short_date(day: str) -> str:
+    """« Lun. 12 oct. », comme l'écran Réveil de l'app."""
+    from .brand import JOURS, MOIS
+
+    d = datetime.strptime(day, "%Y-%m-%d")
+    month = MOIS[d.month]
+    month = month if len(month) <= 4 else f"{month[:3]}."
+    return f"{JOURS[d.weekday()][:3].capitalize()}. {d.day} {month}"
+
+
+def _minutes(seconds: int) -> str:
+    """« 3 min 04 »."""
+    m, s = divmod(max(int(seconds), 0), 60)
+    return f"{m} min {s:02d}"
+
+
+def _sources_label(topic: dict) -> str:
+    count = len(topic.get("sources") or [])
+    if not count:
+        return ""
+    return f"{count} source{'s' if count > 1 else ''}"
+
+
+# Feuille de style commune aux deux pages : direction artistique V11 de
+# l'app, skin chrome (app/src/skins/chrome.ts). Les teintes --t1 à --t6
+# sont celles des sujets, dans l'ordre.
+V11_CSS = """
+  @font-face { font-family: "DSEG7"; src: url("dseg7-bold.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+  :root {
+    color-scheme: dark;
+    --bg:#0A0B0F; --surface:#111318; --surface2:#1B1E25; --text:#EEF0F4; --text2:#A3AAB6; --text3:#8A919E; --text4:#7A818E;
+    --line:rgba(255,255,255,.07); --line2:rgba(255,255,255,.14); --ghost:rgba(255,255,255,.045);
+    --accent:#FF6A13; --accentGlow:rgba(255,106,19,.45); --onKnob:#141822; --lcd:#39FF6A; --lcdGlow:rgba(57,255,106,.55);
+    --glass:linear-gradient(180deg,#06080B 0%,#0B0E12 100%); --track:rgba(255,255,255,.1);
+    --rim:linear-gradient(180deg,#F4F6F9 0%,#A3ABB8 30%,#3E4450 52%,#8E96A4 75%,#D6DAE1 100%);
+    --knob:radial-gradient(circle at 34% 28%,#FFFFFF 0%,#D9DEE6 26%,#9098A8 62%,#4B5262 100%);
+    --brand:linear-gradient(180deg,#FFFFFF 0%,#DCE1E9 42%,#7A8394 56%,#EEF1F5 100%);
+    --t1:#F5C542; --t2:#FF6B9A; --t3:#A98BFF; --t4:#5CC8FF; --t5:#3DD6C6; --t6:#E2C9A4;
+    --ui:"Schibsted Grotesk", -apple-system, system-ui, sans-serif; --mono:"Geist Mono", ui-monospace, monospace;
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--bg); }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 400 16px/1.5 var(--ui); -webkit-font-smoothing: antialiased;
+         padding: max(28px, env(safe-area-inset-top)) 0 max(40px, env(safe-area-inset-bottom)); }
+  a { color: inherit; }
+  .wrap { max-width: 480px; margin: 0 auto; padding: 0 20px; }
+  .label { font: 500 12px/1.3 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--text3); margin: 0; }
+  .brand { font-family: Michroma, sans-serif; letter-spacing: .28em; line-height: 1; background: var(--brand);
+           -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .rim { padding: 1.5px; border-radius: 24px; background: var(--rim); box-shadow: 0 18px 40px rgba(0,0,0,.55); }
+  .glass { border-radius: 22.5px; background: var(--glass); box-shadow: inset 0 1px 0 rgba(255,255,255,.07), inset 0 12px 30px rgba(0,0,0,.7); }
+  .lcd { font-family: "DSEG7", var(--mono); font-weight: 700; color: var(--lcd); text-shadow: 0 0 8px var(--lcdGlow); line-height: 1; }
+  [hidden] { display: none !important; }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+  header { display: flex; justify-content: space-between; align-items: center; height: 40px; }
+  header .brand { font-size: 16px; }
+  section { margin-top: 48px; }
+  .head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px; }
+  .btn { display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 56px; margin-top: 16px; border-radius: 28px;
+         font: 700 17px/1.2 var(--ui); text-decoration: none; cursor: pointer; border: 0; }
+  .btn:active { transform: scale(.97); }
+  .btn.primary { background: var(--accent); color: #140A04; box-shadow: 0 10px 30px rgba(255,106,19,.35), inset 0 1px 0 rgba(255,255,255,.35); }
+  .btn.ghost { background: var(--ghost); color: var(--text); border: 1px solid var(--line2); min-height: 52px; font-size: 16px; }
+  .btn.off { background: transparent; color: var(--text3); border: 1px solid var(--line2); cursor: default; }
+  .copie { display: flex; gap: 8px; }
+  .copie code { flex: 1; min-width: 0; padding: 12px; border-radius: 12px; font: 400 12px/1.4 var(--mono); word-break: break-all;
+                color: var(--text2); background: #07090C; border: 1px solid var(--line); }
+  .copie button { flex: none; min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid var(--line2); background: var(--ghost);
+                  color: var(--text); font: 600 14px var(--ui); cursor: pointer; }
+  footer { margin-top: 56px; text-align: center; }
+  .ia { margin: 14px auto 0; max-width: 26em; font-size: 13px; color: var(--text4); }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+"""
+
+FONTS_LINK = ('<link rel="preconnect" href="https://fonts.googleapis.com">\n'
+              '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
+              '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?'
+              'family=Schibsted+Grotesk:wght@400;500;600;700;800'
+              '&amp;family=Geist+Mono:wght@400;500&amp;family=Michroma&amp;display=swap">')
+
+# Copie du presse-papiers, partagée par les deux pages. Refusée, le lien
+# reste au moins sélectionné, prêt à copier à la main.
+COPY_JS = """
+  (function () {
+    var btn = document.getElementById("copy"), box = document.getElementById("feed");
+    if (!btn || !box) return;
+    btn.addEventListener("click", function () {
+      function done() { btn.textContent = "Copié"; }
+      function select() {
+        var r = document.createRange(); r.selectNodeContents(box);
+        var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+        try { if (document.execCommand("copy")) done(); } catch (e) {}
+      }
+      if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(box.textContent).then(done, select); else select();
+    });
+  })();
+"""
+
+
+def _attr(value: str) -> str:
+    return escape(value, {'"': "&quot;"})
+
+
 def _write_landing(cfg: Config, episodes: list[dict]) -> None:
-    """Petite page d'accueil : pratique pour copier l'URL du flux sur iPhone."""
+    """Liste des épisodes : pratique pour copier l'URL du flux, ou réécouter."""
     base = cfg.base_url
+    name = cfg.brand["name"]
     rows = "\n".join(
-        f'      <li><span class="d">{e["date"]}</span> '
-        f'<a href="{escape(_audio_url(cfg, e))}">'
-        f'{escape(e["title"])}</a> '
+        f'      <li><span class="d">{escape(_short_date(e["date"]))}</span>'
+        f'<a class="t" href="{_attr(_audio_url(cfg, e))}">{escape(e["title"])}</a>'
         f'<span class="m">{_fmt_duration(e["duration"])}</span></li>'
         for e in episodes[:15]
-    ) or "      <li>Aucun épisode pour l'instant.</li>"
+    ) or '      <li class="vide">Aucun épisode pour l\'instant.</li>'
 
     html = f"""<!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{escape(cfg.podcast['title'])}</title>
-<style>
-  :root {{ color-scheme: light dark; --bg:#fbfbfa; --fg:#1a1a18; --mut:#6b6b66; --line:#e4e4e0; --acc:#b4541f; }}
-  @media (prefers-color-scheme: dark) {{
-    :root {{ --bg:#16161a; --fg:#ececeb; --mut:#93938d; --line:#2c2c31; --acc:#e08a52; }}
-  }}
-  * {{ box-sizing: border-box; }}
-  body {{ margin:0; background:var(--bg); color:var(--fg); padding:48px 16px;
-         font:16px/1.6 ui-sans-serif,-apple-system,"Segoe UI",system-ui,sans-serif; }}
-  main {{ max-width: 620px; margin: 0 auto; }}
-  h1 {{ font-size: 1.7rem; margin: 0 0 4px; letter-spacing: -.02em; }}
-  p.sub {{ color: var(--mut); margin: 0 0 32px; }}
-  .feed {{ border:1px solid var(--line); border-radius:10px; padding:16px; margin-bottom:36px; }}
-  .feed b {{ display:block; font-size:.78rem; text-transform:uppercase;
-             letter-spacing:.07em; color:var(--mut); margin-bottom:8px; }}
-  code {{ display:block; word-break:break-all; font-size:.86rem;
-          background:transparent; color:var(--acc); }}
-  ul {{ list-style:none; padding:0; margin:0; }}
-  li {{ padding:10px 0; border-bottom:1px solid var(--line); display:flex;
-        gap:12px; align-items:baseline; flex-wrap:wrap; }}
-  .d {{ color:var(--mut); font-variant-numeric:tabular-nums; font-size:.85rem; min-width:88px; }}
-  .m {{ color:var(--mut); font-size:.85rem; margin-left:auto; }}
-  a {{ color:inherit; text-decoration:none; border-bottom:1px solid var(--line); }}
-  a:hover {{ border-color:var(--acc); }}
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0A0B0F">
+<title>{escape(cfg.podcast['title'])} — épisodes</title>
+{FONTS_LINK}
+<style>{V11_CSS}
+  h1 {{ margin: 32px 0 0; font: 800 38px/1.02 var(--ui); letter-spacing: -.025em; }}
+  .sub {{ margin: 12px 0 0; color: var(--text2); }}
+  ul {{ list-style: none; margin: 0; padding: 0 20px; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; }}
+  li {{ display: flex; align-items: baseline; gap: 12px; min-height: 52px; padding: 14px 0; border-top: 1px solid var(--line); }}
+  li:first-child {{ border-top: 0; }}
+  .d {{ flex: none; width: 92px; font: 400 12px var(--mono); color: var(--text3); text-transform: uppercase; }}
+  .t {{ flex: 1; text-decoration: none; font-size: 15px; }}
+  .t:hover {{ color: var(--accent); }}
+  .m {{ flex: none; font: 400 12px var(--mono); color: var(--text4); }}
+  .vide {{ color: var(--text3); }}
+  .install {{ margin-top: 24px; }}
 </style>
 </head>
 <body>
-  <main>
-    <h1>{escape(cfg.podcast['title'])}</h1>
-    <p class="sub">{escape(cfg.podcast['subtitle'])}</p>
-    <div class="feed">
-      <b>Flux à coller dans Pocket Casts ou Overcast</b>
-      <code>{escape(base)}/feed.xml</code>
-    </div>
+<div class="wrap">
+  <header>
+    <span class="brand" role="heading" aria-level="1" aria-label="{_attr(name)}">{escape(name.upper())}</span>
+    <p class="label">{escape(cfg.raw['onboarding']['kicker'])}</p>
+  </header>
+  <h1>{escape(cfg.podcast['subtitle'])}</h1>
+  <a class="btn primary install" href="installer.html">Installer {escape(name)} sur un téléphone</a>
+
+  <section aria-labelledby="flux">
+    <div class="head"><h2 id="flux" class="label">Adresse du flux</h2></div>
+    <div class="copie"><code id="feed">{escape(base)}/feed.xml</code><button type="button" id="copy">Copier</button></div>
+  </section>
+
+  <section aria-labelledby="episodes">
+    <div class="head"><h2 id="episodes" class="label">Épisodes</h2></div>
     <ul>
 {rows}
     </ul>
-    <p class="sub" style="margin-top:28px;font-size:.85rem">
-      <a href="installer.html">Installer le brief sur un téléphone</a>
-    </p>
-  </main>
+  </section>
+
+  <footer><p class="ia">{escape((cfg.podcast.get('ai_disclosure') or '').strip())}</p></footer>
+</div>
+<script>{COPY_JS}</script>
 </body>
 </html>
 """
@@ -312,15 +473,67 @@ def subscribe_links(feed_url: str) -> dict[str, str]:
     }
 
 
-# Décor fixe de la page d'installation, servi depuis docs/ : l'affiche (ville
-# à gradins, soleil levant) et le soleil à rayons des intertitres.
-INSTALLER_SCENE = "lora-scene.svg"
-INSTALLER_SYMBOL = "lora-rayons.svg"
+# Teintes des sujets disponibles dans la feuille de style (--t1 à --t6) :
+# au-delà, elles reviennent.
+TOPIC_TINTS = 6
+
+
+def _player(cfg: Config, latest: dict) -> str:
+    """Lecteur du dernier épisode et liste de ses sujets."""
+    topics = "\n".join(
+        f'      <li><span class="dot" style="background:var(--t{i % TOPIC_TINTS + 1})"></span>'
+        f'<span class="t">{escape(t.get("title", ""))}</span>'
+        f'<span class="s">{escape(_sources_label(t))}</span></li>'
+        for i, t in enumerate(latest.get("topics") or []))
+    topics_list = f'\n    <ul class="topics">\n{topics}\n    </ul>' if topics else ""
+    duration = int(latest["duration"])
+    return f"""
+  <section aria-labelledby="ecoute">
+    <div class="head"><h2 id="ecoute" class="label">Le brief d’aujourd’hui</h2><p class="label">{escape(_short_date(latest["date"]))}</p></div>
+    <div class="player rim"><div class="glass">
+      <div class="row">
+        <span class="lcd" id="t">00:00</span>
+        <span class="label" id="reste">{escape(_minutes(duration))}</span>
+        <button class="knob" id="play" type="button" aria-label="Écouter le brief d’aujourd’hui">
+          <svg id="i-play" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="margin-left:3px"><path d="M7 4.5v15l13-7.5z"/></svg>
+          <svg id="i-pause" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" hidden><rect x="6" y="4.5" width="4.2" height="15" rx="1"/><rect x="13.8" y="4.5" width="4.2" height="15" rx="1"/></svg>
+        </button>
+      </div>
+      <div class="bar" id="bar" role="slider" aria-label="Position dans le brief" aria-valuemin="0" aria-valuemax="{duration}" aria-valuenow="0" tabindex="0"><span class="fill" id="fill"></span></div>
+    </div></div>
+    <audio id="audio" preload="none" src="{_attr(_audio_url(cfg, latest))}"></audio>{topics_list}
+  </section>
+  <script>
+  (function () {{
+    var a = document.getElementById("audio"), play = document.getElementById("play"),
+        ip = document.getElementById("i-play"), ipa = document.getElementById("i-pause"),
+        t = document.getElementById("t"), reste = document.getElementById("reste"),
+        fill = document.getElementById("fill"), bar = document.getElementById("bar");
+    var total = {duration};
+    function mmss(s) {{ s = Math.max(0, Math.floor(s)); var m = Math.floor(s / 60), r = s % 60; return (m < 10 ? "0" : "") + m + ":" + (r < 10 ? "0" : "") + r; }}
+    function render() {{
+      var d = a.duration || total, c = a.currentTime || 0;
+      t.textContent = mmss(c); reste.textContent = "-" + mmss(d - c);
+      fill.style.width = (100 * c / d) + "%"; bar.setAttribute("aria-valuenow", Math.floor(c));
+    }}
+    play.addEventListener("click", function () {{ a.paused ? a.play() : a.pause(); }});
+    a.addEventListener("play", function () {{ ip.hidden = true; ipa.hidden = false; play.setAttribute("aria-label", "Pause"); }});
+    a.addEventListener("pause", function () {{ ip.hidden = false; ipa.hidden = true; play.setAttribute("aria-label", "Reprendre le brief"); }});
+    a.addEventListener("timeupdate", render);
+    function seek(x) {{ var r = bar.getBoundingClientRect(); a.currentTime = Math.min(1, Math.max(0, (x - r.left) / r.width)) * (a.duration || total); render(); }}
+    bar.addEventListener("click", function (e) {{ seek(e.clientX); }});
+    bar.addEventListener("keydown", function (e) {{
+      if (e.key === "ArrowRight") {{ a.currentTime += 15; render(); }}
+      if (e.key === "ArrowLeft") {{ a.currentTime -= 15; render(); }}
+    }});
+  }})();
+  </script>"""
 
 
 def _write_installer(cfg: Config, episodes: list[dict]) -> None:
     """Page d'installation : un testeur abonné et réveillé par le brief en
-    moins de deux minutes, sans aide."""
+    moins de deux minutes, sans aide. Sans épisode, pas de lecteur : les
+    étapes seules."""
     base = cfg.base_url
     pod = cfg.podcast
     brand = cfg.brand
@@ -332,17 +545,13 @@ def _write_installer(cfg: Config, episodes: list[dict]) -> None:
     shortcut_name = (onboarding.get("shortcut_name") or "").strip() or pod["title"]
     disclosure = (pod.get("ai_disclosure") or "").strip()
     name = brand["name"]
-    closing_name, closing_wish = brand["closing_display"]
-    signature = (f'{escape(closing_name)}'
-                 '<span class="losange" aria-hidden="true"></span>'
-                 f'{escape(closing_wish)}')
-
-    def attr(value: str) -> str:
-        return escape(value, {'"': "&quot;"})
-
+    headline = onboarding["headline"]
+    page_title = f"{name} — {headline.rstrip('.')[:1].lower()}{headline.rstrip('.')[1:]}"
+    signature = " ".join(brand["closing_display"])
     player_app_url = (onboarding.get("player_app_url") or "").strip()
     video = (onboarding.get("automation_video") or "").strip()
     spotify_url = (onboarding.get("spotify_url") or "").strip()
+    cover = f"{base}/{pod['cover_image']}" if pod.get("cover_image") else ""
 
     # Sur iPhone, le raccourci abonne lui-même : ces boutons ne servent plus
     # qu'aux autres applis et à Android, repliés en bas de page.
@@ -350,230 +559,157 @@ def _write_installer(cfg: Config, episodes: list[dict]) -> None:
     if spotify_url:
         apps["Spotify"] = spotify_url
     buttons = "\n".join(
-        f'        <a class="btn ghost" href="{attr(url)}">{escape(app)}</a>'
+        f'        <a class="btn ghost" href="{_attr(url)}">{escape(app)}</a>'
         for app, url in apps.items())
     if shortcut_url:
-        shortcut = (f'<a class="btn" href="{attr(shortcut_url)}">'
-                    f"Ajouter {escape(name)}</a>")
+        shortcut = f'<a class="btn primary" href="{_attr(shortcut_url)}">Ajouter {escape(name)}</a>'
     else:
-        shortcut = ('<span class="btn off" aria-disabled="true">'
-                    f"Ajouter {escape(name)} — bientôt disponible</span>")
-    if player_app_url:
-        requirement = (f'Il te faut <a href="{attr(player_app_url)}">'
-                       "Pocket Casts</a>, gratuit.")
-    else:
-        requirement = "Il te faut Pocket Casts, gratuit."
-    video_tag = (f'\n      <video playsinline muted controls preload="none" '
-                 f'src="{attr(base + "/" + video.lstrip("/"))}"></video>'
+        shortcut = (f'<span class="btn off" aria-disabled="true">Ajouter '
+                    f'{escape(name)} — bientôt disponible</span>')
+    store = (f'\n        <a class="btn ghost" href="{_attr(player_app_url)}">Ouvrir l’App Store</a>'
+             if player_app_url else "")
+    video_tag = (f'\n        <video playsinline muted controls preload="none" '
+                 f'src="{_attr(base + "/" + video.lstrip("/"))}"></video>'
                  if video else "")
+    og_image = f'\n<meta property="og:image" content="{_attr(cover)}">' if cover else ""
 
     latest = max(episodes, key=lambda e: e["date"]) if episodes else None
-    if latest:
-        note = f'{onboarding["pitch"]} {onboarding["listen_prompt"]}'
-        player = (f'\n      <audio controls preload="none" src="'
-                  f'{attr(_audio_url(cfg, latest))}"></audio>')
-    else:
-        note = f'{onboarding["pitch"]} {onboarding["install_prompt"]}'
-        player = ""
-    footer_note = f"\n    <p>{escape(disclosure)}</p>" if disclosure else ""
+    player = _player(cfg, latest) if latest else ""
+    footer_note = f'\n    <p class="ia">{escape(disclosure)}</p>' if disclosure else ""
 
     html = f"""<!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0B0E2A">
-<title>Installer {escape(name)}</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Limelight&family=Josefin+Sans:wght@400;600;700&family=Bodoni+Moda:ital,opsz,wght@1,6..96,400&display=swap">
-<style>
-  :root {{
-    color-scheme: dark;
-    --nuit: #0B0E2A; --indigo: #1B2466; --ambre: #F2A33A; --laiton: #C9953C; --velours: #8E1426;
-    --ivoire: #EFE8D8; --sourd: #B9B2A2; --panneau: #0e1235;
-    --display: "Limelight", "Didot", Georgia, serif;
-    --ui: "Josefin Sans", ui-sans-serif, -apple-system, "Segoe UI", system-ui, sans-serif;
-    --accroche: "Bodoni Moda", "Didot", Georgia, serif;
-  }}
-  * {{ box-sizing: border-box; }}
-  html {{ background: var(--nuit); }}
-  body {{ margin: 0; color: var(--ivoire); background: var(--nuit); font: 400 20px/1.5 var(--ui);
-         padding-bottom: max(40px, env(safe-area-inset-bottom)); }}
-
-  /* Affiche */
-  .hero {{ position: relative; max-width: 560px; margin: 0 auto; overflow: hidden; }}
-  .scene {{ display: block; width: 100%; height: auto; }}
-  .hero::after {{ content: ""; position: absolute; inset: 12px; pointer-events: none;
-    border: 1px solid var(--laiton); outline: 1px solid rgba(201,149,60,.4); outline-offset: 4px; }}
-  .titre {{ position: absolute; left: 0; right: 0; top: max(46px, calc(env(safe-area-inset-top) + 20px));
-           text-align: center; padding: 0 24px; }}
-  .surtitre {{ margin: 0; font: 600 13px/1 var(--ui); letter-spacing: .4em; text-transform: uppercase; color: var(--laiton); }}
-  h1 {{ margin: 14px 0 0; font: 400 clamp(72px, 24vw, 120px)/.9 var(--display); color: #E8B55A;
-       letter-spacing: .05em; text-transform: uppercase; text-shadow: 0 3px 22px rgba(11,14,42,.7); }}
-  .accroche {{ margin: 14px 0 0; font: italic 400 clamp(17px, 4.9vw, 21px)/1.3 var(--accroche); white-space: nowrap; color: var(--ivoire);
-              display: flex; align-items: center; justify-content: center; gap: 12px; }}
-  .accroche::before, .accroche::after {{ content: ""; flex: none; width: 22px; height: 1px; background: var(--laiton); }}
-
-  main {{ max-width: 520px; margin: 0 auto; padding: 30px 18px 0; display: grid; gap: 26px; }}
-
-  /* Écoute */
-  .ecoute {{ text-align: center; }}
-  .formule {{ margin: 0; font: italic 400 30px/1.2 var(--accroche); color: #E8B55A; }}
-  .formule-note {{ margin: 8px 0 16px; color: var(--sourd); font-size: 18px; }}
-  audio {{ width: 100%; height: 44px; }}
-
-  /* Intertitre Art déco */
-  .intertitre {{ display: grid; justify-items: center; gap: 10px; margin: 6px 0 0; text-align: center; }}
-  .symbole {{ width: 64px; height: 40px; }}
-  .intertitre h2 {{ margin: 0; font: 600 15px/1.2 var(--ui); letter-spacing: .32em; text-transform: uppercase; color: var(--laiton);
-                   display: flex; align-items: center; gap: 12px; }}
-  .intertitre h2::before, .intertitre h2::after {{ content: ""; width: 30px; height: 1px; background: var(--laiton); }}
-
-  /* Étapes */
-  .etape {{ position: relative; background: linear-gradient(180deg, var(--panneau), #0b0f2e);
-           border: 1px solid rgba(201,149,60,.5); padding: 26px 20px 24px; }}
-  .etape::before, .etape::after {{ content: ""; position: absolute; width: 18px; height: 18px; border: 2px solid var(--laiton); }}
-  .etape::before {{ top: -5px; left: -5px; border-right: 0; border-bottom: 0; }}
-  .etape::after {{ bottom: -5px; right: -5px; border-left: 0; border-top: 0; }}
-  .etape h3 {{ display: flex; align-items: center; gap: 14px; margin: 0 0 18px; font: 700 24px/1.2 var(--ui); }}
-  .num {{ flex: none; width: 44px; height: 44px; display: grid; place-items: center; border: 1px solid var(--laiton);
-         outline: 1px solid rgba(201,149,60,.35); outline-offset: 3px; border-radius: 50%;
-         font: 400 22px/1 var(--display); color: var(--ambre); padding-top: 3px; }}
-  .choix {{ margin: 0 0 12px; color: var(--sourd); font-size: 18px; }}
-  .btns {{ display: grid; gap: 12px; }}
-  .btn {{ display: flex; align-items: center; justify-content: center; text-align: center; min-height: 58px; padding: 4px 18px 0;
-         background: var(--ambre); color: var(--nuit); text-decoration: none; border: 0;
-         font: 700 18px/1.2 var(--ui); letter-spacing: .08em; text-transform: uppercase;
-         box-shadow: 0 0 0 1px var(--laiton), 0 8px 26px rgba(242,163,58,.22); }}
-  .btn:active {{ transform: translateY(1px); }}
-  .btn.ghost {{ background: transparent; color: var(--ivoire); box-shadow: inset 0 0 0 1px var(--laiton); }}
-  .btn.off {{ background: transparent; color: var(--sourd); box-shadow: inset 0 0 0 1px rgba(201,149,60,.35); }}
-  .astuce {{ margin: 14px 0 0; color: var(--sourd); font-size: 18px; }}
-  .astuce.avant {{ margin: 0 0 14px; }}
-  .astuce a {{ color: var(--ambre); text-decoration: underline; text-underline-offset: 3px; }}
-  .etape.bonus {{ background: transparent; border-color: rgba(201,149,60,.3); padding: 22px 20px 20px; }}
-  .etape.bonus::before, .etape.bonus::after {{ display: none; }}
-  .etape.bonus h3 {{ margin: 0 0 10px; font-size: 21px; }}
-  .bonus-tag {{ margin: 0 0 6px; font: 600 12px/1.2 var(--ui); letter-spacing: .3em; text-transform: uppercase; color: var(--laiton); }}
-  video {{ display: block; width: 100%; height: auto; margin: 0 0 16px; border: 1px solid rgba(201,149,60,.35); }}
-  details.autre {{ margin-top: 0; padding-top: 16px; }}
-  details.autre .btns {{ margin: 10px 0 4px; }}
-  details {{ margin-top: 16px; border-top: 1px solid rgba(201,149,60,.3); padding-top: 12px; }}
-  summary {{ cursor: pointer; list-style: none; color: var(--ivoire); font-size: 18px; font-weight: 600; }}
+<meta name="theme-color" content="#0A0B0F">
+<title>{escape(page_title)}</title>
+<meta name="description" content="{_attr(onboarding['page_description'])}">
+<meta property="og:title" content="{_attr(page_title)}">
+<meta property="og:description" content="{_attr(onboarding['page_description'])}">{og_image}
+{FONTS_LINK}
+<style>{V11_CSS}
+  .knob {{ border: 0; cursor: pointer; background: var(--knob); color: var(--onKnob); display: grid; place-items: center; border-radius: 50%;
+          box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent), 0 0 24px var(--accentGlow), inset 0 -3px 6px rgba(0,0,0,.3); }}
+  .knob:active {{ transform: scale(.97); }}
+  .hero {{ margin-top: 28px; }}
+  .clock {{ height: 132px; display: grid; place-items: center; align-content: center; gap: 12px;
+           background-image: radial-gradient(80% 70% at 50% 35%, rgba(57,255,106,.08), transparent 70%), var(--glass); }}
+  .clock .lcd {{ font-size: 68px; }}
+  .clock .label {{ color: var(--lcd); opacity: .8; }}
+  h1 {{ margin: 32px 0 0; font: 800 40px/1.02 var(--ui); letter-spacing: -.025em; }}
+  .pitch {{ margin: 14px 0 0; font-size: 17px; line-height: 1.5; color: var(--text2); max-width: 30em; }}
+  .player .glass {{ padding: 16px 16px 14px 20px; display: grid; gap: 14px; }}
+  .row {{ display: flex; align-items: center; gap: 16px; }}
+  .row .lcd {{ font-size: 34px; flex: 1; }}
+  .row .label {{ color: var(--lcd); opacity: .75; }}
+  .player .knob {{ width: 64px; height: 64px; flex: none; }}
+  .bar {{ position: relative; height: 16px; cursor: pointer; }}
+  .bar::before {{ content: ""; position: absolute; left: 0; right: 0; top: 7px; height: 2px; border-radius: 1px; background: var(--track); }}
+  .fill {{ position: absolute; left: 0; top: 7px; height: 2px; width: 0; border-radius: 1px; background: var(--accent); box-shadow: 0 0 6px rgba(255,106,19,.8); }}
+  .topics {{ list-style: none; margin: 18px 0 0; padding: 0; }}
+  .topics li {{ display: flex; align-items: center; gap: 12px; min-height: 48px; padding: 8px 0; border-top: 1px solid var(--line); }}
+  .topics li:first-child {{ border-top: 0; }}
+  .dot {{ width: 7px; height: 7px; border-radius: 4px; flex: none; }}
+  .topics .t {{ flex: 1; font-size: 15px; color: #D7DBE2; }}
+  .topics .s {{ font: 400 12px var(--mono); color: var(--text4); white-space: nowrap; }}
+  .steps {{ display: grid; gap: 12px; }}
+  .step {{ background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 20px; }}
+  .step h3 {{ display: flex; align-items: center; gap: 12px; margin: 0; font: 700 19px/1.25 var(--ui); }}
+  .num {{ width: 32px; height: 32px; flex: none; display: grid; place-items: center; border-radius: 50%;
+         border: 1px solid var(--line2); font: 500 13px var(--mono); color: var(--text2); }}
+  .step p {{ margin: 12px 0 0; color: var(--text2); font-size: 15px; }}
+  .step video {{ display: block; width: 100%; height: auto; margin-top: 14px; border-radius: 12px; border: 1px solid var(--line); }}
+  .tag {{ font: 500 11px var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--text3);
+         border: 1px solid var(--line2); border-radius: 10px; padding: 3px 8px; margin-left: auto; }}
+  ol.gestes {{ margin: 14px 0 0; padding: 0; list-style: none; display: grid; gap: 10px; counter-reset: g; }}
+  ol.gestes li {{ counter-increment: g; display: grid; grid-template-columns: 24px 1fr; gap: 8px; font-size: 15px; color: var(--text2); }}
+  ol.gestes li::before {{ content: counter(g); font: 500 13px/1.6 var(--mono); color: var(--accent); }}
+  .fort {{ color: var(--text); font-weight: 600; }}
+  .note {{ font-size: 13px !important; color: var(--text4) !important; }}
+  details {{ margin-top: 12px; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 0 20px; }}
+  summary {{ cursor: pointer; list-style: none; min-height: 56px; display: flex; align-items: center; justify-content: space-between; font: 600 16px var(--ui); }}
   summary::-webkit-details-marker {{ display: none; }}
-  summary::after {{ content: " +"; color: var(--ambre); }}
-  details[open] summary::after {{ content: " –"; }}
-  details p {{ margin: 10px 0; color: var(--sourd); font-size: 18px; }}
-  .copie {{ display: flex; gap: 8px; }}
-  .copie code {{ flex: 1; min-width: 0; padding: 12px; font-size: 14px; word-break: break-all; color: var(--ivoire);
-                background: rgba(0,0,0,.35); border: 1px solid rgba(201,149,60,.35); }}
-  .copie button {{ flex: none; padding: 4px 16px 0; cursor: pointer; border: 0; font: 700 15px var(--ui);
-                  letter-spacing: .1em; text-transform: uppercase; background: var(--ambre); color: var(--nuit); }}
-  ol.gestes {{ margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; counter-reset: g; }}
-  ol.gestes li {{ counter-increment: g; display: grid; grid-template-columns: 30px 1fr; gap: 8px; }}
-  ol.gestes li::before {{ content: counter(g); font: 400 20px/1.5 var(--display); color: var(--ambre); }}
-  .fort {{ font-weight: 700; }}
-  .note {{ margin: 14px 0 0; color: var(--sourd); font-size: 16px; }}
-  a:focus-visible, button:focus-visible, summary:focus-visible {{ outline: 3px solid var(--ambre); outline-offset: 3px; }}
-
-  footer {{ max-width: 520px; margin: 34px auto 0; padding: 0 18px; text-align: center; color: var(--sourd); font-size: 15px; }}
-  footer .symbole {{ display: block; margin: 0 auto 14px; width: 48px; height: 30px; }}
-  .signature {{ margin: 0 0 14px; font: italic 400 19px/1.3 var(--accroche); color: var(--ivoire); }}
-  .losange {{ display: inline-block; width: 7px; height: 7px; margin: 0 10px 2px; background: var(--velours); transform: rotate(45deg); }}
+  summary::after {{ content: "+"; font: 400 20px var(--mono); color: var(--text3); }}
+  details[open] summary::after {{ content: "–"; }}
+  details p {{ margin: 0 0 12px; color: var(--text2); font-size: 15px; }}
+  details .btns {{ display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; }}
+  details .btn {{ margin-top: 0; }}
+  details .copie {{ margin-bottom: 20px; }}
+  .signature {{ margin: 0; font: 800 22px/1.2 var(--ui); letter-spacing: -.02em; }}
   .qr {{ display: none; }}
   @media (min-width: 820px) and (hover: hover) {{
-    .qr {{ display: flex; gap: 18px; align-items: center; justify-content: center; margin-bottom: 18px; text-align: left; font-size: 17px; color: var(--ivoire); }}
-    .qr #qr {{ background: #fff; padding: 8px; line-height: 0; }}
+    .qr {{ display: flex; gap: 18px; align-items: center; justify-content: center; margin: 28px 0 0; text-align: left; font-size: 15px; color: var(--text2); }}
+    .qr #qr {{ background: #fff; padding: 8px; border-radius: 12px; line-height: 0; }}
   }}
 </style>
 </head>
 <body>
-  <header class="hero">
-    <img class="scene" src="{INSTALLER_SCENE}" width="400" height="600"
-         alt="Ville Art déco à l'aube, soleil levant entre les tours">
-    <div class="titre">
-      <p class="surtitre">{escape(onboarding["kicker"])}</p>
-      <h1>{escape(name)}</h1>
-      <p class="accroche">{escape(onboarding["tagline"])}</p>
-    </div>
+<div class="wrap">
+
+  <header>
+    <span class="brand" aria-label="{_attr(name)}">{escape(name.upper())}</span>
+    <p class="label">{escape(onboarding["kicker"])}</p>
   </header>
 
-  <main>
-    <section class="ecoute" aria-label="Écouter le brief du jour">
-      <p class="formule">« {escape(brand["opening_display"])} »</p>
-      <p class="formule-note">{escape(note)}</p>{player}
-    </section>
-
-    <div class="intertitre">
-      <img class="symbole" src="{INSTALLER_SYMBOL}" alt="">
-      <h2>Un geste</h2>
+  <div class="hero">
+    <div class="rim"><div class="glass clock" aria-hidden="true">
+      <span class="lcd">{escape(onboarding["display_time"])}</span>
+      <p class="label">{escape(brand["opening_display"])}</p>
+    </div></div>
+    <h1>{escape(headline)}</h1>
+    <p class="pitch">{escape(onboarding["pitch"])}</p>
+  </div>
+{player}
+  <section aria-labelledby="installer">
+    <div class="head"><h2 id="installer" class="label">L’installer · 1 minute</h2></div>
+    <div class="steps">
+      <div class="step">
+        <h3><span class="num">1</span>Installe Pocket Casts</h3>
+        <p>L’appli de podcast gratuite dans laquelle {escape(name)} arrive chaque matin.</p>{store}
+      </div>
+      <div class="step">
+        <h3><span class="num">2</span>Ajoute {escape(name)}</h3>
+        <p>Touche une fois : tu es abonné, et le brief du jour se lance.</p>
+        {shortcut}
+        <p class="note">Dans Pocket Casts, active le téléchargement automatique : le brief t’attendra même sans réseau.</p>
+      </div>
+      <div class="step">
+        <h3><span class="num">3</span>{escape(name)} au réveil<span class="tag">Conseillé</span></h3>
+        <p>Le brief démarre quand tu coupes ton réveil. À faire une fois.</p>{video_tag}
+        <ol class="gestes">
+          <li><span>Raccourcis → <span class="fort">Automatisation</span> → <span class="fort">+</span></span></li>
+          <li><span><span class="fort">Réveil</span> → « Est arrêté » → <span class="fort">Exécuter immédiatement</span></span></li>
+          <li><span>Choisis le raccourci <span class="fort">« {escape(shortcut_name)} »</span></span></li>
+        </ol>
+        <p class="note">Les libellés peuvent varier selon la version d’iOS.</p>
+      </div>
     </div>
 
-    <section class="etape" aria-labelledby="e1">
-      <h3 id="e1"><span class="num">1</span>Ajoute {escape(name)}</h3>
-      <p class="astuce avant">{requirement}</p>
-      <div class="btns">{shortcut}</div>
-      <p class="astuce">Touche-le une fois : il t'abonne dans Pocket Casts et lance l'épisode du jour.</p>
-      <p class="astuce">Active le téléchargement automatique : l'épisode t'attendra même sans réseau.</p>
-    </section>
-
-    <section class="etape bonus" aria-labelledby="bonus">
-      <p class="bonus-tag">Bonus · facultatif</p>
-      <h3 id="bonus">{escape(name)} au réveil</h3>
-      <p class="choix">{escape(name)} se lance quand tu coupes ton réveil. 1 minute, à faire une fois.</p>{video_tag}
-      <ol class="gestes">
-        <li><span>Raccourcis → <span class="fort">Automatisation</span> → <span class="fort">+</span></span></li>
-        <li><span><span class="fort">Réveil</span> → « Est arrêté » → <span class="fort">Exécuter immédiatement</span></span></li>
-        <li><span>Choisis le raccourci <span class="fort">« {escape(shortcut_name)} »</span></span></li>
-      </ol>
-      <p class="note">Les libellés peuvent varier selon la version d'iOS.</p>
-    </section>
-
-    <details class="autre">
+    <details>
       <summary>Autre appli ou Android ?</summary>
-      <p>Abonne-toi dans ton appli de podcast :</p>
+      <p>Abonne-toi directement :</p>
       <div class="btns">
 {buttons}
       </div>
-      <p>Dans Apple Podcasts : Bibliothèque → « … » → Ajouter une émission par URL, puis colle ce lien.</p>
+      <p>Ailleurs (Apple Podcasts, Android) : « Ajouter une émission par URL », puis colle ce lien.</p>
       <div class="copie"><code id="feed">{escape(feed_url)}</code><button type="button" id="copy">Copier</button></div>
     </details>
-  </main>
+  </section>
 
   <footer>
-    <img class="symbole" src="{INSTALLER_SYMBOL}" alt="">
-    <p class="signature">{signature}</p>
+    <p class="signature">{escape(signature)}</p>
     <div class="qr"><div id="qr"></div><p>Sur ordinateur ?<br>Scanne avec ton téléphone.</p></div>{footer_note}
   </footer>
 
-  <script src="{QRCODE_JS}" integrity="{QRCODE_JS_SRI}"
-          crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script>
-    (function () {{
-      var feed = {json.dumps(feed_url)};
-      var btn = document.getElementById("copy");
-      btn.addEventListener("click", function () {{
-        function done() {{ btn.textContent = "Copié"; }}
-        // Presse-papiers refusé : le lien reste au moins sélectionné, prêt
-        // à copier à la main.
-        function select() {{
-          var r = document.createRange();
-          r.selectNodeContents(document.getElementById("feed"));
-          var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
-          try {{ if (document.execCommand("copy")) done(); }} catch (e) {{}}
-        }}
-        if (navigator.clipboard && window.isSecureContext) {{
-          navigator.clipboard.writeText(feed).then(done, select);
-        }} else {{
-          select();
-        }}
-      }});
-      if (window.QRCode && window.matchMedia("(min-width: 820px) and (hover: hover)").matches) {{
-        new QRCode(document.getElementById("qr"), {{ text: {json.dumps(page_url)}, width: 120, height: 120, colorDark: "#000000", colorLight: "#ffffff" }});
-      }}
-    }})();
-  </script>
+</div>
+<script src="{QRCODE_JS}" integrity="{QRCODE_JS_SRI}"
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>{COPY_JS}
+  if (window.QRCode && window.matchMedia("(min-width: 820px) and (hover: hover)").matches) {{
+    new QRCode(document.getElementById("qr"), {{ text: {json.dumps(page_url)}, width: 120, height: 120, colorDark: "#000000", colorLight: "#ffffff" }});
+  }}
+</script>
 </body>
 </html>
 """

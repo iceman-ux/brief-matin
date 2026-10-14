@@ -2,7 +2,9 @@
 <rss version="2.0"
      xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
      xmlns:atom="http://www.w3.org/2005/Atom"
-     xmlns:content="http://purl.org/rss/1.0/modules/content/">
+     xmlns:content="http://purl.org/rss/1.0/modules/content/"
+     xmlns:podcast="https://podcastindex.org/namespace/1.0"
+     xmlns:lora="https://iceman-ux.github.io/brief-matin/ns/lora">
   <channel>
     <title>Lora</title>
     <link>https://iceman-ux.github.io/brief-matin</link>
@@ -11,7 +13,7 @@
 
 Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
     <language>fr-FR</language>
-    <lastBuildDate>Wed, 14 Oct 2026 02:04:52 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 14 Oct 2026 21:35:25 +0000</lastBuildDate>
     <itunes:author>Lora</itunes:author>
     <itunes:subtitle>L'essentiel de l'actu, chaque matin</itunes:subtitle>
     <itunes:summary>Brief quotidien généré automatiquement à partir des grands titres français et internationaux. France, Monde, Économie, Tech.
@@ -39,6 +41,7 @@ Au sommaire :
 • Nvidia entre au capital de Doctolib
 
 Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
+      <lora:topics><![CDATA[[{"title": "Loi sur les violences sexuelles adoptée", "sources": ["Le Monde", "franceinfo"]}, {"title": "Prévisions FMI et décrochage français", "sources": ["Le Monde", "Le Figaro"]}, {"title": "Frappes houthistes contre l'Arabie saoudite", "sources": ["Le Monde", "franceinfo"]}, {"title": "Espionnage interne chez OpenAI", "sources": ["Le Monde"]}, {"title": "Abrogation des lois anti-LGBT en Hongrie", "sources": ["Le Monde", "RFI"]}, {"title": "Nvidia entre au capital de Doctolib", "sources": ["Le Monde", "Le Figaro"]}]]]></lora:topics>
       <itunes:summary>Brief du 2026-10-14. Loi sur les violences sexuelles adoptée · Prévisions FMI et décrochage français · Frappes houthistes contre l'Arabie saoudite · Espionnage interne chez OpenAI · Abrogation des lois anti-LGBT en Hongrie · Nvidia entre au capital de Doctolib
 
 Au sommaire :
@@ -70,6 +73,7 @@ Au sommaire :
 • Microsoft défie Nvidia dans l'IA
 
 Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
+      <lora:topics><![CDATA[[{"title": "Tirs dans un collège à Aubagne", "sources": ["Le Figaro", "Le Monde"]}, {"title": "Cyberattaque massive contre des supermarchés français", "sources": ["Le Monde", "Le Figaro", "franceinfo"]}, {"title": "Pétrolier russe arraisonné à La Réunion", "sources": ["Le Monde"]}, {"title": "Joseph Kabila rejoint les rebelles", "sources": ["Le Monde"]}, {"title": "Le prix Nobel d'économie décerné", "sources": ["Le Monde", "Le Figaro"]}, {"title": "Microsoft défie Nvidia dans l'IA", "sources": ["La Tribune"]}]]]></lora:topics>
       <itunes:summary>Brief du 2026-10-13. Tirs dans un collège à Aubagne · Cyberattaque massive contre des supermarchés français · Pétrolier russe arraisonné à La Réunion · Joseph Kabila rejoint les rebelles · Le prix Nobel d'économie décerné · Microsoft défie Nvidia dans l'IA
 
 Au sommaire :
@@ -102,6 +106,7 @@ Au sommaire :
 • Frappe de drone sur Yandex
 
 Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
+      <lora:topics><![CDATA[[{"title": "Victoire de Glucksmann à la primaire", "sources": ["Le Monde", "France 24"]}, {"title": "Projet d'attentat déjoué en Pologne", "sources": ["Le Monde", "RFI"]}, {"title": "Nouveau report des élections palestiniennes", "sources": ["Le Monde", "RFI"]}, {"title": "Opération chirurgicale pour le Pape", "sources": ["franceinfo"]}, {"title": "Citroën dévoile sa 2 CV électrique", "sources": ["Le Monde"]}, {"title": "Aide gazole pour 1,6 million de Français", "sources": ["Le Figaro"]}, {"title": "Frappe de drone sur Yandex", "sources": ["La Tribune", "franceinfo"]}]]]></lora:topics>
       <itunes:summary>Brief du 2026-10-12. Victoire de Glucksmann à la primaire · Projet d'attentat déjoué en Pologne · Nouveau report des élections palestiniennes · Opération chirurgicale pour le Pape · Citroën dévoile sa 2 CV électrique · Aide gazole pour 1,6 million de Français · Frappe de drone sur Yandex
 
 Au sommaire :
@@ -134,6 +139,7 @@ Au sommaire :
 • Paul Seixas s'impose en Lombardie
 
 Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
+      <lora:topics><![CDATA[[{"title": "Trump réclame un nouveau président ukrainien", "sources": ["Le Monde", "franceinfo"]}, {"title": "Aéroport de Riyad frappé par un missile", "sources": ["Le Monde", "France 24", "RFI"]}, {"title": "Répression massive de la jeunesse à Delhi", "sources": ["Le Monde", "The Guardian", "France 24"]}, {"title": "Lycéen blessé à Lens : versions opposées", "sources": ["Le Monde", "franceinfo"]}, {"title": "Faux témoignage de meurtre généré par l'IA", "sources": ["Le Figaro"]}, {"title": "Paul Seixas s'impose en Lombardie", "sources": ["franceinfo", "France 24"]}]]]></lora:topics>
       <itunes:summary>Brief du 2026-10-11. Trump réclame un nouveau président ukrainien · Aéroport de Riyad frappé par un missile · Répression massive de la jeunesse à Delhi · Lycéen blessé à Lens : versions opposées · Faux témoignage de meurtre généré par l'IA · Paul Seixas s'impose en Lombardie
 
 Au sommaire :
@@ -165,6 +171,7 @@ Au sommaire :
 • Contrainte physique autorisée dans les écoles danoises
 
 Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
+      <lora:topics><![CDATA[[{"title": "Accord pétrolier surprise entre Washington et Moscou", "sources": ["France 24", "Le Monde"]}, {"title": "Nobel de la paix et sanctions américaines", "sources": ["Le Monde", "RFI"]}, {"title": "Rejet du volet recettes en commission", "sources": ["Le Monde", "La Tribune"]}, {"title": "Frein négocié sur les hybrides chinoises", "sources": ["Le Monde", "La Tribune"]}, {"title": "L'Europe unifie sa surveillance boursière", "sources": ["Le Monde", "franceinfo"]}, {"title": "Contrainte physique autorisée dans les écoles danoises", "sources": ["Le Monde"]}]]]></lora:topics>
       <itunes:summary>Brief du 2026-10-10. Accord pétrolier surprise entre Washington et Moscou · Nobel de la paix et sanctions américaines · Rejet du volet recettes en commission · Frein négocié sur les hybrides chinoises · L'Europe unifie sa surveillance boursière · Contrainte physique autorisée dans les écoles danoises
 
 Au sommaire :
@@ -196,6 +203,7 @@ Au sommaire :
 • À retenir de la semaine
 
 Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
+      <lora:topics><![CDATA[[{"title": "Trump écarte les frappes en Iran", "sources": ["Le Monde"]}, {"title": "Peloton d'exécution public aux États-Unis", "sources": ["Le Monde", "Le Figaro"]}, {"title": "Expulsion de deux agents nigériens", "sources": ["Le Monde"]}, {"title": "L'IA gèle l'embauche des débutants", "sources": ["Le Monde"]}, {"title": "Édouard Philippe cible les familles", "sources": ["Le Monde", "franceinfo", "Le Figaro"]}, {"title": "À retenir de la semaine", "sources": ["Le Monde", "franceinfo", "RFI"]}]]]></lora:topics>
       <itunes:summary>Brief du 2026-10-09. Trump écarte les frappes en Iran · Peloton d'exécution public aux États-Unis · Expulsion de deux agents nigériens · L'IA gèle l'embauche des débutants · Édouard Philippe cible les familles · À retenir de la semaine
 
 Au sommaire :
@@ -227,6 +235,7 @@ Au sommaire :
 • Retour sur Terre de Sophie Adenot
 
 Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
+      <lora:topics><![CDATA[[{"title": "Baisse annoncée des prix du gazole", "sources": ["La Tribune", "Le Monde"]}, {"title": "Inquiétudes sanitaires en Sibérie", "sources": ["franceinfo", "Le Monde"]}, {"title": "Emprunt géant pour puces d'IA", "sources": ["Le Monde"]}, {"title": "Réveil de la condamnée au Tennessee", "sources": ["Le Monde", "Le Figaro"]}, {"title": "Confiscation d'enseignes occidentales à Moscou", "sources": ["Le Monde"]}, {"title": "Retour sur Terre de Sophie Adenot", "sources": ["franceinfo"]}]]]></lora:topics>
       <itunes:summary>Brief du 2026-10-08. Baisse annoncée des prix du gazole · Inquiétudes sanitaires en Sibérie · Emprunt géant pour puces d'IA · Réveil de la condamnée au Tennessee · Confiscation d'enseignes occidentales à Moscou · Retour sur Terre de Sophie Adenot
 
 Au sommaire :
@@ -258,6 +267,7 @@ Au sommaire :
 • Google sommé d'interrompre ses chantiers
 
 Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
+      <lora:topics><![CDATA[[{"title": "Mobilisation lycéenne et recul du gouvernement", "sources": ["Le Monde", "franceinfo", "RFI"]}, {"title": "Paramount finalise le rachat de Warner", "sources": ["Le Monde"]}, {"title": "L'ancien chef du renseignement allemand arrêté", "sources": ["Le Monde"]}, {"title": "L'armée malienne reprend Kidal", "sources": ["Le Monde", "RFI"]}, {"title": "Mistral AI dévoile Mistral Large 4", "sources": ["Le Monde", "La Tribune"]}, {"title": "Google sommé d'interrompre ses chantiers", "sources": ["Le Monde"]}]]]></lora:topics>
       <itunes:summary>Brief du 2026-10-07. Mobilisation lycéenne et recul du gouvernement · Paramount finalise le rachat de Warner · L'ancien chef du renseignement allemand arrêté · L'armée malienne reprend Kidal · Mistral AI dévoile Mistral Large 4 · Google sommé d'interrompre ses chantiers
 
 Au sommaire :
@@ -289,6 +299,7 @@ Au sommaire :
 • Les Bleus dominent la Belgique
 
 Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
+      <lora:topics><![CDATA[[{"title": "Paris et Berlin ciblent la Chine", "sources": ["Le Monde"]}, {"title": "Piratage massif de données au Danemark", "sources": ["Le Monde"]}, {"title": "Législatives anticipées convoquées en Espagne", "sources": ["Le Monde", "RFI"]}, {"title": "Alerte sur la dette française", "sources": ["Le Monde"]}, {"title": "Frappes houthistes et riposte régionale", "sources": ["Le Monde", "France 24", "franceinfo"]}, {"title": "Les Bleus dominent la Belgique", "sources": ["France 24", "Le Monde"]}]]]></lora:topics>
       <itunes:summary>Brief du 2026-10-06. Paris et Berlin ciblent la Chine · Piratage massif de données au Danemark · Législatives anticipées convoquées en Espagne · Alerte sur la dette française · Frappes houthistes et riposte régionale · Les Bleus dominent la Belgique
 
 Au sommaire :
@@ -320,6 +331,7 @@ Au sommaire :
 • Offensive générale annoncée au Yémen
 
 Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
+      <lora:topics><![CDATA[[{"title": "Bolsonaro devance Lula au premier tour", "sources": ["Le Monde", "franceinfo"]}, {"title": "Lycées bloqués et appels à rouvrir", "sources": ["Le Figaro", "Le Monde"]}, {"title": "Washington retire ses bombardiers d'Angleterre", "sources": ["Le Monde"]}, {"title": "Législatives sous tension au Québec", "sources": ["Le Monde"]}, {"title": "ASML ne vend rien en Europe", "sources": ["Le Monde"]}, {"title": "Offensive générale annoncée au Yémen", "sources": ["Le Monde", "franceinfo"]}]]]></lora:topics>
       <itunes:summary>Brief du 2026-10-05. Bolsonaro devance Lula au premier tour · Lycées bloqués et appels à rouvrir · Washington retire ses bombardiers d'Angleterre · Législatives sous tension au Québec · ASML ne vend rien en Europe · Offensive générale annoncée au Yémen
 
 Au sommaire :
@@ -352,6 +364,7 @@ Au sommaire :
 • Piratage de prestataires dans les Hauts-de-France
 
 Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
+      <lora:topics><![CDATA[[{"title": "Premier tour présidentiel au Brésil", "sources": ["RFI", "Le Figaro"]}, {"title": "Lycées : projet casseur-payeur accéléré", "sources": ["Le Figaro", "franceinfo"]}, {"title": "Tennessee : démission après l'exécution ratée", "sources": ["Le Monde", "The Guardian"]}, {"title": "Renault investit dans l'électrique français", "sources": ["Le Monde"]}, {"title": "Frappes russes sur les ponts de Kiev", "sources": ["France 24", "RFI"]}, {"title": "Suspension de permis pour téléphone au volant", "sources": ["franceinfo"]}, {"title": "Piratage de prestataires dans les Hauts-de-France", "sources": ["franceinfo"]}]]]></lora:topics>
       <itunes:summary>Brief du 2026-10-04. Premier tour présidentiel au Brésil · Lycées : projet casseur-payeur accéléré · Tennessee : démission après l'exécution ratée · Renault investit dans l'électrique français · Frappes russes sur les ponts de Kiev · Suspension de permis pour téléphone au volant · Piratage de prestataires dans les Hauts-de-France
 
 Au sommaire :
@@ -384,6 +397,7 @@ Au sommaire :
 • Jay Clayton nommé au dossier IA
 
 Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
+      <lora:topics><![CDATA[[{"title": "Le G7 débloque ses réserves pétrolières", "sources": ["Le Monde", "Le Figaro"]}, {"title": "La contestation lycéenne se durcit", "sources": ["Le Monde", "franceinfo"]}, {"title": "Épidémie record d'Ebola en RDC", "sources": ["Le Monde", "RFI"]}, {"title": "Validation du plan social chez Auchan", "sources": ["Le Monde", "Le Figaro"]}, {"title": "Rejet des décrets logement en Espagne", "sources": ["Le Monde", "France 24"]}, {"title": "Jay Clayton nommé au dossier IA", "sources": ["Le Monde"]}]]]></lora:topics>
       <itunes:summary>Brief du 2026-10-03. Le G7 débloque ses réserves pétrolières · La contestation lycéenne se durcit · Épidémie record d'Ebola en RDC · Validation du plan social chez Auchan · Rejet des décrets logement en Espagne · Jay Clayton nommé au dossier IA
 
 Au sommaire :
@@ -415,6 +429,7 @@ Au sommaire :
 • Zidane retrouve l'Italie
 
 Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
+      <lora:topics><![CDATA[[{"title": "Bardella visé par des révélations", "sources": ["Mediapart", "Le Monde", "franceinfo"]}, {"title": "Washington réclame le diesel européen", "sources": ["Le Monde", "franceinfo", "France 24"]}, {"title": "Les taux français frôlent 5%", "sources": ["Le Monde", "La Tribune"]}, {"title": "Andy Burnham évoque le Breturn", "sources": ["Le Monde"]}, {"title": "L'été 2026 le plus chaud", "sources": ["Le Monde", "La Tribune"]}, {"title": "Zidane retrouve l'Italie", "sources": ["France 24"]}]]]></lora:topics>
       <itunes:summary>Brief du 2026-10-02. Bardella visé par des révélations · Washington réclame le diesel européen · Les taux français frôlent 5% · Andy Burnham évoque le Breturn · L'été 2026 le plus chaud · Zidane retrouve l'Italie
 
 Au sommaire :
@@ -446,6 +461,7 @@ Au sommaire :
 • Polluants éternels détectés chez des Européens
 
 Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
+      <lora:topics><![CDATA[[{"title": "Budget 2027 : 54 milliards d'efforts", "sources": ["Le Figaro", "France 24", "Le Monde"]}, {"title": "Vol Dubaï-Tel-Aviv dérouté d'urgence", "sources": ["franceinfo", "Le Monde"]}, {"title": "La contestation scolaire et universitaire s'étend", "sources": ["Le Monde", "Le Figaro", "RFI"]}, {"title": "Une exécution par injection létale échoue", "sources": ["Le Monde", "France 24", "franceinfo"]}, {"title": "Stellantis suspend quatre usines françaises", "sources": ["Le Monde"]}, {"title": "Polluants éternels détectés chez des Européens", "sources": ["Le Monde", "franceinfo"]}]]]></lora:topics>
       <itunes:summary>Brief du 2026-10-01. Budget 2027 : 54 milliards d'efforts · Vol Dubaï-Tel-Aviv dérouté d'urgence · La contestation scolaire et universitaire s'étend · Une exécution par injection létale échoue · Stellantis suspend quatre usines françaises · Polluants éternels détectés chez des Européens
 
 Au sommaire :
@@ -478,6 +494,7 @@ Au sommaire :
 • Bordeaux racheté un euro symbolique
 
 Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
+      <lora:topics><![CDATA[[{"title": "L'inflation remonte à 3 %", "sources": ["Le Monde", "Le Figaro"]}, {"title": "Fin de la coalition en Irak", "sources": ["France 24", "RFI"]}, {"title": "Vigilance rouge dans le Sud", "sources": ["Le Monde"]}, {"title": "Expulsions vers des pays tiers", "sources": ["Le Monde"]}, {"title": "Rakuten France ferme ses portes", "sources": ["Le Monde"]}, {"title": "OpenAI poursuivi pour cyberattaques", "sources": ["Le Monde"]}, {"title": "Bordeaux racheté un euro symbolique", "sources": ["Le Monde"]}]]]></lora:topics>
       <itunes:summary>Brief du 2026-09-30. L'inflation remonte à 3 % · Fin de la coalition en Irak · Vigilance rouge dans le Sud · Expulsions vers des pays tiers · Rakuten France ferme ses portes · OpenAI poursuivi pour cyberattaques · Bordeaux racheté un euro symbolique
 
 Au sommaire :
@@ -510,6 +527,7 @@ Au sommaire :
 • Victoire des Bleus en Belgique
 
 Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
+      <lora:topics><![CDATA[[{"title": "Dette publique record à 119% du PIB", "sources": ["Le Monde", "Le Figaro"]}, {"title": "Mobilisation dans la fonction publique", "sources": ["Le Monde", "franceinfo"]}, {"title": "Deux ans requis contre Bayrou", "sources": ["Le Monde"]}, {"title": "Washington bloque des importations canadiennes", "sources": ["Le Monde", "franceinfo"]}, {"title": "Starship atteint l'orbite terrestre", "sources": ["La Tribune", "Le Monde"]}, {"title": "Victoire des Bleus en Belgique", "sources": ["France 24", "RFI"]}]]]></lora:topics>
       <itunes:summary>Brief du 2026-09-29. Dette publique record à 119% du PIB · Mobilisation dans la fonction publique · Deux ans requis contre Bayrou · Washington bloque des importations canadiennes · Starship atteint l'orbite terrestre · Victoire des Bleus en Belgique
 
 Au sommaire :
@@ -541,6 +559,7 @@ Au sommaire :
 • Alstom réclame la fin du sur-mesure
 
 Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
+      <lora:topics><![CDATA[[{"title": "Groupe historique pour le RN au Sénat", "sources": ["Le Monde", "Le Figaro"]}, {"title": "Arrestations près d'une base militaire britannique", "sources": ["Le Monde", "France 24"]}, {"title": "TikTok paie pour éviter un procès", "sources": ["Le Figaro"]}, {"title": "Fin de visite papale à Metz", "sources": ["Le Monde", "RFI"]}, {"title": "Démission du président serbe Aleksandar Vucic", "sources": ["France 24", "Le Monde"]}, {"title": "Alstom réclame la fin du sur-mesure", "sources": ["Le Monde"]}]]]></lora:topics>
       <itunes:summary>Brief du 2026-09-28. Groupe historique pour le RN au Sénat · Arrestations près d'une base militaire britannique · TikTok paie pour éviter un procès · Fin de visite papale à Metz · Démission du président serbe Aleksandar Vucic · Alstom réclame la fin du sur-mesure
 
 Au sommaire :
@@ -572,6 +591,7 @@ Au sommaire :
 • Volley : la France battue en finale
 
 Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
+      <lora:topics><![CDATA[[{"title": "Léon XIV face aux victimes à Lourdes", "sources": ["Le Monde", "franceinfo"]}, {"title": "Fusillades meurtrières en Afrique du Sud", "sources": ["Le Monde"]}, {"title": "Madrid mobilisée contre les expulsions locatives", "sources": ["Le Monde", "franceinfo"]}, {"title": "Lula interdit les paris sportifs en ligne", "sources": ["Le Monde"]}, {"title": "Marches pour le climat à travers la France", "sources": ["Le Monde", "franceinfo"]}, {"title": "Volley : la France battue en finale", "sources": ["franceinfo"]}]]]></lora:topics>
       <itunes:summary>Brief du 2026-09-27. Léon XIV face aux victimes à Lourdes · Fusillades meurtrières en Afrique du Sud · Madrid mobilisée contre les expulsions locatives · Lula interdit les paris sportifs en ligne · Marches pour le climat à travers la France · Volley : la France battue en finale
 
 Au sommaire :
@@ -603,6 +623,7 @@ Au sommaire :
 • Fuite d'images d'utilisateurs chez OpenAI
 
 Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
+      <lora:topics><![CDATA[[{"title": "Trump rejette l'offre iranienne sur Ormuz", "sources": ["France 24", "Le Monde"]}, {"title": "Moyens militaires français envoyés en Arabie", "sources": ["Le Monde"]}, {"title": "Lourdes condamnations au procès Aramburu", "sources": ["Le Monde", "France 24"]}, {"title": "Yannick Jadot suspendu par Les Écologistes", "sources": ["franceinfo", "La Tribune"]}, {"title": "Volkswagen rappelle deux millions de voitures", "sources": ["Le Monde"]}, {"title": "Fuite d'images d'utilisateurs chez OpenAI", "sources": ["Le Monde"]}]]]></lora:topics>
       <itunes:summary>Brief du 2026-09-26. Trump rejette l'offre iranienne sur Ormuz · Moyens militaires français envoyés en Arabie · Lourdes condamnations au procès Aramburu · Yannick Jadot suspendu par Les Écologistes · Volkswagen rappelle deux millions de voitures · Fuite d'images d'utilisateurs chez OpenAI
 
 Au sommaire :
@@ -634,6 +655,7 @@ Au sommaire :
 • Frappe massive de drones sur Kiev
 
 Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
+      <lora:topics><![CDATA[[{"title": "Macron intervient sur les carburants", "sources": ["Le Monde", "France 24", "Le Figaro"]}, {"title": "Repas à un euro : Crous saturés", "sources": ["Le Monde"]}, {"title": "Nétanyahou défie l'ONU", "sources": ["Le Monde", "France 24", "franceinfo"]}, {"title": "Salariés de SFR en grève", "sources": ["Le Monde"]}, {"title": "Uber : commissions jugées abusives", "sources": ["Le Monde"]}, {"title": "Frappe massive de drones sur Kiev", "sources": ["Le Monde"]}]]]></lora:topics>
       <itunes:summary>Brief du 2026-09-25. Macron intervient sur les carburants · Repas à un euro : Crous saturés · Nétanyahou défie l'ONU · Salariés de SFR en grève · Uber : commissions jugées abusives · Frappe massive de drones sur Kiev
 
 Au sommaire :
@@ -665,6 +687,7 @@ Au sommaire :
 • Retombées de la visite papale en France
 
 Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
+      <lora:topics><![CDATA[[{"title": "Rencontre Trump-Xi à Washington", "sources": ["Le Monde", "RFI"]}, {"title": "Flambée historique du prix du diesel", "sources": ["franceinfo", "Le Figaro", "La Tribune"]}, {"title": "Offensive rebelle dans le nord éthiopien", "sources": ["Le Monde", "RFI"]}, {"title": "Réadmission des médias à la Maison-Blanche", "sources": ["France 24", "Le Monde"]}, {"title": "Une IA pirate des données gouvernementales", "sources": ["franceinfo"]}, {"title": "Retombées de la visite papale en France", "sources": ["Le Monde", "RFI"]}]]]></lora:topics>
       <itunes:summary>Brief du 2026-09-24. Rencontre Trump-Xi à Washington · Flambée historique du prix du diesel · Offensive rebelle dans le nord éthiopien · Réadmission des médias à la Maison-Blanche · Une IA pirate des données gouvernementales · Retombées de la visite papale en France
 
 Au sommaire :
@@ -696,6 +719,7 @@ Au sommaire :
 • Arrêt de l'EPR de Flamanville
 
 Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
+      <lora:topics><![CDATA[[{"title": "Macron à la tribune de l'ONU", "sources": ["Le Monde", "Le Figaro", "franceinfo"]}, {"title": "Aides carburants élargies", "sources": ["Le Monde", "La Tribune", "France 24"]}, {"title": "Bases américaines au Groenland", "sources": ["Le Monde", "The Guardian"]}, {"title": "Soupçons d'IA sur un roman", "sources": ["Le Figaro", "franceinfo"]}, {"title": "Migrants expulsés vers le Liberia", "sources": ["Le Monde"]}, {"title": "Arrêt de l'EPR de Flamanville", "sources": ["La Tribune"]}]]]></lora:topics>
       <itunes:summary>Brief du 2026-09-23. Macron à la tribune de l'ONU · Aides carburants élargies · Bases américaines au Groenland · Soupçons d'IA sur un roman · Migrants expulsés vers le Liberia · Arrêt de l'EPR de Flamanville
 
 Au sommaire :
@@ -726,6 +750,7 @@ Au sommaire :
 • Premier entraînement de Zidane
 
 Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
+      <lora:topics><![CDATA[[{"title": "Boycott des médias contre Trump", "sources": ["Le Monde", "RFI"]}, {"title": "Le chancelier allemand fragilisé", "sources": ["Le Monde", "Le Figaro"]}, {"title": "La Cour des comptes s'attaque au budget", "sources": ["Le Monde"]}, {"title": "El Niño frappe la Californie et l'Asie", "sources": ["Le Monde", "franceinfo"]}, {"title": "Premier entraînement de Zidane", "sources": ["franceinfo"]}]]]></lora:topics>
       <itunes:summary>Brief du 2026-09-22. Boycott des médias contre Trump · Le chancelier allemand fragilisé · La Cour des comptes s'attaque au budget · El Niño frappe la Californie et l'Asie · Premier entraînement de Zidane
 
 Au sommaire :

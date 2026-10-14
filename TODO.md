@@ -97,8 +97,8 @@
 - [x] Page d'installation dans la DA Lora (Art déco années 30, nocturne ;
       palette #0B0E2A, #1B2466, #F2A33A, #C9953C, #8E1426) le 25/09 :
       affiche, lecteur du dernier épisode, étapes à coins de laiton. Textes
-      dans `onboarding` et `brand`, décor dans `docs/lora-scene.svg` et
-      `docs/lora-rayons.svg`.
+      dans `onboarding` et `brand`. Remplacée le 14/10 par la page V11
+      (même DA que l'app), décor Art déco retiré.
 - [x] Cover Lora (`docs/lora-cover.jpg`, 3000 px) dans le flux le 25/09 ;
       l'ancienne `cover.png` est supprimée.
 

@@ -40,15 +40,18 @@ src/memory.py        sujets déjà traités → data/covered.json
 src/brand.py         réplique d'ouverture, fichiers de marque, jours fériés, garde « Lora »
 src/writer.py        construction du prompt, appel LLM, garde-fous sur la sortie
 src/fidelite.py      garde-fou de fidélité aux sources (reprises, faits inventés)
+src/topics.py        données des sujets pour l'app : lieu contrôlé, sujets liés, chapitres
+src/geo.py           lieu dans le pays annoncé (Natural Earth 50m) et fuseau, hors ligne
 src/tts.py           synthèse vocale, découpage, finition, montage des signatures, mp3
 src/feed.py          flux RSS podcast, page d'accueil, rétention des épisodes
 src/release.py       hébergement des mp3 dans la Release GitHub, par la CLI gh
 src/retry.py         réessais avec backoff exponentiel sur erreurs temporaires
 src/main.py          orchestration + CLI
 docs/                publié par GitHub Pages (feed.xml, index.html, installer.html,
-                     episodes.json, cover et décor SVG de la page d'installation ;
+                     episodes.json, chapters/, cover, police DSEG7 ;
                      episodes/ ne garde que les mp3 d'avant la Release et les replis)
 assets/brand/        signatures enregistrées, figées (ouverture, clôtures du jour)
+assets/geo/          contours des pays (world-atlas 50m) et table ISO 3166
 tools/analyse_voix.py  mesure audio pour le protocole d'écoute, hors pipeline
                        (numpy, scipy — hors requirements.txt, le run n'en a pas besoin)
 tools/preparer_sonal.py  mise au format du sonal (mono, 24 kHz, gain fixe), idem
@@ -56,6 +59,7 @@ tools/verifier_flux.py   épisode du jour présent et écoutable dans le flux en
 data/sources/        articles envoyés au rédacteur, par jour (rétention des épisodes)
 data/fidelite/       trace du garde-fou, par épisode
 tests/test_fidelite.py  tests du contrôle de reprise : py -m unittest tests.test_fidelite
+tests/test_topics.py    tests des données de sujets : py -m unittest tests.test_topics
 ```
 
 Pipeline : RSS → dédoublonnage → mémoire → LLM → signatures → fidélité →
@@ -177,6 +181,21 @@ Sur Windows, utiliser `py` plutôt que `python`.
   par le workflow pour rejouer un contrôle (`fidelite`). Le contrôle rate
   des affirmations « autre » (conditions, conséquences inventées) : il
   attrape surtout les faits précis.
+
+- **Données des sujets pour l'app** (section `topics`, depuis le 14/10) :
+  chaque sujet publié dans `episodes.json` et dans `<lora:topics>` (JSON en
+  CDATA dans chaque `<item>`) porte `start`, `place`, `sources`,
+  `related7d` quand ils sont sûrs ; sinon le champ est absent, jamais null.
+  Le modèle donne le lieu et le numéro de sujet de chaque réplique dans le
+  même appel. Le lieu est rejeté s'il tombe hors du pays annoncé ; le
+  fuseau vient de `zone1970.tab`, jamais du modèle. **Les débuts ne sont
+  pas des durées de segments** : le brief part en un seul appel TTS, on
+  cale chaque début sur la vraie pause la plus proche de sa place attendue
+  (au prorata des caractères) ; sans pause à moins de 4 s, l'épisode sort
+  sans débuts. Le sujet de chaque réplique est gardé à côté du script
+  (`data/scripts/AAAA-MM-JJ.sujets.json`) pour que `say` les recalcule.
+  `trend7d` n'est pas produit (aucun lien article ↔ sujet). Chapitres
+  Podcasting 2.0 dans `docs/chapters/`.
 
 L'avancement et les tâches en cours sont dans `TODO.md` — à lire seulement
 quand la question porte dessus (`@TODO.md`), pas à chaque session.

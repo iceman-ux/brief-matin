@@ -142,11 +142,13 @@ sans bloc de code markdown :
       "slug": "identifiant-court-stable",
       "title": "Le sujet en 6 mots max",
       "category": "france|monde|eco|tech|sport",
-      "sources": ["Le Monde", "franceinfo"]
+      "sources": ["Le Monde", "franceinfo"],
+      "place": {"city": "Kyiv", "country": "Ukraine", "iso3": "UKR",
+                "lat": 50.45, "lon": 30.52}
     }
   ],
   "script": [
-    {"speaker": "NOM", "text": "Le texte à prononcer."}
+    {"speaker": "NOM", "topic": 1, "text": "Le texte à prononcer."}
   ]
 }
 ```
@@ -155,6 +157,18 @@ Le `slug` sert de mémoire d'un jour sur l'autre : il doit désigner **le dossie
 pas l'épisode du jour. « budget-2027 » et non « budget-2027-vote-mardi ».
 
 Omets `clin_oeil` un jour ordinaire.
+
+`place` dit **où se passe le fait** : la ville (en français), le pays (en
+français), son code ISO 3166 alpha-3 et les coordonnées de la ville en degrés
+décimaux, deux décimales. Pour une décision d'un gouvernement ou d'un
+parlement, sa capitale. Mets `"place": null` quand le sujet n'a pas de lieu
+unique (climat mondial, marchés, entreprise présente partout, plusieurs pays
+à égalité) : ne choisis jamais un lieu au hasard.
+
+`topic` est le numéro du sujet (1 pour le premier de `topics`, 2 pour le
+suivant…) dont parle la réplique. Les sujets se suivent dans l'ordre de
+`topics` : toutes les répliques du sujet 1, puis celles du sujet 2, etc. Une
+réplique de transition appartient au sujet qu'elle introduit.
 
 Dans `script`, chaque entrée est une réplique. `speaker` doit valoir exactement
 l'un de : {{SPEAKER_NAMES}}. Ne mets aucune indication scénique entre parenthèses

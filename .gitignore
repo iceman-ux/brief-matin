@@ -9,11 +9,14 @@ __pycache__/
 data/dry-run.mp3
 
 data/dry-run.txt
+data/dry-run.sujets.json
 
 # Les essais d'écoute : des mp3 lourds qui n'ont rien à faire dans l'historique.
 # Seuls les tests unitaires sont versionnés.
 tests/*
 !tests/test_*.py
+# Exemples figés relus par les tests, côté pipeline et côté app.
+!tests/fixtures/
 # Le test de voix à l'aveugle : mp3 et clé de correspondance, jamais publiés.
 data/voice-test/
 

@@ -203,6 +203,22 @@ def assemble(cfg: Config, data: dict[str, Any], day: date) -> dict[str, Any]:
         [{"speaker": signature_speaker(cfg), "text": opening}, *body])
     warnings.extend(named)
     data["script"] = script
+    data["accroche"] = hook
+    data["clin_oeil"] = wink
     for warning in warnings:
         print(f"   ⚠ {warning}")
     return data
+
+
+def spoken_hook(cfg: Config, script: list[dict], day: date,
+                wink: str = "") -> str:
+    """Accroche telle que Marc la dit : la réplique d'ouverture, sans la
+    date ni le clin d'œil posés par le code. Elle suit les corrections du
+    garde-fou de fidélité, qui ne touche jamais à la date."""
+    if not script:
+        return ""
+    text = script[0]["text"].strip()
+    for lead in (f"{cfg.brand['date_lead']} {spoken_date(day)}", wink):
+        if lead and text.startswith(lead):
+            text = text[len(lead):].strip()
+    return text

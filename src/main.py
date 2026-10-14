@@ -13,6 +13,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -23,6 +24,7 @@ from . import feed as feed_mod
 from . import fidelite as fidelite_mod
 from . import release as release_mod
 from . import sources as sources_mod
+from . import topics as topics_mod
 from . import tts as tts_mod
 from . import writer as writer_mod
 from .config import ROOT, load_config, test_api_key
@@ -126,6 +128,7 @@ def cmd_run(args) -> int:
     script_path.parent.mkdir(parents=True, exist_ok=True)
     script_path.write_text(
         writer_mod.script_to_text(cfg, script, with_names=True), encoding="utf-8")
+    _save_line_topics(script_path, script)
     print(f"   → script écrit : {script_path.relative_to(ROOT)}")
 
     if args.no_audio:
@@ -148,7 +151,8 @@ def cmd_run(args) -> int:
         mp3_path = feed_mod.EPISODES_DIR / mp3_name
         _print_voices(cfg)
         tts_mod.warn_if_batch_requested(cfg)
-        tts_mod.synthesize(cfg, script, mp3_path, day=now.date())
+        starts = tts_mod.synthesize(cfg, script, mp3_path, day=now.date(),
+                                    topic_count=len(data["topics"])).starts
 
     duration = tts_mod.audio_duration_seconds(mp3_path)
     size = mp3_path.stat().st_size
@@ -163,11 +167,15 @@ def cmd_run(args) -> int:
     # 5 ─ Publication
     print("\n5. Flux podcast")
     title, summary = _episode_texts(date, data["topics"])
+    topics = topics_mod.enrich(cfg, data["topics"], date, starts,
+                               feed_mod.load_index())
+    _print_topic_data(topics)
+    hook = brand_mod.spoken_hook(cfg, script, now.date(), data["clin_oeil"])
     url, storage = feed_mod.publish_audio(cfg, mp3_path)
     episodes = feed_mod.register_episode(
         cfg, date=date, filename=mp3_name, url=url, storage=storage,
         title=title, summary=summary, duration=duration, size=size,
-        topics=data["topics"])
+        topics=topics, hook=hook)
     feed_path = feed_mod.build_feed(cfg, episodes)
     print(f"   → {len(episodes)} épisodes en ligne, "
           f"{feed_path.relative_to(ROOT)} régénéré")
@@ -271,7 +279,20 @@ def cmd_say(args) -> int:
     tts_mod.warn_if_batch_requested(cfg)
     # Un extrait (--lines) n'est pas un épisode : pas de signatures autour.
     day = None if args.lines else datetime.strptime(date, "%Y-%m-%d").date()
-    tts_mod.synthesize(cfg, script, mp3_path, day=day)
+    # Les débuts de sujet se recalculent sur le nouvel audio, si le run a
+    # gardé le sujet de chaque réplique ; sinon ils sont retirés, faux.
+    line_topics = _load_line_topics(script_path, script)
+    if line_topics:
+        for line, topic in zip(script, line_topics):
+            if topic:
+                line["topic"] = topic
+    synthesis = tts_mod.synthesize(
+        cfg, script, mp3_path, day=day,
+        topic_count=len(topics) if line_topics and not args.lines else 0)
+    topics = [{k: v for k, v in t.items() if k != "start"} for t in topics]
+    if synthesis.starts and len(synthesis.starts) == len(topics):
+        for topic, start in zip(topics, synthesis.starts):
+            topic["start"] = start
     duration = tts_mod.audio_duration_seconds(mp3_path)
     size = mp3_path.stat().st_size
     print(f"   → {mp3_path.name} · {duration // 60}:{duration % 60:02d} · "
@@ -287,13 +308,46 @@ def cmd_say(args) -> int:
     episodes = feed_mod.register_episode(
         cfg, date=date, filename=mp3_name, url=url, storage=storage,
         title=title, summary=summary, duration=duration, size=size,
-        topics=topics)
+        topics=topics, hook=(existing or {}).get("hook", ""))
     feed_path = feed_mod.build_feed(cfg, episodes)
     print(f"   → {len(episodes)} épisodes en ligne, "
           f"{feed_path.relative_to(ROOT)} régénéré")
 
     print(f"\n✓ Terminé. Flux : {cfg.base_url}/feed.xml\n")
     return 0
+
+
+def _line_topics_path(script_path: Path) -> Path:
+    return script_path.with_suffix(".sujets.json")
+
+
+def _save_line_topics(script_path: Path, script: list[dict]) -> None:
+    """Le texte du script ne garde pas le sujet de chaque réplique : il est
+    mis à côté, pour que « say » recalcule les débuts de sujet."""
+    _line_topics_path(script_path).write_text(
+        json.dumps([line.get("topic") for line in script]), encoding="utf-8")
+
+
+def _load_line_topics(script_path: Path, script: list[dict]) -> list | None:
+    path = _line_topics_path(script_path)
+    try:
+        topics = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return None
+    # Un script retouché à la main n'a plus les mêmes répliques.
+    return topics if isinstance(topics, list) and len(topics) == len(script) else None
+
+
+def _print_topic_data(topics: list[dict]) -> None:
+    starts = [t.get("start") for t in topics]
+    if all(s is not None for s in starts):
+        print("   → débuts : " + " · ".join(
+            f"{int(s) // 60}:{int(s) % 60:02d}" for s in starts))
+    else:
+        print("   ⚠ débuts de sujet absents")
+    places = [t["place"]["city"] for t in topics if "place" in t]
+    print(f"   → lieux contrôlés : {len(places)}/{len(topics)}"
+          + (f" ({', '.join(places)})" if places else ""))
 
 
 def _swap_voices(cfg, speakers: list[dict]) -> None:

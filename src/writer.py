@@ -275,6 +275,8 @@ def validate(cfg: Config, data: dict[str, Any]) -> dict[str, Any]:
 
     known = {s.name for s in cfg.speakers}
     default = cfg.speakers[0].name
+    topics = data.get("topics")
+    data["topics"] = topics if isinstance(topics, list) else []
     cleaned = []
     for line in data["script"]:
         speaker = str(line.get("speaker", "")).strip()
@@ -283,11 +285,17 @@ def validate(cfg: Config, data: dict[str, Any]) -> dict[str, Any]:
             continue
         if speaker not in known:
             speaker = default
-        cleaned.append({"speaker": speaker, "text": text})
+        entry = {"speaker": speaker, "text": text}
+        # Numéro du sujet (1, 2…) : sert à caler les débuts de sujet dans
+        # l'audio. Un numéro hors liste est ignoré, jamais deviné.
+        topic = line.get("topic")
+        if (isinstance(topic, int) and not isinstance(topic, bool)
+                and 1 <= topic <= len(data["topics"])):
+            entry["topic"] = topic
+        cleaned.append(entry)
     if not cleaned:
         raise ValueError("Script vide après nettoyage.")
     data["script"] = cleaned
-    data.setdefault("topics", [])
     data["accroche"] = str(data.get("accroche") or "").strip()
     data["clin_oeil"] = str(data.get("clin_oeil") or "").strip()
     return data

@@ -19,6 +19,7 @@ import tempfile
 import wave
 from datetime import date
 from pathlib import Path
+from typing import NamedTuple
 
 from .config import Config, api_key, test_api_key
 
@@ -318,10 +319,12 @@ def _decode_pcm(path: Path, sample_rate: int) -> bytes:
 
 
 def _trim(cfg: Config, pcm: bytes,
-          keep_tail: bool = False) -> tuple[bytes, int, int]:
+          keep_tail: bool = False) -> tuple[bytes, int, int, int]:
     """Coupe le silence de tête et de queue, en gardant une marge autour de
     la voix. Renvoie aussi la marge réellement gardée de chaque côté, en
-    échantillons, pour que les écarts du montage se comptent de voix à voix.
+    échantillons, pour que les écarts du montage se comptent de voix à voix,
+    et le nombre d'échantillons coupés en tête, pour situer un instant du
+    corps dans l'épisode monté.
 
     La marge est passée en fondu : sans lui, la coupe tombe dans la chute
     d'un mot, encore audible sous le seuil, et claque. keep_tail laisse la
@@ -342,7 +345,7 @@ def _trim(cfg: Config, pcm: bytes,
 
     first = next((i for i in range(count) if voiced(i)), None)
     if first is None:
-        return pcm, 0, 0
+        return pcm, 0, 0, 0
     last = next(i for i in range(count - 1, -1, -1) if voiced(i))
     margin = int(rate * float(audio["trim_margin_ms"]) / 1000)
     voice_start, voice_end = first * window, (last + 1) * window
@@ -355,7 +358,7 @@ def _trim(cfg: Config, pcm: bytes,
     if not keep_tail:
         for i in range(tail):
             kept[-1 - i] = int(kept[-1 - i] * i / tail)
-    return kept.tobytes(), head, tail
+    return kept.tobytes(), head, tail, start
 
 
 def _silence(samples: int) -> bytes:
@@ -373,8 +376,11 @@ def _brand_pcm(cfg: Config, path: Path | None, label: str) -> bytes | None:
         return None
 
 
-def frame(cfg: Config, body: bytes, day: date) -> bytes:
+def frame(cfg: Config, body: bytes, day: date) -> tuple[bytes, int]:
     """[sonal] → tête → ouverture → écart → corps → écart → clôture du jour.
+
+    Renvoie aussi le décalage, en échantillons, entre un instant du corps et
+    le même instant dans l'épisode monté : il situe les débuts de sujet.
 
     Avec brand.sonal_overlap_ms, l'ouverture entre pendant la queue du sonal
     au lieu de le suivre après l'écart de tête.
@@ -399,25 +405,29 @@ def frame(cfg: Config, body: bytes, day: date) -> bytes:
     # sous le seuil de coupe de la voix et serait tronquée.
     overlap = ms(cfg.brand.get("sonal_overlap_ms") or 0) if sonal else 0
     parts: list[bytes] = [sonal] if sonal and not overlap else []
-    body, body_head, body_tail = _trim(cfg, body)
+    body, body_head, body_tail, body_cut = _trim(cfg, body)
     if opening:
-        opening, head, tail = _trim(cfg, opening)
+        opening, head, tail, _ = _trim(cfg, opening)
         parts += [_silence(ms(gaps["head"]) - head), opening,
                   _silence(ms(gaps["after_opening"]) - tail - body_head)]
     else:
         head = body_head
         parts.append(_silence(ms(gaps["head"]) - body_head))
+    body_at = sum(len(p) for p in parts) // 2
     parts.append(body)
     if closing:
-        closing, head, _ = _trim(cfg, closing, keep_tail=True)
+        closing, head, _, _ = _trim(cfg, closing, keep_tail=True)
         parts += [_silence(ms(gaps["before_closing"]) - body_tail - head),
                   closing]
     if not overlap:
-        return b"".join(parts)
+        return b"".join(parts), body_at - body_cut
     # La voix entre dans la queue du sonal : sans l'écart de tête, sa
     # première attaque tombe à « overlap » de la fin du sonal.
-    voice = b"".join(parts)[2 * max(ms(gaps["head"]) - head, 0):]
-    return _mix_at(sonal, voice, max(len(sonal) // 2 - overlap - head, 0))
+    removed = max(ms(gaps["head"]) - head, 0)
+    voice = b"".join(parts)[2 * removed:]
+    offset = max(len(sonal) // 2 - overlap - head, 0)
+    return (_mix_at(sonal, voice, offset),
+            offset + body_at - removed - body_cut)
 
 
 def _mix_at(first: bytes, second: bytes, offset: int) -> bytes:
@@ -433,9 +443,85 @@ def _mix_at(first: bytes, second: bytes, offset: int) -> bytes:
     return head.tobytes() + voice[shared:].tobytes()
 
 
+class Synthesis(NamedTuple):
+    path: Path
+    # Début de chaque sujet dans le mp3, en secondes ; None si on ne sait
+    # pas les situer tous sur une vraie pause.
+    starts: list[float] | None
+
+
+def _voiced_windows(cfg: Config, pcm: bytes) -> list[bool]:
+    """Voix ou silence, par fenêtre de 10 ms, au seuil des pauses."""
+    window = int(cfg.audio["sample_rate"]) // 100
+    samples = array.array("h")
+    samples.frombytes(pcm)
+    limit = 32768 * 10 ** (float(cfg.raw["topics"]["pause_threshold_db"]) / 20)
+    voiced = []
+    for start in range(0, len(samples) - window + 1, window):
+        chunk = samples[start:start + window]
+        voiced.append(math.sqrt(sum(v * v for v in chunk) / window) > limit)
+    return voiced
+
+
+def topic_marks(cfg: Config, pcm: bytes, script: list[dict],
+                topic_count: int) -> list[int] | None:
+    """Début de chaque sujet dans le PCM du corps, en échantillons.
+
+    Le brief est synthétisé d'un seul tenant : aucun segment ne dit où
+    commence chaque réplique. On situe la première réplique de chaque sujet
+    au prorata des caractères sur la durée de voix, puis on la cale sur la
+    reprise de voix, après une vraie pause, la plus proche. Sans pause assez
+    près pour un seul sujet, rien n'est renvoyé : un début faux serait pire
+    qu'absent."""
+    params = cfg.raw["topics"]
+    first_line: dict[int, int] = {}
+    for index, line in enumerate(script):
+        if "topic" in line:
+            first_line.setdefault(line["topic"], index)
+    lines = [first_line.get(n) for n in range(1, topic_count + 1)]
+    if topic_count == 0 or None in lines or lines != sorted(lines):
+        return None
+
+    voiced = _voiced_windows(cfg, pcm)
+    if True not in voiced:
+        return None
+    first = voiced.index(True)
+    last = len(voiced) - 1 - voiced[::-1].index(True)
+    min_pause = max(1, int(float(params["min_pause_ms"]) / 10))
+    onsets, silent = [], 0
+    for i in range(first, last + 1):
+        if voiced[i]:
+            if silent >= min_pause:
+                onsets.append(i)
+            silent = 0
+        else:
+            silent += 1
+
+    sizes = [len(line["text"]) for line in script]
+    total = sum(sizes)
+    span = last + 1 - first
+    tolerance = float(params["max_snap_s"]) * 100
+    marks, previous = [], first - 1
+    for line in lines:
+        if line == 0:
+            chosen = first
+        else:
+            expected = first + span * sum(sizes[:line]) / total
+            near = [o for o in onsets
+                    if o > previous and abs(o - expected) <= tolerance]
+            if not near:
+                return None
+            chosen = min(near, key=lambda o: abs(o - expected))
+        marks.append(chosen * (int(cfg.audio["sample_rate"]) // 100))
+        previous = chosen
+    return marks
+
+
 def synthesize(cfg: Config, script: list[dict], out_path: Path,
-               verbose: bool = True, day: date | None = None) -> Path:
-    """Script -> mp3. Retourne le chemin du fichier écrit.
+               verbose: bool = True, day: date | None = None,
+               topic_count: int = 0) -> Synthesis:
+    """Script -> mp3. Retourne le chemin du fichier écrit et les débuts des
+    topic_count sujets, d'après le champ « topic » des répliques.
 
     Avec day, l'épisode est encadré des signatures enregistrées de ce jour.
     """
@@ -469,7 +555,11 @@ def synthesize(cfg: Config, script: list[dict], out_path: Path,
         else:
             pcm += _synth_pcm(cfg, _render_chunk_text(cfg, chunk, multi), multi)
 
-    return finalize(cfg, bytes(pcm), out_path, verbose, day)
+    marks = topic_marks(cfg, bytes(pcm), script, topic_count)
+    if topic_count and marks is None and verbose:
+        print("   ⚠ débuts de sujet non situés (marqueurs absents ou pas de "
+              "pause assez proche) : l'épisode sort sans")
+    return finalize(cfg, bytes(pcm), out_path, verbose, day, marks)
 
 
 def _mp3_codec(cfg: Config) -> list[str]:
@@ -481,9 +571,11 @@ def finishing_enabled(cfg: Config) -> bool:
 
 
 def finalize(cfg: Config, pcm: bytes, out_path: Path,
-             verbose: bool = True, day: date | None = None) -> Path:
+             verbose: bool = True, day: date | None = None,
+             marks: list[int] | None = None) -> Synthesis:
     """PCM brut -> mp3 du flux : finition du corps, montage des signatures
-    du jour si day est donné, puis un seul encodage mp3.
+    du jour si day est donné, puis un seul encodage mp3. Les marks (instants
+    du corps, en échantillons) ressortent en secondes de l'épisode monté.
 
     Tout passe par des fichiers temporaires, remplacés d'un coup à la fin :
     un échec en route ne laisse ni mp3 tronqué ni audio non fini à la place
@@ -503,11 +595,15 @@ def finalize(cfg: Config, pcm: bytes, out_path: Path,
             if verbose:
                 print(f"  finition : {loudness:.1f} LUFS")
             pcm = _wav_to_pcm(finished.read_bytes(), rate)
+        # La finition garde la durée : les instants du corps restent valables.
+        shift = 0
         if day is not None:
-            pcm = frame(cfg, pcm, day)
+            pcm, shift = frame(cfg, pcm, day)
         _encode(_pcm_to_wav(pcm, rate), final, cfg, _mp3_codec(cfg))
         os.replace(final, out_path)
-    return out_path
+    starts = None if marks is None else [
+        round(max(m + shift, 0) / rate, 1) for m in marks]
+    return Synthesis(out_path, starts)
 
 
 def _loudnorm_report(stderr: str) -> dict:
