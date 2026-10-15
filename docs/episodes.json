@@ -1,5 +1,153 @@
 [
   {
+    "date": "2026-10-15",
+    "filename": "brief-2026-10-15.mp3",
+    "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-15.mp3",
+    "storage": "releases",
+    "title": "15/10 — Starlink et renseignement américain en Ukraine",
+    "summary": "Brief du 2026-10-15. Starlink et renseignement américain en Ukraine · Fraude fiscale dans l'hôtellerie-restauration · Prise de contrôle de Halk TV · Revalorisation des retraites complémentaires Agirc-Arrco · Mobilisation lycéenne et plainte policière · Duralex repris par Tupperware France · Le PSG domine Manchester City",
+    "duration": 202,
+    "size": 2425984,
+    "topics": [
+      {
+        "slug": "guerre-ukraine-starlink-renseignement",
+        "title": "Starlink et renseignement américain en Ukraine",
+        "category": "monde",
+        "sources": [
+          "RFI",
+          "franceinfo",
+          "Next"
+        ],
+        "place": {
+          "city": "Kyiv",
+          "country": "Ukraine",
+          "iso3": "UKR",
+          "lat": 50.45,
+          "lon": 30.52,
+          "tz": "Europe/Kyiv"
+        },
+        "start": 12.5,
+        "related7d": 0
+      },
+      {
+        "slug": "fraude-fiscale-hotellerie-restauration",
+        "title": "Fraude fiscale dans l'hôtellerie-restauration",
+        "category": "france",
+        "sources": [
+          "Le Monde"
+        ],
+        "place": {
+          "city": "Paris",
+          "country": "France",
+          "iso3": "FRA",
+          "lat": 48.86,
+          "lon": 2.35,
+          "tz": "Europe/Paris"
+        },
+        "start": 56.1,
+        "related7d": 0
+      },
+      {
+        "slug": "turquie-medias-opposition",
+        "title": "Prise de contrôle de Halk TV",
+        "category": "monde",
+        "sources": [
+          "Le Monde",
+          "RFI"
+        ],
+        "place": {
+          "city": "Ankara",
+          "country": "Turquie",
+          "iso3": "TUR",
+          "lat": 39.93,
+          "lon": 32.86,
+          "tz": "Europe/Istanbul"
+        },
+        "start": 73.9,
+        "related7d": 0
+      },
+      {
+        "slug": "retraites-complementaires-agirc-arrco",
+        "title": "Revalorisation des retraites complémentaires Agirc-Arrco",
+        "category": "eco",
+        "sources": [
+          "Le Figaro",
+          "Le Monde"
+        ],
+        "place": {
+          "city": "Paris",
+          "country": "France",
+          "iso3": "FRA",
+          "lat": 48.86,
+          "lon": 2.35,
+          "tz": "Europe/Paris"
+        },
+        "start": 101.2,
+        "related7d": 0
+      },
+      {
+        "slug": "mobilisation-lyceenne-police",
+        "title": "Mobilisation lycéenne et plainte policière",
+        "category": "france",
+        "sources": [
+          "franceinfo",
+          "Le Figaro"
+        ],
+        "place": {
+          "city": "Paris",
+          "country": "France",
+          "iso3": "FRA",
+          "lat": 48.86,
+          "lon": 2.35,
+          "tz": "Europe/Paris"
+        },
+        "start": 125.4,
+        "related7d": 0
+      },
+      {
+        "slug": "duralex-reprise-tupperware",
+        "title": "Duralex repris par Tupperware France",
+        "category": "france",
+        "sources": [
+          "Le Figaro",
+          "Le Monde",
+          "La Tribune"
+        ],
+        "place": {
+          "city": "Orléans",
+          "country": "France",
+          "iso3": "FRA",
+          "lat": 47.9,
+          "lon": 1.9,
+          "tz": "Europe/Paris"
+        },
+        "start": 162.4,
+        "related7d": 0
+      },
+      {
+        "slug": "ligue-des-champions-psg-manchester-city",
+        "title": "Le PSG domine Manchester City",
+        "category": "sport",
+        "sources": [
+          "franceinfo",
+          "Le Monde"
+        ],
+        "place": {
+          "city": "Manchester",
+          "country": "Royaume-Uni",
+          "iso3": "GBR",
+          "lat": 53.48,
+          "lon": -2.24,
+          "tz": "Europe/London"
+        },
+        "start": 183.5,
+        "related7d": 0
+      }
+    ],
+    "pub_date": "2026-10-15T02:04:20.346836+00:00",
+    "hook": "L'armée ukrainienne accuse le réseau Starlink d'avoir bridé ses drones lors d'une vague de frappes nocturnes meurtrières."
+  },
+  {
     "date": "2026-10-14",
     "filename": "brief-2026-10-14.mp3",
     "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-14.mp3",

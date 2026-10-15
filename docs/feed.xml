@@ -13,7 +13,7 @@
 
 Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
     <language>fr-FR</language>
-    <lastBuildDate>Wed, 14 Oct 2026 21:35:25 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 15 Oct 2026 02:04:20 +0000</lastBuildDate>
     <itunes:author>Lora</itunes:author>
     <itunes:subtitle>L'essentiel de l'actu, chaque matin</itunes:subtitle>
     <itunes:summary>Brief quotidien généré automatiquement à partir des grands titres français et internationaux. France, Monde, Économie, Tech.
@@ -28,6 +28,42 @@ Brief généré automatiquement par intelligence artificielle, texte et voix, à
     <itunes:type>episodic</itunes:type>
     <itunes:image href="https://iceman-ux.github.io/brief-matin/lora-cover.jpg"/>
     <image><url>https://iceman-ux.github.io/brief-matin/lora-cover.jpg</url><title>Lora</title><link>https://iceman-ux.github.io/brief-matin</link></image>
+    <item>
+      <title>15/10 — Starlink et renseignement américain en Ukraine</title>
+      <description>Brief du 2026-10-15. Starlink et renseignement américain en Ukraine · Fraude fiscale dans l'hôtellerie-restauration · Prise de contrôle de Halk TV · Revalorisation des retraites complémentaires Agirc-Arrco · Mobilisation lycéenne et plainte policière · Duralex repris par Tupperware France · Le PSG domine Manchester City
+
+Au sommaire :
+• Starlink et renseignement américain en Ukraine
+• Fraude fiscale dans l'hôtellerie-restauration
+• Prise de contrôle de Halk TV
+• Revalorisation des retraites complémentaires Agirc-Arrco
+• Mobilisation lycéenne et plainte policière
+• Duralex repris par Tupperware France
+• Le PSG domine Manchester City
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
+      <itunes:subtitle>L'armée ukrainienne accuse le réseau Starlink d'avoir bridé ses drones lors d'une vague de frappes nocturnes meurtrières.</itunes:subtitle>
+      <podcast:chapters url="https://iceman-ux.github.io/brief-matin/chapters/brief-2026-10-15.json" type="application/json+chapters"/>
+      <lora:topics><![CDATA[[{"title": "Starlink et renseignement américain en Ukraine", "start": 12.5, "place": {"city": "Kyiv", "country": "Ukraine", "iso3": "UKR", "lat": 50.45, "lon": 30.52, "tz": "Europe/Kyiv"}, "sources": ["RFI", "franceinfo", "Next"], "related7d": 0}, {"title": "Fraude fiscale dans l'hôtellerie-restauration", "start": 56.1, "place": {"city": "Paris", "country": "France", "iso3": "FRA", "lat": 48.86, "lon": 2.35, "tz": "Europe/Paris"}, "sources": ["Le Monde"], "related7d": 0}, {"title": "Prise de contrôle de Halk TV", "start": 73.9, "place": {"city": "Ankara", "country": "Turquie", "iso3": "TUR", "lat": 39.93, "lon": 32.86, "tz": "Europe/Istanbul"}, "sources": ["Le Monde", "RFI"], "related7d": 0}, {"title": "Revalorisation des retraites complémentaires Agirc-Arrco", "start": 101.2, "place": {"city": "Paris", "country": "France", "iso3": "FRA", "lat": 48.86, "lon": 2.35, "tz": "Europe/Paris"}, "sources": ["Le Figaro", "Le Monde"], "related7d": 0}, {"title": "Mobilisation lycéenne et plainte policière", "start": 125.4, "place": {"city": "Paris", "country": "France", "iso3": "FRA", "lat": 48.86, "lon": 2.35, "tz": "Europe/Paris"}, "sources": ["franceinfo", "Le Figaro"], "related7d": 0}, {"title": "Duralex repris par Tupperware France", "start": 162.4, "place": {"city": "Orléans", "country": "France", "iso3": "FRA", "lat": 47.9, "lon": 1.9, "tz": "Europe/Paris"}, "sources": ["Le Figaro", "Le Monde", "La Tribune"], "related7d": 0}, {"title": "Le PSG domine Manchester City", "start": 183.5, "place": {"city": "Manchester", "country": "Royaume-Uni", "iso3": "GBR", "lat": 53.48, "lon": -2.24, "tz": "Europe/London"}, "sources": ["franceinfo", "Le Monde"], "related7d": 0}]]]></lora:topics>
+      <itunes:summary>Brief du 2026-10-15. Starlink et renseignement américain en Ukraine · Fraude fiscale dans l'hôtellerie-restauration · Prise de contrôle de Halk TV · Revalorisation des retraites complémentaires Agirc-Arrco · Mobilisation lycéenne et plainte policière · Duralex repris par Tupperware France · Le PSG domine Manchester City
+
+Au sommaire :
+• Starlink et renseignement américain en Ukraine
+• Fraude fiscale dans l'hôtellerie-restauration
+• Prise de contrôle de Halk TV
+• Revalorisation des retraites complémentaires Agirc-Arrco
+• Mobilisation lycéenne et plainte policière
+• Duralex repris par Tupperware France
+• Le PSG domine Manchester City
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</itunes:summary>
+      <pubDate>Thu, 15 Oct 2026 02:04:20 +0000</pubDate>
+      <guid isPermaLink="false">brief-matin-2026-10-15</guid>
+      <enclosure url="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-15.mp3" length="2425984" type="audio/mpeg"/>
+      <itunes:duration>3:22</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
     <item>
       <title>14/10 — Loi sur les violences sexuelles adoptée</title>
       <description>Brief du 2026-10-14. Loi sur les violences sexuelles adoptée · Prévisions FMI et décrochage français · Frappes houthistes contre l'Arabie saoudite · Espionnage interne chez OpenAI · Abrogation des lois anti-LGBT en Hongrie · Nvidia entre au capital de Doctolib
