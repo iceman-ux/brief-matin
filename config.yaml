@@ -185,9 +185,10 @@ brief:
   # Le vendredi, on ajoute une section "à retenir de la semaine".
   weekly_recap_on: ["friday"]
 
-  # Nombre de sujets traités dans le brief.
+  # Nombre de sujets traités dans le brief. Au plus 6 : l'app et la page
+  # d'installation ont six teintes de sujet, un 7ᵉ reprendrait la première.
   topics_min: 5
-  topics_max: 8
+  topics_max: 6
 
   # Seuil de regroupement des articles qui parlent du même sujet (0 → 1).
   # Plus bas = fusionne plus agressivement. 0.6 est un bon compromis.
@@ -198,10 +199,11 @@ brief:
   # fidélité. Chaque article ajouté rallonge le prompt, donc la facture.
   prompt_articles: 120
 
-  # Répartition éditoriale visée (indicative, transmise au rédacteur).
+  # Répartition éditoriale visée (indicative, transmise au rédacteur). Son
+  # total ne dépasse pas topics_max, sinon elle contredit le nombre de sujets.
   mix:
-    france: 3
-    monde: 3
+    france: 2
+    monde: 2
     eco: 1
     tech: 1
 
@@ -324,6 +326,13 @@ topics:
   # mots, dans les épisodes des related_days jours précédents.
   related_days: 7
   related_title_overlap: 0.5
+  # Présence dans nos sources (trend7d) : nombre d'articles envoyés au
+  # rédacteur sur ce sujet, chaque jour des trend_days derniers jours, J
+  # compris. Les sujets de jours différents sont reliés par la même règle
+  # que les sujets liés. Seuls les jours dont l'épisode a noté ses articles
+  # comptent ; la courbe n'est publiée qu'à partir de trend_min_days jours.
+  trend_days: 7
+  trend_min_days: 3
   # Débuts de sujet. L'audio est synthétisé d'un seul tenant (voir
   # audio.max_words_per_chunk) : on cale chaque début au milieu de la vraie
   # pause la plus proche de sa place attendue, au prorata des caractères.

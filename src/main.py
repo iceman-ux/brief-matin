@@ -346,6 +346,10 @@ def _print_topic_data(topics: list[dict]) -> None:
     places = [t["place"]["city"] for t in topics if "place" in t]
     print(f"   → lieux contrôlés : {len(places)}/{len(topics)}"
           + (f" ({', '.join(places)})" if places else ""))
+    noted = sum(1 for t in topics if "articles" in t)
+    curves = sum(1 for t in topics if "trend7d" in t)
+    print(f"   → articles notés : {noted}/{len(topics)} sujets, "
+          f"courbe de présence : {curves}/{len(topics)}")
 
 
 def _swap_voices(cfg, speakers: list[dict]) -> None:

@@ -185,17 +185,23 @@ Sur Windows, utiliser `py` plutôt que `python`.
 - **Données des sujets pour l'app** (section `topics`, depuis le 14/10) :
   chaque sujet publié dans `episodes.json` et dans `<lora:topics>` (JSON en
   CDATA dans chaque `<item>`) porte `start`, `place`, `sources`,
-  `related7d` quand ils sont sûrs ; sinon le champ est absent, jamais null.
-  Le modèle donne le lieu et le numéro de sujet de chaque réplique dans le
-  même appel. Le lieu est rejeté s'il tombe hors du pays annoncé ; le
+  `related7d`, `trend7d` quand ils sont sûrs ; sinon le champ est absent,
+  jamais null. Au plus 6 sujets (`brief.topics_max`) : six teintes dans
+  l'app. Le modèle donne le lieu, les numéros des articles de chaque sujet
+  et le numéro de sujet de chaque réplique dans le même appel. Le lieu est rejeté s'il tombe hors du pays annoncé ; le
   fuseau vient de `zone1970.tab`, jamais du modèle. **Les débuts ne sont
   pas des durées de segments** : le brief part en un seul appel TTS, on
   cale chaque début au milieu de la vraie pause la plus proche de sa place
   attendue (au prorata des caractères) ; un sujet sans pause nette à moins
-  de 5 s n'a pas de début, les autres gardent le leur. Le sujet de chaque réplique est gardé à côté du script
-  (`data/scripts/AAAA-MM-JJ.sujets.json`) pour que `say` les recalcule.
-  `trend7d` n'est pas produit (aucun lien article ↔ sujet). Chapitres
-  Podcasting 2.0 dans `docs/chapters/`.
+  de 5 s n'a pas de début, les autres gardent le leur. Le sujet de chaque
+  réplique est gardé à côté du script (`data/scripts/AAAA-MM-JJ.sujets.json`)
+  pour que `say` les recalcule. **`trend7d`, présence dans nos sources**
+  (depuis le 16/10) : nombre d'articles envoyés au rédacteur sur le sujet,
+  jour par jour, reliés par la règle de `related7d` ; numéros gardés dans
+  `episodes.json` (`articles`, renvoient à `data/sources/`). La courbe
+  commence au premier épisode qui a ces numéros, sans rattrapage ; un jour
+  sans épisode vaut null, un épisode sans sujet relié 0 ; publiée à partir
+  de 3 jours connus. Chapitres Podcasting 2.0 dans `docs/chapters/`.
 
 L'avancement et les tâches en cours sont dans `TODO.md` — à lire seulement
 quand la question porte dessus (`@TODO.md`), pas à chaque session.

@@ -204,7 +204,8 @@ def write_script(cfg: Config, items: list[Item], memory: Memory,
             return model, call(False)
 
     model, response = generate_with_fallbacks(writer_models(cfg), attempt)
-    data = validate(cfg, _extract_json(response.text))
+    data = validate(cfg, _extract_json(response.text),
+                    article_count=len(prompt_items(cfg, items)))
     meta = response.usage_metadata
     data["usage"] = {
         "model": model,
@@ -268,8 +269,21 @@ def generate_with_fallbacks(models: list[str], attempt: Callable[[str], T]) -> T
     raise ValueError("Aucun modèle de rédaction configuré (models.writer).")
 
 
-def validate(cfg: Config, data: dict[str, Any]) -> dict[str, Any]:
-    """Garde-fous : on préfère échouer ici que produire un mp3 cassé."""
+def _article_numbers(raw: Any, article_count: int | None) -> list[int]:
+    """Numéros d'articles d'un sujet, ceux de la liste envoyée seulement."""
+    if not isinstance(raw, list):
+        return []
+    numbers = {n for n in raw if isinstance(n, int) and not isinstance(n, bool)
+               and n >= 1 and (article_count is None or n <= article_count)}
+    return sorted(numbers)
+
+
+def validate(cfg: Config, data: dict[str, Any],
+             article_count: int | None = None) -> dict[str, Any]:
+    """Garde-fous : on préfère échouer ici que produire un mp3 cassé.
+
+    article_count : nombre d'articles envoyés au rédacteur, pour écarter un
+    numéro d'article qui n'existe pas."""
     if not isinstance(data.get("script"), list) or not data["script"]:
         raise ValueError("Le modèle n'a pas renvoyé de script.")
 
@@ -277,6 +291,14 @@ def validate(cfg: Config, data: dict[str, Any]) -> dict[str, Any]:
     default = cfg.speakers[0].name
     topics = data.get("topics")
     data["topics"] = topics if isinstance(topics, list) else []
+    for topic in data["topics"]:
+        if not isinstance(topic, dict) or "articles" not in topic:
+            continue
+        # Sans numéro valable, le sujet n'a pas de mesure : une liste vide
+        # compterait zéro article, ce qui serait faux.
+        numbers = _article_numbers(topic.pop("articles"), article_count)
+        if numbers:
+            topic["articles"] = numbers
     cleaned = []
     for line in data["script"]:
         speaker = str(line.get("speaker", "")).strip()

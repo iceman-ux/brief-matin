@@ -1,5 +1,6 @@
 """Données des sujets publiées pour l'app et les lecteurs de podcast : début
-dans l'audio, lieu contrôlé, sources, sujets liés sur 7 jours, chapitres.
+dans l'audio, lieu contrôlé, sources, sujets liés et présence dans nos
+sources sur 7 jours, chapitres.
 
 Règle : rien n'est inventé. Une donnée douteuse ou absente est omise (pas
 de null partout), et l'app masque ce qui l'affiche."""
@@ -8,7 +9,7 @@ from __future__ import annotations
 
 import math
 from datetime import datetime, timedelta
-from typing import Any
+from typing import Any, Callable
 
 from . import geo
 from .config import Config
@@ -49,32 +50,74 @@ def clean_place(cfg: Config, raw: Any) -> dict | None:
     return place
 
 
-def related_count(cfg: Config, topic: dict, date: str,
-                  episodes: list[dict]) -> int:
-    """Sujets des related_days jours précédents qui parlent de la même chose :
-    même slug, ou titres qui se recoupent (comme le dédoublonnage RSS)."""
-    params = cfg.raw["topics"]
-    day = datetime.strptime(date, "%Y-%m-%d")
-    since = (day - timedelta(days=int(params["related_days"]))).strftime("%Y-%m-%d")
+def _same_subject(cfg: Config, topic: dict) -> Callable[[dict], bool]:
+    """Règle qui relie deux sujets de jours différents : même slug, ou
+    titres qui se recoupent (comme le dédoublonnage RSS)."""
     slug = topic.get("slug")
     words = _tokens(str(topic.get("title") or ""))
-    threshold = float(params["related_title_overlap"])
-    count = 0
-    for episode in episodes:
-        if not since <= episode["date"] < date:
+    threshold = float(cfg.raw["topics"]["related_title_overlap"])
+    return lambda other: bool(slug and other.get("slug") == slug) or _similar(
+        words, _tokens(str(other.get("title") or "")), threshold)
+
+
+def _shift(date: str, days: int) -> str:
+    return (datetime.strptime(date, "%Y-%m-%d")
+            + timedelta(days=days)).strftime("%Y-%m-%d")
+
+
+def related_count(cfg: Config, topic: dict, date: str,
+                  episodes: list[dict]) -> int:
+    """Sujets des related_days jours précédents qui parlent de la même chose."""
+    since = _shift(date, -int(cfg.raw["topics"]["related_days"]))
+    same = _same_subject(cfg, topic)
+    return sum(1 for episode in episodes if since <= episode["date"] < date
+               for other in episode.get("topics") or [] if same(other))
+
+
+def _has_article_numbers(episode: dict) -> bool:
+    return any("articles" in t for t in episode.get("topics") or [])
+
+
+def trend(cfg: Config, topic: dict, date: str,
+          episodes: list[dict]) -> list[int | None] | None:
+    """Présence du sujet dans nos sources, jour par jour jusqu'à J : nombre
+    d'articles envoyés au rédacteur sur ce sujet ou un sujet relié.
+
+    Un jour ne compte que si l'épisode a noté les numéros de ses articles :
+    la courbe commence au premier qui l'a fait, sans rattrapage. Après ce
+    début, un jour sans épisode (run raté) vaut None, on ne sait pas ; un
+    épisode sans sujet relié vaut 0, c'est vrai. None tant qu'il n'y a pas
+    trend_min_days jours connus."""
+    params = cfg.raw["topics"]
+    if "articles" not in topic:
+        return None
+    noted = {e["date"]: e for e in episodes
+             if e["date"] < date and _has_article_numbers(e)}
+    first = min([*noted, date])
+    same = _same_subject(cfg, topic)
+    values: list[int | None] = []
+    for back in range(int(params["trend_days"]) - 1, 0, -1):
+        day = _shift(date, -back)
+        if day < first:
             continue
-        for other in episode.get("topics") or []:
-            if (slug and other.get("slug") == slug) or _similar(
-                    words, _tokens(str(other.get("title") or "")), threshold):
-                count += 1
-    return count
+        if day not in noted:
+            values.append(None)
+            continue
+        articles: set[int] = set()
+        for other in noted[day].get("topics") or []:
+            if same(other):
+                articles.update(other.get("articles") or [])
+        values.append(len(articles))
+    values.append(len(topic["articles"]))
+    known = sum(1 for v in values if v is not None)
+    return values if known >= int(params["trend_min_days"]) else None
 
 
 def enrich(cfg: Config, topics: list[dict], date: str,
            starts: list[float | None] | None, episodes: list[dict]) -> list[dict]:
     """Sujets du jour complétés : place contrôlée (ou retirée), start,
-    related7d. Le champ place disparaît s'il est douteux, au lieu de valoir
-    null : un épisode n'affiche que ce qu'il sait."""
+    related7d, trend7d. Le champ place disparaît s'il est douteux, au lieu
+    de valoir null : un épisode n'affiche que ce qu'il sait."""
     enriched = []
     for index, topic in enumerate(topics):
         item = {k: v for k, v in topic.items() if k != "place"}
@@ -84,6 +127,9 @@ def enrich(cfg: Config, topics: list[dict], date: str,
         if starts and len(starts) == len(topics) and starts[index] is not None:
             item["start"] = starts[index]
         item["related7d"] = related_count(cfg, topic, date, episodes)
+        curve = trend(cfg, topic, date, episodes)
+        if curve:
+            item["trend7d"] = curve
         enriched.append(item)
     return enriched
 

@@ -89,7 +89,7 @@ séquence déjà suivie. Dans ces cas, ouvre explicitement par le rappel
    camp de », « coup de tonnerre », « séisme politique ». Dis ce qui s'est
    passé, en mots ordinaires.
 10. **La répartition visée est indicative et ne justifie jamais un sujet
-    faible.** Mieux vaut cinq sujets solides que sept dont deux de
+    faible.** Mieux vaut cinq sujets solides que six dont un de
     remplissage. Si une catégorie n'a rien de significatif aujourd'hui, ne
     force rien et redistribue sur les autres. Un brief court et dense vaut
     mieux qu'un brief complet et creux.
@@ -143,6 +143,7 @@ sans bloc de code markdown :
       "title": "Le sujet en 6 mots max",
       "category": "france|monde|eco|tech|sport",
       "sources": ["Le Monde", "franceinfo"],
+      "articles": [3, 17, 42],
       "place": {"city": "Kyiv", "country": "Ukraine", "iso3": "UKR",
                 "lat": 50.45, "lon": 30.52}
     }
@@ -158,12 +159,19 @@ pas l'épisode du jour. « budget-2027 » et non « budget-2027-vote-mardi ».
 
 Omets `clin_oeil` un jour ordinaire.
 
-`place` dit **où se passe le fait** : la ville (en français), le pays (en
+`place` dit **où se produit le fait** : la ville (en français), le pays (en
 français), son code ISO 3166 alpha-3 et les coordonnées de la ville en degrés
 décimaux, deux décimales. Pour une décision d'un gouvernement ou d'un
 parlement, sa capitale. Mets `"place": null` quand le sujet n'a pas de lieu
 unique (climat mondial, marchés, entreprise présente partout, plusieurs pays
 à égalité) : ne choisis jamais un lieu au hasard.
+- **Relation de la France avec un autre pays** (diplomatie, coopération,
+  accord, visite) : place le sujet **dans l'autre pays**, jamais à Paris.
+  Une coopération militaire renouvelée avec le Tchad va à N'Djamena, Tchad.
+- **Le Vatican** : Rome, Italie (ITA).
+
+`articles` liste les numéros, dans « Articles disponibles », de **tous les
+articles dont tu as tiré ce sujet**, et seulement eux.
 
 `topic` est le numéro du sujet (1 pour le premier de `topics`, 2 pour le
 suivant…) dont parle la réplique. Les sujets se suivent dans l'ordre de

@@ -116,6 +116,22 @@ class PlaceTest(unittest.TestCase):
             self.assertIsNone(topics.clean_place(CFG, raw), raw)
 
 
+    def test_relation_bilaterale_dans_l_autre_pays(self):
+        # Coopération militaire avec le Tchad : N'Djamena, ville frontière
+        # du Cameroun, reste dans le Tchad ; Paris annoncée au Tchad, non.
+        place = topics.clean_place(CFG, {"city": "N'Djamena", "country": "Tchad",
+                                         "iso3": "TCD", "lat": 12.13, "lon": 15.06})
+        self.assertEqual(place["tz"], "Africa/Ndjamena")
+        self.assertIsNone(topics.clean_place(CFG, {"city": "Paris", "country": "Tchad",
+                                                   "iso3": "TCD", "lat": 48.86, "lon": 2.35}))
+        # Le Vatican est placé à Rome, Italie.
+        self.assertIsNotNone(topics.clean_place(CFG, {"city": "Rome", "country": "Italie",
+                                                      "iso3": "ITA", "lat": 41.90, "lon": 12.45}))
+        prompt = (Path(__file__).parents[1] / "prompts" / "brief_fr.md").read_text(encoding="utf-8")
+        self.assertIn("N'Djamena, Tchad", prompt)
+        self.assertIn("Rome, Italie", prompt)
+
+
 class RelatedTest(unittest.TestCase):
     def test_meme_slug_ou_titre_proche_dans_les_sept_jours(self):
         episodes = [
@@ -148,7 +164,59 @@ class EnrichTest(unittest.TestCase):
         self.assertEqual(partial[1]["start"], 58.5)
 
 
+class TrendTest(unittest.TestCase):
+    TOPIC = {"slug": "budget-2027", "title": "Budget 2027 : vote", "articles": [4, 9, 12]}
+
+    def test_jours_reels_seuls_et_null_sans_episode(self):
+        episodes = [
+            # Avant les numéros d'articles : hors de la courbe, pas zéro.
+            {"date": "2026-10-09", "topics": [{"slug": "budget-2027", "title": "Ancien"}]},
+            {"date": "2026-10-10", "topics": [{"slug": "budget-2027", "articles": [1, 2]},
+                                              {"slug": "x", "title": "Budget 2027 : le Sénat", "articles": [2, 7]}]},
+            {"date": "2026-10-11", "topics": [{"slug": "autre", "title": "Rien", "articles": [3]}]},
+            # Le 12 : run raté, pas d'épisode.
+            {"date": "2026-10-13", "topics": [{"slug": "budget-2027", "articles": [5]}]},
+        ]
+        self.assertEqual(topics.trend(CFG, self.TOPIC, "2026-10-14", episodes),
+                         [3, 0, None, 1, 3])
+
+    def test_pas_de_courbe_avant_trois_jours_connus(self):
+        episodes = [{"date": "2026-10-13", "topics": [{"slug": "budget-2027", "articles": [5]}]}]
+        self.assertIsNone(topics.trend(CFG, self.TOPIC, "2026-10-14", episodes))
+        # Le jour sans épisode ne compte pas comme un jour connu.
+        episodes.append({"date": "2026-10-11", "topics": [{"slug": "y", "articles": [1]}]})
+        self.assertEqual(topics.trend(CFG, self.TOPIC, "2026-10-14", episodes), [0, None, 1, 3])
+        self.assertIsNone(topics.trend(CFG, {"slug": "budget-2027"}, "2026-10-14", episodes))
+
+    def test_fenetre_de_sept_jours(self):
+        episodes = [{"date": f"2026-10-{d:02d}", "topics": [{"slug": "budget-2027", "articles": [1]}]}
+                    for d in range(1, 14)]
+        curve = topics.trend(CFG, self.TOPIC, "2026-10-14", episodes)
+        self.assertEqual(curve, [1, 1, 1, 1, 1, 1, 3])
+
+    def test_dans_le_flux_et_episodes(self):
+        episodes = [{"date": f"2026-10-{d:02d}", "topics": [{"slug": "budget-2027", "articles": [1]}]}
+                    for d in (12, 13)]
+        result = topics.enrich(CFG, [dict(self.TOPIC)], "2026-10-14", None, episodes)
+        self.assertEqual(result[0]["trend7d"], [1, 1, 3])
+        self.assertEqual(result[0]["articles"], [4, 9, 12])
+        app = topics.app_topics(result)[0]
+        self.assertEqual(app["trend7d"], [1, 1, 3])
+        self.assertNotIn("articles", app)
+
+
 class WriterTest(unittest.TestCase):
+    def test_numeros_d_articles_existants_seulement(self):
+        data = writer.validate(CFG, {
+            "topics": [{"title": "A", "articles": [3, 3, 1, 0, 99, True, "2"]},
+                       {"title": "B", "articles": [99]},
+                       {"title": "C", "articles": "1, 2"},
+                       {"title": "D"}],
+            "script": [{"speaker": "Léa", "text": "un"}]}, article_count=10)
+        self.assertEqual(data["topics"][0]["articles"], [1, 3])
+        for topic in data["topics"][1:]:
+            self.assertNotIn("articles", topic)
+
     def test_numero_de_sujet_garde_seulement_s_il_existe(self):
         data = writer.validate(CFG, {
             "topics": [{"title": "A"}, {"title": "B"}],
