@@ -1,5 +1,5 @@
 // Sujets d'un brief. Aujourd'hui le flux ne donne que les titres ; le reste
-// (début dans l'audio, lieu, sources, présence dans la presse) viendra du
+// (début dans l'audio, lieu, sources, présence dans nos sources) viendra du
 // pipeline. Règle : une donnée absente fait disparaître l'élément qui
 // l'affiche, jamais de valeur inventée.
 //
@@ -21,8 +21,12 @@ export type Topic = {
   place?: Place;
   /** Noms des médias. */
   sources?: string[];
-  /** Présence dans la presse sur 7 jours, du plus ancien au plus récent. */
-  trend7d?: number[];
+  /**
+   * Présence dans nos sources, jour par jour jusqu'au jour de l'épisode :
+   * nombre d'articles sur le sujet. null : pas d'épisode ce jour-là, on ne
+   * sait pas. Seulement les jours connus du pipeline, 7 au plus.
+   */
+  trend7d?: (number | null)[];
   /** Sujets liés sur 7 jours. */
   related7d?: number;
 };
@@ -55,7 +59,13 @@ export function readTopic(raw: unknown): Topic | null {
     const sources = r.sources.filter(isText);
     if (sources.length > 0) topic.sources = sources;
   }
-  if (Array.isArray(r.trend7d) && r.trend7d.length >= 2 && r.trend7d.every(isNumber)) topic.trend7d = r.trend7d;
+  if (
+    Array.isArray(r.trend7d) &&
+    r.trend7d.every((v) => v === null || isNumber(v)) &&
+    r.trend7d.filter(isNumber).length >= 2
+  ) {
+    topic.trend7d = r.trend7d as (number | null)[];
+  }
   if (isNumber(r.related7d) && r.related7d >= 0) topic.related7d = r.related7d;
   return topic;
 }
@@ -107,10 +117,30 @@ export function formatCoordinates(place: Place): string {
   return `${lat} ${lon}`;
 }
 
-/** Sens de la courbe de présence : comparaison du dernier jour au premier. */
-export function trendDirection(trend: number[]): '▲' | '▼' | '=' {
-  const delta = trend[trend.length - 1] - trend[0];
+/** Sens de la courbe de présence : dernier jour connu comparé au premier. */
+export function trendDirection(trend: (number | null)[]): '▲' | '▼' | '=' {
+  const known = trend.filter(isNumber);
+  const delta = known.length > 0 ? known[known.length - 1] - known[0] : 0;
   return delta > 0 ? '▲' : delta < 0 ? '▼' : '=';
+}
+
+/**
+ * Tronçons de la courbe, coupés à chaque jour inconnu : on ne relie pas deux
+ * jours par-dessus un trou, ce serait inventer la valeur manquante.
+ */
+export function trendRuns(trend: (number | null)[]): { index: number; value: number }[][] {
+  const runs: { index: number; value: number }[][] = [];
+  let run: { index: number; value: number }[] = [];
+  trend.forEach((value, index) => {
+    if (isNumber(value)) {
+      run.push({ index, value });
+    } else if (run.length > 0) {
+      runs.push(run);
+      run = [];
+    }
+  });
+  if (run.length > 0) runs.push(run);
+  return runs;
 }
 
 /** Décalage d'un fuseau avec l'UTC, en minutes, à l'instant donné. */

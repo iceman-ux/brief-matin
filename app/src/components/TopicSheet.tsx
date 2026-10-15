@@ -1,11 +1,11 @@
-// Fiche zone : le lieu du sujet, ses sources et sa présence dans la presse.
+// Fiche zone : le lieu du sujet, ses sources et sa présence dans nos sources.
 // Chaque ligne n'apparaît que si sa donnée existe.
-import type { ReactNode } from 'react';
+import { Fragment, type ReactNode } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Svg, { Defs, LinearGradient, Polygon, Polyline, Stop } from 'react-native-svg';
 
 import { tintOf, useSkin } from '../skins';
-import { type Topic, formatCoordinates, localTime, topicNumber, trendDirection } from '../topics';
+import { type Topic, formatCoordinates, localTime, topicNumber, trendDirection, trendRuns } from '../topics';
 import { layout, radii, sizes, spacing, type } from '../theme';
 import { GhostButton, Label } from '../ui';
 import { Sheet } from './Sheet';
@@ -17,17 +17,22 @@ const CHART_PAD = 4;
 const AREA_OPACITY = 0.3;
 const LINE_WIDTH = 2;
 
-function trendPoints(trend: number[]): string {
-  const min = Math.min(...trend);
-  const span = Math.max(...trend) - min || 1;
-  return trend
-    .map((v, i) => {
-      const x = (i * CHART_W) / (trend.length - 1);
-      const y = CHART_H - CHART_PAD - ((v - min) / span) * (CHART_H - 2 * CHART_PAD);
-      return `${x.toFixed(1)},${y.toFixed(1)}`;
-    })
-    .join(' ');
+type ChartPoint = { x: number; y: number };
+
+/** Points de chaque tronçon connu ; l'échelle vaut pour toute la courbe. */
+function trendShapes(trend: (number | null)[]): ChartPoint[][] {
+  const known = trend.filter((v): v is number => v !== null);
+  const min = Math.min(...known);
+  const span = Math.max(...known) - min || 1;
+  return trendRuns(trend).map((run) =>
+    run.map(({ index, value }) => ({
+      x: (index * CHART_W) / (trend.length - 1),
+      y: CHART_H - CHART_PAD - ((value - min) / span) * (CHART_H - 2 * CHART_PAD),
+    })),
+  );
 }
+
+const pointsOf = (run: ChartPoint[]) => run.map((p) => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(' ');
 
 type Props = {
   topics: Topic[];
@@ -107,13 +112,13 @@ export function TopicSheet({ topics, index, onIndex, onClose, now }: Props) {
           {topic.trend7d && (
             <View
               accessible
-              accessibilityLabel={`Présence dans la presse sur 7 jours : ${
+              accessibilityLabel={`Présence dans nos sources sur 7 jours : ${
                 trendDirection(topic.trend7d) === '▲' ? 'en hausse' : trendDirection(topic.trend7d) === '▼' ? 'en baisse' : 'stable'
               }`}
               style={[styles.card, styles.trend, { backgroundColor: skin.surface, borderColor: skin.line }]}
             >
               <View style={styles.trendHead}>
-                <Label>Présence dans la presse · 7 j</Label>
+                <Label>Présence dans nos sources · 7 j</Label>
                 <Label color={tint}>{trendDirection(topic.trend7d)}</Label>
               </View>
               <Svg width="100%" height={sizes.trendHeight} viewBox={`0 0 ${CHART_W} ${CHART_H}`} preserveAspectRatio="none">
@@ -123,18 +128,36 @@ export function TopicSheet({ topics, index, onIndex, onClose, now }: Props) {
                     <Stop offset={1} stopColor={tint} stopOpacity={0} />
                   </LinearGradient>
                 </Defs>
-                <Polygon
-                  points={`${trendPoints(topic.trend7d)} ${CHART_W},${CHART_H} 0,${CHART_H}`}
-                  fill={`url(#trendArea${index})`}
-                />
-                <Polyline
-                  points={trendPoints(topic.trend7d)}
-                  fill="none"
-                  stroke={tint}
-                  strokeWidth={LINE_WIDTH}
-                  strokeLinejoin="round"
-                  vectorEffect="non-scaling-stroke"
-                />
+                {trendShapes(topic.trend7d).map((run) =>
+                  run.length === 1 ? (
+                    // Un jour connu entre deux trous : un point. Un trait de
+                    // longueur nulle à bout rond reste rond, là où un cercle
+                    // serait étiré avec le repère.
+                    <Polyline
+                      key={run[0].x}
+                      points={`${pointsOf(run)} ${pointsOf(run)}`}
+                      stroke={tint}
+                      strokeWidth={LINE_WIDTH * 2}
+                      strokeLinecap="round"
+                      vectorEffect="non-scaling-stroke"
+                    />
+                  ) : (
+                    <Fragment key={run[0].x}>
+                      <Polygon
+                        points={`${pointsOf(run)} ${run[run.length - 1].x.toFixed(1)},${CHART_H} ${run[0].x.toFixed(1)},${CHART_H}`}
+                        fill={`url(#trendArea${index})`}
+                      />
+                      <Polyline
+                        points={pointsOf(run)}
+                        fill="none"
+                        stroke={tint}
+                        strokeWidth={LINE_WIDTH}
+                        strokeLinejoin="round"
+                        vectorEffect="non-scaling-stroke"
+                      />
+                    </Fragment>
+                  ),
+                )}
               </Svg>
             </View>
           )}

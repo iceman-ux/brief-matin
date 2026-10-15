@@ -11,6 +11,7 @@ import {
   topicAt,
   topicShortName,
   trendDirection,
+  trendRuns,
 } from '../src/topics.ts';
 
 const kyiv = { city: 'Kyiv', country: 'Ukraine', lat: 50.45, lon: 30.52, tz: 'Europe/Kyiv' };
@@ -59,4 +60,16 @@ test('heure locale : heure du lieu et écart avec le téléphone, rien sans fuse
   assert.equal(localTime({ ...kyiv, tz: 'Pas/Un_Fuseau' }, now), null);
   const utc = localTime({ ...kyiv, tz: 'UTC' }, new Date(Date.UTC(2026, 9, 12, 5, 30)));
   assert.match(utc ?? '', /^05:30 · /);
+});
+
+test('présence dans nos sources : un jour inconnu coupe la courbe', () => {
+  assert.deepEqual(readTopic({ title: 'A', trend7d: [3, 0, null, 1, 3] })?.trend7d, [3, 0, null, 1, 3]);
+  assert.equal(readTopic({ title: 'A', trend7d: [null, 4, null] })?.trend7d, undefined);
+  assert.equal(readTopic({ title: 'A', trend7d: [1, 'x', 2] })?.trend7d, undefined);
+  assert.deepEqual(trendRuns([3, 0, null, 1, 3]), [
+    [{ index: 0, value: 3 }, { index: 1, value: 0 }],
+    [{ index: 3, value: 1 }, { index: 4, value: 3 }],
+  ]);
+  assert.deepEqual(trendRuns([null, 2, null, 5]), [[{ index: 1, value: 2 }], [{ index: 3, value: 5 }]]);
+  assert.equal(trendDirection([null, 4, null, 1, null]), '▼');
 });
