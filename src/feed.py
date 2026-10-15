@@ -386,10 +386,19 @@ def _write_landing(cfg: Config, episodes: list[dict]) -> None:
     """Liste des épisodes : pratique pour copier l'URL du flux, ou réécouter."""
     base = cfg.base_url
     name = cfg.brand["name"]
+    pod = cfg.podcast
+    og_image = (f'\n<meta property="og:image" content="{_attr(base + "/" + pod["cover_image"])}">'
+                if pod.get("cover_image") else "")
+    # Les mp3 de la Release partent en pièce jointe : sur iPhone, le lien
+    # télécharge au lieu de lire. Le libellé le dit plutôt que de promettre
+    # une écoute.
     rows = "\n".join(
         f'      <li><span class="d">{escape(_short_date(e["date"]))}</span>'
-        f'<a class="t" href="{_attr(_audio_url(cfg, e))}">{escape(e["title"])}</a>'
-        f'<span class="m">{_fmt_duration(e["duration"])}</span></li>'
+        f'<span class="t">{escape(e["title"])}</span>'
+        f'<span class="m">{_fmt_duration(e["duration"])}</span>'
+        f'<a class="dl" href="{_attr(_audio_url(cfg, e))}" '
+        f'aria-label="Télécharger l’épisode du {_attr(_short_date(e["date"]))}">'
+        f'<span aria-hidden="true">↓</span> Télécharger</a></li>'
         for e in episodes[:15]
     ) or '      <li class="vide">Aucun épisode pour l\'instant.</li>'
 
@@ -399,19 +408,20 @@ def _write_landing(cfg: Config, episodes: list[dict]) -> None:
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0A0B0F">
-<title>{escape(cfg.podcast['title'])} — épisodes</title>
+<title>{escape(cfg.podcast['title'])} — épisodes</title>{og_image}
 {FONTS_LINK}
 <style>{V11_CSS}
   h1 {{ margin: 32px 0 0; font: 800 38px/1.02 var(--ui); letter-spacing: -.025em; }}
   .sub {{ margin: 12px 0 0; color: var(--text2); }}
   ul {{ list-style: none; margin: 0; padding: 0 20px; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; }}
-  li {{ display: flex; align-items: baseline; gap: 12px; min-height: 52px; padding: 14px 0; border-top: 1px solid var(--line); }}
+  li {{ display: grid; grid-template-columns: 92px 1fr auto; align-items: baseline; gap: 6px 12px; min-height: 52px; padding: 14px 0; border-top: 1px solid var(--line); }}
   li:first-child {{ border-top: 0; }}
-  .d {{ flex: none; width: 92px; font: 400 12px var(--mono); color: var(--text3); text-transform: uppercase; }}
-  .t {{ flex: 1; text-decoration: none; font-size: 15px; }}
-  .t:hover {{ color: var(--accent); }}
-  .m {{ flex: none; font: 400 12px var(--mono); color: var(--text4); }}
-  .vide {{ color: var(--text3); }}
+  .d {{ font: 400 12px var(--mono); color: var(--text3); text-transform: uppercase; }}
+  .t {{ min-width: 0; font-size: 15px; }}
+  .m {{ font: 400 12px var(--mono); color: var(--text4); }}
+  .dl {{ grid-column: 2 / -1; justify-self: start; padding: 4px 0; font: 400 12px var(--mono); color: var(--text3); text-decoration: none; white-space: nowrap; }}
+  .dl:hover {{ color: var(--accent); }}
+  .vide {{ display: block; color: var(--text3); }}
   .install {{ margin-top: 24px; }}
 </style>
 </head>

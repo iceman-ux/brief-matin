@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0A0B0F">
 <title>Lora — épisodes</title>
+<meta property="og:image" content="https://iceman-ux.github.io/brief-matin/lora-cover-v2.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&amp;family=Geist+Mono:wght@400;500&amp;family=Michroma&amp;display=swap">
@@ -58,13 +59,14 @@
   h1 { margin: 32px 0 0; font: 800 38px/1.02 var(--ui); letter-spacing: -.025em; }
   .sub { margin: 12px 0 0; color: var(--text2); }
   ul { list-style: none; margin: 0; padding: 0 20px; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; }
-  li { display: flex; align-items: baseline; gap: 12px; min-height: 52px; padding: 14px 0; border-top: 1px solid var(--line); }
+  li { display: grid; grid-template-columns: 92px 1fr auto; align-items: baseline; gap: 6px 12px; min-height: 52px; padding: 14px 0; border-top: 1px solid var(--line); }
   li:first-child { border-top: 0; }
-  .d { flex: none; width: 92px; font: 400 12px var(--mono); color: var(--text3); text-transform: uppercase; }
-  .t { flex: 1; text-decoration: none; font-size: 15px; }
-  .t:hover { color: var(--accent); }
-  .m { flex: none; font: 400 12px var(--mono); color: var(--text4); }
-  .vide { color: var(--text3); }
+  .d { font: 400 12px var(--mono); color: var(--text3); text-transform: uppercase; }
+  .t { min-width: 0; font-size: 15px; }
+  .m { font: 400 12px var(--mono); color: var(--text4); }
+  .dl { grid-column: 2 / -1; justify-self: start; padding: 4px 0; font: 400 12px var(--mono); color: var(--text3); text-decoration: none; white-space: nowrap; }
+  .dl:hover { color: var(--accent); }
+  .vide { display: block; color: var(--text3); }
   .install { margin-top: 24px; }
 </style>
 </head>
@@ -85,21 +87,21 @@
   <section aria-labelledby="episodes">
     <div class="head"><h2 id="episodes" class="label">Épisodes</h2></div>
     <ul>
-      <li><span class="d">Jeu. 15 oct.</span><a class="t" href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-15.mp3">15/10 — Starlink et renseignement américain en Ukraine</a><span class="m">3:22</span></li>
-      <li><span class="d">Mer. 14 oct.</span><a class="t" href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-14.mp3">14/10 — Loi sur les violences sexuelles adoptée</a><span class="m">3:07</span></li>
-      <li><span class="d">Mar. 13 oct.</span><a class="t" href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-13.mp3">13/10 — Tirs dans un collège à Aubagne</a><span class="m">3:08</span></li>
-      <li><span class="d">Lun. 12 oct.</span><a class="t" href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-12.mp3">12/10 — Victoire de Glucksmann à la primaire</a><span class="m">2:35</span></li>
-      <li><span class="d">Dim. 11 oct.</span><a class="t" href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-11.mp3">11/10 — Trump réclame un nouveau président ukrainien</a><span class="m">3:04</span></li>
-      <li><span class="d">Sam. 10 oct.</span><a class="t" href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-10.mp3">10/10 — Accord pétrolier surprise entre Washington et Moscou</a><span class="m">3:36</span></li>
-      <li><span class="d">Ven. 9 oct.</span><a class="t" href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-09.mp3">09/10 — Trump écarte les frappes en Iran</a><span class="m">3:18</span></li>
-      <li><span class="d">Jeu. 8 oct.</span><a class="t" href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-08.mp3">08/10 — Baisse annoncée des prix du gazole</a><span class="m">3:00</span></li>
-      <li><span class="d">Mer. 7 oct.</span><a class="t" href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-07.mp3">07/10 — Mobilisation lycéenne et recul du gouvernement</a><span class="m">3:15</span></li>
-      <li><span class="d">Mar. 6 oct.</span><a class="t" href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-06.mp3">06/10 — Paris et Berlin ciblent la Chine</a><span class="m">3:07</span></li>
-      <li><span class="d">Lun. 5 oct.</span><a class="t" href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-05.mp3">05/10 — Bolsonaro devance Lula au premier tour</a><span class="m">3:19</span></li>
-      <li><span class="d">Dim. 4 oct.</span><a class="t" href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-04.mp3">04/10 — Premier tour présidentiel au Brésil</a><span class="m">3:24</span></li>
-      <li><span class="d">Sam. 3 oct.</span><a class="t" href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-03.mp3">03/10 — Le G7 débloque ses réserves pétrolières</a><span class="m">3:35</span></li>
-      <li><span class="d">Ven. 2 oct.</span><a class="t" href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-02.mp3">02/10 — Bardella visé par des révélations</a><span class="m">3:19</span></li>
-      <li><span class="d">Jeu. 1 oct.</span><a class="t" href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-01.mp3">01/10 — Budget 2027 : 54 milliards d'efforts</a><span class="m">3:23</span></li>
+      <li><span class="d">Jeu. 15 oct.</span><span class="t">15/10 — Starlink et renseignement américain en Ukraine</span><span class="m">3:22</span><a class="dl" href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-15.mp3" aria-label="Télécharger l’épisode du Jeu. 15 oct."><span aria-hidden="true">↓</span> Télécharger</a></li>
+      <li><span class="d">Mer. 14 oct.</span><span class="t">14/10 — Loi sur les violences sexuelles adoptée</span><span class="m">3:07</span><a class="dl" href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-14.mp3" aria-label="Télécharger l’épisode du Mer. 14 oct."><span aria-hidden="true">↓</span> Télécharger</a></li>
+      <li><span class="d">Mar. 13 oct.</span><span class="t">13/10 — Tirs dans un collège à Aubagne</span><span class="m">3:08</span><a class="dl" href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-13.mp3" aria-label="Télécharger l’épisode du Mar. 13 oct."><span aria-hidden="true">↓</span> Télécharger</a></li>
+      <li><span class="d">Lun. 12 oct.</span><span class="t">12/10 — Victoire de Glucksmann à la primaire</span><span class="m">2:35</span><a class="dl" href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-12.mp3" aria-label="Télécharger l’épisode du Lun. 12 oct."><span aria-hidden="true">↓</span> Télécharger</a></li>
+      <li><span class="d">Dim. 11 oct.</span><span class="t">11/10 — Trump réclame un nouveau président ukrainien</span><span class="m">3:04</span><a class="dl" href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-11.mp3" aria-label="Télécharger l’épisode du Dim. 11 oct."><span aria-hidden="true">↓</span> Télécharger</a></li>
+      <li><span class="d">Sam. 10 oct.</span><span class="t">10/10 — Accord pétrolier surprise entre Washington et Moscou</span><span class="m">3:36</span><a class="dl" href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-10.mp3" aria-label="Télécharger l’épisode du Sam. 10 oct."><span aria-hidden="true">↓</span> Télécharger</a></li>
+      <li><span class="d">Ven. 9 oct.</span><span class="t">09/10 — Trump écarte les frappes en Iran</span><span class="m">3:18</span><a class="dl" href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-09.mp3" aria-label="Télécharger l’épisode du Ven. 9 oct."><span aria-hidden="true">↓</span> Télécharger</a></li>
+      <li><span class="d">Jeu. 8 oct.</span><span class="t">08/10 — Baisse annoncée des prix du gazole</span><span class="m">3:00</span><a class="dl" href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-08.mp3" aria-label="Télécharger l’épisode du Jeu. 8 oct."><span aria-hidden="true">↓</span> Télécharger</a></li>
+      <li><span class="d">Mer. 7 oct.</span><span class="t">07/10 — Mobilisation lycéenne et recul du gouvernement</span><span class="m">3:15</span><a class="dl" href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-07.mp3" aria-label="Télécharger l’épisode du Mer. 7 oct."><span aria-hidden="true">↓</span> Télécharger</a></li>
+      <li><span class="d">Mar. 6 oct.</span><span class="t">06/10 — Paris et Berlin ciblent la Chine</span><span class="m">3:07</span><a class="dl" href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-06.mp3" aria-label="Télécharger l’épisode du Mar. 6 oct."><span aria-hidden="true">↓</span> Télécharger</a></li>
+      <li><span class="d">Lun. 5 oct.</span><span class="t">05/10 — Bolsonaro devance Lula au premier tour</span><span class="m">3:19</span><a class="dl" href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-05.mp3" aria-label="Télécharger l’épisode du Lun. 5 oct."><span aria-hidden="true">↓</span> Télécharger</a></li>
+      <li><span class="d">Dim. 4 oct.</span><span class="t">04/10 — Premier tour présidentiel au Brésil</span><span class="m">3:24</span><a class="dl" href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-04.mp3" aria-label="Télécharger l’épisode du Dim. 4 oct."><span aria-hidden="true">↓</span> Télécharger</a></li>
+      <li><span class="d">Sam. 3 oct.</span><span class="t">03/10 — Le G7 débloque ses réserves pétrolières</span><span class="m">3:35</span><a class="dl" href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-03.mp3" aria-label="Télécharger l’épisode du Sam. 3 oct."><span aria-hidden="true">↓</span> Télécharger</a></li>
+      <li><span class="d">Ven. 2 oct.</span><span class="t">02/10 — Bardella visé par des révélations</span><span class="m">3:19</span><a class="dl" href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-02.mp3" aria-label="Télécharger l’épisode du Ven. 2 oct."><span aria-hidden="true">↓</span> Télécharger</a></li>
+      <li><span class="d">Jeu. 1 oct.</span><span class="t">01/10 — Budget 2027 : 54 milliards d'efforts</span><span class="m">3:23</span><a class="dl" href="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-01.mp3" aria-label="Télécharger l’épisode du Jeu. 1 oct."><span aria-hidden="true">↓</span> Télécharger</a></li>
     </ul>
   </section>
 

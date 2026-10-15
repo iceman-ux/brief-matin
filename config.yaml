@@ -31,7 +31,7 @@ podcast:
   # ⚠️ À REMPLACER par l'URL de ta GitHub Page une fois le repo créé.
   # Format : https://<ton-pseudo-github>.github.io/<nom-du-repo>
   base_url: "https://iceman-ux.github.io/brief-matin"
-  cover_image: "lora-cover.jpg"  # relatif à base_url, optionnel ; 3000 px de côté
+  cover_image: "lora-cover-v2.jpg"  # relatif à base_url, optionnel ; 3000 px de côté. Nouvelle image = nouveau nom : les applis gardent en cache celle d'une URL connue
   retention_days: 30           # mp3 de plus de 30 jours retirés du flux ET supprimés (docs/ et Release)
 
 onboarding:
