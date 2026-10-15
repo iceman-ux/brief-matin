@@ -67,6 +67,24 @@ onboarding:
   # Page Spotify du podcast, une fois accepté. Vide : pas de bouton Spotify
   # dans « Autre appli ou Android ? ».
   spotify_url: ""
+  # Extrait joué par le lecteur de la page d'installation, servi par GitHub
+  # Pages en audio/mpeg. La Release sert les épisodes en
+  # application/octet-stream et en pièce jointe : Safari sur iPhone ne les
+  # lit pas dans la page (constaté le 15/10/2026). Fichier fixe, jamais
+  # touché par le run, régénéré seulement à la main :
+  #   py tools/extrait.py AAAA-MM-JJ   puis   py -m src.main rebuild-feed
+  # Absent : le lecteur joue l'épisode du jour, comme avant.
+  excerpt:
+    # Relatif à docs/. Sa date et sa durée sont dans le .json du même nom,
+    # écrit par l'outil.
+    file: "extrait.mp3"
+    # Sujets gardés après l'ouverture : la coupe tombe à la fin de la pause
+    # qui précède le sujet suivant (chapitres de l'épisode, pause détectée au
+    # seuil audio.trim_threshold_db), audio.trim_margin_ms avant la voix.
+    topics: 1
+    # Fondu de fin au plus, tenu dans cette pause : raccourci si elle est
+    # plus brève, pour ne jamais toucher la dernière syllabe.
+    fade_out_ms: 300
 
 # Signatures de la marque. L'ouverture et la clôture sont des fichiers audio
 # figés (assets/brand/, WAV 24 kHz mono, −17 LUFS, true peak ≤ −3 dBFS) :

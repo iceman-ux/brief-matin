@@ -478,49 +478,97 @@ def subscribe_links(feed_url: str) -> dict[str, str]:
 TOPIC_TINTS = 6
 
 
+def _excerpt(cfg: Config) -> dict | None:
+    """Extrait fixe de la page d'installation (tools/extrait.py), s'il existe :
+    {url, date, duration}."""
+    name = ((cfg.raw.get("onboarding") or {}).get("excerpt") or {}).get("file")
+    if not name:
+        return None
+    mp3 = DOCS / name
+    meta = mp3.with_suffix(".json")
+    if not (mp3.exists() and meta.exists()):
+        return None
+    try:
+        info = json.loads(meta.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return None
+    return {"url": f"{cfg.base_url}/{name}", "date": info["date"],
+            "duration": float(info["duration"])}
+
+
 def _player(cfg: Config, latest: dict) -> str:
-    """Lecteur du dernier épisode et liste de ses sujets."""
+    """Lecteur (l'extrait fixe, sinon le dernier épisode) et sujets du jour."""
     topics = "\n".join(
         f'      <li><span class="dot" style="background:var(--t{i % TOPIC_TINTS + 1})"></span>'
         f'<span class="t">{escape(t.get("title", ""))}</span>'
         f'<span class="s">{escape(_sources_label(t))}</span></li>'
         for i, t in enumerate(latest.get("topics") or []))
-    topics_list = f'\n    <ul class="topics">\n{topics}\n    </ul>' if topics else ""
-    duration = int(latest["duration"])
+    excerpt = _excerpt(cfg)
+    today = escape(_short_date(latest["date"]))
+    if excerpt:
+        title, label_date = "Écoute un extrait", escape(_short_date(excerpt["date"]))
+        src, total, what = excerpt["url"], excerpt["duration"], "l’extrait"
+        topics_head = (f'\n    <div class="head programme"><h3 class="label">Au programme '
+                       f'aujourd’hui</h3><p class="label">{today}</p></div>')
+    else:
+        title, label_date = "Le brief d’aujourd’hui", today
+        src, total, what = _audio_url(cfg, latest), latest["duration"], "le brief d’aujourd’hui"
+        topics_head = ""
+    topics_list = (f'{topics_head}\n    <ul class="topics">\n{topics}\n    </ul>'
+                   if topics else "")
+    duration = int(round(total))
     return f"""
   <section aria-labelledby="ecoute">
-    <div class="head"><h2 id="ecoute" class="label">Le brief d’aujourd’hui</h2><p class="label">{escape(_short_date(latest["date"]))}</p></div>
+    <div class="head"><h2 id="ecoute" class="label">{title}</h2><p class="label">{label_date}</p></div>
     <div class="player rim"><div class="glass">
       <div class="row">
         <span class="lcd" id="t">00:00</span>
         <span class="label" id="reste">{escape(_minutes(duration))}</span>
-        <button class="knob" id="play" type="button" aria-label="Écouter le brief d’aujourd’hui">
+        <button class="knob" id="play" type="button" aria-label="Écouter {what}">
           <svg id="i-play" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="margin-left:3px"><path d="M7 4.5v15l13-7.5z"/></svg>
           <svg id="i-pause" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" hidden><rect x="6" y="4.5" width="4.2" height="15" rx="1"/><rect x="13.8" y="4.5" width="4.2" height="15" rx="1"/></svg>
         </button>
       </div>
-      <div class="bar" id="bar" role="slider" aria-label="Position dans le brief" aria-valuemin="0" aria-valuemax="{duration}" aria-valuenow="0" tabindex="0"><span class="fill" id="fill"></span></div>
+      <div class="bar" id="bar" role="slider" aria-label="Position dans {what}" aria-valuemin="0" aria-valuemax="{duration}" aria-valuenow="0" tabindex="0"><span class="fill" id="fill"></span></div>
     </div></div>
-    <audio id="audio" preload="none" src="{_attr(_audio_url(cfg, latest))}"></audio>{topics_list}
+    <p class="erreur" id="erreur" role="alert" hidden>Lecture impossible ici : écoute-le dans Pocket Casts.</p>
+    <audio id="audio" preload="none" src="{_attr(src)}"></audio>{topics_list}
   </section>
   <script>
   (function () {{
     var a = document.getElementById("audio"), play = document.getElementById("play"),
         ip = document.getElementById("i-play"), ipa = document.getElementById("i-pause"),
         t = document.getElementById("t"), reste = document.getElementById("reste"),
-        fill = document.getElementById("fill"), bar = document.getElementById("bar");
-    var total = {duration};
+        fill = document.getElementById("fill"), bar = document.getElementById("bar"),
+        erreur = document.getElementById("erreur");
+    var total = {total:.1f};
     function mmss(s) {{ s = Math.max(0, Math.floor(s)); var m = Math.floor(s / 60), r = s % 60; return (m < 10 ? "0" : "") + m + ":" + (r < 10 ? "0" : "") + r; }}
     function render() {{
-      var d = a.duration || total, c = a.currentTime || 0;
+      var d = isFinite(a.duration) && a.duration > 0 ? a.duration : total, c = a.currentTime || 0;
       t.textContent = mmss(c); reste.textContent = "-" + mmss(d - c);
       fill.style.width = (100 * c / d) + "%"; bar.setAttribute("aria-valuenow", Math.floor(c));
     }}
-    play.addEventListener("click", function () {{ a.paused ? a.play() : a.pause(); }});
-    a.addEventListener("play", function () {{ ip.hidden = true; ipa.hidden = false; play.setAttribute("aria-label", "Pause"); }});
-    a.addEventListener("pause", function () {{ ip.hidden = false; ipa.hidden = true; play.setAttribute("aria-label", "Reprendre le brief"); }});
+    // L'attribut, pas la propriété : un <svg> n'a pas de propriété hidden,
+    // et l'affecter ne changeait jamais l'icône.
+    function icons(playing) {{ ip.toggleAttribute("hidden", playing); ipa.toggleAttribute("hidden", !playing); }}
+    // Sans ce message, un refus du navigateur (format, réseau, lecture
+    // bloquée) laisse le bouton sans aucune réaction visible.
+    function fail() {{
+      icons(false); erreur.hidden = false;
+      play.setAttribute("aria-label", "Réessayer");
+    }}
+    play.addEventListener("click", function () {{
+      if (!a.paused) {{ a.pause(); return; }}
+      erreur.hidden = true;
+      var p = a.play();
+      if (p && p.catch) p.catch(function (e) {{ if (!e || e.name !== "AbortError") fail(); }});
+    }});
+    a.addEventListener("error", fail);
+    a.addEventListener("play", function () {{ icons(true); play.setAttribute("aria-label", "Pause"); }});
+    a.addEventListener("pause", function () {{ icons(false); if (erreur.hidden) play.setAttribute("aria-label", "Reprendre"); }});
+    a.addEventListener("ended", function () {{ a.currentTime = 0; render(); play.setAttribute("aria-label", "Réécouter"); }});
     a.addEventListener("timeupdate", render);
-    function seek(x) {{ var r = bar.getBoundingClientRect(); a.currentTime = Math.min(1, Math.max(0, (x - r.left) / r.width)) * (a.duration || total); render(); }}
+    function seek(x) {{ var r = bar.getBoundingClientRect(); a.currentTime = Math.min(1, Math.max(0, (x - r.left) / r.width)) * (isFinite(a.duration) ? a.duration : total); render(); }}
     bar.addEventListener("click", function (e) {{ seek(e.clientX); }});
     bar.addEventListener("keydown", function (e) {{
       if (e.key === "ArrowRight") {{ a.currentTime += 15; render(); }}
@@ -607,6 +655,9 @@ def _write_installer(cfg: Config, episodes: list[dict]) -> None:
   .bar {{ position: relative; height: 16px; cursor: pointer; }}
   .bar::before {{ content: ""; position: absolute; left: 0; right: 0; top: 7px; height: 2px; border-radius: 1px; background: var(--track); }}
   .fill {{ position: absolute; left: 0; top: 7px; height: 2px; width: 0; border-radius: 1px; background: var(--accent); box-shadow: 0 0 6px rgba(255,106,19,.8); }}
+  .erreur {{ margin: 12px 0 0; font-size: 14px; color: var(--accent); }}
+  .programme {{ margin: 24px 0 0; }}
+  .programme + .topics {{ margin-top: 6px; }}
   .topics {{ list-style: none; margin: 18px 0 0; padding: 0; }}
   .topics li {{ display: flex; align-items: center; gap: 12px; min-height: 48px; padding: 8px 0; border-top: 1px solid var(--line); }}
   .topics li:first-child {{ border-top: 0; }}

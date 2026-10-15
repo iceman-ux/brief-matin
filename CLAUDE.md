@@ -55,6 +55,8 @@ assets/geo/          contours des pays (world-atlas 50m) et table ISO 3166
 tools/analyse_voix.py  mesure audio pour le protocole d'écoute, hors pipeline
                        (numpy, scipy — hors requirements.txt, le run n'en a pas besoin)
 tools/preparer_sonal.py  mise au format du sonal (mono, 24 kHz, gain fixe), idem
+tools/extrait.py     extrait fixe du lecteur de installer.html (docs/extrait.mp3),
+                     tiré d'un épisode à la main, jamais par le run
 tools/verifier_flux.py   épisode du jour présent et écoutable dans le flux en ligne (check.yml)
 data/sources/        articles envoyés au rédacteur, par jour (rétention des épisodes)
 data/fidelite/       trace du garde-fou, par épisode
@@ -160,6 +162,11 @@ Sur Windows, utiliser `py` plutôt que `python`.
   `docs/episodes/*.mp3` est ignoré. L'URL de chaque épisode est mémorisée
   dans `docs/episodes.json` (`url`, `storage`) : le flux ne la recalcule
   jamais. La rétention supprime aussi les fichiers expirés de la Release.
+  La Release sert les mp3 en `application/octet-stream` et en pièce
+  jointe : Safari sur iPhone ne les lit pas dans une page web, d'où
+  l'extrait fixe `docs/extrait.mp3` (Pages, `audio/mpeg`) du lecteur de
+  `installer.html` (`onboarding.excerpt`, `py tools/extrait.py AAAA-MM-JJ`
+  puis `rebuild-feed`).
   `stats` donne les téléchargements comptés par GitHub, relances des
   applis comprises : un ordre de grandeur, pas des auditeurs. En local,
   sans `gh` connecté, `run` et `say` publient donc dans `docs/`.
