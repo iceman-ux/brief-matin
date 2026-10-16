@@ -13,7 +13,7 @@
 
 Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
     <language>fr-FR</language>
-    <lastBuildDate>Thu, 15 Oct 2026 17:45:20 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 16 Oct 2026 02:04:25 +0000</lastBuildDate>
     <itunes:author>Lora</itunes:author>
     <itunes:subtitle>L'essentiel de l'actu, chaque matin</itunes:subtitle>
     <itunes:summary>Brief quotidien généré automatiquement à partir des grands titres français et internationaux. France, Monde, Économie, Tech.
@@ -28,6 +28,40 @@ Brief généré automatiquement par intelligence artificielle, texte et voix, à
     <itunes:type>episodic</itunes:type>
     <itunes:image href="https://iceman-ux.github.io/brief-matin/lora-cover-v2.jpg"/>
     <image><url>https://iceman-ux.github.io/brief-matin/lora-cover-v2.jpg</url><title>Lora</title><link>https://iceman-ux.github.io/brief-matin</link></image>
+    <item>
+      <title>16/10 — Accord franco-allemand sur l'automobile</title>
+      <description>Brief du 2026-10-16. Accord franco-allemand sur l'automobile · Fracture entre Washington et Kiev · Frappe houthiste sur Aden · Inquiétudes sur la dette de l'IA · Trump renonce à l'exécution publique · À retenir de la semaine
+
+Au sommaire :
+• Accord franco-allemand sur l'automobile
+• Fracture entre Washington et Kiev
+• Frappe houthiste sur Aden
+• Inquiétudes sur la dette de l'IA
+• Trump renonce à l'exécution publique
+• À retenir de la semaine
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
+      <itunes:subtitle>Paris et Berlin ont scellé un compromis pour assouplir l'échéance automobile de 2035 en protégeant l'industrie européenne.</itunes:subtitle>
+      <podcast:chapters url="https://iceman-ux.github.io/brief-matin/chapters/brief-2026-10-16.json" type="application/json+chapters"/>
+      <lora:topics><![CDATA[[{"title": "Accord franco-allemand sur l'automobile", "start": 13.5, "place": {"city": "Berlin", "country": "Allemagne", "iso3": "DEU", "lat": 52.52, "lon": 13.4, "tz": "Europe/Berlin"}, "sources": ["Le Monde"], "related7d": 0}, {"title": "Fracture entre Washington et Kiev", "start": 55.4, "place": {"city": "Washington", "country": "États-Unis", "iso3": "USA", "lat": 38.89, "lon": -77.03, "tz": "America/New_York"}, "sources": ["Le Monde", "Le Figaro"], "related7d": 1}, {"title": "Frappe houthiste sur Aden", "start": 96.4, "place": {"city": "Aden", "country": "Yémen", "iso3": "YEM", "lat": 12.8, "lon": 45.03, "tz": "Asia/Riyadh"}, "sources": ["Le Monde", "France 24"], "related7d": 0}, {"title": "Inquiétudes sur la dette de l'IA", "start": 114.9, "sources": ["Le Monde", "La Tribune"], "related7d": 0}, {"title": "Trump renonce à l'exécution publique", "start": 153.2, "place": {"city": "Washington", "country": "États-Unis", "iso3": "USA", "lat": 38.89, "lon": -77.03, "tz": "America/New_York"}, "sources": ["Le Monde"], "related7d": 1}, {"title": "À retenir de la semaine", "start": 182.1, "sources": ["Le Monde", "Le Figaro", "France 24"], "related7d": 1}]]]></lora:topics>
+      <itunes:summary>Brief du 2026-10-16. Accord franco-allemand sur l'automobile · Fracture entre Washington et Kiev · Frappe houthiste sur Aden · Inquiétudes sur la dette de l'IA · Trump renonce à l'exécution publique · À retenir de la semaine
+
+Au sommaire :
+• Accord franco-allemand sur l'automobile
+• Fracture entre Washington et Kiev
+• Frappe houthiste sur Aden
+• Inquiétudes sur la dette de l'IA
+• Trump renonce à l'exécution publique
+• À retenir de la semaine
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</itunes:summary>
+      <pubDate>Fri, 16 Oct 2026 02:04:25 +0000</pubDate>
+      <guid isPermaLink="false">brief-matin-2026-10-16</guid>
+      <enclosure url="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-16.mp3" length="2528802" type="audio/mpeg"/>
+      <itunes:duration>3:30</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
     <item>
       <title>15/10 — Starlink et renseignement américain en Ukraine</title>
       <description>Brief du 2026-10-15. Starlink et renseignement américain en Ukraine · Fraude fiscale dans l'hôtellerie-restauration · Prise de contrôle de Halk TV · Revalorisation des retraites complémentaires Agirc-Arrco · Mobilisation lycéenne et plainte policière · Duralex repris par Tupperware France · Le PSG domine Manchester City

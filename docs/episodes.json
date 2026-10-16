@@ -1,5 +1,144 @@
 [
   {
+    "date": "2026-10-16",
+    "filename": "brief-2026-10-16.mp3",
+    "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-16.mp3",
+    "storage": "releases",
+    "title": "16/10 — Accord franco-allemand sur l'automobile",
+    "summary": "Brief du 2026-10-16. Accord franco-allemand sur l'automobile · Fracture entre Washington et Kiev · Frappe houthiste sur Aden · Inquiétudes sur la dette de l'IA · Trump renonce à l'exécution publique · À retenir de la semaine",
+    "duration": 210,
+    "size": 2528802,
+    "topics": [
+      {
+        "slug": "industrie-automobile-europeenne",
+        "title": "Accord franco-allemand sur l'automobile",
+        "category": "eco",
+        "sources": [
+          "Le Monde"
+        ],
+        "articles": [
+          3,
+          17
+        ],
+        "place": {
+          "city": "Berlin",
+          "country": "Allemagne",
+          "iso3": "DEU",
+          "lat": 52.52,
+          "lon": 13.4,
+          "tz": "Europe/Berlin"
+        },
+        "start": 13.5,
+        "related7d": 0
+      },
+      {
+        "slug": "guerre-ukraine-politique",
+        "title": "Fracture entre Washington et Kiev",
+        "category": "monde",
+        "sources": [
+          "Le Monde",
+          "Le Figaro"
+        ],
+        "articles": [
+          6,
+          8,
+          78
+        ],
+        "place": {
+          "city": "Washington",
+          "country": "États-Unis",
+          "iso3": "USA",
+          "lat": 38.89,
+          "lon": -77.03,
+          "tz": "America/New_York"
+        },
+        "start": 55.4,
+        "related7d": 1
+      },
+      {
+        "slug": "conflit-yemen-houthis",
+        "title": "Frappe houthiste sur Aden",
+        "category": "monde",
+        "sources": [
+          "Le Monde",
+          "France 24"
+        ],
+        "articles": [
+          13,
+          92
+        ],
+        "place": {
+          "city": "Aden",
+          "country": "Yémen",
+          "iso3": "YEM",
+          "lat": 12.8,
+          "lon": 45.03,
+          "tz": "Asia/Riyadh"
+        },
+        "start": 96.4,
+        "related7d": 0
+      },
+      {
+        "slug": "marches-financiers-ia-dette",
+        "title": "Inquiétudes sur la dette de l'IA",
+        "category": "tech",
+        "sources": [
+          "Le Monde",
+          "La Tribune"
+        ],
+        "articles": [
+          14,
+          22,
+          107
+        ],
+        "start": 114.9,
+        "related7d": 0
+      },
+      {
+        "slug": "peine-mort-etats-unis",
+        "title": "Trump renonce à l'exécution publique",
+        "category": "monde",
+        "sources": [
+          "Le Monde"
+        ],
+        "articles": [
+          2
+        ],
+        "place": {
+          "city": "Washington",
+          "country": "États-Unis",
+          "iso3": "USA",
+          "lat": 38.89,
+          "lon": -77.03,
+          "tz": "America/New_York"
+        },
+        "start": 153.2,
+        "related7d": 1
+      },
+      {
+        "slug": "recap-hebdo",
+        "title": "À retenir de la semaine",
+        "category": "france",
+        "sources": [
+          "Le Monde",
+          "Le Figaro",
+          "France 24"
+        ],
+        "articles": [
+          2,
+          6,
+          14,
+          44,
+          81
+        ],
+        "start": 182.1,
+        "related7d": 1
+      }
+    ],
+    "pub_date": "2026-10-16T02:04:25.131858+00:00",
+    "hook": "Paris et Berlin ont scellé un compromis pour assouplir l'échéance automobile de 2035 en protégeant l'industrie européenne."
+  },
+  {
     "date": "2026-10-15",
     "filename": "brief-2026-10-15.mp3",
     "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-15.mp3",

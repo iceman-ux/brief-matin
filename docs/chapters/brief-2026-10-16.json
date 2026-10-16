@@ -1,0 +1,33 @@
+{
+  "version": "1.2.0",
+  "chapters": [
+    {
+      "startTime": 0,
+      "title": "Ouverture"
+    },
+    {
+      "startTime": 13.5,
+      "title": "Accord franco-allemand sur l'automobile"
+    },
+    {
+      "startTime": 55.4,
+      "title": "Fracture entre Washington et Kiev"
+    },
+    {
+      "startTime": 96.4,
+      "title": "Frappe houthiste sur Aden"
+    },
+    {
+      "startTime": 114.9,
+      "title": "Inquiétudes sur la dette de l'IA"
+    },
+    {
+      "startTime": 153.2,
+      "title": "Trump renonce à l'exécution publique"
+    },
+    {
+      "startTime": 182.1,
+      "title": "À retenir de la semaine"
+    }
+  ]
+}

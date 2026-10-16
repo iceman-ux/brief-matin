@@ -1,0 +1,67 @@
+{
+ "date": "2026-10-16",
+ "reprises": [
+  {
+   "replique": 7,
+   "mots": 21,
+   "texte": "soutenu par l'Arabie saoudite. L'attaque a fait au moins quatre morts et une dizaine de blessés. Le Premier ministre",
+   "source": "France 24 — FR",
+   "champ": "chapô",
+   "titre_source": "Yémen : les Houthis frappent le palais présidentiel d’Aden, faisant au moins quatre morts"
+  }
+ ],
+ "citations": [],
+ "problemes": [
+  {
+   "replique": 4,
+   "extrait": "pour autoriser les carburants de synthèse et certains hybrides",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "Les sources 3 et 17 mentionnent un accord pour assouplir l'échéance de 2035, mais ne précisent nulle part qu'il s'agit d'autoriser les carburants de synthèse ou certains hybrides."
+  },
+  {
+   "replique": 10,
+   "extrait": "des dizaines de milliards d'euros d'emprunts",
+   "type": "chiffre",
+   "gravite": "haute",
+   "explication": "La source 14 évoque des emprunts contractés pour financer l'essor de l'IA, sans jamais donner le montant de dizaines de milliards d'euros."
+  },
+  {
+   "replique": 12,
+   "extrait": "face aux vives réactions provoquées par cette annonce",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "La source 2 mentionne le renoncement de Donald Trump, mais n'indique aucune raison ni mention de vives réactions."
+  }
+ ],
+ "corrections": [
+  {
+   "replique": 7,
+   "avant": "Au Moyen-Orient, les rebelles houthis ont frappé hier le palais présidentiel d'Aden, au Yémen. Cinq missiles se sont abattus sur le siège du gouvernement reconnu par la communauté internationale et soutenu par l'Arabie saoudite. L'attaque a fait au moins quatre morts et une dizaine de blessés. Le Premier ministre Shaya Zindani en est sorti indemne et affirme que son équipe continue d'assurer ses fonctions. Cette frappe directe confirme l'escalade militaire des houthis, qui multiplient également les tirs de drones contre les infrastructures énergétiques saoudiennes.",
+   "apres": "Au Moyen-Orient, les rebelles houthis ont visé hier le palais présidentiel d'Aden, au Yémen. Cinq missiles ont ciblé les bâtiments du pouvoir appuyé par Riyad. Le bilan s'élève à au moins quatre morts et plusieurs blessés. Le chef du gouvernement, Shaya Zindani, n'a pas été touché et assure que son équipe reste au travail. Ce bombardement marque une nette escalade des insurgés, qui ciblent aussi les sites énergétiques saoudiens."
+  },
+  {
+   "replique": 10,
+   "avant": "Les investisseurs s'interrogent brutalement sur le modèle de financement de l'intelligence artificielle. Les acteurs du secteur ont souscrit des dizaines de milliards d'euros d'emprunts pour construire des infrastructures et acheter des puces. Même si les fabricants de semi-conducteurs affichent des bénéfices records, les marchés craignent que la rentabilité réelle tarde à se matérialiser.",
+   "apres": "Les investisseurs s'interrogent brutalement sur le modèle financier de la tech. Les entreprises du secteur ont lourdement emprunté pour bâtir des infrastructures et acheter des puces. Même si les géants des semi-conducteurs affichent des bénéfices records, les marchés doutent désormais de leur capacité à rembourser ces dettes et craignent que la rentabilité tarde à venir."
+  }
+ ],
+ "reprises_apres": [],
+ "appels": 2,
+ "cout_usd": 0.0264,
+ "erreurs": [],
+ "usage": [
+  {
+   "model": "gemini-3.8-flash",
+   "input": 16224,
+   "output": 281,
+   "thinking": 0
+  },
+  {
+   "model": "gemini-3.8-flash",
+   "input": 16268,
+   "output": 249,
+   "thinking": 0
+  }
+ ]
+}
