@@ -1,0 +1,103 @@
+{
+ "date": "2026-10-17",
+ "reprises": [
+  {
+   "replique": 4,
+   "mots": 8,
+   "texte": "la CGT appelle ses militants à rejoindre les",
+   "source": "Le Figaro — Économie",
+   "champ": "chapô",
+   "titre_source": "Manifestation du 17 octobre : face à la contestation, les syndicats en ordre dispersé"
+  },
+  {
+   "replique": 6,
+   "mots": 11,
+   "texte": "poussé sa toute nouvelle porte-parole, Katie Zacharia, vers la sortie",
+   "source": "Le Monde — International",
+   "champ": "titre",
+   "titre_source": "Donald Trump pousse sa toute nouvelle porte-parole, Katie Zacharia, vers la sortie, l’invitant à « reconsidérer » son avenir à ce poste"
+  },
+  {
+   "replique": 6,
+   "mots": 8,
+   "texte": "accusée d'avoir menti sur ses qualifications professionnelles",
+   "source": "Le Monde — International",
+   "champ": "chapô",
+   "titre_source": "Donald Trump pousse sa toute nouvelle porte-parole, Katie Zacharia, vers la sortie, l’invitant à « reconsidérer » son avenir à ce poste"
+  },
+  {
+   "replique": 7,
+   "mots": 9,
+   "texte": "La Cour de justice de l'Union européenne impose",
+   "source": "Le Monde — Économie",
+   "champ": "chapô",
+   "titre_source": "Arnaques bancaires : lors d’une « opération non autorisée », la banque doit d’abord rembourser le client"
+  }
+ ],
+ "citations": [],
+ "problemes": [
+  {
+   "replique": 2,
+   "extrait": "environ quatre-vingt-dix villes",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "La source 116 mentionne « 90 défilés » et non 90 villes."
+  },
+  {
+   "replique": 10,
+   "extrait": "des élus",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "La source 27 parle d'oppositions locales et de riverains, mais ne mentionne pas la présence d'élus."
+  },
+  {
+   "replique": 10,
+   "extrait": "des volumes massifs d'eau pour refroidir ses serveurs",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "Les sources 27 et 120 ne précisent pas que le centre exigera de grands volumes d'eau pour son refroidissement."
+  },
+  {
+   "replique": 13,
+   "extrait": "avant l'arrivée des secours",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "Les sources 7 et 17 indiquent que le tireur a été abattu par un passant / père d'élèves armé, mais ne mentionnent pas l'arrivée des secours."
+  }
+ ],
+ "corrections": [
+  {
+   "replique": 4,
+   "avant": "La CFDT et Force ouvrière refusent catégoriquement de s'associer aux cortèges de ce matin. Seule la CGT appelle ses militants à rejoindre les défilés, laissant le front syndical fracturé face à la contestation.",
+   "apres": "La CFDT et Force ouvrière refusent catégoriquement de s'associer aux cortèges de ce matin. Seule la CGT invite ses adhérents à défiler, laissant le front syndical fracturé face à la contestation."
+  },
+  {
+   "replique": 6,
+   "avant": "On part aux États-Unis. Donald Trump a poussé sa toute nouvelle porte-parole, Katie Zacharia, vers la sortie, cinq jours à peine après son entrée en fonction. C'est le record absolu de brièveté pour ce poste clé de la Maison Blanche. Choisie pour remplacer Karoline Leavitt, elle a totalement manqué son premier point de presse face aux journalistes, enchaînant les maladresses. Elle se retrouve également accusée d'avoir menti sur ses qualifications professionnelles. Le président américain l'a publiquement invitée à reconsidérer son avenir dans son équipe.",
+   "apres": "On part aux États-Unis. Donald Trump a remercié sa porte-parole, Katie Zacharia, cinq jours à peine après son arrivée. C'est le passage le plus court à ce poste clé de la Maison Blanche. Choisie pour remplacer Karoline Leavitt, elle a totalement raté son premier point de presse face aux journalistes, multipliant les bévues. Elle est également soupçonnée d'avoir truqué son CV. Le président américain l'a publiquement invitée à s'interroger sur sa place dans l'équipe."
+  },
+  {
+   "replique": 7,
+   "avant": "On passe à l'économie avec une décision qui concerne directement vos comptes. La Cour de justice de l'Union européenne impose désormais aux établissements bancaires de rembourser les victimes de fraudes sous un jour ouvrable.",
+   "apres": "On passe à l'économie avec une décision qui concerne directement vos comptes. Les juges de l'Union européenne obligent désormais les banques à indemniser les victimes d'arnaques sous un jour ouvré."
+  }
+ ],
+ "reprises_apres": [],
+ "appels": 2,
+ "cout_usd": 0.0265,
+ "erreurs": [],
+ "usage": [
+  {
+   "model": "gemini-3.8-flash",
+   "input": 16114,
+   "output": 314,
+   "thinking": 0
+  },
+  {
+   "model": "gemini-3.8-flash",
+   "input": 16177,
+   "output": 289,
+   "thinking": 0
+  }
+ ]
+}

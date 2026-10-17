@@ -1,5 +1,133 @@
 [
   {
+    "date": "2026-10-17",
+    "filename": "brief-2026-10-17.mp3",
+    "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-17.mp3",
+    "storage": "releases",
+    "title": "17/10 — Mobilisation sous tension ce samedi",
+    "summary": "Brief du 2026-10-17. Mobilisation sous tension ce samedi · Porte-parole de Trump poussée dehors · Remboursement immédiat des fraudes bancaires · Data center Google contesté dans l'Indre · Fusillade mortelle dans une école",
+    "duration": 193,
+    "size": 2322226,
+    "topics": [
+      {
+        "slug": "mobilisation-17-octobre",
+        "title": "Mobilisation sous tension ce samedi",
+        "category": "france",
+        "sources": [
+          "franceinfo",
+          "Le Figaro"
+        ],
+        "articles": [
+          35,
+          52,
+          65,
+          118
+        ],
+        "place": {
+          "city": "Paris",
+          "country": "France",
+          "iso3": "FRA",
+          "lat": 48.85,
+          "lon": 2.35,
+          "tz": "Europe/Paris"
+        },
+        "start": 13.3,
+        "related7d": 0
+      },
+      {
+        "slug": "maison-blanche-porte-parole",
+        "title": "Porte-parole de Trump poussée dehors",
+        "category": "monde",
+        "sources": [
+          "Le Monde"
+        ],
+        "articles": [
+          2,
+          3
+        ],
+        "place": {
+          "city": "Washington",
+          "country": "États-Unis",
+          "iso3": "USA",
+          "lat": 38.89,
+          "lon": -77.03,
+          "tz": "America/New_York"
+        },
+        "start": 60.5,
+        "related7d": 0
+      },
+      {
+        "slug": "fraudes-bancaires-remboursement-banques",
+        "title": "Remboursement immédiat des fraudes bancaires",
+        "category": "eco",
+        "sources": [
+          "La Tribune",
+          "Le Monde"
+        ],
+        "articles": [
+          37,
+          73
+        ],
+        "place": {
+          "city": "Luxembourg",
+          "country": "Luxembourg",
+          "iso3": "LUX",
+          "lat": 49.61,
+          "lon": 6.13,
+          "tz": "Europe/Brussels"
+        },
+        "start": 86.6,
+        "related7d": 0
+      },
+      {
+        "slug": "data-center-google-berry",
+        "title": "Data center Google contesté dans l'Indre",
+        "category": "tech",
+        "sources": [
+          "Le Monde"
+        ],
+        "articles": [
+          27
+        ],
+        "place": {
+          "city": "Châteauroux",
+          "country": "France",
+          "iso3": "FRA",
+          "lat": 46.81,
+          "lon": 1.69,
+          "tz": "Europe/Paris"
+        },
+        "start": 128.0,
+        "related7d": 0
+      },
+      {
+        "slug": "fusillade-ecole-oregon",
+        "title": "Fusillade mortelle dans une école",
+        "category": "monde",
+        "sources": [
+          "franceinfo",
+          "Le Monde"
+        ],
+        "articles": [
+          7,
+          17
+        ],
+        "place": {
+          "city": "Bend",
+          "country": "États-Unis",
+          "iso3": "USA",
+          "lat": 44.06,
+          "lon": -121.31,
+          "tz": "America/Boise"
+        },
+        "start": 164.7,
+        "related7d": 0
+      }
+    ],
+    "pub_date": "2026-10-17T02:05:22.599130+00:00",
+    "hook": "Une journée de mobilisation sous haute surveillance s'ouvre en France, entre cortèges lycéens et divisions syndicales."
+  },
+  {
     "date": "2026-10-16",
     "filename": "brief-2026-10-16.mp3",
     "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-16.mp3",

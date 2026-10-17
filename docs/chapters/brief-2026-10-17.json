@@ -1,0 +1,29 @@
+{
+  "version": "1.2.0",
+  "chapters": [
+    {
+      "startTime": 0,
+      "title": "Ouverture"
+    },
+    {
+      "startTime": 13.3,
+      "title": "Mobilisation sous tension ce samedi"
+    },
+    {
+      "startTime": 60.5,
+      "title": "Porte-parole de Trump poussée dehors"
+    },
+    {
+      "startTime": 86.6,
+      "title": "Remboursement immédiat des fraudes bancaires"
+    },
+    {
+      "startTime": 128.0,
+      "title": "Data center Google contesté dans l'Indre"
+    },
+    {
+      "startTime": 164.7,
+      "title": "Fusillade mortelle dans une école"
+    }
+  ]
+}
