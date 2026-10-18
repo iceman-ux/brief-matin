@@ -1,0 +1,29 @@
+{
+  "version": "1.2.0",
+  "chapters": [
+    {
+      "startTime": 0,
+      "title": "Ouverture"
+    },
+    {
+      "startTime": 13.1,
+      "title": "Bilan lourd pour le 17 octobre"
+    },
+    {
+      "startTime": 53.0,
+      "title": "Diplomates européens agressés en Cisjordanie"
+    },
+    {
+      "startTime": 105.4,
+      "title": "Pékin verrouille l'exportation de ses IA"
+    },
+    {
+      "startTime": 134.3,
+      "title": "Trump lève des sanctions sur Moscou"
+    },
+    {
+      "startTime": 182.3,
+      "title": "Les frères Lebrun champions d'Europe"
+    }
+  ]
+}

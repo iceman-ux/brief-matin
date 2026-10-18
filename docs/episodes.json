@@ -1,5 +1,165 @@
 [
   {
+    "date": "2026-10-18",
+    "filename": "brief-2026-10-18.mp3",
+    "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-18.mp3",
+    "storage": "releases",
+    "title": "18/10 — Bilan lourd pour le 17 octobre",
+    "summary": "Brief du 2026-10-18. Bilan lourd pour le 17 octobre · Diplomates européens agressés en Cisjordanie · Pékin verrouille l'exportation de ses IA · Trump lève des sanctions sur Moscou · Les frères Lebrun champions d'Europe",
+    "duration": 199,
+    "size": 2395578,
+    "topics": [
+      {
+        "slug": "mobilisation-17-octobre",
+        "title": "Bilan lourd pour le 17 octobre",
+        "category": "france",
+        "sources": [
+          "Le Monde",
+          "franceinfo",
+          "France 24",
+          "Le Figaro"
+        ],
+        "articles": [
+          11,
+          16,
+          34,
+          36,
+          57,
+          101,
+          104,
+          108,
+          110,
+          117
+        ],
+        "place": {
+          "city": "Paris",
+          "country": "France",
+          "iso3": "FRA",
+          "lat": 48.85,
+          "lon": 2.35,
+          "tz": "Europe/Paris"
+        },
+        "start": 13.1,
+        "related7d": 1,
+        "trend7d": [
+          0,
+          4,
+          10
+        ]
+      },
+      {
+        "slug": "cisjordanie-agression-diplomates",
+        "title": "Diplomates européens agressés en Cisjordanie",
+        "category": "monde",
+        "sources": [
+          "Le Monde",
+          "The Guardian",
+          "franceinfo",
+          "RFI"
+        ],
+        "articles": [
+          2,
+          41,
+          73,
+          86,
+          112
+        ],
+        "place": {
+          "city": "Taybeh",
+          "country": "Palestine",
+          "iso3": "PSE",
+          "lat": 31.95,
+          "lon": 35.3,
+          "tz": "Asia/Hebron"
+        },
+        "start": 53.0,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          5
+        ]
+      },
+      {
+        "slug": "chine-exportations-ia",
+        "title": "Pékin verrouille l'exportation de ses IA",
+        "category": "tech",
+        "sources": [
+          "Le Monde"
+        ],
+        "articles": [
+          7
+        ],
+        "place": {
+          "city": "Pékin",
+          "country": "Chine",
+          "iso3": "CHN",
+          "lat": 39.9,
+          "lon": 116.4,
+          "tz": "Asia/Shanghai"
+        },
+        "start": 105.4,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "slug": "etats-unis-sanctions-petrole-russe",
+        "title": "Trump lève des sanctions sur Moscou",
+        "category": "eco",
+        "sources": [
+          "La Tribune",
+          "Le Monde",
+          "RFI"
+        ],
+        "articles": [
+          1,
+          69,
+          107,
+          120
+        ],
+        "place": {
+          "city": "Washington",
+          "country": "États-Unis",
+          "iso3": "USA",
+          "lat": 38.9,
+          "lon": -77.04,
+          "tz": "America/New_York"
+        },
+        "start": 134.3,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          4
+        ]
+      },
+      {
+        "slug": "tennis-de-table-champions-europe",
+        "title": "Les frères Lebrun champions d'Europe",
+        "category": "sport",
+        "sources": [
+          "Le Monde"
+        ],
+        "articles": [
+          15
+        ],
+        "start": 182.3,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          1
+        ]
+      }
+    ],
+    "pub_date": "2026-10-18T02:05:24.112398+00:00",
+    "hook": "La grande contestation sur le pouvoir d'achat a basculé dans de lourds affrontements, avec plus de douze cents arrestations."
+  },
+  {
     "date": "2026-10-17",
     "filename": "brief-2026-10-17.mp3",
     "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-17.mp3",

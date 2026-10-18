@@ -1,0 +1,126 @@
+{
+ "date": "2026-10-18",
+ "reprises": [
+  {
+   "replique": 1,
+   "mots": 8,
+   "texte": "La journée de mobilisation contre la vie chère",
+   "source": "France 24 — FR",
+   "champ": "chapô",
+   "titre_source": "France : les grandes villes en proie aux pillages en marge des manifestations contre la \"vie chère\""
+  },
+  {
+   "replique": 2,
+   "mots": 8,
+   "texte": "la journée de mobilisation contre la vie chère",
+   "source": "France 24 — FR",
+   "champ": "chapô",
+   "titre_source": "France : les grandes villes en proie aux pillages en marge des manifestations contre la \"vie chère\""
+  },
+  {
+   "replique": 2,
+   "mots": 8,
+   "texte": "accuse La France insoumise de faire porter aux",
+   "source": "France 24 — FR",
+   "champ": "chapô",
+   "titre_source": "Après les violences en marge du 17 octobre, Sébastien Lecornu et Jean-Luc Mélenchon s'écharpent"
+  },
+  {
+   "replique": 2,
+   "mots": 13,
+   "texte": "tandis que Jean-Luc Mélenchon dénonce la stratégie de maintien de l'ordre",
+   "source": "France 24 — FR",
+   "champ": "chapô",
+   "titre_source": "Après les violences en marge du 17 octobre, Sébastien Lecornu et Jean-Luc Mélenchon s'écharpent"
+  },
+  {
+   "replique": 10,
+   "mots": 11,
+   "texte": "la Russie des sanctions sur les hydrocarbures votées par le Congrès",
+   "source": "La Tribune",
+   "champ": "chapô",
+   "titre_source": "Donald Trump suspend les sanctions contre Moscou pour sauver les élections des midterms à la pompe"
+  },
+  {
+   "replique": 14,
+   "mots": 10,
+   "texte": "Lebrun conservent leur titre de champions d'Europe en double",
+   "source": "Le Monde — Une",
+   "champ": "titre",
+   "titre_source": "Tennis de table : les frères Lebrun conservent leur titre de champions d’Europe en double"
+  }
+ ],
+ "citations": [],
+ "problemes": [
+  {
+   "replique": 2,
+   "extrait": "une grenade lacrymogène",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "La source 108 précise que le modèle de la grenade n'est pas connu, et les sources 11 et 108 mentionnent seulement une « grenade policière » ou « grenade » sans préciser « lacrymogène »."
+  },
+  {
+   "replique": 8,
+   "extrait": "Paris et Washington réclament désormais des poursuites judiciaires",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "Seul l'ambassadeur américain (source 41) a appelé à poursuivre les colons ; la source 86 indique seulement que « Paris et Washington pressent Israël de mettre fin aux attaques », sans mention de poursuites judiciaires demandées par Paris."
+  },
+  {
+   "replique": 9,
+   "extrait": "qui cherchait à diffuser largement ses outils logiciels",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "La source 7 mentionne seulement la rupture avec une promotion affichée d'une « approche relativement ouverte », sans évoquer une volonté passée de diffuser largement des outils logiciels ni d'empêcher la fuite d'algorithmes."
+  }
+ ],
+ "corrections": [
+  {
+   "replique": 1,
+   "avant": "La journée de mobilisation contre la vie chère s'est soldée par des violences massives et plus de mille deux cents interpellations.",
+   "apres": "La grande contestation sur le pouvoir d'achat a basculé dans de lourds affrontements, avec plus de douze cents arrestations."
+  },
+  {
+   "replique": 2,
+   "avant": "On en parlait hier, cette fois le bilan de la journée de mobilisation contre la vie chère est tombé. Le ministère de l'Intérieur compte cinq cent cinquante mille manifestants, les syndicats en revendiquent huit cent mille. Les autorités déplorent environ mille deux cents interpellations et cent cinquante blessés parmi les forces de l'ordre. Des affrontements et des pillages de commerces ont touché Paris, Lyon, Marseille et Nice. À Limoges, le campanile et une partie du toit de l'hôtel de ville se sont effondrés dans un incendie. À Saint-Étienne, un manifestant de dix-sept ans a eu la main arrachée par une grenade lacrymogène, un drame qui fait l'objet d'une enquête de l'Inspection générale de la police nationale, l'IGPN. Sur le plan politique, Sébastien Lecornu accuse La France insoumise de faire porter aux policiers la responsabilité des violences, tandis que Jean-Luc Mélenchon dénonce la stratégie de maintien de l'ordre.",
+   "apres": "On en parlait hier, cette fois les chiffres de cette grande contestation sociale sont tombés. L'Intérieur compte cinq cent cinquante mille manifestants, les organisateurs huit cent mille. Les autorités déplorent environ douze cents arrestations et cent cinquante blessés parmi les forces de l'ordre. Des heurts et des magasins dévalisés ont touché Paris, Lyon, Marseille et Nice. À Limoges, le campanile et une partie du toit de la mairie se sont effondrés dans un incendie. À Saint-Étienne, un adolescent de dix-sept ans a perdu sa main en ramassant une grenade, une affaire confiée à l'IGPN. Sur le plan politique, Sébastien Lecornu reproche aux insoumis de reporter le blâme sur les chefs de la police, quand Jean-Luc Mélenchon fustige la gestion policière du pouvoir."
+  },
+  {
+   "replique": 10,
+   "avant": "Toujours à l'international, mais à Washington cette fois. Donald Trump a décidé d'exonérer la Russie des sanctions sur les hydrocarbures votées par le Congrès. Confronté à la perspective d'une défaite de son camp aux élections de mi-mandat le trois novembre, le président américain tente de faire baisser rapidement les prix du carburant à la pompe.",
+   "apres": "Toujours à l'international, mais à Washington cette fois. Donald Trump a décidé de lever les mesures punitives touchant le pétrole et le gaz de Moscou adoptées par les élus américains. Confronté au risque d'une défaite de son parti aux scrutins de mi-mandat le trois novembre, le locataire de la Maison-Blanche cherche à faire chuter sans attendre les tarifs à la pompe."
+  },
+  {
+   "replique": 14,
+   "avant": "On termine avec du tennis de table. Les frères Alexis et Félix Lebrun conservent leur titre de champions d'Europe en double. Deux ans après leur sacre en Autriche, les deux Montpelliérains, numéros un mondiaux de la discipline, confirment leur domination sur le continent.",
+   "apres": "On termine avec du tennis de table. Alexis et Félix Lebrun restent au sommet de l'Europe en s'adjugeant à nouveau la médaille d'or à deux. Deux ans après leur sacre en Autriche, les deux Montpelliérains, numéros un mondiaux, confirment leur suprématie sur le continent."
+  }
+ ],
+ "reprises_apres": [
+  {
+   "replique": 2,
+   "mots": 9,
+   "texte": "ans a perdu sa main en ramassant une grenade",
+   "source": "Le Figaro — Actualités",
+   "champ": "titre",
+   "titre_source": "À Saint-Étienne, une enquête ouverte après qu’un jeune homme de 17 ans a perdu sa main en ramassant une grenade"
+  }
+ ],
+ "appels": 2,
+ "cout_usd": 0.0271,
+ "erreurs": [],
+ "usage": [
+  {
+   "model": "gemini-3.8-flash",
+   "input": 15957,
+   "output": 310,
+   "thinking": 0
+  },
+  {
+   "model": "gemini-3.8-flash",
+   "input": 16251,
+   "output": 470,
+   "thinking": 0
+  }
+ ]
+}
