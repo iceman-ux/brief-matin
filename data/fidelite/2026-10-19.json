@@ -1,0 +1,69 @@
+{
+ "date": "2026-10-19",
+ "reprises": [
+  {
+   "replique": 12,
+   "mots": 14,
+   "texte": "près de dix mois après la capture de Nicolas Maduro par l'armée américaine",
+   "source": "Le Monde — Une",
+   "champ": "chapô",
+   "titre_source": "Au Venezuela, la Prix Nobel de la paix Maria Corina Machado reconnue leader de l’opposition lors d’un « grand accord national »"
+  }
+ ],
+ "citations": [],
+ "problemes": [
+  {
+   "replique": 12,
+   "extrait": "comme leur unique dirigeante",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "La source indique que l'accord reconnaît son leadership, mais ne mentionne pas qu'elle est désignée comme « unique dirigeante »."
+  },
+  {
+   "replique": 12,
+   "extrait": "pour piloter la suite de la transition",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "Les sources indiquent seulement la reconnaissance de son leadership, sans mentionner de mandat précis pour « piloter la suite de la transition »."
+  },
+  {
+   "replique": 14,
+   "extrait": "Pour les maisons de disques, l'enjeu commercial",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "La source ne mentionne pas les maisons de disques ni leur stratégie commerciale pour exploiter leurs catalogues."
+  },
+  {
+   "replique": 15,
+   "extrait": "sur les droits d'exploitation posthumes",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "La source ne mentionne aucune discussion sur les droits d'exploitation posthumes ni sur les tarifs des billets consentis par le public."
+  }
+ ],
+ "corrections": [
+  {
+   "replique": 12,
+   "avant": "On part en Amérique latine, où l'opposition vénézuélienne tente de faire front commun. Plusieurs représentants politiques viennent de signer à Caracas un accord national reconnaissant Maria Corina Machado comme leur unique dirigeante. Ce consensus intervient près de dix mois après la capture de Nicolas Maduro par l'armée américaine. Réfugiée au Panama, la Prix Nobel de la paix obtient le soutien formel des principaux partis pour piloter la suite de la transition.",
+   "apres": "On part en Amérique latine, où l'opposition vénézuélienne tente de faire front commun. Plusieurs représentants politiques viennent de signer à Caracas un accord national reconnaissant Maria Corina Machado comme leur unique dirigeante. Ce consensus survient environ dix mois après que les forces américaines ont arrêté Nicolas Maduro. Réfugiée au Panama, la Prix Nobel de la paix obtient le soutien formel des principaux partis pour piloter la suite de la transition."
+  }
+ ],
+ "reprises_apres": [],
+ "appels": 2,
+ "cout_usd": 0.0247,
+ "erreurs": [],
+ "usage": [
+  {
+   "model": "gemini-3.8-flash",
+   "input": 15481,
+   "output": 305,
+   "thinking": 0
+  },
+  {
+   "model": "gemini-3.8-flash",
+   "input": 15317,
+   "output": 128,
+   "thinking": 0
+  }
+ ]
+}

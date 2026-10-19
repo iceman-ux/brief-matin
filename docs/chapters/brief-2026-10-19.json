@@ -1,0 +1,33 @@
+{
+  "version": "1.2.0",
+  "chapters": [
+    {
+      "startTime": 0,
+      "title": "Ouverture"
+    },
+    {
+      "startTime": 11.1,
+      "title": "Riposte politique après les violences"
+    },
+    {
+      "startTime": 42.5,
+      "title": "Crise politique ouverte en Albanie"
+    },
+    {
+      "startTime": 67.9,
+      "title": "Vidéos truquées aux élections israéliennes"
+    },
+    {
+      "startTime": 104.5,
+      "title": "L'opposition vénézuélienne adoube Maria Corina Machado"
+    },
+    {
+      "startTime": 129.6,
+      "title": "Avatars de musiciens en tournée"
+    },
+    {
+      "startTime": 162.0,
+      "title": "Couvre-feu pour mineurs en Guadeloupe"
+    }
+  ]
+}

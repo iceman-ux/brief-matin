@@ -1,5 +1,188 @@
 [
   {
+    "date": "2026-10-19",
+    "filename": "brief-2026-10-19.mp3",
+    "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-19.mp3",
+    "storage": "releases",
+    "title": "19/10 — Riposte politique après les violences",
+    "summary": "Brief du 2026-10-19. Riposte politique après les violences · Crise politique ouverte en Albanie · Vidéos truquées aux élections israéliennes · L'opposition vénézuélienne adoube Maria Corina Machado · Avatars de musiciens en tournée · Couvre-feu pour mineurs en Guadeloupe",
+    "duration": 187,
+    "size": 2249187,
+    "topics": [
+      {
+        "slug": "mobilisation-17-octobre",
+        "title": "Riposte politique après les violences",
+        "category": "france",
+        "sources": [
+          "Le Monde",
+          "RFI",
+          "La Tribune"
+        ],
+        "articles": [
+          9,
+          11,
+          104,
+          112
+        ],
+        "place": {
+          "city": "Paris",
+          "country": "France",
+          "iso3": "FRA",
+          "lat": 48.85,
+          "lon": 2.35,
+          "tz": "Europe/Paris"
+        },
+        "start": 11.1,
+        "related7d": 2,
+        "trend7d": [
+          0,
+          4,
+          10,
+          4
+        ]
+      },
+      {
+        "slug": "albanie-manifestations-crise",
+        "title": "Crise politique ouverte en Albanie",
+        "category": "monde",
+        "sources": [
+          "Le Monde"
+        ],
+        "articles": [
+          14
+        ],
+        "place": {
+          "city": "Tirana",
+          "country": "Albanie",
+          "iso3": "ALB",
+          "lat": 41.33,
+          "lon": 19.82,
+          "tz": "Europe/Tirane"
+        },
+        "start": 42.5,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "slug": "israel-elections-ia-deepfakes",
+        "title": "Vidéos truquées aux élections israéliennes",
+        "category": "tech",
+        "sources": [
+          "Le Monde",
+          "franceinfo"
+        ],
+        "articles": [
+          3,
+          51
+        ],
+        "place": {
+          "city": "Jérusalem",
+          "country": "Israël",
+          "iso3": "ISR",
+          "lat": 31.77,
+          "lon": 35.22,
+          "tz": "Asia/Jerusalem"
+        },
+        "start": 67.9,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          0,
+          2
+        ]
+      },
+      {
+        "slug": "venezuela-opposition-machado",
+        "title": "L'opposition vénézuélienne adoube Maria Corina Machado",
+        "category": "monde",
+        "sources": [
+          "Le Monde"
+        ],
+        "articles": [
+          10
+        ],
+        "place": {
+          "city": "Caracas",
+          "country": "Venezuela",
+          "iso3": "VEN",
+          "lat": 10.48,
+          "lon": -66.9,
+          "tz": "America/Caracas"
+        },
+        "start": 104.5,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "slug": "musique-avatars-ia-concerts",
+        "title": "Avatars de musiciens en tournée",
+        "category": "eco",
+        "sources": [
+          "Le Monde"
+        ],
+        "articles": [
+          2
+        ],
+        "place": {
+          "city": "Londres",
+          "country": "Royaume-Uni",
+          "iso3": "GBR",
+          "lat": 51.51,
+          "lon": -0.13,
+          "tz": "Europe/London"
+        },
+        "start": 129.6,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "slug": "guadeloupe-violences-couvre-feu",
+        "title": "Couvre-feu pour mineurs en Guadeloupe",
+        "category": "france",
+        "sources": [
+          "franceinfo"
+        ],
+        "articles": [
+          52
+        ],
+        "place": {
+          "city": "Pointe-à-Pitre",
+          "country": "France",
+          "iso3": "FRA",
+          "lat": 16.24,
+          "lon": -61.53,
+          "tz": "Europe/Paris"
+        },
+        "start": 162.0,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          0,
+          1
+        ]
+      }
+    ],
+    "pub_date": "2026-10-19T02:03:57.659749+00:00",
+    "hook": "Après les violences du 17 octobre, Emmanuel Macron promet la fermeté et Bercy réunit d'urgence les commerçants touchés."
+  },
+  {
     "date": "2026-10-18",
     "filename": "brief-2026-10-18.mp3",
     "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-18.mp3",

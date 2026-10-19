@@ -13,7 +13,7 @@
 
 Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
     <language>fr-FR</language>
-    <lastBuildDate>Sun, 18 Oct 2026 02:05:24 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 19 Oct 2026 02:03:58 +0000</lastBuildDate>
     <itunes:author>Lora</itunes:author>
     <itunes:subtitle>L'essentiel de l'actu, chaque matin</itunes:subtitle>
     <itunes:summary>Brief quotidien généré automatiquement à partir des grands titres français et internationaux. France, Monde, Économie, Tech.
@@ -28,6 +28,40 @@ Brief généré automatiquement par intelligence artificielle, texte et voix, à
     <itunes:type>episodic</itunes:type>
     <itunes:image href="https://iceman-ux.github.io/brief-matin/lora-cover-v2.jpg"/>
     <image><url>https://iceman-ux.github.io/brief-matin/lora-cover-v2.jpg</url><title>Lora</title><link>https://iceman-ux.github.io/brief-matin</link></image>
+    <item>
+      <title>19/10 — Riposte politique après les violences</title>
+      <description>Brief du 2026-10-19. Riposte politique après les violences · Crise politique ouverte en Albanie · Vidéos truquées aux élections israéliennes · L'opposition vénézuélienne adoube Maria Corina Machado · Avatars de musiciens en tournée · Couvre-feu pour mineurs en Guadeloupe
+
+Au sommaire :
+• Riposte politique après les violences
+• Crise politique ouverte en Albanie
+• Vidéos truquées aux élections israéliennes
+• L'opposition vénézuélienne adoube Maria Corina Machado
+• Avatars de musiciens en tournée
+• Couvre-feu pour mineurs en Guadeloupe
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
+      <itunes:subtitle>Après les violences du 17 octobre, Emmanuel Macron promet la fermeté et Bercy réunit d'urgence les commerçants touchés.</itunes:subtitle>
+      <podcast:chapters url="https://iceman-ux.github.io/brief-matin/chapters/brief-2026-10-19.json" type="application/json+chapters"/>
+      <lora:topics><![CDATA[[{"title": "Riposte politique après les violences", "start": 11.1, "place": {"city": "Paris", "country": "France", "iso3": "FRA", "lat": 48.85, "lon": 2.35, "tz": "Europe/Paris"}, "sources": ["Le Monde", "RFI", "La Tribune"], "related7d": 2, "trend7d": [0, 4, 10, 4]}, {"title": "Crise politique ouverte en Albanie", "start": 42.5, "place": {"city": "Tirana", "country": "Albanie", "iso3": "ALB", "lat": 41.33, "lon": 19.82, "tz": "Europe/Tirane"}, "sources": ["Le Monde"], "related7d": 0, "trend7d": [0, 0, 0, 1]}, {"title": "Vidéos truquées aux élections israéliennes", "start": 67.9, "place": {"city": "Jérusalem", "country": "Israël", "iso3": "ISR", "lat": 31.77, "lon": 35.22, "tz": "Asia/Jerusalem"}, "sources": ["Le Monde", "franceinfo"], "related7d": 0, "trend7d": [0, 0, 0, 2]}, {"title": "L'opposition vénézuélienne adoube Maria Corina Machado", "start": 104.5, "place": {"city": "Caracas", "country": "Venezuela", "iso3": "VEN", "lat": 10.48, "lon": -66.9, "tz": "America/Caracas"}, "sources": ["Le Monde"], "related7d": 0, "trend7d": [0, 0, 0, 1]}, {"title": "Avatars de musiciens en tournée", "start": 129.6, "place": {"city": "Londres", "country": "Royaume-Uni", "iso3": "GBR", "lat": 51.51, "lon": -0.13, "tz": "Europe/London"}, "sources": ["Le Monde"], "related7d": 0, "trend7d": [0, 0, 0, 1]}, {"title": "Couvre-feu pour mineurs en Guadeloupe", "start": 162.0, "place": {"city": "Pointe-à-Pitre", "country": "France", "iso3": "FRA", "lat": 16.24, "lon": -61.53, "tz": "Europe/Paris"}, "sources": ["franceinfo"], "related7d": 0, "trend7d": [0, 0, 0, 1]}]]]></lora:topics>
+      <itunes:summary>Brief du 2026-10-19. Riposte politique après les violences · Crise politique ouverte en Albanie · Vidéos truquées aux élections israéliennes · L'opposition vénézuélienne adoube Maria Corina Machado · Avatars de musiciens en tournée · Couvre-feu pour mineurs en Guadeloupe
+
+Au sommaire :
+• Riposte politique après les violences
+• Crise politique ouverte en Albanie
+• Vidéos truquées aux élections israéliennes
+• L'opposition vénézuélienne adoube Maria Corina Machado
+• Avatars de musiciens en tournée
+• Couvre-feu pour mineurs en Guadeloupe
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</itunes:summary>
+      <pubDate>Mon, 19 Oct 2026 02:03:57 +0000</pubDate>
+      <guid isPermaLink="false">brief-matin-2026-10-19</guid>
+      <enclosure url="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-19.mp3" length="2249187" type="audio/mpeg"/>
+      <itunes:duration>3:07</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
     <item>
       <title>18/10 — Bilan lourd pour le 17 octobre</title>
       <description>Brief du 2026-10-18. Bilan lourd pour le 17 octobre · Diplomates européens agressés en Cisjordanie · Pékin verrouille l'exportation de ses IA · Trump lève des sanctions sur Moscou · Les frères Lebrun champions d'Europe
