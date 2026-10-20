@@ -1,0 +1,29 @@
+{
+  "version": "1.2.0",
+  "chapters": [
+    {
+      "startTime": 0,
+      "title": "Ouverture"
+    },
+    {
+      "startTime": 11.6,
+      "title": "Couvre-feux et aides après les pillages"
+    },
+    {
+      "startTime": 67.5,
+      "title": "L'économie chinoise tirée par l'export"
+    },
+    {
+      "startTime": 99.5,
+      "title": "Meta sous pression électorale au Brésil"
+    },
+    {
+      "startTime": 133.8,
+      "title": "Décollage de la mission martienne MMX"
+    },
+    {
+      "startTime": 162.6,
+      "title": "Inondations meurtrières près de Valence"
+    }
+  ]
+}

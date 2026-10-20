@@ -1,0 +1,41 @@
+{
+ "date": "2026-10-20",
+ "reprises": [],
+ "citations": [],
+ "problemes": [
+  {
+   "replique": 9,
+   "extrait": "redoutent une vague de surproduction industrielle à bas coût",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "Les sources ne mentionnent pas que les partenaires commerciaux redoutent une vague de surproduction industrielle à bas coût."
+  },
+  {
+   "replique": 10,
+   "extrait": "La justice électorale donne",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "La source 9 indique que Meta a vingt-quatre heures, mais ne précise nulle part que l'injonction émane de la justice électorale."
+  },
+  {
+   "replique": 17,
+   "extrait": "Les liaisons de transport sont lourdement perturbées",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "Les sources ne font pas mention de perturbations touchant les liaisons de transport."
+  }
+ ],
+ "corrections": [],
+ "reprises_apres": [],
+ "appels": 1,
+ "cout_usd": 0.0128,
+ "erreurs": [],
+ "usage": [
+  {
+   "model": "gemini-3.8-flash",
+   "input": 15993,
+   "output": 227,
+   "thinking": 0
+  }
+ ]
+}

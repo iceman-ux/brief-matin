@@ -1,5 +1,187 @@
 [
   {
+    "date": "2026-10-20",
+    "filename": "brief-2026-10-20.mp3",
+    "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-20.mp3",
+    "storage": "releases",
+    "title": "20/10 — Couvre-feux et aides après les pillages",
+    "summary": "Brief du 2026-10-20. Couvre-feux et aides après les pillages · L'économie chinoise tirée par l'export · Meta sous pression électorale au Brésil · Décollage de la mission martienne MMX · Inondations meurtrières près de Valence",
+    "duration": 192,
+    "size": 2310000,
+    "topics": [
+      {
+        "slug": "france-violences-couvre-feux",
+        "title": "Couvre-feux et aides après les pillages",
+        "category": "france",
+        "sources": [
+          "France 24",
+          "Le Figaro",
+          "RFI",
+          "franceinfo",
+          "Le Monde"
+        ],
+        "articles": [
+          13,
+          20,
+          33,
+          46,
+          51,
+          58,
+          89,
+          110,
+          112,
+          119
+        ],
+        "place": {
+          "city": "Paris",
+          "country": "France",
+          "iso3": "FRA",
+          "lat": 48.85,
+          "lon": 2.35,
+          "tz": "Europe/Paris"
+        },
+        "start": 11.6,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          0,
+          0,
+          10
+        ]
+      },
+      {
+        "slug": "chine-croissance-exportations",
+        "title": "L'économie chinoise tirée par l'export",
+        "category": "eco",
+        "sources": [
+          "Le Monde",
+          "RFI"
+        ],
+        "articles": [
+          7,
+          102
+        ],
+        "place": {
+          "city": "Pékin",
+          "country": "Chine",
+          "iso3": "CHN",
+          "lat": 39.9,
+          "lon": 116.4,
+          "tz": "Asia/Shanghai"
+        },
+        "start": 67.5,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          0,
+          0,
+          2
+        ]
+      },
+      {
+        "slug": "bresil-presidentielle-meta",
+        "title": "Meta sous pression électorale au Brésil",
+        "category": "monde",
+        "sources": [
+          "Le Monde",
+          "franceinfo"
+        ],
+        "articles": [
+          9,
+          31,
+          90
+        ],
+        "place": {
+          "city": "Brasilia",
+          "country": "Brésil",
+          "iso3": "BRA",
+          "lat": -15.79,
+          "lon": -47.88,
+          "tz": "America/Sao_Paulo"
+        },
+        "start": 99.5,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          0,
+          0,
+          3
+        ]
+      },
+      {
+        "slug": "espace-mission-martienne-mmx",
+        "title": "Décollage de la mission martienne MMX",
+        "category": "tech",
+        "sources": [
+          "Le Monde",
+          "franceinfo",
+          "La Tribune",
+          "RFI"
+        ],
+        "articles": [
+          5,
+          59,
+          64,
+          68,
+          69
+        ],
+        "place": {
+          "city": "Tokyo",
+          "country": "Japon",
+          "iso3": "JPN",
+          "lat": 35.68,
+          "lon": 139.77,
+          "tz": "Asia/Tokyo"
+        },
+        "start": 133.8,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          0,
+          0,
+          5
+        ]
+      },
+      {
+        "slug": "espagne-inondations-valence",
+        "title": "Inondations meurtrières près de Valence",
+        "category": "monde",
+        "sources": [
+          "Le Monde",
+          "franceinfo"
+        ],
+        "articles": [
+          1,
+          45,
+          95
+        ],
+        "place": {
+          "city": "Valence",
+          "country": "Espagne",
+          "iso3": "ESP",
+          "lat": 39.47,
+          "lon": -0.38,
+          "tz": "Europe/Madrid"
+        },
+        "start": 162.6,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          0,
+          0,
+          3
+        ]
+      }
+    ],
+    "pub_date": "2026-10-20T02:03:21.103317+00:00",
+    "hook": "Des couvre-feux nocturnes entrent en vigueur dans plusieurs grandes villes françaises après les violences et pillages du week-end."
+  },
+  {
     "date": "2026-10-19",
     "filename": "brief-2026-10-19.mp3",
     "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-19.mp3",

@@ -13,7 +13,7 @@
 
 Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
     <language>fr-FR</language>
-    <lastBuildDate>Mon, 19 Oct 2026 02:03:58 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 20 Oct 2026 02:03:21 +0000</lastBuildDate>
     <itunes:author>Lora</itunes:author>
     <itunes:subtitle>L'essentiel de l'actu, chaque matin</itunes:subtitle>
     <itunes:summary>Brief quotidien généré automatiquement à partir des grands titres français et internationaux. France, Monde, Économie, Tech.
@@ -28,6 +28,38 @@ Brief généré automatiquement par intelligence artificielle, texte et voix, à
     <itunes:type>episodic</itunes:type>
     <itunes:image href="https://iceman-ux.github.io/brief-matin/lora-cover-v2.jpg"/>
     <image><url>https://iceman-ux.github.io/brief-matin/lora-cover-v2.jpg</url><title>Lora</title><link>https://iceman-ux.github.io/brief-matin</link></image>
+    <item>
+      <title>20/10 — Couvre-feux et aides après les pillages</title>
+      <description>Brief du 2026-10-20. Couvre-feux et aides après les pillages · L'économie chinoise tirée par l'export · Meta sous pression électorale au Brésil · Décollage de la mission martienne MMX · Inondations meurtrières près de Valence
+
+Au sommaire :
+• Couvre-feux et aides après les pillages
+• L'économie chinoise tirée par l'export
+• Meta sous pression électorale au Brésil
+• Décollage de la mission martienne MMX
+• Inondations meurtrières près de Valence
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
+      <itunes:subtitle>Des couvre-feux nocturnes entrent en vigueur dans plusieurs grandes villes françaises après les violences et pillages du week-end.</itunes:subtitle>
+      <podcast:chapters url="https://iceman-ux.github.io/brief-matin/chapters/brief-2026-10-20.json" type="application/json+chapters"/>
+      <lora:topics><![CDATA[[{"title": "Couvre-feux et aides après les pillages", "start": 11.6, "place": {"city": "Paris", "country": "France", "iso3": "FRA", "lat": 48.85, "lon": 2.35, "tz": "Europe/Paris"}, "sources": ["France 24", "Le Figaro", "RFI", "franceinfo", "Le Monde"], "related7d": 0, "trend7d": [0, 0, 0, 0, 10]}, {"title": "L'économie chinoise tirée par l'export", "start": 67.5, "place": {"city": "Pékin", "country": "Chine", "iso3": "CHN", "lat": 39.9, "lon": 116.4, "tz": "Asia/Shanghai"}, "sources": ["Le Monde", "RFI"], "related7d": 0, "trend7d": [0, 0, 0, 0, 2]}, {"title": "Meta sous pression électorale au Brésil", "start": 99.5, "place": {"city": "Brasilia", "country": "Brésil", "iso3": "BRA", "lat": -15.79, "lon": -47.88, "tz": "America/Sao_Paulo"}, "sources": ["Le Monde", "franceinfo"], "related7d": 0, "trend7d": [0, 0, 0, 0, 3]}, {"title": "Décollage de la mission martienne MMX", "start": 133.8, "place": {"city": "Tokyo", "country": "Japon", "iso3": "JPN", "lat": 35.68, "lon": 139.77, "tz": "Asia/Tokyo"}, "sources": ["Le Monde", "franceinfo", "La Tribune", "RFI"], "related7d": 0, "trend7d": [0, 0, 0, 0, 5]}, {"title": "Inondations meurtrières près de Valence", "start": 162.6, "place": {"city": "Valence", "country": "Espagne", "iso3": "ESP", "lat": 39.47, "lon": -0.38, "tz": "Europe/Madrid"}, "sources": ["Le Monde", "franceinfo"], "related7d": 0, "trend7d": [0, 0, 0, 0, 3]}]]]></lora:topics>
+      <itunes:summary>Brief du 2026-10-20. Couvre-feux et aides après les pillages · L'économie chinoise tirée par l'export · Meta sous pression électorale au Brésil · Décollage de la mission martienne MMX · Inondations meurtrières près de Valence
+
+Au sommaire :
+• Couvre-feux et aides après les pillages
+• L'économie chinoise tirée par l'export
+• Meta sous pression électorale au Brésil
+• Décollage de la mission martienne MMX
+• Inondations meurtrières près de Valence
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</itunes:summary>
+      <pubDate>Tue, 20 Oct 2026 02:03:21 +0000</pubDate>
+      <guid isPermaLink="false">brief-matin-2026-10-20</guid>
+      <enclosure url="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-20.mp3" length="2310000" type="audio/mpeg"/>
+      <itunes:duration>3:12</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
     <item>
       <title>19/10 — Riposte politique après les violences</title>
       <description>Brief du 2026-10-19. Riposte politique après les violences · Crise politique ouverte en Albanie · Vidéos truquées aux élections israéliennes · L'opposition vénézuélienne adoube Maria Corina Machado · Avatars de musiciens en tournée · Couvre-feu pour mineurs en Guadeloupe
