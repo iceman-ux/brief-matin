@@ -1,5 +1,166 @@
 [
   {
+    "date": "2026-10-21",
+    "filename": "brief-2026-10-21.mp3",
+    "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-21.mp3",
+    "storage": "releases",
+    "title": "21/10 — Riposte sécuritaire et tensions politiques",
+    "summary": "Brief du 2026-10-21. Riposte sécuritaire et tensions politiques · Militaires déployés à Milan · GiFi demande son redressement judiciaire · Chasseurs britanniques en Arabie saoudite · Alliance européenne face à Starlink",
+    "duration": 186,
+    "size": 2243231,
+    "topics": [
+      {
+        "slug": "mobilisation-17-octobre",
+        "title": "Riposte sécuritaire et tensions politiques",
+        "category": "france",
+        "sources": [
+          "Le Monde",
+          "franceinfo",
+          "Le Figaro"
+        ],
+        "articles": [
+          40,
+          48,
+          50,
+          53,
+          56,
+          67,
+          69,
+          114
+        ],
+        "place": {
+          "city": "Paris",
+          "country": "France",
+          "iso3": "FRA",
+          "lat": 48.86,
+          "lon": 2.35,
+          "tz": "Europe/Paris"
+        },
+        "start": 12.5,
+        "related7d": 3,
+        "trend7d": [
+          0,
+          4,
+          10,
+          4,
+          0,
+          8
+        ]
+      },
+      {
+        "slug": "italie-violences-milan",
+        "title": "Militaires déployés à Milan",
+        "category": "monde",
+        "sources": [
+          "Le Monde",
+          "franceinfo"
+        ],
+        "articles": [
+          3,
+          68
+        ],
+        "place": {
+          "city": "Milan",
+          "country": "Italie",
+          "iso3": "ITA",
+          "lat": 45.46,
+          "lon": 9.19,
+          "tz": "Europe/Rome"
+        },
+        "start": 72.2,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          2
+        ]
+      },
+      {
+        "slug": "gifi-redressement-judiciaire",
+        "title": "GiFi demande son redressement judiciaire",
+        "category": "eco",
+        "sources": [
+          "Le Monde",
+          "franceinfo"
+        ],
+        "articles": [
+          16,
+          51
+        ],
+        "start": 99.3,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          2
+        ]
+      },
+      {
+        "slug": "conflit-yemen-arabie-saoudite",
+        "title": "Chasseurs britanniques en Arabie saoudite",
+        "category": "monde",
+        "sources": [
+          "franceinfo",
+          "Le Monde"
+        ],
+        "articles": [
+          5,
+          6,
+          14
+        ],
+        "place": {
+          "city": "Riyad",
+          "country": "Arabie saoudite",
+          "iso3": "SAU",
+          "lat": 24.71,
+          "lon": 46.68,
+          "tz": "Asia/Riyadh"
+        },
+        "start": 126.8,
+        "related7d": 1,
+        "trend7d": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          3
+        ]
+      },
+      {
+        "slug": "telecoms-satellites-direct-to-device",
+        "title": "Alliance européenne face à Starlink",
+        "category": "tech",
+        "sources": [
+          "Le Monde",
+          "La Tribune"
+        ],
+        "articles": [
+          27,
+          65
+        ],
+        "start": 153.6,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          2
+        ]
+      }
+    ],
+    "pub_date": "2026-10-21T02:03:31.539162+00:00",
+    "hook": "Face aux violences urbaines, le gouvernement reconduit les couvre-feux et mobilise des militaires pour la journée de samedi."
+  },
+  {
     "date": "2026-10-20",
     "filename": "brief-2026-10-20.mp3",
     "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-20.mp3",

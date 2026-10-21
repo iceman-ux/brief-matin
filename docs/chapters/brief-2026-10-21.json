@@ -1,0 +1,29 @@
+{
+  "version": "1.2.0",
+  "chapters": [
+    {
+      "startTime": 0,
+      "title": "Ouverture"
+    },
+    {
+      "startTime": 12.5,
+      "title": "Riposte sécuritaire et tensions politiques"
+    },
+    {
+      "startTime": 72.2,
+      "title": "Militaires déployés à Milan"
+    },
+    {
+      "startTime": 99.3,
+      "title": "GiFi demande son redressement judiciaire"
+    },
+    {
+      "startTime": 126.8,
+      "title": "Chasseurs britanniques en Arabie saoudite"
+    },
+    {
+      "startTime": 153.6,
+      "title": "Alliance européenne face à Starlink"
+    }
+  ]
+}

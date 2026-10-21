@@ -1,0 +1,121 @@
+{
+ "date": "2026-10-21",
+ "reprises": [
+  {
+   "replique": 5,
+   "mots": 8,
+   "texte": "l'Assemblée nationale lance une commission d'enquête",
+   "source": "franceinfo — Titres",
+   "champ": "titre",
+   "titre_source": "L'Assemblée nationale lance une commission d'enquête parlementaire sur les violences du 17 octobre et le maintien de l'ordre"
+  },
+  {
+   "replique": 6,
+   "mots": 8,
+   "texte": "la Cour de justice de la République contre",
+   "source": "franceinfo — Titres",
+   "champ": "titre",
+   "titre_source": "Le député LFI Manuel Bompard va \"saisir la Cour de justice de la République\" contre le ministre de l'Intérieur, après un article de Mediapart"
+  },
+  {
+   "replique": 9,
+   "mots": 9,
+   "texte": "à Milan jusqu'à la fin de l'année",
+   "source": "Le Monde — International",
+   "champ": "titre",
+   "titre_source": "Italie : 500 militaires vont être déployés à Milan jusqu’à la fin de l’année, après les violences du week-end, annonce Giorgia Meloni"
+  },
+  {
+   "replique": 9,
+   "mots": 8,
+   "texte": "le délit de participation violente à une manifestation",
+   "source": "Le Monde — International",
+   "champ": "chapô",
+   "titre_source": "Italie : 500 militaires vont être déployés à Milan jusqu’à la fin de l’année, après les violences du week-end, annonce Giorgia Meloni"
+  },
+  {
+   "replique": 14,
+   "mots": 10,
+   "texte": "Orange, Deutsche Telekom, Telefónica et Vodafone s'associent pour candidater",
+   "source": "La Tribune",
+   "champ": "chapô",
+   "titre_source": "Face à Starlink, Orange et trois opérateurs européens s’organisent pour récupérer des fréquences satellitaires consacrées au direct-to-device"
+  }
+ ],
+ "citations": [],
+ "problemes": [
+  {
+   "replique": 4,
+   "extrait": "Uniquement pour surveiller des bâtiments officiels",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "La source mentionne la mobilisation de militaires Sentinelle, mais ne précise nulle part qu'ils seront cantonnés uniquement à la surveillance de bâtiments officiels."
+  },
+  {
+   "replique": 7,
+   "extrait": "invite les partis politiques à Matignon demain",
+   "type": "date",
+   "gravite": "haute",
+   "explication": "Le brief étant daté du mercredi 21 octobre, 'demain' correspond au jeudi 22 octobre, or la source 53 mentionne explicitement la réunion de jeudi à Matignon (ce qui est cohérent), mais la source 48 parle de lettre envoyée mardi sans préciser la date exacte du brief ; toutefois la source 53 confirme que la réunion a lieu jeudi."
+  },
+  {
+   "replique": 12,
+   "extrait": "L'entreprise va maintenant chercher des repreneurs devant le tribunal",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "Les sources indiquent seulement que GiFi va solliciter son placement en redressement judiciaire après le refus des banques, sans mentionner la recherche active de repreneurs."
+  },
+  {
+   "replique": 15,
+   "extrait": "maintenir les communications lors de pannes majeures",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "Les sources mentionnent uniquement la couverture des zones blanches et les services mobiles par satellite, sans évoquer le maintien des communications en cas de pannes majeures."
+  }
+ ],
+ "corrections": [
+  {
+   "replique": 5,
+   "avant": "Sur le front judiciaire, les comparutions immédiates s'enchaînent après des centaines de gardes à vue. Plusieurs peines de prison ferme ont déjà été prononcées à Paris, tandis que l'Assemblée nationale lance une commission d'enquête sur le maintien de l'ordre.",
+   "apres": "Sur le front judiciaire, les comparutions immédiates s'enchaînent après des centaines de gardes à vue. Plusieurs peines de prison ferme ont déjà été prononcées à Paris, pendant que les députés ouvrent une commission d'enquête sur le maintien de l'ordre."
+  },
+  {
+   "replique": 6,
+   "avant": "Et la crise s'envenime sur le terrain politique. Manuel Bompard saisit la Cour de justice de la République contre Laurent Nuñez. Le député accuse le ministre de l'Intérieur d'avoir ordonné aux services de renseignement d'imputer les violences à La France insoumise.",
+   "apres": "Et la crise s'envenime sur le terrain politique. Manuel Bompard porte plainte devant la Cour de justice visant Laurent Nuñez. Le député accuse le ministre de l'Intérieur d'avoir ordonné aux services de renseignement d'imputer les violences à La France insoumise."
+  },
+  {
+   "replique": 7,
+   "avant": "Sébastien Lecornu tente de garder la main et invite les partis politiques à Matignon demain.",
+   "apres": "Sébastien Lecornu tente de garder la main et invite les partis politiques à Matignon pour une réunion jeudi."
+  },
+  {
+   "replique": 9,
+   "avant": "On passe la frontière italienne, où le gouvernement répond avec une fermeté comparable. Giorgia Meloni déploie cinq cents militaires à Milan jusqu'à la fin de l'année. La capitale économique a subi ce week-end des pillages et des violences en marge de défilés contre la vie chère. Deux cent soixante-dix personnes ont été interpellées, pour la plupart mineures. Rome crée le délit de participation violente à une manifestation, facilite la détention des adolescents et réclamera le paiement des dégâts directement aux parents.",
+   "apres": "On passe la frontière italienne, où le gouvernement répond avec une fermeté comparable. Giorgia Meloni envoie cinq cents soldats patrouiller dans Milan d'ici la fin décembre. La capitale économique a subi ce week-end des pillages et des violences en marge de défilés contre la vie chère. Deux cent soixante-dix personnes ont été interpellées, pour la plupart mineures. Rome instaure une nouvelle infraction pour les dérapages en cortège, facilite l'incarcération des adolescents et réclamera le paiement des dégâts directement aux parents."
+  },
+  {
+   "replique": 14,
+   "avant": "On termine avec les télécoms et une alliance européenne face à Starlink. Orange, Deutsche Telekom, Telefónica et Vodafone s'associent pour candidater ensemble à l'attribution européenne de fréquences pour smartphones par satellite. Le but est de relier directement les téléphones portables aux constellations en orbite, sans passer par les antennes relais terrestres.",
+   "apres": "On termine avec les télécoms et une alliance européenne face à Starlink. Orange, Deutsche Telekom, Telefónica et Vodafone font front commun afin de postuler à l'attribution européenne de fréquences pour smartphones par satellite. Le but est de relier directement les téléphones portables aux constellations en orbite, sans passer par les antennes relais terrestres."
+  }
+ ],
+ "reprises_apres": [],
+ "appels": 2,
+ "cout_usd": 0.0278,
+ "erreurs": [],
+ "usage": [
+  {
+   "model": "gemini-3.8-flash",
+   "input": 16232,
+   "output": 385,
+   "thinking": 0
+  },
+  {
+   "model": "gemini-3.8-flash",
+   "input": 16537,
+   "output": 463,
+   "thinking": 0
+  }
+ ]
+}
