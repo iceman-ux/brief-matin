@@ -1,0 +1,29 @@
+{
+  "version": "1.2.0",
+  "chapters": [
+    {
+      "startTime": 0,
+      "title": "Ouverture"
+    },
+    {
+      "startTime": 11.2,
+      "title": "Taux d'emprunt français à 5 %"
+    },
+    {
+      "startTime": 62.1,
+      "title": "Pourparlers annoncés sur l'Ukraine"
+    },
+    {
+      "startTime": 97.4,
+      "title": "Failles critiques dans PHP"
+    },
+    {
+      "startTime": 128.4,
+      "title": "Intempéries mortelles dans le Sud-Est"
+    },
+    {
+      "startTime": 154.4,
+      "title": "Meta condamné à 25 milliards"
+    }
+  ]
+}

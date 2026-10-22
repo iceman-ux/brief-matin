@@ -1,0 +1,27 @@
+{
+ "date": "2026-10-22",
+ "reprises": [],
+ "citations": [],
+ "problemes": [
+  {
+   "replique": 12,
+   "extrait": "une femme a perdu la vie en Haute-Corse",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "La source mentionne une personne morte en Haute-Corse, sans préciser son sexe."
+  }
+ ],
+ "corrections": [],
+ "reprises_apres": [],
+ "appels": 1,
+ "cout_usd": 0.0124,
+ "erreurs": [],
+ "usage": [
+  {
+   "model": "gemini-3.8-flash",
+   "input": 16190,
+   "output": 80,
+   "thinking": 0
+  }
+ ]
+}

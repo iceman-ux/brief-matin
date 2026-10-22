@@ -1,5 +1,172 @@
 [
   {
+    "date": "2026-10-22",
+    "filename": "brief-2026-10-22.mp3",
+    "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-22.mp3",
+    "storage": "releases",
+    "title": "22/10 — Taux d'emprunt français à 5 %",
+    "summary": "Brief du 2026-10-22. Taux d'emprunt français à 5 % · Pourparlers annoncés sur l'Ukraine · Failles critiques dans PHP · Intempéries mortelles dans le Sud-Est · Meta condamné à 25 milliards",
+    "duration": 196,
+    "size": 2353259,
+    "topics": [
+      {
+        "slug": "taux-emprunt-france-dette",
+        "title": "Taux d'emprunt français à 5 %",
+        "category": "eco",
+        "sources": [
+          "Le Monde",
+          "franceinfo"
+        ],
+        "articles": [
+          5,
+          29,
+          39,
+          93
+        ],
+        "place": {
+          "city": "Paris",
+          "country": "France",
+          "iso3": "FRA",
+          "lat": 48.85,
+          "lon": 2.35,
+          "tz": "Europe/Paris"
+        },
+        "start": 11.2,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          4
+        ]
+      },
+      {
+        "slug": "guerre-ukraine-negociations",
+        "title": "Pourparlers annoncés sur l'Ukraine",
+        "category": "monde",
+        "sources": [
+          "franceinfo",
+          "Le Monde"
+        ],
+        "articles": [
+          34,
+          49,
+          53
+        ],
+        "place": {
+          "city": "Moscou",
+          "country": "Russie",
+          "iso3": "RUS",
+          "lat": 55.75,
+          "lon": 37.62,
+          "tz": "Europe/Moscow"
+        },
+        "start": 62.1,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          3
+        ]
+      },
+      {
+        "slug": "cybersecurite-failles-php",
+        "title": "Failles critiques dans PHP",
+        "category": "tech",
+        "sources": [
+          "Le Figaro",
+          "Le Monde"
+        ],
+        "articles": [
+          7,
+          37
+        ],
+        "start": 97.4,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2
+        ]
+      },
+      {
+        "slug": "intemperies-sud-est-corse",
+        "title": "Intempéries mortelles dans le Sud-Est",
+        "category": "france",
+        "sources": [
+          "Le Monde",
+          "franceinfo"
+        ],
+        "articles": [
+          17,
+          52
+        ],
+        "place": {
+          "city": "Marseille",
+          "country": "France",
+          "iso3": "FRA",
+          "lat": 43.3,
+          "lon": 5.37,
+          "tz": "Europe/Paris"
+        },
+        "start": 128.4,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2
+        ]
+      },
+      {
+        "slug": "justice-meta-cambridge-analytica",
+        "title": "Meta condamné à 25 milliards",
+        "category": "monde",
+        "sources": [
+          "Le Monde"
+        ],
+        "articles": [
+          2
+        ],
+        "place": {
+          "city": "Santa Fe",
+          "country": "États-Unis",
+          "iso3": "USA",
+          "lat": 35.69,
+          "lon": -105.94,
+          "tz": "America/Denver"
+        },
+        "start": 154.4,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      }
+    ],
+    "pub_date": "2026-10-22T02:03:55.485345+00:00",
+    "hook": "Le taux d'emprunt de la France à dix ans vient de franchir la barre des 5 %."
+  },
+  {
     "date": "2026-10-21",
     "filename": "brief-2026-10-21.mp3",
     "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-21.mp3",
@@ -2565,61 +2732,5 @@
       }
     ],
     "pub_date": "2026-09-23T09:31:10.407418+00:00"
-  },
-  {
-    "date": "2026-09-22",
-    "filename": "brief-2026-09-22.mp3",
-    "url": "https://iceman-ux.github.io/brief-matin/episodes/brief-2026-09-22.mp3",
-    "storage": "pages",
-    "title": "22/09 — Boycott des médias contre Trump",
-    "summary": "Brief du 2026-09-22. Boycott des médias contre Trump · Le chancelier allemand fragilisé · La Cour des comptes s'attaque au budget · El Niño frappe la Californie et l'Asie · Premier entraînement de Zidane",
-    "duration": 153,
-    "size": 1231148,
-    "topics": [
-      {
-        "slug": "medias-usa-trump",
-        "title": "Boycott des médias contre Trump",
-        "category": "monde",
-        "sources": [
-          "Le Monde",
-          "RFI"
-        ]
-      },
-      {
-        "slug": "crise-politique-allemagne",
-        "title": "Le chancelier allemand fragilisé",
-        "category": "monde",
-        "sources": [
-          "Le Monde",
-          "Le Figaro"
-        ]
-      },
-      {
-        "slug": "budget-france-2027",
-        "title": "La Cour des comptes s'attaque au budget",
-        "category": "eco",
-        "sources": [
-          "Le Monde"
-        ]
-      },
-      {
-        "slug": "climat-el-nino",
-        "title": "El Niño frappe la Californie et l'Asie",
-        "category": "monde",
-        "sources": [
-          "Le Monde",
-          "franceinfo"
-        ]
-      },
-      {
-        "slug": "zidane-bleus",
-        "title": "Premier entraînement de Zidane",
-        "category": "sport",
-        "sources": [
-          "franceinfo"
-        ]
-      }
-    ],
-    "pub_date": "2026-09-22T15:44:39.071075+00:00"
   }
 ]
