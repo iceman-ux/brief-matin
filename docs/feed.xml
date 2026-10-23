@@ -13,7 +13,7 @@
 
 Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
     <language>fr-FR</language>
-    <lastBuildDate>Thu, 22 Oct 2026 02:03:55 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 23 Oct 2026 02:04:40 +0000</lastBuildDate>
     <itunes:author>Lora</itunes:author>
     <itunes:subtitle>L'essentiel de l'actu, chaque matin</itunes:subtitle>
     <itunes:summary>Brief quotidien généré automatiquement à partir des grands titres français et internationaux. France, Monde, Économie, Tech.
@@ -28,6 +28,40 @@ Brief généré automatiquement par intelligence artificielle, texte et voix, à
     <itunes:type>episodic</itunes:type>
     <itunes:image href="https://iceman-ux.github.io/brief-matin/lora-cover-v2.jpg"/>
     <image><url>https://iceman-ux.github.io/brief-matin/lora-cover-v2.jpg</url><title>Lora</title><link>https://iceman-ux.github.io/brief-matin</link></image>
+    <item>
+      <title>23/10 — Manifestations non syndicales interdites samedi</title>
+      <description>Brief du 2026-10-23. Manifestations non syndicales interdites samedi · La tempête Austen balaie le littoral · Bruxelles enquête sur Booking.com · L'IA sature les miniséries chinoises · La CPI reçoit le prix Sakharov · À retenir de la semaine
+
+Au sommaire :
+• Manifestations non syndicales interdites samedi
+• La tempête Austen balaie le littoral
+• Bruxelles enquête sur Booking.com
+• L'IA sature les miniséries chinoises
+• La CPI reçoit le prix Sakharov
+• À retenir de la semaine
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
+      <itunes:subtitle>Face au risque de nouvelles violences, le gouvernement interdit les manifestations non syndicales ce samedi dans plusieurs grandes villes.</itunes:subtitle>
+      <podcast:chapters url="https://iceman-ux.github.io/brief-matin/chapters/brief-2026-10-23.json" type="application/json+chapters"/>
+      <lora:topics><![CDATA[[{"title": "Manifestations non syndicales interdites samedi", "start": 13.0, "place": {"city": "Paris", "country": "France", "iso3": "FRA", "lat": 48.85, "lon": 2.35, "tz": "Europe/Paris"}, "sources": ["franceinfo", "Le Figaro", "RFI"], "related7d": 4, "trend7d": [4, 10, 4, 0, 8, 0, 5]}, {"title": "La tempête Austen balaie le littoral", "start": 62.4, "sources": ["Le Monde", "franceinfo", "Le Figaro"], "related7d": 0, "trend7d": [0, 0, 0, 0, 0, 0, 3]}, {"title": "Bruxelles enquête sur Booking.com", "start": 84.5, "place": {"city": "Bruxelles", "country": "Belgique", "iso3": "BEL", "lat": 50.85, "lon": 4.35, "tz": "Europe/Brussels"}, "sources": ["RFI"], "related7d": 0, "trend7d": [0, 0, 0, 0, 0, 0, 1]}, {"title": "L'IA sature les miniséries chinoises", "start": 119.5, "place": {"city": "Pékin", "country": "Chine", "iso3": "CHN", "lat": 39.9, "lon": 116.4, "tz": "Asia/Shanghai"}, "sources": ["Le Monde"], "related7d": 0, "trend7d": [0, 0, 0, 0, 0, 0, 1]}, {"title": "La CPI reçoit le prix Sakharov", "start": 140.3, "place": {"city": "Strasbourg", "country": "France", "iso3": "FRA", "lat": 48.57, "lon": 7.75, "tz": "Europe/Paris"}, "sources": ["Le Monde", "RFI"], "related7d": 0, "trend7d": [0, 0, 0, 0, 0, 0, 2]}, {"title": "À retenir de la semaine", "start": 163.3, "sources": ["Le Monde", "franceinfo", "RFI"], "related7d": 1, "trend7d": [0, 0, 0, 0, 0, 0, 4]}]]]></lora:topics>
+      <itunes:summary>Brief du 2026-10-23. Manifestations non syndicales interdites samedi · La tempête Austen balaie le littoral · Bruxelles enquête sur Booking.com · L'IA sature les miniséries chinoises · La CPI reçoit le prix Sakharov · À retenir de la semaine
+
+Au sommaire :
+• Manifestations non syndicales interdites samedi
+• La tempête Austen balaie le littoral
+• Bruxelles enquête sur Booking.com
+• L'IA sature les miniséries chinoises
+• La CPI reçoit le prix Sakharov
+• À retenir de la semaine
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</itunes:summary>
+      <pubDate>Fri, 23 Oct 2026 02:04:40 +0000</pubDate>
+      <guid isPermaLink="false">brief-matin-2026-10-23</guid>
+      <enclosure url="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-23.mp3" length="2340407" type="audio/mpeg"/>
+      <itunes:duration>3:15</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
     <item>
       <title>22/10 — Taux d'emprunt français à 5 %</title>
       <description>Brief du 2026-10-22. Taux d'emprunt français à 5 % · Pourparlers annoncés sur l'Ukraine · Failles critiques dans PHP · Intempéries mortelles dans le Sud-Est · Meta condamné à 25 milliards
@@ -967,38 +1001,6 @@ Brief généré automatiquement par intelligence artificielle, texte et voix, à
       <guid isPermaLink="false">brief-matin-2026-09-24</guid>
       <enclosure url="https://iceman-ux.github.io/brief-matin/episodes/brief-2026-09-24.mp3" length="933717" type="audio/mpeg"/>
       <itunes:duration>3:06</itunes:duration>
-      <itunes:episodeType>full</itunes:episodeType>
-      <itunes:explicit>false</itunes:explicit>
-    </item>
-    <item>
-      <title>23/09 — Macron à la tribune de l'ONU</title>
-      <description>Brief du 2026-09-23. Macron à la tribune de l'ONU · Aides carburants élargies · Bases américaines au Groenland · Soupçons d'IA sur un roman · Migrants expulsés vers le Liberia · Arrêt de l'EPR de Flamanville
-
-Au sommaire :
-• Macron à la tribune de l'ONU
-• Aides carburants élargies
-• Bases américaines au Groenland
-• Soupçons d'IA sur un roman
-• Migrants expulsés vers le Liberia
-• Arrêt de l'EPR de Flamanville
-
-Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
-      <lora:topics><![CDATA[[{"title": "Macron à la tribune de l'ONU", "sources": ["Le Monde", "Le Figaro", "franceinfo"]}, {"title": "Aides carburants élargies", "sources": ["Le Monde", "La Tribune", "France 24"]}, {"title": "Bases américaines au Groenland", "sources": ["Le Monde", "The Guardian"]}, {"title": "Soupçons d'IA sur un roman", "sources": ["Le Figaro", "franceinfo"]}, {"title": "Migrants expulsés vers le Liberia", "sources": ["Le Monde"]}, {"title": "Arrêt de l'EPR de Flamanville", "sources": ["La Tribune"]}]]]></lora:topics>
-      <itunes:summary>Brief du 2026-09-23. Macron à la tribune de l'ONU · Aides carburants élargies · Bases américaines au Groenland · Soupçons d'IA sur un roman · Migrants expulsés vers le Liberia · Arrêt de l'EPR de Flamanville
-
-Au sommaire :
-• Macron à la tribune de l'ONU
-• Aides carburants élargies
-• Bases américaines au Groenland
-• Soupçons d'IA sur un roman
-• Migrants expulsés vers le Liberia
-• Arrêt de l'EPR de Flamanville
-
-Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</itunes:summary>
-      <pubDate>Wed, 23 Sep 2026 09:31:10 +0000</pubDate>
-      <guid isPermaLink="false">brief-matin-2026-09-23</guid>
-      <enclosure url="https://iceman-ux.github.io/brief-matin/episodes/brief-2026-09-23.mp3" length="1549485" type="audio/mpeg"/>
-      <itunes:duration>3:13</itunes:duration>
       <itunes:episodeType>full</itunes:episodeType>
       <itunes:explicit>false</itunes:explicit>
     </item>

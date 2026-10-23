@@ -1,0 +1,61 @@
+{
+ "date": "2026-10-23",
+ "reprises": [
+  {
+   "replique": 8,
+   "mots": 8,
+   "texte": "ce vendredi en raison de la tempête Austen",
+   "source": "Le Figaro — Économie",
+   "champ": "titre",
+   "titre_source": "Transports en Île-de-France : le trafic de plusieurs lignes de train interrompu ce vendredi en raison de la tempête Austen"
+  },
+  {
+   "replique": 14,
+   "mots": 9,
+   "texte": "la liberté de pensée à la Cour pénale internationale",
+   "source": "RFI",
+   "champ": "chapô",
+   "titre_source": "Le Parlement européen décerne le prix Sakharov à la Cour pénale internationale"
+  }
+ ],
+ "citations": [],
+ "problemes": [
+  {
+   "replique": 11,
+   "extrait": "le piratage direct de comptes d'hôtels réels",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "La source mentionne uniquement des soupçons d'insuffisance de protection contre des annonces frauduleuses, sans préciser le piratage direct de comptes d'hôtels ni le vol de coordonnées bancaires."
+  }
+ ],
+ "corrections": [
+  {
+   "replique": 8,
+   "avant": "Dans le reste de l'actualité en France, le littoral se prépare à de violentes intempéries. Quinze départements sont placés en vigilance orange vent ce vendredi en raison de la tempête Austen. Les rafales pourront atteindre cent quarante kilomètres par heure en Bretagne et en Normandie. En prévision de ces dégradations, la SNCF a suspendu préventivement la circulation de nombreux trains sur les réseaux régionaux de l'Ouest et sur plusieurs axes majeurs d'Île-de-France.",
+   "apres": "Dans le reste de l'actualité en France, le littoral se prépare à de violentes intempéries. Quinze départements sont en alerte orange aux coups de vent aujourd'hui face à l'arrivée de la tempête Austen. Les bourrasques pourraient atteindre cent quarante kilomètres par heure en Bretagne et en Normandie. Par précaution, la SNCF a déjà annulé de nombreux trains dans l'Ouest et sur plusieurs lignes majeures d'Île-de-France."
+  },
+  {
+   "replique": 14,
+   "avant": "Toujours à l'international, le Parlement européen adresse un signal politique appuyé à la justice internationale. Les eurodéputés ont attribué le prix Sakharov pour la liberté de pensée à la Cour pénale internationale. Un soutien de poids au moment où Donald Trump menace l'institution de démantèlement et a déjà sanctionné plusieurs de ses magistrats pour bloquer d'éventuelles poursuites contre des ressortissants américains ou leurs alliés.",
+   "apres": "Toujours à l'international, le Parlement européen adresse un signal politique appuyé face aux pressions de Washington. Les eurodéputés ont décerné le prestigieux prix Sakharov à la CPI. Un soutien de poids au moment où Donald Trump menace la juridiction de démantèlement et a déjà pris des sanctions contre plusieurs magistrats pour empêcher toute poursuite visant des Américains ou leurs alliés."
+  }
+ ],
+ "reprises_apres": [],
+ "appels": 2,
+ "cout_usd": 0.0253,
+ "erreurs": [],
+ "usage": [
+  {
+   "model": "gemini-3.8-flash",
+   "input": 16002,
+   "output": 107,
+   "thinking": 0
+  },
+  {
+   "model": "gemini-3.8-flash",
+   "input": 15972,
+   "output": 241,
+   "thinking": 0
+  }
+ ]
+}

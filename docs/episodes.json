@@ -1,5 +1,200 @@
 [
   {
+    "date": "2026-10-23",
+    "filename": "brief-2026-10-23.mp3",
+    "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-23.mp3",
+    "storage": "releases",
+    "title": "23/10 — Manifestations non syndicales interdites samedi",
+    "summary": "Brief du 2026-10-23. Manifestations non syndicales interdites samedi · La tempête Austen balaie le littoral · Bruxelles enquête sur Booking.com · L'IA sature les miniséries chinoises · La CPI reçoit le prix Sakharov · À retenir de la semaine",
+    "duration": 195,
+    "size": 2340407,
+    "topics": [
+      {
+        "slug": "mobilisation-17-octobre",
+        "title": "Manifestations non syndicales interdites samedi",
+        "category": "france",
+        "sources": [
+          "franceinfo",
+          "Le Figaro",
+          "RFI"
+        ],
+        "articles": [
+          48,
+          49,
+          50,
+          71,
+          118
+        ],
+        "place": {
+          "city": "Paris",
+          "country": "France",
+          "iso3": "FRA",
+          "lat": 48.85,
+          "lon": 2.35,
+          "tz": "Europe/Paris"
+        },
+        "start": 13.0,
+        "related7d": 4,
+        "trend7d": [
+          4,
+          10,
+          4,
+          0,
+          8,
+          0,
+          5
+        ]
+      },
+      {
+        "slug": "intemperies-tempete-austen",
+        "title": "La tempête Austen balaie le littoral",
+        "category": "france",
+        "sources": [
+          "Le Monde",
+          "franceinfo",
+          "Le Figaro"
+        ],
+        "articles": [
+          8,
+          46,
+          108
+        ],
+        "start": 62.4,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          3
+        ]
+      },
+      {
+        "slug": "enquete-ue-booking",
+        "title": "Bruxelles enquête sur Booking.com",
+        "category": "tech",
+        "sources": [
+          "RFI"
+        ],
+        "articles": [
+          42
+        ],
+        "place": {
+          "city": "Bruxelles",
+          "country": "Belgique",
+          "iso3": "BEL",
+          "lat": 50.85,
+          "lon": 4.35,
+          "tz": "Europe/Brussels"
+        },
+        "start": 84.5,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "slug": "chine-ia-miniseries",
+        "title": "L'IA sature les miniséries chinoises",
+        "category": "eco",
+        "sources": [
+          "Le Monde"
+        ],
+        "articles": [
+          25
+        ],
+        "place": {
+          "city": "Pékin",
+          "country": "Chine",
+          "iso3": "CHN",
+          "lat": 39.9,
+          "lon": 116.4,
+          "tz": "Asia/Shanghai"
+        },
+        "start": 119.5,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "slug": "cpi-prix-sakharov",
+        "title": "La CPI reçoit le prix Sakharov",
+        "category": "monde",
+        "sources": [
+          "Le Monde",
+          "RFI"
+        ],
+        "articles": [
+          32,
+          66
+        ],
+        "place": {
+          "city": "Strasbourg",
+          "country": "France",
+          "iso3": "FRA",
+          "lat": 48.57,
+          "lon": 7.75,
+          "tz": "Europe/Paris"
+        },
+        "start": 140.3,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2
+        ]
+      },
+      {
+        "slug": "recap-hebdo",
+        "title": "À retenir de la semaine",
+        "category": "monde",
+        "sources": [
+          "Le Monde",
+          "franceinfo",
+          "RFI"
+        ],
+        "articles": [
+          1,
+          26,
+          32,
+          71
+        ],
+        "start": 163.3,
+        "related7d": 1,
+        "trend7d": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          4
+        ]
+      }
+    ],
+    "pub_date": "2026-10-23T02:04:40.419427+00:00",
+    "hook": "Face au risque de nouvelles violences, le gouvernement interdit les manifestations non syndicales ce samedi dans plusieurs grandes villes."
+  },
+  {
     "date": "2026-10-22",
     "filename": "brief-2026-10-22.mp3",
     "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-22.mp3",
@@ -2665,72 +2860,5 @@
       }
     ],
     "pub_date": "2026-09-24T11:05:46.449405+00:00"
-  },
-  {
-    "date": "2026-09-23",
-    "filename": "brief-2026-09-23.mp3",
-    "url": "https://iceman-ux.github.io/brief-matin/episodes/brief-2026-09-23.mp3",
-    "storage": "pages",
-    "title": "23/09 — Macron à la tribune de l'ONU",
-    "summary": "Brief du 2026-09-23. Macron à la tribune de l'ONU · Aides carburants élargies · Bases américaines au Groenland · Soupçons d'IA sur un roman · Migrants expulsés vers le Liberia · Arrêt de l'EPR de Flamanville",
-    "duration": 193,
-    "size": 1549485,
-    "topics": [
-      {
-        "slug": "onu-macron",
-        "title": "Macron à la tribune de l'ONU",
-        "category": "monde",
-        "sources": [
-          "Le Monde",
-          "Le Figaro",
-          "franceinfo"
-        ]
-      },
-      {
-        "slug": "carburants-aides",
-        "title": "Aides carburants élargies",
-        "category": "eco",
-        "sources": [
-          "Le Monde",
-          "La Tribune",
-          "France 24"
-        ]
-      },
-      {
-        "slug": "securite-arctique-groenland",
-        "title": "Bases américaines au Groenland",
-        "category": "monde",
-        "sources": [
-          "Le Monde",
-          "The Guardian"
-        ]
-      },
-      {
-        "slug": "ia-litterature",
-        "title": "Soupçons d'IA sur un roman",
-        "category": "tech",
-        "sources": [
-          "Le Figaro",
-          "franceinfo"
-        ]
-      },
-      {
-        "slug": "expulsions-liberia",
-        "title": "Migrants expulsés vers le Liberia",
-        "category": "monde",
-        "sources": [
-          "Le Monde"
-        ]
-      },
-      {
-        "slug": "epr-flamanville",
-        "title": "Arrêt de l'EPR de Flamanville",
-        "category": "eco",
-        "sources": [
-          "La Tribune"
-        ]
-      }
-    ],
-    "pub_date": "2026-09-23T09:31:10.407418+00:00"
   }
 ]

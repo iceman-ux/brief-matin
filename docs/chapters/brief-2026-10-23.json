@@ -1,0 +1,33 @@
+{
+  "version": "1.2.0",
+  "chapters": [
+    {
+      "startTime": 0,
+      "title": "Ouverture"
+    },
+    {
+      "startTime": 13.0,
+      "title": "Manifestations non syndicales interdites samedi"
+    },
+    {
+      "startTime": 62.4,
+      "title": "La tempête Austen balaie le littoral"
+    },
+    {
+      "startTime": 84.5,
+      "title": "Bruxelles enquête sur Booking.com"
+    },
+    {
+      "startTime": 119.5,
+      "title": "L'IA sature les miniséries chinoises"
+    },
+    {
+      "startTime": 140.3,
+      "title": "La CPI reçoit le prix Sakharov"
+    },
+    {
+      "startTime": 163.3,
+      "title": "À retenir de la semaine"
+    }
+  ]
+}
