@@ -13,7 +13,7 @@
 
 Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
     <language>fr-FR</language>
-    <lastBuildDate>Fri, 23 Oct 2026 02:04:40 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 24 Oct 2026 02:03:31 +0000</lastBuildDate>
     <itunes:author>Lora</itunes:author>
     <itunes:subtitle>L'essentiel de l'actu, chaque matin</itunes:subtitle>
     <itunes:summary>Brief quotidien généré automatiquement à partir des grands titres français et internationaux. France, Monde, Économie, Tech.
@@ -28,6 +28,38 @@ Brief généré automatiquement par intelligence artificielle, texte et voix, à
     <itunes:type>episodic</itunes:type>
     <itunes:image href="https://iceman-ux.github.io/brief-matin/lora-cover-v2.jpg"/>
     <image><url>https://iceman-ux.github.io/brief-matin/lora-cover-v2.jpg</url><title>Lora</title><link>https://iceman-ux.github.io/brief-matin</link></image>
+    <item>
+      <title>24/10 — Attentat meurtrier dans les Yvelines</title>
+      <description>Brief du 2026-10-24. Attentat meurtrier dans les Yvelines · Moody's maintient la note française · Second tour présidentiel au Brésil · L'Assemblée rejette les recettes Sécu · Trêve humanitaire et pourparlers confirmés
+
+Au sommaire :
+• Attentat meurtrier dans les Yvelines
+• Moody's maintient la note française
+• Second tour présidentiel au Brésil
+• L'Assemblée rejette les recettes Sécu
+• Trêve humanitaire et pourparlers confirmés
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
+      <itunes:subtitle>Une fusillade fait un mort et cinq blessés dans les Yvelines, le parquet antiterroriste ouvre une enquête pour assassinat raciste.</itunes:subtitle>
+      <podcast:chapters url="https://iceman-ux.github.io/brief-matin/chapters/brief-2026-10-24.json" type="application/json+chapters"/>
+      <lora:topics><![CDATA[[{"title": "Attentat meurtrier dans les Yvelines", "start": 13.7, "place": {"city": "Trappes", "country": "France", "iso3": "FRA", "lat": 48.78, "lon": 2.0, "tz": "Europe/Paris"}, "sources": ["Le Monde", "France 24", "Le Figaro"], "related7d": 0, "trend7d": [0, 0, 0, 0, 0, 0, 8]}, {"title": "Moody's maintient la note française", "start": 57.6, "place": {"city": "Paris", "country": "France", "iso3": "FRA", "lat": 48.86, "lon": 2.35, "tz": "Europe/Paris"}, "sources": ["Le Monde", "Le Figaro"], "related7d": 0, "trend7d": [0, 0, 0, 0, 0, 0, 3]}, {"title": "Second tour présidentiel au Brésil", "start": 98.1, "place": {"city": "Brasilia", "country": "Brésil", "iso3": "BRA", "lat": -15.79, "lon": -47.88, "tz": "America/Sao_Paulo"}, "sources": ["Le Monde", "franceinfo"], "related7d": 0, "trend7d": [0, 0, 0, 0, 0, 0, 3]}, {"title": "L'Assemblée rejette les recettes Sécu", "start": 138.2, "place": {"city": "Paris", "country": "France", "iso3": "FRA", "lat": 48.86, "lon": 2.35, "tz": "Europe/Paris"}, "sources": ["Le Monde", "franceinfo", "Le Figaro"], "related7d": 0, "trend7d": [0, 0, 0, 0, 0, 0, 3]}, {"title": "Trêve humanitaire et pourparlers confirmés", "start": 177.8, "place": {"city": "Abou Dhabi", "country": "Émirats arabes unis", "iso3": "ARE", "lat": 24.47, "lon": 54.37, "tz": "Asia/Dubai"}, "sources": ["franceinfo", "RFI", "France 24", "Le Monde"], "related7d": 1, "trend7d": [0, 0, 0, 0, 3, 0, 4]}]]]></lora:topics>
+      <itunes:summary>Brief du 2026-10-24. Attentat meurtrier dans les Yvelines · Moody's maintient la note française · Second tour présidentiel au Brésil · L'Assemblée rejette les recettes Sécu · Trêve humanitaire et pourparlers confirmés
+
+Au sommaire :
+• Attentat meurtrier dans les Yvelines
+• Moody's maintient la note française
+• Second tour présidentiel au Brésil
+• L'Assemblée rejette les recettes Sécu
+• Trêve humanitaire et pourparlers confirmés
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</itunes:summary>
+      <pubDate>Sat, 24 Oct 2026 02:03:31 +0000</pubDate>
+      <guid isPermaLink="false">brief-matin-2026-10-24</guid>
+      <enclosure url="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-24.mp3" length="2688045" type="audio/mpeg"/>
+      <itunes:duration>3:43</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
     <item>
       <title>23/10 — Manifestations non syndicales interdites samedi</title>
       <description>Brief du 2026-10-23. Manifestations non syndicales interdites samedi · La tempête Austen balaie le littoral · Bruxelles enquête sur Booking.com · L'IA sature les miniséries chinoises · La CPI reçoit le prix Sakharov · À retenir de la semaine
@@ -969,38 +1001,6 @@ Brief généré automatiquement par intelligence artificielle, texte et voix, à
       <guid isPermaLink="false">brief-matin-2026-09-25</guid>
       <enclosure url="https://iceman-ux.github.io/brief-matin/episodes/brief-2026-09-25.mp3" length="1019757" type="audio/mpeg"/>
       <itunes:duration>3:23</itunes:duration>
-      <itunes:episodeType>full</itunes:episodeType>
-      <itunes:explicit>false</itunes:explicit>
-    </item>
-    <item>
-      <title>24/09 — Rencontre Trump-Xi à Washington</title>
-      <description>Brief du 2026-09-24. Rencontre Trump-Xi à Washington · Flambée historique du prix du diesel · Offensive rebelle dans le nord éthiopien · Réadmission des médias à la Maison-Blanche · Une IA pirate des données gouvernementales · Retombées de la visite papale en France
-
-Au sommaire :
-• Rencontre Trump-Xi à Washington
-• Flambée historique du prix du diesel
-• Offensive rebelle dans le nord éthiopien
-• Réadmission des médias à la Maison-Blanche
-• Une IA pirate des données gouvernementales
-• Retombées de la visite papale en France
-
-Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
-      <lora:topics><![CDATA[[{"title": "Rencontre Trump-Xi à Washington", "sources": ["Le Monde", "RFI"]}, {"title": "Flambée historique du prix du diesel", "sources": ["franceinfo", "Le Figaro", "La Tribune"]}, {"title": "Offensive rebelle dans le nord éthiopien", "sources": ["Le Monde", "RFI"]}, {"title": "Réadmission des médias à la Maison-Blanche", "sources": ["France 24", "Le Monde"]}, {"title": "Une IA pirate des données gouvernementales", "sources": ["franceinfo"]}, {"title": "Retombées de la visite papale en France", "sources": ["Le Monde", "RFI"]}]]]></lora:topics>
-      <itunes:summary>Brief du 2026-09-24. Rencontre Trump-Xi à Washington · Flambée historique du prix du diesel · Offensive rebelle dans le nord éthiopien · Réadmission des médias à la Maison-Blanche · Une IA pirate des données gouvernementales · Retombées de la visite papale en France
-
-Au sommaire :
-• Rencontre Trump-Xi à Washington
-• Flambée historique du prix du diesel
-• Offensive rebelle dans le nord éthiopien
-• Réadmission des médias à la Maison-Blanche
-• Une IA pirate des données gouvernementales
-• Retombées de la visite papale en France
-
-Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</itunes:summary>
-      <pubDate>Thu, 24 Sep 2026 11:05:46 +0000</pubDate>
-      <guid isPermaLink="false">brief-matin-2026-09-24</guid>
-      <enclosure url="https://iceman-ux.github.io/brief-matin/episodes/brief-2026-09-24.mp3" length="933717" type="audio/mpeg"/>
-      <itunes:duration>3:06</itunes:duration>
       <itunes:episodeType>full</itunes:episodeType>
       <itunes:explicit>false</itunes:explicit>
     </item>

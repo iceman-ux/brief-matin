@@ -1,0 +1,29 @@
+{
+  "version": "1.2.0",
+  "chapters": [
+    {
+      "startTime": 0,
+      "title": "Ouverture"
+    },
+    {
+      "startTime": 13.7,
+      "title": "Attentat meurtrier dans les Yvelines"
+    },
+    {
+      "startTime": 57.6,
+      "title": "Moody's maintient la note française"
+    },
+    {
+      "startTime": 98.1,
+      "title": "Second tour présidentiel au Brésil"
+    },
+    {
+      "startTime": 138.2,
+      "title": "L'Assemblée rejette les recettes Sécu"
+    },
+    {
+      "startTime": 177.8,
+      "title": "Trêve humanitaire et pourparlers confirmés"
+    }
+  ]
+}

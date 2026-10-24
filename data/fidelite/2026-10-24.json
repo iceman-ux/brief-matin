@@ -1,0 +1,87 @@
+{
+ "date": "2026-10-24",
+ "reprises": [
+  {
+   "replique": 2,
+   "mots": 9,
+   "texte": "à Trappes puis à La Verrière, dans les Yvelines",
+   "source": "France 24 — FR",
+   "champ": "chapô",
+   "titre_source": "Circonstances, suspect, mobile... ce que l'on sait sur l'attaque \"terroriste raciste\" à Trappes"
+  },
+  {
+   "replique": 18,
+   "mots": 9,
+   "texte": "de novembre à Abou Dhabi, aux Émirats arabes unis",
+   "source": "RFI",
+   "champ": "chapô",
+   "titre_source": "La Russie confirme la reprise de pourparlers avec l'Ukraine aux Émirats arabes unis"
+  }
+ ],
+ "citations": [],
+ "problemes": [
+  {
+   "replique": 7,
+   "extrait": "Les démineurs ont découvert plusieurs bouteilles de gaz prêtes à exploser",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "La source 81 indique seulement que le logement du suspect était piégé avec des bouteilles de gaz, sans mentionner l'intervention de démineurs ni qu'elles étaient prêtes à exploser."
+  },
+  {
+   "replique": 8,
+   "extrait": "peut durer quatre-vingt-seize heures dans ce cadre",
+   "type": "chiffre",
+   "gravite": "haute",
+   "explication": "Aucune source ne précise la durée légale possible de la garde à vue."
+  },
+  {
+   "replique": 10,
+   "extrait": "fils de l'ancien président",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "Les sources présentent Flavio Bolsonaro comme candidat d'extrême droite, mais ne mentionnent pas sa filiation avec l'ancien président."
+  },
+  {
+   "replique": 14,
+   "extrait": "qui examinera la copie initiale rédigée par l'exécutif",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "Les sources 8 et 79 mentionnent la transmission du texte au Sénat, mais ne précisent pas quelle version (copie initiale du gouvernement ou texte amendé) y sera examinée."
+  }
+ ],
+ "corrections": [
+  {
+   "replique": 2,
+   "avant": "Un tireur a ouvert le feu en pleine rue vendredi matin à Trappes puis à La Verrière, dans les Yvelines. Il a tiré en rafales depuis sa voiture sur plusieurs passants. Un jeune homme de vingt-six ans a été tué et cinq personnes ont été blessées, dont une fillette de douze ans.",
+   "apres": "Un tireur a ouvert le feu en pleine rue vendredi matin dans les communes franciliennes de Trappes et de La Verrière. Il a tiré en rafales depuis sa voiture sur plusieurs passants. Un jeune homme de vingt-six ans a été tué et cinq personnes ont été blessées, dont une fillette de douze ans."
+  },
+  {
+   "replique": 8,
+   "avant": "La garde à vue peut durer quatre-vingt-seize heures dans ce cadre.",
+   "apres": ""
+  },
+  {
+   "replique": 18,
+   "avant": "Ce n'est pas le seul signal d'apaisement. La Russie a également confirmé la reprise de négociations de paix directes avec l'Ukraine. Ces discussions se tiendront dans la première moitié de novembre à Abou Dhabi, aux Émirats arabes unis. Ce seront les premiers pourparlers de cette nature depuis plusieurs mois.",
+   "apres": "Ce n'est pas le seul signal d'apaisement. La Russie a également confirmé la reprise de négociations de paix directes avec l'Ukraine. Ces discussions se tiendront au début du mois prochain du côté d'Abou Dhabi. Ce seront les premiers pourparlers de cette nature depuis plusieurs mois."
+  }
+ ],
+ "reprises_apres": [],
+ "appels": 2,
+ "cout_usd": 0.0265,
+ "erreurs": [],
+ "usage": [
+  {
+   "model": "gemini-3.8-flash",
+   "input": 16259,
+   "output": 346,
+   "thinking": 0
+  },
+  {
+   "model": "gemini-3.8-flash",
+   "input": 16241,
+   "output": 212,
+   "thinking": 0
+  }
+ ]
+}
