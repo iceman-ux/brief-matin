@@ -1,0 +1,104 @@
+{
+ "date": "2026-10-25",
+ "reprises": [
+  {
+   "replique": 10,
+   "mots": 8,
+   "texte": "défense de la coprésidente du parti, Alice Weidel",
+   "source": "Le Monde — Une",
+   "champ": "chapô",
+   "titre_source": "En Allemagne, une fuite massive de documents internes à l’AfD embarrasse le parti d’extrême droite"
+  }
+ ],
+ "citations": [],
+ "problemes": [
+  {
+   "replique": 4,
+   "extrait": "Les forces de l'ordre avaient pour consigne d'intervenir",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "Aucune source ne mentionne de consigne donnée aux forces de l'ordre d'intervenir au moindre signe d'agitation."
+  },
+  {
+   "replique": 5,
+   "extrait": "Ce quadrillage policier est vivement dénoncé par les syndicats",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "Les sources ne rapportent pas de déclaration des syndicats accusant l'exécutif de vouloir dissuader la population de défiler."
+  },
+  {
+   "replique": 5,
+   "extrait": "affirme que cette fermeté a permis d'éviter la répétition",
+   "type": "citation",
+   "gravite": "haute",
+   "explication": "Laurent Nuñez déclare que les cortèges se sont bien passés, mais n'affirme pas que cette fermeté a permis d'éviter la répétition des pillages."
+  },
+  {
+   "replique": 6,
+   "extrait": "appels à bloquer le pays",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "La source mentionne une confirmation de mobilisation des Gilets jaunes le 31 octobre, sans appel à bloquer le pays."
+  },
+  {
+   "replique": 11,
+   "extrait": "La direction de l'AfD dénonce une opération de déstabilisation",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "Les sources ne font pas mention d'une réaction officielle de la direction de l'AfD dénonçant une déstabilisation politique."
+  },
+  {
+   "replique": 12,
+   "extrait": "lutter contre la désinformation, les organisations de défense",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "La source ne détaille ni les justifications du pouvoir gabonais ni les réactions d'organisations de défense des droits humains."
+  },
+  {
+   "replique": 16,
+   "extrait": "L’Autorité palestinienne dénonce une sanction collective illégale",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "Les sources ne citent aucune réaction de l'Autorité palestinienne concernant les événements d'Hébron."
+  }
+ ],
+ "corrections": [
+  {
+   "replique": 5,
+   "avant": "Ce quadrillage policier est vivement dénoncé par les syndicats, qui accusent l'exécutif de vouloir dissuader la population de défiler. De son côté, le ministre de l'Intérieur Laurent Nuñez affirme que cette fermeté a permis d'éviter la répétition des scènes de pillage de la semaine passée.",
+   "apres": "Ce quadrillage policier est vivement dénoncé par les syndicats, qui accusent l'exécutif de vouloir dissuader la population de défiler. De son côté, le ministre de l'Intérieur Laurent Nuñez a estimé que les cortèges s'étaient bien passés, malgré le millier d'interpellations."
+  },
+  {
+   "replique": 10,
+   "avant": "L’archive révèle surtout des extraits de comptes bancaires confidentiels. Ces pièces fragilisent directement la ligne de défense de la coprésidente du parti, Alice Weidel, déjà ciblée par une enquête pour financement illégal.",
+   "apres": "L’archive révèle surtout des extraits de comptes confidentiels. Ces pièces fragilisent directement les arguments d'Alice Weidel, l'une des figures de tête du mouvement, déjà ciblée par une enquête pour financement illégal."
+  }
+ ],
+ "reprises_apres": [
+  {
+   "replique": 5,
+   "mots": 12,
+   "texte": "le ministre de l'Intérieur Laurent Nuñez a estimé que les cortèges",
+   "source": "Le Monde — Une",
+   "champ": "chapô",
+   "titre_source": "EN DIRECT, manifestations du 24 octobre : entre 410 000 et 800 000 manifestants, cortèges sous haute surveillance, tensions en fin de journée… Revivez la journée de mobilisation"
+  }
+ ],
+ "appels": 2,
+ "cout_usd": 0.0266,
+ "erreurs": [],
+ "usage": [
+  {
+   "model": "gemini-3.8-flash",
+   "input": 15916,
+   "output": 563,
+   "thinking": 0
+  },
+  {
+   "model": "gemini-3.8-flash",
+   "input": 15843,
+   "output": 177,
+   "thinking": 0
+  }
+ ]
+}
