@@ -1,0 +1,33 @@
+{
+  "version": "1.2.0",
+  "chapters": [
+    {
+      "startTime": 0,
+      "title": "Ouverture"
+    },
+    {
+      "startTime": 13.1,
+      "title": "Lula réélu président du Brésil"
+    },
+    {
+      "startTime": 54.8,
+      "title": "Défaite du pouvoir en Serbie"
+    },
+    {
+      "startTime": 77.4,
+      "title": "L'Algérie déploie l'armée au Niger"
+    },
+    {
+      "startTime": 116.3,
+      "title": "Marine Le Pen lance sa campagne"
+    },
+    {
+      "startTime": 142.6,
+      "title": "Succès d'une messagerie sans internet"
+    },
+    {
+      "startTime": 185.8,
+      "title": "Christo Popov numéro un mondial"
+    }
+  ]
+}

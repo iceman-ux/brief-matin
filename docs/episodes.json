@@ -1,5 +1,198 @@
 [
   {
+    "date": "2026-10-26",
+    "filename": "brief-2026-10-26.mp3",
+    "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-26.mp3",
+    "storage": "releases",
+    "title": "26/10 — Lula réélu président du Brésil",
+    "summary": "Brief du 2026-10-26. Lula réélu président du Brésil · Défaite du pouvoir en Serbie · L'Algérie déploie l'armée au Niger · Marine Le Pen lance sa campagne · Succès d'une messagerie sans internet · Christo Popov numéro un mondial",
+    "duration": 203,
+    "size": 2446360,
+    "topics": [
+      {
+        "slug": "bresil-presidentielle-lula-bolsonaro",
+        "title": "Lula réélu président du Brésil",
+        "category": "monde",
+        "sources": [
+          "Le Monde",
+          "Le Figaro"
+        ],
+        "articles": [
+          2,
+          64
+        ],
+        "place": {
+          "city": "Brasília",
+          "country": "Brésil",
+          "iso3": "BRA",
+          "lat": -15.79,
+          "lon": -47.88,
+          "tz": "America/Sao_Paulo"
+        },
+        "start": 13.1,
+        "related7d": 1,
+        "trend7d": [
+          0,
+          0,
+          0,
+          0,
+          3,
+          0,
+          2
+        ]
+      },
+      {
+        "slug": "serbie-legislatives-vucic",
+        "title": "Défaite du pouvoir en Serbie",
+        "category": "monde",
+        "sources": [
+          "Le Monde",
+          "franceinfo"
+        ],
+        "articles": [
+          1,
+          116
+        ],
+        "place": {
+          "city": "Belgrade",
+          "country": "Serbie",
+          "iso3": "SRB",
+          "lat": 44.79,
+          "lon": 20.45,
+          "tz": "Europe/Belgrade"
+        },
+        "start": 54.8,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2
+        ]
+      },
+      {
+        "slug": "algerie-niger-intervention-armee",
+        "title": "L'Algérie déploie l'armée au Niger",
+        "category": "monde",
+        "sources": [
+          "Le Monde"
+        ],
+        "articles": [
+          16
+        ],
+        "place": {
+          "city": "Alger",
+          "country": "Algérie",
+          "iso3": "DZA",
+          "lat": 36.75,
+          "lon": 3.06,
+          "tz": "Africa/Algiers"
+        },
+        "start": 77.4,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "slug": "france-presidentielle-2027-rn",
+        "title": "Marine Le Pen lance sa campagne",
+        "category": "france",
+        "sources": [
+          "Le Monde",
+          "Le Figaro"
+        ],
+        "articles": [
+          5,
+          57,
+          73
+        ],
+        "place": {
+          "city": "Orléans",
+          "country": "France",
+          "iso3": "FRA",
+          "lat": 47.9,
+          "lon": 1.9,
+          "tz": "Europe/Paris"
+        },
+        "start": 116.3,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          3
+        ]
+      },
+      {
+        "slug": "tech-messagerie-bitchat",
+        "title": "Succès d'une messagerie sans internet",
+        "category": "tech",
+        "sources": [
+          "Le Figaro"
+        ],
+        "articles": [
+          70
+        ],
+        "start": 142.6,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "slug": "badminton-popov-numero-un",
+        "title": "Christo Popov numéro un mondial",
+        "category": "sport",
+        "sources": [
+          "franceinfo"
+        ],
+        "articles": [
+          55
+        ],
+        "place": {
+          "city": "Paris",
+          "country": "France",
+          "iso3": "FRA",
+          "lat": 48.86,
+          "lon": 2.35,
+          "tz": "Europe/Paris"
+        },
+        "start": 185.8,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      }
+    ],
+    "pub_date": "2026-10-26T03:03:38.440531+00:00",
+    "hook": "Au Brésil, Lula remporte l'élection présidentielle d'une courte tête face à Flavio Bolsonaro, qui conteste le résultat."
+  },
+  {
     "date": "2026-10-25",
     "filename": "brief-2026-10-25.mp3",
     "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-25.mp3",
@@ -3026,69 +3219,5 @@
       }
     ],
     "pub_date": "2026-09-27T08:32:11.933475+00:00"
-  },
-  {
-    "date": "2026-09-26",
-    "filename": "brief-2026-09-26.mp3",
-    "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-09-26.mp3",
-    "storage": "releases",
-    "title": "26/09 — Trump rejette l'offre iranienne sur Ormuz",
-    "summary": "Brief du 2026-09-26. Trump rejette l'offre iranienne sur Ormuz · Moyens militaires français envoyés en Arabie · Lourdes condamnations au procès Aramburu · Yannick Jadot suspendu par Les Écologistes · Volkswagen rappelle deux millions de voitures · Fuite d'images d'utilisateurs chez OpenAI",
-    "duration": 181,
-    "size": 2172387,
-    "topics": [
-      {
-        "slug": "crise-detroit-ormuz",
-        "title": "Trump rejette l'offre iranienne sur Ormuz",
-        "category": "monde",
-        "sources": [
-          "France 24",
-          "Le Monde"
-        ]
-      },
-      {
-        "slug": "defense-france-arabie",
-        "title": "Moyens militaires français envoyés en Arabie",
-        "category": "monde",
-        "sources": [
-          "Le Monde"
-        ]
-      },
-      {
-        "slug": "proces-meurtre-aramburu",
-        "title": "Lourdes condamnations au procès Aramburu",
-        "category": "france",
-        "sources": [
-          "Le Monde",
-          "France 24"
-        ]
-      },
-      {
-        "slug": "crise-parti-ecologistes",
-        "title": "Yannick Jadot suspendu par Les Écologistes",
-        "category": "france",
-        "sources": [
-          "franceinfo",
-          "La Tribune"
-        ]
-      },
-      {
-        "slug": "rappel-vehicules-volkswagen",
-        "title": "Volkswagen rappelle deux millions de voitures",
-        "category": "eco",
-        "sources": [
-          "Le Monde"
-        ]
-      },
-      {
-        "slug": "securite-donnees-openai",
-        "title": "Fuite d'images d'utilisateurs chez OpenAI",
-        "category": "tech",
-        "sources": [
-          "Le Monde"
-        ]
-      }
-    ],
-    "pub_date": "2026-09-26T07:58:32.237910+00:00"
   }
 ]
