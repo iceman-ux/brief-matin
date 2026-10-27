@@ -1,0 +1,65 @@
+{
+ "date": "2026-10-27",
+ "reprises": [],
+ "citations": [],
+ "problemes": [
+  {
+   "replique": 7,
+   "extrait": "pertes opérationnelles abyssales",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "La source 7 indique au contraire qu'Anthropic « affiche une rentabilité opérationnelle », bien que la source 62 mentionne des pertes globales."
+  },
+  {
+   "replique": 7,
+   "extrait": "pour ne pas se faire distancer par OpenAI et Google",
+   "type": "nom",
+   "gravite": "haute",
+   "explication": "Aucune source sur l'introduction en bourse d'Anthropic ne mentionne Google ou OpenAI."
+  },
+  {
+   "replique": 8,
+   "extrait": "après la mort d'Yvan Colonna",
+   "type": "nom",
+   "gravite": "haute",
+   "explication": "La mort d'Yvan Colonna n'est mentionnée dans aucune des sources fournies."
+  },
+  {
+   "replique": 10,
+   "extrait": "au détriment de ses activités historiques de logiciels et de support",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "Les sources ne précisent pas que les départs se font au détriment des logiciels et du support."
+  }
+ ],
+ "corrections": [
+  {
+   "replique": 7,
+   "avant": "On passe à la tech, avec une première historique à Wall Street. Le laboratoire américain Anthropic, qui développe le modèle d'intelligence artificielle Claude, vient de déposer son dossier d'introduction en Bourse sur le Nasdaq. L'entreprise vise une valorisation colossale de deux mille milliards de dollars. Ce document financier offre une plongée inédite dans les comptes du secteur : Anthropic affiche une croissance spectaculaire de ses revenus, mais aussi des pertes opérationnelles abyssales. La jeune pousse prévient d'ailleurs les marchés qu'elle devra continuer d'investir des dizaines de milliards dans les serveurs et les puces pour ne pas se faire distancer par OpenAI et Google.",
+   "apres": "On passe à la tech, avec une première historique à Wall Street. Le laboratoire américain Anthropic, qui développe le modèle d'intelligence artificielle Claude, vient de déposer son dossier d'introduction en Bourse sur le Nasdaq. L'entreprise vise une valorisation colossale de deux mille milliards de dollars. Ce document financier offre une plongée inédite dans les comptes du secteur : Anthropic affiche des revenus en très forte hausse, mais aussi des pertes abyssales. La jeune pousse prévient d'ailleurs les marchés qu'elle devra poursuivre des investissements colossaux tout en faisant face aux nombreux risques imprévisibles liés à sa technologie."
+  },
+  {
+   "replique": 8,
+   "avant": "Retour en France, où le dossier corse bascule dans l'impasse. Cette nuit, le Sénat a rejeté le projet de loi constitutionnelle sur l'autonomie de l'île. Les sénateurs ont refusé de reconnaître une communauté corse et ont supprimé la possibilité pour l'assemblée territoriale d'adapter localement des textes de loi. C'est un coup d'arrêt brutal pour le processus de Beauvau, initié il y a plus de deux ans par le gouvernement pour apaiser les tensions après la mort d'Yvan Colonna. Les élus autonomistes dénoncent un reniement de l'État.",
+   "apres": "Retour en France, où le dossier corse bascule dans l'impasse. Cette nuit, le Sénat a rejeté le projet de loi sur l'autonomie de l'île. Même avec des amendements écartant la notion de communauté et encadrant strictement les demandes de dérogation pour fixer des normes, la chambre haute a recalé le texte. C'est un coup d'arrêt brutal pour le processus de Beauvau, qui plonge l'exécutif dans une crise ouverte avec les autonomistes."
+  }
+ ],
+ "reprises_apres": [],
+ "appels": 2,
+ "cout_usd": 0.0268,
+ "erreurs": [],
+ "usage": [
+  {
+   "model": "gemini-3.8-flash",
+   "input": 16363,
+   "output": 295,
+   "thinking": 0
+  },
+  {
+   "model": "gemini-3.8-flash",
+   "input": 16440,
+   "output": 294,
+   "thinking": 0
+  }
+ ]
+}

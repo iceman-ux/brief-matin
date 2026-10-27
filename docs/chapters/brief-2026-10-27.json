@@ -1,0 +1,33 @@
+{
+  "version": "1.2.0",
+  "chapters": [
+    {
+      "startTime": 0,
+      "title": "Ouverture"
+    },
+    {
+      "startTime": 12.4,
+      "title": "Remplacement annoncé pour la plateforme Parcoursup"
+    },
+    {
+      "startTime": 57.3,
+      "title": "Législatives décisives en Israël"
+    },
+    {
+      "startTime": 98.9,
+      "title": "Anthropic prépare son entrée en Bourse"
+    },
+    {
+      "startTime": 132.3,
+      "title": "Le Sénat rejette l'autonomie corse"
+    },
+    {
+      "startTime": 158.4,
+      "title": "Microsoft supprime soixante mille postes"
+    },
+    {
+      "startTime": 190.3,
+      "title": "Harry Kane sacré Ballon d'or"
+    }
+  ]
+}

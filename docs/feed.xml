@@ -13,7 +13,7 @@
 
 Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
     <language>fr-FR</language>
-    <lastBuildDate>Mon, 26 Oct 2026 03:03:39 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 27 Oct 2026 03:05:56 +0000</lastBuildDate>
     <itunes:author>Lora</itunes:author>
     <itunes:subtitle>L'essentiel de l'actu, chaque matin</itunes:subtitle>
     <itunes:summary>Brief quotidien généré automatiquement à partir des grands titres français et internationaux. France, Monde, Économie, Tech.
@@ -28,6 +28,40 @@ Brief généré automatiquement par intelligence artificielle, texte et voix, à
     <itunes:type>episodic</itunes:type>
     <itunes:image href="https://iceman-ux.github.io/brief-matin/lora-cover-v2.jpg"/>
     <image><url>https://iceman-ux.github.io/brief-matin/lora-cover-v2.jpg</url><title>Lora</title><link>https://iceman-ux.github.io/brief-matin</link></image>
+    <item>
+      <title>27/10 — Remplacement annoncé pour la plateforme Parcoursup</title>
+      <description>Brief du 2026-10-27. Remplacement annoncé pour la plateforme Parcoursup · Législatives décisives en Israël · Anthropic prépare son entrée en Bourse · Le Sénat rejette l'autonomie corse · Microsoft supprime soixante mille postes · Harry Kane sacré Ballon d'or
+
+Au sommaire :
+• Remplacement annoncé pour la plateforme Parcoursup
+• Législatives décisives en Israël
+• Anthropic prépare son entrée en Bourse
+• Le Sénat rejette l'autonomie corse
+• Microsoft supprime soixante mille postes
+• Harry Kane sacré Ballon d'or
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
+      <itunes:subtitle>Le gouvernement annonce le remplacement de Parcoursup d'ici 2028 pour tenter d'éteindre la contestation lycéenne.</itunes:subtitle>
+      <podcast:chapters url="https://iceman-ux.github.io/brief-matin/chapters/brief-2026-10-27.json" type="application/json+chapters"/>
+      <lora:topics><![CDATA[[{"title": "Remplacement annoncé pour la plateforme Parcoursup", "start": 12.4, "place": {"city": "Paris", "country": "France", "iso3": "FRA", "lat": 48.86, "lon": 2.35, "tz": "Europe/Paris"}, "sources": ["France 24", "Le Figaro", "RFI", "franceinfo"], "related7d": 0, "trend7d": [0, 0, 0, 0, 0, 0, 5]}, {"title": "Législatives décisives en Israël", "start": 57.3, "place": {"city": "Jérusalem", "country": "Israël", "iso3": "ISR", "lat": 31.77, "lon": 35.22, "tz": "Asia/Jerusalem"}, "sources": ["Le Monde", "franceinfo", "RFI"], "related7d": 0, "trend7d": [0, 0, 0, 0, 0, 0, 4]}, {"title": "Anthropic prépare son entrée en Bourse", "start": 98.9, "place": {"city": "New York", "country": "États-Unis", "iso3": "USA", "lat": 40.71, "lon": -74.01, "tz": "America/New_York"}, "sources": ["Le Monde", "La Tribune", "franceinfo"], "related7d": 0, "trend7d": [0, 0, 0, 0, 0, 0, 3]}, {"title": "Le Sénat rejette l'autonomie corse", "start": 132.3, "place": {"city": "Paris", "country": "France", "iso3": "FRA", "lat": 48.86, "lon": 2.35, "tz": "Europe/Paris"}, "sources": ["Le Monde"], "related7d": 0, "trend7d": [0, 0, 0, 0, 0, 0, 1]}, {"title": "Microsoft supprime soixante mille postes", "start": 158.4, "sources": ["Le Monde", "Le Figaro"], "related7d": 0, "trend7d": [0, 0, 0, 0, 0, 0, 2]}, {"title": "Harry Kane sacré Ballon d'or", "start": 190.3, "place": {"city": "Londres", "country": "Royaume-Uni", "iso3": "GBR", "lat": 51.51, "lon": -0.13, "tz": "Europe/London"}, "sources": ["Le Monde", "La Tribune"], "related7d": 0, "trend7d": [0, 0, 0, 0, 0, 0, 2]}]]]></lora:topics>
+      <itunes:summary>Brief du 2026-10-27. Remplacement annoncé pour la plateforme Parcoursup · Législatives décisives en Israël · Anthropic prépare son entrée en Bourse · Le Sénat rejette l'autonomie corse · Microsoft supprime soixante mille postes · Harry Kane sacré Ballon d'or
+
+Au sommaire :
+• Remplacement annoncé pour la plateforme Parcoursup
+• Législatives décisives en Israël
+• Anthropic prépare son entrée en Bourse
+• Le Sénat rejette l'autonomie corse
+• Microsoft supprime soixante mille postes
+• Harry Kane sacré Ballon d'or
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</itunes:summary>
+      <pubDate>Tue, 27 Oct 2026 03:05:55 +0000</pubDate>
+      <guid isPermaLink="false">brief-matin-2026-10-27</guid>
+      <enclosure url="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-27.mp3" length="2500903" type="audio/mpeg"/>
+      <itunes:duration>3:28</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
     <item>
       <title>26/10 — Lula réélu président du Brésil</title>
       <description>Brief du 2026-10-26. Lula réélu président du Brésil · Défaite du pouvoir en Serbie · L'Algérie déploie l'armée au Niger · Marine Le Pen lance sa campagne · Succès d'une messagerie sans internet · Christo Popov numéro un mondial
@@ -971,38 +1005,6 @@ Brief généré automatiquement par intelligence artificielle, texte et voix, à
       <guid isPermaLink="false">brief-matin-2026-09-28</guid>
       <enclosure url="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-09-28.mp3" length="2325360" type="audio/mpeg"/>
       <itunes:duration>3:13</itunes:duration>
-      <itunes:episodeType>full</itunes:episodeType>
-      <itunes:explicit>false</itunes:explicit>
-    </item>
-    <item>
-      <title>27/09 — Léon XIV face aux victimes à Lourdes</title>
-      <description>Brief du 2026-09-27. Léon XIV face aux victimes à Lourdes · Fusillades meurtrières en Afrique du Sud · Madrid mobilisée contre les expulsions locatives · Lula interdit les paris sportifs en ligne · Marches pour le climat à travers la France · Volley : la France battue en finale
-
-Au sommaire :
-• Léon XIV face aux victimes à Lourdes
-• Fusillades meurtrières en Afrique du Sud
-• Madrid mobilisée contre les expulsions locatives
-• Lula interdit les paris sportifs en ligne
-• Marches pour le climat à travers la France
-• Volley : la France battue en finale
-
-Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
-      <lora:topics><![CDATA[[{"title": "Léon XIV face aux victimes à Lourdes", "sources": ["Le Monde", "franceinfo"]}, {"title": "Fusillades meurtrières en Afrique du Sud", "sources": ["Le Monde"]}, {"title": "Madrid mobilisée contre les expulsions locatives", "sources": ["Le Monde", "franceinfo"]}, {"title": "Lula interdit les paris sportifs en ligne", "sources": ["Le Monde"]}, {"title": "Marches pour le climat à travers la France", "sources": ["Le Monde", "franceinfo"]}, {"title": "Volley : la France battue en finale", "sources": ["franceinfo"]}]]]></lora:topics>
-      <itunes:summary>Brief du 2026-09-27. Léon XIV face aux victimes à Lourdes · Fusillades meurtrières en Afrique du Sud · Madrid mobilisée contre les expulsions locatives · Lula interdit les paris sportifs en ligne · Marches pour le climat à travers la France · Volley : la France battue en finale
-
-Au sommaire :
-• Léon XIV face aux victimes à Lourdes
-• Fusillades meurtrières en Afrique du Sud
-• Madrid mobilisée contre les expulsions locatives
-• Lula interdit les paris sportifs en ligne
-• Marches pour le climat à travers la France
-• Volley : la France battue en finale
-
-Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</itunes:summary>
-      <pubDate>Sun, 27 Sep 2026 08:32:11 +0000</pubDate>
-      <guid isPermaLink="false">brief-matin-2026-09-27</guid>
-      <enclosure url="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-09-27.mp3" length="2549178" type="audio/mpeg"/>
-      <itunes:duration>3:32</itunes:duration>
       <itunes:episodeType>full</itunes:episodeType>
       <itunes:explicit>false</itunes:explicit>
     </item>

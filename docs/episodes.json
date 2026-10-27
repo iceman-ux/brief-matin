@@ -1,5 +1,211 @@
 [
   {
+    "date": "2026-10-27",
+    "filename": "brief-2026-10-27.mp3",
+    "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-27.mp3",
+    "storage": "releases",
+    "title": "27/10 — Remplacement annoncé pour la plateforme Parcoursup",
+    "summary": "Brief du 2026-10-27. Remplacement annoncé pour la plateforme Parcoursup · Législatives décisives en Israël · Anthropic prépare son entrée en Bourse · Le Sénat rejette l'autonomie corse · Microsoft supprime soixante mille postes · Harry Kane sacré Ballon d'or",
+    "duration": 208,
+    "size": 2500903,
+    "topics": [
+      {
+        "slug": "reforme-parcoursup-mobilisation",
+        "title": "Remplacement annoncé pour la plateforme Parcoursup",
+        "category": "france",
+        "sources": [
+          "France 24",
+          "Le Figaro",
+          "RFI",
+          "franceinfo"
+        ],
+        "articles": [
+          88,
+          99,
+          104,
+          112,
+          115
+        ],
+        "place": {
+          "city": "Paris",
+          "country": "France",
+          "iso3": "FRA",
+          "lat": 48.86,
+          "lon": 2.35,
+          "tz": "Europe/Paris"
+        },
+        "start": 12.4,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          5
+        ]
+      },
+      {
+        "slug": "israel-elections-legislatives",
+        "title": "Législatives décisives en Israël",
+        "category": "monde",
+        "sources": [
+          "Le Monde",
+          "franceinfo",
+          "RFI"
+        ],
+        "articles": [
+          3,
+          28,
+          108,
+          114
+        ],
+        "place": {
+          "city": "Jérusalem",
+          "country": "Israël",
+          "iso3": "ISR",
+          "lat": 31.77,
+          "lon": 35.22,
+          "tz": "Asia/Jerusalem"
+        },
+        "start": 57.3,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          4
+        ]
+      },
+      {
+        "slug": "tech-anthropic-entree-bourse",
+        "title": "Anthropic prépare son entrée en Bourse",
+        "category": "tech",
+        "sources": [
+          "Le Monde",
+          "La Tribune",
+          "franceinfo"
+        ],
+        "articles": [
+          7,
+          62,
+          117
+        ],
+        "place": {
+          "city": "New York",
+          "country": "États-Unis",
+          "iso3": "USA",
+          "lat": 40.71,
+          "lon": -74.01,
+          "tz": "America/New_York"
+        },
+        "start": 98.9,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          3
+        ]
+      },
+      {
+        "slug": "corse-statut-autonomie-senat",
+        "title": "Le Sénat rejette l'autonomie corse",
+        "category": "france",
+        "sources": [
+          "Le Monde"
+        ],
+        "articles": [
+          47
+        ],
+        "place": {
+          "city": "Paris",
+          "country": "France",
+          "iso3": "FRA",
+          "lat": 48.86,
+          "lon": 2.35,
+          "tz": "Europe/Paris"
+        },
+        "start": 132.3,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "slug": "microsoft-plan-departs-volontaires",
+        "title": "Microsoft supprime soixante mille postes",
+        "category": "eco",
+        "sources": [
+          "Le Monde",
+          "Le Figaro"
+        ],
+        "articles": [
+          5,
+          98
+        ],
+        "start": 158.4,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2
+        ]
+      },
+      {
+        "slug": "sport-ballon-dor-harry-kane",
+        "title": "Harry Kane sacré Ballon d'or",
+        "category": "sport",
+        "sources": [
+          "Le Monde",
+          "La Tribune"
+        ],
+        "articles": [
+          1,
+          53
+        ],
+        "place": {
+          "city": "Londres",
+          "country": "Royaume-Uni",
+          "iso3": "GBR",
+          "lat": 51.51,
+          "lon": -0.13,
+          "tz": "Europe/London"
+        },
+        "start": 190.3,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2
+        ]
+      }
+    ],
+    "pub_date": "2026-10-27T03:05:55.489438+00:00",
+    "hook": "Le gouvernement annonce le remplacement de Parcoursup d'ici 2028 pour tenter d'éteindre la contestation lycéenne."
+  },
+  {
     "date": "2026-10-26",
     "filename": "brief-2026-10-26.mp3",
     "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-26.mp3",
@@ -3155,69 +3361,5 @@
       }
     ],
     "pub_date": "2026-09-28T08:57:02.694107+00:00"
-  },
-  {
-    "date": "2026-09-27",
-    "filename": "brief-2026-09-27.mp3",
-    "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-09-27.mp3",
-    "storage": "releases",
-    "title": "27/09 — Léon XIV face aux victimes à Lourdes",
-    "summary": "Brief du 2026-09-27. Léon XIV face aux victimes à Lourdes · Fusillades meurtrières en Afrique du Sud · Madrid mobilisée contre les expulsions locatives · Lula interdit les paris sportifs en ligne · Marches pour le climat à travers la France · Volley : la France battue en finale",
-    "duration": 212,
-    "size": 2549178,
-    "topics": [
-      {
-        "slug": "visite-pape-france",
-        "title": "Léon XIV face aux victimes à Lourdes",
-        "category": "france",
-        "sources": [
-          "Le Monde",
-          "franceinfo"
-        ]
-      },
-      {
-        "slug": "fusillades-afrique-du-sud",
-        "title": "Fusillades meurtrières en Afrique du Sud",
-        "category": "monde",
-        "sources": [
-          "Le Monde"
-        ]
-      },
-      {
-        "slug": "crise-logement-espagne",
-        "title": "Madrid mobilisée contre les expulsions locatives",
-        "category": "monde",
-        "sources": [
-          "Le Monde",
-          "franceinfo"
-        ]
-      },
-      {
-        "slug": "paris-sportifs-bresil",
-        "title": "Lula interdit les paris sportifs en ligne",
-        "category": "eco",
-        "sources": [
-          "Le Monde"
-        ]
-      },
-      {
-        "slug": "climat-marches-france",
-        "title": "Marches pour le climat à travers la France",
-        "category": "france",
-        "sources": [
-          "Le Monde",
-          "franceinfo"
-        ]
-      },
-      {
-        "slug": "euro-volley-france-pologne",
-        "title": "Volley : la France battue en finale",
-        "category": "sport",
-        "sources": [
-          "franceinfo"
-        ]
-      }
-    ],
-    "pub_date": "2026-09-27T08:32:11.933475+00:00"
   }
 ]
