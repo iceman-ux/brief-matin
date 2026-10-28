@@ -1,0 +1,80 @@
+{
+ "date": "2026-10-28",
+ "reprises": [
+  {
+   "replique": 7,
+   "mots": 8,
+   "texte": "revendiquent chacun leur volonté de former un gouvernement",
+   "source": "Le Monde — Une",
+   "champ": "titre",
+   "titre_source": "EN DIRECT, législatives en Israël : les deux blocs au coude-à-coude ; Benyamin Nétanyahou et Gadi Eisenkot revendiquent chacun leur volonté de former un gouvernement"
+  },
+  {
+   "replique": 13,
+   "mots": 12,
+   "texte": "en échange de la restitution de la moitié des murs du magasin",
+   "source": "Le Monde — Économie",
+   "champ": "chapô",
+   "titre_source": "Le BHV Marais, à Paris, demande son placement en redressement judiciaire"
+  }
+ ],
+ "citations": [
+  {
+   "replique": 9,
+   "texte": "casseurs-payeurs"
+  }
+ ],
+ "problemes": [
+  {
+   "replique": 9,
+   "extrait": "une proposition de loi dite « casseurs-payeurs »",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "La source 15 évoque un « projet de loi » (d'initiative gouvernementale) et non une proposition de loi."
+  },
+  {
+   "replique": 12,
+   "extrait": "élargit la responsabilité financière des manifestants et durcit les sanctions civiles",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "Les sources précisent seulement que le projet de loi a été « approuvé et élargi », sans détailler qu'il élargit la responsabilité financière ou durcit les sanctions civiles."
+  },
+  {
+   "replique": 13,
+   "extrait": "dans l'angoisse d'un plan social",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "Les sources 3 et 11 mentionnent l'inquiétude des 700 salariés sans évoquer l'angoisse d'un plan social."
+  }
+ ],
+ "corrections": [
+  {
+   "replique": 7,
+   "avant": "Les deux camps revendiquent chacun leur volonté de former un gouvernement, ouvrant une période d'intenses tractations politiques.",
+   "apres": "Chaque camp affirme pourtant être en mesure de bâtir une coalition, ce qui promet d'âpres négociations politiques."
+  },
+  {
+   "replique": 13,
+   "avant": "Côté économie, une institution emblématique de la capitale vacille. Le Bazar de l'Hôtel de Ville a demandé son placement en redressement judiciaire auprès du tribunal de commerce de Lyon. La direction du grand magasin accuse son bailleur de ne pas avoir versé les indemnités promises en échange de la restitution de la moitié des murs du magasin. Sept cents salariés se retrouvent aujourd'hui sous la protection de la justice, dans l'angoisse d'un plan social.",
+   "apres": "Côté économie, une institution emblématique de la capitale vacille. Le Bazar de l'Hôtel de Ville a demandé son placement en redressement judiciaire auprès du tribunal de commerce de Lyon. La direction reproche à son propriétaire de ne pas avoir versé des compensations financières après avoir pourtant récupéré 50 % des surfaces de vente. Sept cents salariés s'inquiètent désormais pour leur avenir."
+  }
+ ],
+ "reprises_apres": [],
+ "appels": 2,
+ "cout_usd": 0.0255,
+ "erreurs": [],
+ "usage": [
+  {
+   "model": "gemini-3.8-flash",
+   "input": 15955,
+   "output": 262,
+   "thinking": 0
+  },
+  {
+   "model": "gemini-3.8-flash",
+   "input": 15853,
+   "output": 165,
+   "thinking": 0
+  }
+ ]
+}

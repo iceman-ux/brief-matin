@@ -1,5 +1,197 @@
 [
   {
+    "date": "2026-10-28",
+    "filename": "brief-2026-10-28.mp3",
+    "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-28.mp3",
+    "storage": "releases",
+    "title": "28/10 — Législatives en Israël sans vainqueur clair",
+    "summary": "Brief du 2026-10-28. Législatives en Israël sans vainqueur clair · Flavio Bolsonaro fuit aux États-Unis · Loi casseurs adoptée au Sénat · Le BHV en redressement judiciaire · Mbappé provoque la colère de Pékin",
+    "duration": 199,
+    "size": 2391816,
+    "topics": [
+      {
+        "slug": "israel-elections-legislatives",
+        "title": "Législatives en Israël sans vainqueur clair",
+        "category": "monde",
+        "sources": [
+          "Le Monde",
+          "France 24",
+          "RFI"
+        ],
+        "articles": [
+          1,
+          6,
+          55,
+          58,
+          73,
+          75,
+          117
+        ],
+        "place": {
+          "city": "Jérusalem",
+          "country": "Israël",
+          "iso3": "ISR",
+          "lat": 31.77,
+          "lon": 35.22,
+          "tz": "Asia/Jerusalem"
+        },
+        "start": 12.6,
+        "related7d": 1,
+        "trend7d": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          4,
+          7
+        ]
+      },
+      {
+        "slug": "bresil-fuite-flavio-bolsonaro",
+        "title": "Flavio Bolsonaro fuit aux États-Unis",
+        "category": "monde",
+        "sources": [
+          "Le Monde",
+          "franceinfo",
+          "France 24",
+          "Le Figaro"
+        ],
+        "articles": [
+          13,
+          28,
+          41,
+          51
+        ],
+        "place": {
+          "city": "Brasília",
+          "country": "Brésil",
+          "iso3": "BRA",
+          "lat": -15.79,
+          "lon": -47.88,
+          "tz": "America/Sao_Paulo"
+        },
+        "start": 63.4,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          4
+        ]
+      },
+      {
+        "slug": "mobilisations-loi-casseurs-payeurs",
+        "title": "Loi casseurs adoptée au Sénat",
+        "category": "france",
+        "sources": [
+          "Le Monde",
+          "franceinfo",
+          "Le Figaro",
+          "La Tribune"
+        ],
+        "articles": [
+          15,
+          36,
+          100,
+          103,
+          112
+        ],
+        "place": {
+          "city": "Paris",
+          "country": "France",
+          "iso3": "FRA",
+          "lat": 48.86,
+          "lon": 2.35,
+          "tz": "Europe/Paris"
+        },
+        "start": 95.9,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          5
+        ]
+      },
+      {
+        "slug": "bhv-redressement-judiciaire",
+        "title": "Le BHV en redressement judiciaire",
+        "category": "eco",
+        "sources": [
+          "Le Monde"
+        ],
+        "articles": [
+          3,
+          11
+        ],
+        "place": {
+          "city": "Paris",
+          "country": "France",
+          "iso3": "FRA",
+          "lat": 48.86,
+          "lon": 2.35,
+          "tz": "Europe/Paris"
+        },
+        "start": 136.1,
+        "related7d": 1,
+        "trend7d": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2
+        ]
+      },
+      {
+        "slug": "chine-mbappe-polemique-diplomatique",
+        "title": "Mbappé provoque la colère de Pékin",
+        "category": "eco",
+        "sources": [
+          "Le Monde",
+          "RFI",
+          "France 24",
+          "franceinfo"
+        ],
+        "articles": [
+          2,
+          74,
+          77,
+          114
+        ],
+        "place": {
+          "city": "Pékin",
+          "country": "Chine",
+          "iso3": "CHN",
+          "lat": 39.9,
+          "lon": 116.4,
+          "tz": "Asia/Shanghai"
+        },
+        "start": 156.9,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          4
+        ]
+      }
+    ],
+    "pub_date": "2026-10-28T03:04:22.721029+00:00",
+    "hook": "En Israël, les législatives se soldent par un coude-à-coude sans majorité claire, marqué par une poussée record des partis arabes."
+  },
+  {
     "date": "2026-10-27",
     "filename": "brief-2026-10-27.mp3",
     "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-27.mp3",
@@ -3296,70 +3488,5 @@
       }
     ],
     "pub_date": "2026-09-29T08:59:16.726665+00:00"
-  },
-  {
-    "date": "2026-09-28",
-    "filename": "brief-2026-09-28.mp3",
-    "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-09-28.mp3",
-    "storage": "releases",
-    "title": "28/09 — Groupe historique pour le RN au Sénat",
-    "summary": "Brief du 2026-09-28. Groupe historique pour le RN au Sénat · Arrestations près d'une base militaire britannique · TikTok paie pour éviter un procès · Fin de visite papale à Metz · Démission du président serbe Aleksandar Vucic · Alstom réclame la fin du sur-mesure",
-    "duration": 193,
-    "size": 2325360,
-    "topics": [
-      {
-        "slug": "senatoriales-france",
-        "title": "Groupe historique pour le RN au Sénat",
-        "category": "france",
-        "sources": [
-          "Le Monde",
-          "Le Figaro"
-        ]
-      },
-      {
-        "slug": "securite-base-fairford",
-        "title": "Arrestations près d'une base militaire britannique",
-        "category": "monde",
-        "sources": [
-          "Le Monde",
-          "France 24"
-        ]
-      },
-      {
-        "slug": "tiktok-accord-mineurs",
-        "title": "TikTok paie pour éviter un procès",
-        "category": "tech",
-        "sources": [
-          "Le Figaro"
-        ]
-      },
-      {
-        "slug": "visite-pape-france",
-        "title": "Fin de visite papale à Metz",
-        "category": "france",
-        "sources": [
-          "Le Monde",
-          "RFI"
-        ]
-      },
-      {
-        "slug": "crise-politique-serbie",
-        "title": "Démission du président serbe Aleksandar Vucic",
-        "category": "monde",
-        "sources": [
-          "France 24",
-          "Le Monde"
-        ]
-      },
-      {
-        "slug": "industrie-ferroviaire-standardisation",
-        "title": "Alstom réclame la fin du sur-mesure",
-        "category": "eco",
-        "sources": [
-          "Le Monde"
-        ]
-      }
-    ],
-    "pub_date": "2026-09-28T08:57:02.694107+00:00"
   }
 ]
