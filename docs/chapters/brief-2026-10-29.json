@@ -1,0 +1,29 @@
+{
+  "version": "1.2.0",
+  "chapters": [
+    {
+      "startTime": 0,
+      "title": "Ouverture"
+    },
+    {
+      "startTime": 11.3,
+      "title": "Collision ferroviaire meurtrière en Espagne"
+    },
+    {
+      "startTime": 63.9,
+      "title": "Chute des petits colis chinois"
+    },
+    {
+      "startTime": 94.3,
+      "title": "Imprescriptibilité des crimes sexuels sur mineurs"
+    },
+    {
+      "startTime": 114.8,
+      "title": "Le gaz européen dépasse 100 euros"
+    },
+    {
+      "startTime": 147.9,
+      "title": "Pays-Bas : fonctionnaires remplacés par l'IA"
+    }
+  ]
+}

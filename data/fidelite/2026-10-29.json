@@ -1,0 +1,109 @@
+{
+ "date": "2026-10-29",
+ "reprises": [
+  {
+   "replique": 2,
+   "mots": 8,
+   "texte": "sur la ligne reliant Madrid à l'Andalousie",
+   "source": "Le Monde — International",
+   "champ": "chapô",
+   "titre_source": "CARTES | Où et comment a eu lieu l’accident entre deux trains en Espagne ?"
+  },
+  {
+   "replique": 5,
+   "mots": 8,
+   "texte": "le deuxième réseau à grande vitesse au monde",
+   "source": "La Tribune",
+   "champ": "chapô",
+   "titre_source": "Collision ferroviaire en Espagne : un drame qui réveille 30 ans d'accidents en Europe"
+  },
+  {
+   "replique": 7,
+   "mots": 12,
+   "texte": "largement approuvé mercredi l'imprescriptibilité des crimes sexuels commis sur les mineurs",
+   "source": "France 24 — FR",
+   "champ": "chapô",
+   "titre_source": "En France, le Sénat vote l'imprescriptibilité des crimes sexuels commis sur les mineurs"
+  },
+  {
+   "replique": 9,
+   "mots": 8,
+   "texte": "Ce niveau n'avait pas été dépassé depuis",
+   "source": "franceinfo — Titres",
+   "champ": "chapô",
+   "titre_source": "Le gaz européen atteint les 100 euros le mégawattheure, une première depuis 2022"
+  },
+  {
+   "replique": 12,
+   "mots": 10,
+   "texte": "chargé de l'efficacité de l'administration veut réduire de",
+   "source": "Le Monde — Économie",
+   "champ": "chapô",
+   "titre_source": "Remplacements de fonctionnaires par l’IA : « Les Pays-Bas brandissent à leur tour la tronçonneuse popularisée par le président argentin Javier Milei »"
+  }
+ ],
+ "citations": [],
+ "problemes": [
+  {
+   "replique": 12,
+   "extrait": "La Haye s'inspire ouvertement des coupes massives",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "La comparaison avec Javier Milei et sa tronçonneuse est une formule de la chroniqueuse du Monde, non une inspiration ouvertement revendiquée par le gouvernement néerlandais."
+  }
+ ],
+ "corrections": [
+  {
+   "replique": 2,
+   "avant": "En Espagne, au moins soixante-huit personnes sont mortes mercredi matin dans la collision de deux trains à grande vitesse, près d'Urda, au sud de Tolède. Deux rames, l'une de la compagnie publique Renfe transportant près de quatre cents passagers, et l'autre de l'opérateur privé Iryo avec près de cent cinquante personnes, se sont percutées sur la ligne reliant Madrid à l'Andalousie. Le gouvernement a décrété trois jours de deuil national.",
+   "apres": "En Espagne, au moins soixante-huit personnes sont mortes mercredi matin dans la collision de deux trains à grande vitesse, près d'Urda, au sud de Tolède. Deux rames, l'une de la compagnie publique Renfe avec près de quatre cents passagers, et l'autre de l'opérateur privé Iryo avec près de cent cinquante personnes, se sont percutées sur l'axe entre Madrid et le sud du pays. Le gouvernement a décrété trois jours de deuil national."
+  },
+  {
+   "replique": 5,
+   "avant": "Ce drame relance la controverse sur l'état du réseau et sa maintenance. L'Espagne compte le deuxième réseau à grande vitesse au monde, mais c'est le deuxième accident mortel en moins d'un an, après la catastrophe d'Adamuz qui avait fait quarante-six morts en janvier.",
+   "apres": "Ce drame relance la controverse sur l'état des voies et leur entretien. L'Espagne possède pourtant l'une des plus vastes infrastructures de TGV de la planète, mais c'est le second accident meurtrier en moins d'un an, après le drame d'Adamuz qui avait coûté la vie à quarante-six personnes en janvier."
+  },
+  {
+   "replique": 7,
+   "avant": "Autre dossier, en France. Le Sénat a très largement approuvé mercredi l'imprescriptibilité des crimes sexuels commis sur les mineurs. C'est une mesure inédite dans le droit pénal français : cette absence totale de délai pour poursuivre les auteurs était jusqu'ici strictement réservée aux crimes contre l'humanité. Les sénateurs ont voulu lever la barrière des délais de prescription, qui empêche souvent les victimes de porter plainte des années après les faits, au moment où la parole se libère. Le texte doit encore passer par un vote solennel mardi prochain avant d'être examiné en commission mixte paritaire.",
+   "apres": "Autre dossier, en France. Les sénateurs ont voté en très grande majorité mercredi pour rendre imprescriptibles les violences sexuelles visant les mineurs. C'est un tournant fort : une telle disparition de tout délai pour engager des poursuites était jusque-là réservée aux crimes contre l'humanité. Le texte doit encore faire l'objet d'un vote solennel mardi prochain avant de poursuivre son parcours parlementaire."
+  },
+  {
+   "replique": 9,
+   "avant": "Ce niveau n'avait pas été dépassé depuis quatre ans ?",
+   "apres": "Un prix aussi élevé n'avait plus été constaté depuis quatre ans ?"
+  },
+  {
+   "replique": 12,
+   "avant": "Toujours en Europe, mais côté technologies. Aux Pays-Bas, le gouvernement prépare un plan inédit pour remplacer vingt-cinq mille fonctionnaires par des agents d'intelligence artificielle d'ici 2035. Le secrétaire d'État chargé de l'efficacité de l'administration veut réduire de 15 % les effectifs de l'administration centrale. La Haye s'inspire ouvertement des coupes massives dans la fonction publique menées par le président argentin Javier Milei, mais en misant sur l'automatisation numérique. C'est l'un des premiers projets de cette envergure sur le continent européen pour transformer la gestion publique.",
+   "apres": "Toujours en Europe, mais côté technologies. Aux Pays-Bas, le gouvernement prépare un plan inédit pour remplacer vingt-cinq mille fonctionnaires par des agents d'intelligence artificielle d'ici 2035. Le secrétaire d'État responsable de l'optimisation des services publics vise une baisse de 15 % des effectifs ministériels. La Haye s'inspire ouvertement des coupes drastiques menées par le président argentin Javier Milei, mais en s'appuyant sur les nouveaux outils numériques."
+  }
+ ],
+ "reprises_apres": [
+  {
+   "replique": 7,
+   "mots": 10,
+   "texte": "réservée aux crimes contre l'humanité. Le texte doit encore",
+   "source": "France 24 — FR",
+   "champ": "chapô",
+   "titre_source": "En France, le Sénat vote l'imprescriptibilité des crimes sexuels commis sur les mineurs"
+  }
+ ],
+ "appels": 2,
+ "cout_usd": 0.0273,
+ "erreurs": [],
+ "usage": [
+  {
+   "model": "gemini-3.8-flash",
+   "input": 16489,
+   "output": 100,
+   "thinking": 0
+  },
+  {
+   "model": "gemini-3.8-flash",
+   "input": 16830,
+   "output": 527,
+   "thinking": 0
+  }
+ ]
+}

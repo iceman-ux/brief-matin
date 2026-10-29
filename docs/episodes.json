@@ -1,5 +1,167 @@
 [
   {
+    "date": "2026-10-29",
+    "filename": "brief-2026-10-29.mp3",
+    "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-29.mp3",
+    "storage": "releases",
+    "title": "29/10 — Collision ferroviaire meurtrière en Espagne",
+    "summary": "Brief du 2026-10-29. Collision ferroviaire meurtrière en Espagne · Chute des petits colis chinois · Imprescriptibilité des crimes sexuels sur mineurs · Le gaz européen dépasse 100 euros · Pays-Bas : fonctionnaires remplacés par l'IA",
+    "duration": 175,
+    "size": 2106872,
+    "topics": [
+      {
+        "slug": "espagne-catastrophe-ferroviaire",
+        "title": "Collision ferroviaire meurtrière en Espagne",
+        "category": "monde",
+        "sources": [
+          "Le Monde",
+          "franceinfo"
+        ],
+        "articles": [
+          1,
+          5,
+          11,
+          46
+        ],
+        "place": {
+          "city": "Urda",
+          "country": "Espagne",
+          "iso3": "ESP",
+          "lat": 39.42,
+          "lon": -3.72,
+          "tz": "Europe/Madrid"
+        },
+        "start": 11.3,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          4
+        ]
+      },
+      {
+        "slug": "fiscalite-ecommerce-colis-chinois",
+        "title": "Chute des petits colis chinois",
+        "category": "eco",
+        "sources": [
+          "La Tribune"
+        ],
+        "articles": [
+          6
+        ],
+        "place": {
+          "city": "Paris",
+          "country": "France",
+          "iso3": "FRA",
+          "lat": 48.86,
+          "lon": 2.35,
+          "tz": "Europe/Paris"
+        },
+        "start": 63.9,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "slug": "justice-crimes-sexuels-mineurs",
+        "title": "Imprescriptibilité des crimes sexuels sur mineurs",
+        "category": "france",
+        "sources": [
+          "France 24"
+        ],
+        "articles": [
+          62
+        ],
+        "place": {
+          "city": "Paris",
+          "country": "France",
+          "iso3": "FRA",
+          "lat": 48.86,
+          "lon": 2.35,
+          "tz": "Europe/Paris"
+        },
+        "start": 94.3,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "slug": "energie-cours-gaz-europeen",
+        "title": "Le gaz européen dépasse 100 euros",
+        "category": "eco",
+        "sources": [
+          "Le Monde",
+          "franceinfo"
+        ],
+        "articles": [
+          47,
+          50
+        ],
+        "start": 114.8,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2
+        ]
+      },
+      {
+        "slug": "pays-bas-fonction-publique-ia",
+        "title": "Pays-Bas : fonctionnaires remplacés par l'IA",
+        "category": "tech",
+        "sources": [
+          "Le Monde"
+        ],
+        "articles": [
+          24
+        ],
+        "place": {
+          "city": "La Haye",
+          "country": "Pays-Bas",
+          "iso3": "NLD",
+          "lat": 52.08,
+          "lon": 4.3,
+          "tz": "Europe/Brussels"
+        },
+        "start": 147.9,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      }
+    ],
+    "pub_date": "2026-10-29T03:05:59.926235+00:00",
+    "hook": "Une collision entre deux trains à grande vitesse a fait au moins soixante-huit morts en Espagne, près de Tolède."
+  },
+  {
     "date": "2026-10-28",
     "filename": "brief-2026-10-28.mp3",
     "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-28.mp3",
@@ -3422,71 +3584,5 @@
       }
     ],
     "pub_date": "2026-09-30T08:57:28.244767+00:00"
-  },
-  {
-    "date": "2026-09-29",
-    "filename": "brief-2026-09-29.mp3",
-    "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-09-29.mp3",
-    "storage": "releases",
-    "title": "29/09 — Dette publique record à 119% du PIB",
-    "summary": "Brief du 2026-09-29. Dette publique record à 119% du PIB · Mobilisation dans la fonction publique · Deux ans requis contre Bayrou · Washington bloque des importations canadiennes · Starship atteint l'orbite terrestre · Victoire des Bleus en Belgique",
-    "duration": 184,
-    "size": 2212198,
-    "topics": [
-      {
-        "slug": "dette-publique-france",
-        "title": "Dette publique record à 119% du PIB",
-        "category": "eco",
-        "sources": [
-          "Le Monde",
-          "Le Figaro"
-        ]
-      },
-      {
-        "slug": "greve-fonction-publique",
-        "title": "Mobilisation dans la fonction publique",
-        "category": "france",
-        "sources": [
-          "Le Monde",
-          "franceinfo"
-        ]
-      },
-      {
-        "slug": "proces-modem",
-        "title": "Deux ans requis contre Bayrou",
-        "category": "france",
-        "sources": [
-          "Le Monde"
-        ]
-      },
-      {
-        "slug": "tensions-commerciales-usa-canada",
-        "title": "Washington bloque des importations canadiennes",
-        "category": "monde",
-        "sources": [
-          "Le Monde",
-          "franceinfo"
-        ]
-      },
-      {
-        "slug": "spacex-starship-orbite",
-        "title": "Starship atteint l'orbite terrestre",
-        "category": "tech",
-        "sources": [
-          "La Tribune",
-          "Le Monde"
-        ]
-      },
-      {
-        "slug": "ligue-des-nations-france-belgique",
-        "title": "Victoire des Bleus en Belgique",
-        "category": "sport",
-        "sources": [
-          "France 24",
-          "RFI"
-        ]
-      }
-    ],
-    "pub_date": "2026-09-29T08:59:16.726665+00:00"
   }
 ]

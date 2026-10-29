@@ -13,7 +13,7 @@
 
 Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
     <language>fr-FR</language>
-    <lastBuildDate>Wed, 28 Oct 2026 03:04:23 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 29 Oct 2026 03:06:00 +0000</lastBuildDate>
     <itunes:author>Lora</itunes:author>
     <itunes:subtitle>L'essentiel de l'actu, chaque matin</itunes:subtitle>
     <itunes:summary>Brief quotidien généré automatiquement à partir des grands titres français et internationaux. France, Monde, Économie, Tech.
@@ -28,6 +28,38 @@ Brief généré automatiquement par intelligence artificielle, texte et voix, à
     <itunes:type>episodic</itunes:type>
     <itunes:image href="https://iceman-ux.github.io/brief-matin/lora-cover-v2.jpg"/>
     <image><url>https://iceman-ux.github.io/brief-matin/lora-cover-v2.jpg</url><title>Lora</title><link>https://iceman-ux.github.io/brief-matin</link></image>
+    <item>
+      <title>29/10 — Collision ferroviaire meurtrière en Espagne</title>
+      <description>Brief du 2026-10-29. Collision ferroviaire meurtrière en Espagne · Chute des petits colis chinois · Imprescriptibilité des crimes sexuels sur mineurs · Le gaz européen dépasse 100 euros · Pays-Bas : fonctionnaires remplacés par l'IA
+
+Au sommaire :
+• Collision ferroviaire meurtrière en Espagne
+• Chute des petits colis chinois
+• Imprescriptibilité des crimes sexuels sur mineurs
+• Le gaz européen dépasse 100 euros
+• Pays-Bas : fonctionnaires remplacés par l'IA
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
+      <itunes:subtitle>Une collision entre deux trains à grande vitesse a fait au moins soixante-huit morts en Espagne, près de Tolède.</itunes:subtitle>
+      <podcast:chapters url="https://iceman-ux.github.io/brief-matin/chapters/brief-2026-10-29.json" type="application/json+chapters"/>
+      <lora:topics><![CDATA[[{"title": "Collision ferroviaire meurtrière en Espagne", "start": 11.3, "place": {"city": "Urda", "country": "Espagne", "iso3": "ESP", "lat": 39.42, "lon": -3.72, "tz": "Europe/Madrid"}, "sources": ["Le Monde", "franceinfo"], "related7d": 0, "trend7d": [0, 0, 0, 0, 0, 0, 4]}, {"title": "Chute des petits colis chinois", "start": 63.9, "place": {"city": "Paris", "country": "France", "iso3": "FRA", "lat": 48.86, "lon": 2.35, "tz": "Europe/Paris"}, "sources": ["La Tribune"], "related7d": 0, "trend7d": [0, 0, 0, 0, 0, 0, 1]}, {"title": "Imprescriptibilité des crimes sexuels sur mineurs", "start": 94.3, "place": {"city": "Paris", "country": "France", "iso3": "FRA", "lat": 48.86, "lon": 2.35, "tz": "Europe/Paris"}, "sources": ["France 24"], "related7d": 0, "trend7d": [0, 0, 0, 0, 0, 0, 1]}, {"title": "Le gaz européen dépasse 100 euros", "start": 114.8, "sources": ["Le Monde", "franceinfo"], "related7d": 0, "trend7d": [0, 0, 0, 0, 0, 0, 2]}, {"title": "Pays-Bas : fonctionnaires remplacés par l'IA", "start": 147.9, "place": {"city": "La Haye", "country": "Pays-Bas", "iso3": "NLD", "lat": 52.08, "lon": 4.3, "tz": "Europe/Brussels"}, "sources": ["Le Monde"], "related7d": 0, "trend7d": [0, 0, 0, 0, 0, 0, 1]}]]]></lora:topics>
+      <itunes:summary>Brief du 2026-10-29. Collision ferroviaire meurtrière en Espagne · Chute des petits colis chinois · Imprescriptibilité des crimes sexuels sur mineurs · Le gaz européen dépasse 100 euros · Pays-Bas : fonctionnaires remplacés par l'IA
+
+Au sommaire :
+• Collision ferroviaire meurtrière en Espagne
+• Chute des petits colis chinois
+• Imprescriptibilité des crimes sexuels sur mineurs
+• Le gaz européen dépasse 100 euros
+• Pays-Bas : fonctionnaires remplacés par l'IA
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</itunes:summary>
+      <pubDate>Thu, 29 Oct 2026 03:05:59 +0000</pubDate>
+      <guid isPermaLink="false">brief-matin-2026-10-29</guid>
+      <enclosure url="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-29.mp3" length="2106872" type="audio/mpeg"/>
+      <itunes:duration>2:55</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
     <item>
       <title>28/10 — Législatives en Israël sans vainqueur clair</title>
       <description>Brief du 2026-10-28. Législatives en Israël sans vainqueur clair · Flavio Bolsonaro fuit aux États-Unis · Loi casseurs adoptée au Sénat · Le BHV en redressement judiciaire · Mbappé provoque la colère de Pékin
@@ -973,38 +1005,6 @@ Brief généré automatiquement par intelligence artificielle, texte et voix, à
       <guid isPermaLink="false">brief-matin-2026-09-30</guid>
       <enclosure url="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-09-30.mp3" length="2157027" type="audio/mpeg"/>
       <itunes:duration>2:59</itunes:duration>
-      <itunes:episodeType>full</itunes:episodeType>
-      <itunes:explicit>false</itunes:explicit>
-    </item>
-    <item>
-      <title>29/09 — Dette publique record à 119% du PIB</title>
-      <description>Brief du 2026-09-29. Dette publique record à 119% du PIB · Mobilisation dans la fonction publique · Deux ans requis contre Bayrou · Washington bloque des importations canadiennes · Starship atteint l'orbite terrestre · Victoire des Bleus en Belgique
-
-Au sommaire :
-• Dette publique record à 119% du PIB
-• Mobilisation dans la fonction publique
-• Deux ans requis contre Bayrou
-• Washington bloque des importations canadiennes
-• Starship atteint l'orbite terrestre
-• Victoire des Bleus en Belgique
-
-Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
-      <lora:topics><![CDATA[[{"title": "Dette publique record à 119% du PIB", "sources": ["Le Monde", "Le Figaro"]}, {"title": "Mobilisation dans la fonction publique", "sources": ["Le Monde", "franceinfo"]}, {"title": "Deux ans requis contre Bayrou", "sources": ["Le Monde"]}, {"title": "Washington bloque des importations canadiennes", "sources": ["Le Monde", "franceinfo"]}, {"title": "Starship atteint l'orbite terrestre", "sources": ["La Tribune", "Le Monde"]}, {"title": "Victoire des Bleus en Belgique", "sources": ["France 24", "RFI"]}]]]></lora:topics>
-      <itunes:summary>Brief du 2026-09-29. Dette publique record à 119% du PIB · Mobilisation dans la fonction publique · Deux ans requis contre Bayrou · Washington bloque des importations canadiennes · Starship atteint l'orbite terrestre · Victoire des Bleus en Belgique
-
-Au sommaire :
-• Dette publique record à 119% du PIB
-• Mobilisation dans la fonction publique
-• Deux ans requis contre Bayrou
-• Washington bloque des importations canadiennes
-• Starship atteint l'orbite terrestre
-• Victoire des Bleus en Belgique
-
-Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</itunes:summary>
-      <pubDate>Tue, 29 Sep 2026 08:59:16 +0000</pubDate>
-      <guid isPermaLink="false">brief-matin-2026-09-29</guid>
-      <enclosure url="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-09-29.mp3" length="2212198" type="audio/mpeg"/>
-      <itunes:duration>3:04</itunes:duration>
       <itunes:episodeType>full</itunes:episodeType>
       <itunes:explicit>false</itunes:explicit>
     </item>
