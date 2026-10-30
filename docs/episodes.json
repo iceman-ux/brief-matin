@@ -1,5 +1,198 @@
 [
   {
+    "date": "2026-10-30",
+    "filename": "brief-2026-10-30.mp3",
+    "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-30.mp3",
+    "storage": "releases",
+    "title": "30/10 — Christine Lagarde quittera la BCE",
+    "summary": "Brief du 2026-10-30. Christine Lagarde quittera la BCE · Pétroliers en feu à Ormuz · Édouard Philippe placé témoin assisté · Mistral AI dévoile Large 4 · Dispositif policier massif samedi · À retenir de la semaine",
+    "duration": 198,
+    "size": 2378023,
+    "topics": [
+      {
+        "slug": "bce-depart-christine-lagarde",
+        "title": "Christine Lagarde quittera la BCE",
+        "category": "eco",
+        "sources": [
+          "Le Monde",
+          "franceinfo",
+          "RFI"
+        ],
+        "articles": [
+          5,
+          8,
+          12,
+          33,
+          53
+        ],
+        "place": {
+          "city": "Francfort-sur-le-Main",
+          "country": "Allemagne",
+          "iso3": "DEU",
+          "lat": 50.11,
+          "lon": 8.68,
+          "tz": "Europe/Zurich"
+        },
+        "start": 11.7,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          5
+        ]
+      },
+      {
+        "slug": "detroit-ormuz-attaques-petroliers",
+        "title": "Pétroliers en feu à Ormuz",
+        "category": "monde",
+        "sources": [
+          "Le Monde"
+        ],
+        "articles": [
+          19
+        ],
+        "start": 54.3,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "slug": "justice-edouard-philippe-enquete",
+        "title": "Édouard Philippe placé témoin assisté",
+        "category": "france",
+        "sources": [
+          "Le Monde"
+        ],
+        "articles": [
+          3
+        ],
+        "place": {
+          "city": "Paris",
+          "country": "France",
+          "iso3": "FRA",
+          "lat": 48.86,
+          "lon": 2.35,
+          "tz": "Europe/Paris"
+        },
+        "start": 78.6,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "slug": "tech-mistral-ai-large-4",
+        "title": "Mistral AI dévoile Large 4",
+        "category": "tech",
+        "sources": [
+          "La Tribune"
+        ],
+        "articles": [
+          81,
+          83
+        ],
+        "place": {
+          "city": "Paris",
+          "country": "France",
+          "iso3": "FRA",
+          "lat": 48.86,
+          "lon": 2.35,
+          "tz": "Europe/Paris"
+        },
+        "start": 105.1,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2
+        ]
+      },
+      {
+        "slug": "mobilisation-31-octobre-securite",
+        "title": "Dispositif policier massif samedi",
+        "category": "france",
+        "sources": [
+          "Le Monde",
+          "franceinfo"
+        ],
+        "articles": [
+          45,
+          52
+        ],
+        "place": {
+          "city": "Paris",
+          "country": "France",
+          "iso3": "FRA",
+          "lat": 48.86,
+          "lon": 2.35,
+          "tz": "Europe/Paris"
+        },
+        "start": 132.0,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2
+        ]
+      },
+      {
+        "slug": "recap-hebdo",
+        "title": "À retenir de la semaine",
+        "category": "france",
+        "sources": [
+          "Le Monde",
+          "franceinfo",
+          "La Tribune"
+        ],
+        "articles": [
+          20,
+          28,
+          41,
+          53,
+          97
+        ],
+        "start": 168.1,
+        "related7d": 1,
+        "trend7d": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          5
+        ]
+      }
+    ],
+    "pub_date": "2026-10-30T03:03:51.835431+00:00",
+    "hook": "Christine Lagarde quittera la présidence de la Banque centrale européenne en février 2027, avant le terme de son mandat."
+  },
+  {
     "date": "2026-10-29",
     "filename": "brief-2026-10-29.mp3",
     "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-29.mp3",
@@ -3513,76 +3706,5 @@
       }
     ],
     "pub_date": "2026-10-01T09:21:04.244681+00:00"
-  },
-  {
-    "date": "2026-09-30",
-    "filename": "brief-2026-09-30.mp3",
-    "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-09-30.mp3",
-    "storage": "releases",
-    "title": "30/09 — L'inflation remonte à 3 %",
-    "summary": "Brief du 2026-09-30. L'inflation remonte à 3 % · Fin de la coalition en Irak · Vigilance rouge dans le Sud · Expulsions vers des pays tiers · Rakuten France ferme ses portes · OpenAI poursuivi pour cyberattaques · Bordeaux racheté un euro symbolique",
-    "duration": 179,
-    "size": 2157027,
-    "topics": [
-      {
-        "slug": "inflation-france",
-        "title": "L'inflation remonte à 3 %",
-        "category": "eco",
-        "sources": [
-          "Le Monde",
-          "Le Figaro"
-        ]
-      },
-      {
-        "slug": "retrait-irak",
-        "title": "Fin de la coalition en Irak",
-        "category": "monde",
-        "sources": [
-          "France 24",
-          "RFI"
-        ]
-      },
-      {
-        "slug": "vigilance-inondations-sud",
-        "title": "Vigilance rouge dans le Sud",
-        "category": "france",
-        "sources": [
-          "Le Monde"
-        ]
-      },
-      {
-        "slug": "expulsions-etats-unis",
-        "title": "Expulsions vers des pays tiers",
-        "category": "monde",
-        "sources": [
-          "Le Monde"
-        ]
-      },
-      {
-        "slug": "fermeture-rakuten-france",
-        "title": "Rakuten France ferme ses portes",
-        "category": "france",
-        "sources": [
-          "Le Monde"
-        ]
-      },
-      {
-        "slug": "plainte-cyber-openai",
-        "title": "OpenAI poursuivi pour cyberattaques",
-        "category": "tech",
-        "sources": [
-          "Le Monde"
-        ]
-      },
-      {
-        "slug": "rachat-girondins-bordeaux",
-        "title": "Bordeaux racheté un euro symbolique",
-        "category": "sport",
-        "sources": [
-          "Le Monde"
-        ]
-      }
-    ],
-    "pub_date": "2026-09-30T08:57:28.244767+00:00"
   }
 ]

@@ -1,0 +1,107 @@
+{
+ "date": "2026-10-30",
+ "reprises": [
+  {
+   "replique": 2,
+   "mots": 8,
+   "texte": "la Banque centrale européenne le 7 février 2027",
+   "source": "Le Figaro — Économie",
+   "champ": "chapô",
+   "titre_source": "Ministre de l’Économie, présidente de la BCE… Le parcours exceptionnel de Christine Lagarde à la tête des institutions économiques mondiales"
+  },
+  {
+   "replique": 9,
+   "mots": 9,
+   "texte": "L'Iran affirme avoir saisi un drone américain et",
+   "source": "Le Monde — International",
+   "champ": "chapô",
+   "titre_source": "Quatre pétroliers en feu après des explosions de mines dans le détroit d’Ormuz"
+  },
+  {
+   "replique": 10,
+   "mots": 17,
+   "texte": "placé sous le statut de témoin assisté dans une enquête ouverte notamment pour détournement de fonds publics",
+   "source": "Le Monde — Une",
+   "champ": "titre",
+   "titre_source": "Edouard Philippe placé sous le statut de témoin assisté dans une enquête ouverte notamment pour détournement de fonds publics"
+  }
+ ],
+ "citations": [],
+ "problemes": [
+  {
+   "replique": 8,
+   "extrait": "débuteront dès l'automne prochain",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "Aucune source ne mentionne que les tractations entre capitales commenceront à l'automne prochain."
+  },
+  {
+   "replique": 9,
+   "extrait": "sur les places financières asiatiques",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "La source sur les explosions dans le détroit d'Ormuz ne mentionne pas de réaction des places financières asiatiques."
+  },
+  {
+   "replique": 10,
+   "extrait": "et favoritisme",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "La source mentionne uniquement une enquête ouverte pour « détournement de fonds publics », sans citer le favoritisme."
+  },
+  {
+   "replique": 14,
+   "extrait": "contre la cherté de la vie",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "Les sources parlent de mobilisations sociales ou de colère lycéenne/étudiante, sans préciser qu'il s'agit d'un cortège contre la cherté de la vie."
+  },
+  {
+   "replique": 18,
+   "extrait": "la victoire de Lula",
+   "type": "nom",
+   "gravite": "haute",
+   "explication": "Les sources indiquent la défaite de Flavio Bolsonaro à l'élection présidentielle, mais ne mentionnent nulle part le nom de Lula."
+  }
+ ],
+ "corrections": [
+  {
+   "replique": 2,
+   "avant": "Christine Lagarde quittera la présidence de la Banque centrale européenne le 7 février 2027. Elle devance son départ de près de neuf mois, alors que son mandat devait courir jusqu'à l'automne.",
+   "apres": "Elle passera la main à la tête de la BCE dès le 7 février 2027. Cela représente près de neuf mois d'avance, alors que son bail devait durer jusqu'à l'automne."
+  },
+  {
+   "replique": 9,
+   "avant": "Au Moyen-Orient, une nouvelle alerte majeure secoue le détroit d'Ormuz. Quatre pétroliers sont en proie aux flammes après des explosions de mines navales dans ce passage maritime où transite une large part du pétrole brut mondial. L'Iran affirme avoir saisi un drone américain et reproche à plusieurs navires d'avoir désactivé leurs balises de navigation avant l'incident. Les cours du brut ont réagi immédiatement sur les places financières asiatiques.",
+   "apres": "Au Moyen-Orient, une nouvelle alerte majeure secoue le détroit d'Ormuz. Quatre pétroliers sont en feu après des explosions de mines sous-marines dans ce passage stratégique. Téhéran soutient avoir capturé un appareil sans pilote américain, tout en accusant plusieurs bâtiments d'avoir coupé leurs systèmes de localisation avant les déflagrations. Les cours du brut ont réagi immédiatement sur les places financières asiatiques."
+  },
+  {
+   "replique": 10,
+   "avant": "Retour en France avec un développement judiciaire pour Édouard Philippe. L'ancien Premier ministre a été placé sous le statut de témoin assisté dans une enquête ouverte notamment pour détournement de fonds publics et favoritisme.",
+   "apres": "Retour en France avec un développement judiciaire pour Édouard Philippe. L'ancien Premier ministre échappe à la mise en examen et se voit accorder le statut de témoin assisté dans une procédure portant sur des soupçons de détournements de deniers publics et de favoritisme."
+  },
+  {
+   "replique": 18,
+   "avant": "Pour clore cette semaine, trois fils majeurs se sont déplacés depuis lundi. D'abord au Brésil, où la victoire de Lula a débouché sur l'exil de Flavio Bolsonaro aux États-Unis et le refus de reconnaître le scrutin. Sur l'énergie ensuite, avec des cours de carburants au plus haut qui ont contraint l'État à débloquer ses stocks stratégiques de gazole.",
+   "apres": "Pour clore cette semaine, trois fils majeurs se sont déplacés depuis lundi. D'abord au Brésil, où la défaite électorale a débouché sur la fuite de Flavio Bolsonaro vers les États-Unis et son refus d'admettre les résultats du scrutin. Sur l'énergie ensuite, avec des cours de carburants au plus haut qui ont contraint l'État à débloquer ses stocks stratégiques de gazole."
+  }
+ ],
+ "reprises_apres": [],
+ "appels": 2,
+ "cout_usd": 0.0272,
+ "erreurs": [],
+ "usage": [
+  {
+   "model": "gemini-3.8-flash",
+   "input": 16196,
+   "output": 370,
+   "thinking": 0
+  },
+  {
+   "model": "gemini-3.8-flash",
+   "input": 16344,
+   "output": 388,
+   "thinking": 0
+  }
+ ]
+}

@@ -13,7 +13,7 @@
 
 Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
     <language>fr-FR</language>
-    <lastBuildDate>Thu, 29 Oct 2026 03:06:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 30 Oct 2026 03:03:52 +0000</lastBuildDate>
     <itunes:author>Lora</itunes:author>
     <itunes:subtitle>L'essentiel de l'actu, chaque matin</itunes:subtitle>
     <itunes:summary>Brief quotidien généré automatiquement à partir des grands titres français et internationaux. France, Monde, Économie, Tech.
@@ -28,6 +28,40 @@ Brief généré automatiquement par intelligence artificielle, texte et voix, à
     <itunes:type>episodic</itunes:type>
     <itunes:image href="https://iceman-ux.github.io/brief-matin/lora-cover-v2.jpg"/>
     <image><url>https://iceman-ux.github.io/brief-matin/lora-cover-v2.jpg</url><title>Lora</title><link>https://iceman-ux.github.io/brief-matin</link></image>
+    <item>
+      <title>30/10 — Christine Lagarde quittera la BCE</title>
+      <description>Brief du 2026-10-30. Christine Lagarde quittera la BCE · Pétroliers en feu à Ormuz · Édouard Philippe placé témoin assisté · Mistral AI dévoile Large 4 · Dispositif policier massif samedi · À retenir de la semaine
+
+Au sommaire :
+• Christine Lagarde quittera la BCE
+• Pétroliers en feu à Ormuz
+• Édouard Philippe placé témoin assisté
+• Mistral AI dévoile Large 4
+• Dispositif policier massif samedi
+• À retenir de la semaine
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
+      <itunes:subtitle>Christine Lagarde quittera la présidence de la Banque centrale européenne en février 2027, avant le terme de son mandat.</itunes:subtitle>
+      <podcast:chapters url="https://iceman-ux.github.io/brief-matin/chapters/brief-2026-10-30.json" type="application/json+chapters"/>
+      <lora:topics><![CDATA[[{"title": "Christine Lagarde quittera la BCE", "start": 11.7, "place": {"city": "Francfort-sur-le-Main", "country": "Allemagne", "iso3": "DEU", "lat": 50.11, "lon": 8.68, "tz": "Europe/Zurich"}, "sources": ["Le Monde", "franceinfo", "RFI"], "related7d": 0, "trend7d": [0, 0, 0, 0, 0, 0, 5]}, {"title": "Pétroliers en feu à Ormuz", "start": 54.3, "sources": ["Le Monde"], "related7d": 0, "trend7d": [0, 0, 0, 0, 0, 0, 1]}, {"title": "Édouard Philippe placé témoin assisté", "start": 78.6, "place": {"city": "Paris", "country": "France", "iso3": "FRA", "lat": 48.86, "lon": 2.35, "tz": "Europe/Paris"}, "sources": ["Le Monde"], "related7d": 0, "trend7d": [0, 0, 0, 0, 0, 0, 1]}, {"title": "Mistral AI dévoile Large 4", "start": 105.1, "place": {"city": "Paris", "country": "France", "iso3": "FRA", "lat": 48.86, "lon": 2.35, "tz": "Europe/Paris"}, "sources": ["La Tribune"], "related7d": 0, "trend7d": [0, 0, 0, 0, 0, 0, 2]}, {"title": "Dispositif policier massif samedi", "start": 132.0, "place": {"city": "Paris", "country": "France", "iso3": "FRA", "lat": 48.86, "lon": 2.35, "tz": "Europe/Paris"}, "sources": ["Le Monde", "franceinfo"], "related7d": 0, "trend7d": [0, 0, 0, 0, 0, 0, 2]}, {"title": "À retenir de la semaine", "start": 168.1, "sources": ["Le Monde", "franceinfo", "La Tribune"], "related7d": 1, "trend7d": [0, 0, 0, 0, 0, 0, 5]}]]]></lora:topics>
+      <itunes:summary>Brief du 2026-10-30. Christine Lagarde quittera la BCE · Pétroliers en feu à Ormuz · Édouard Philippe placé témoin assisté · Mistral AI dévoile Large 4 · Dispositif policier massif samedi · À retenir de la semaine
+
+Au sommaire :
+• Christine Lagarde quittera la BCE
+• Pétroliers en feu à Ormuz
+• Édouard Philippe placé témoin assisté
+• Mistral AI dévoile Large 4
+• Dispositif policier massif samedi
+• À retenir de la semaine
+
+Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</itunes:summary>
+      <pubDate>Fri, 30 Oct 2026 03:03:51 +0000</pubDate>
+      <guid isPermaLink="false">brief-matin-2026-10-30</guid>
+      <enclosure url="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-30.mp3" length="2378023" type="audio/mpeg"/>
+      <itunes:duration>3:18</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
     <item>
       <title>29/10 — Collision ferroviaire meurtrière en Espagne</title>
       <description>Brief du 2026-10-29. Collision ferroviaire meurtrière en Espagne · Chute des petits colis chinois · Imprescriptibilité des crimes sexuels sur mineurs · Le gaz européen dépasse 100 euros · Pays-Bas : fonctionnaires remplacés par l'IA
@@ -971,40 +1005,6 @@ Brief généré automatiquement par intelligence artificielle, texte et voix, à
       <guid isPermaLink="false">brief-matin-2026-10-01</guid>
       <enclosure url="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-01.mp3" length="2442285" type="audio/mpeg"/>
       <itunes:duration>3:23</itunes:duration>
-      <itunes:episodeType>full</itunes:episodeType>
-      <itunes:explicit>false</itunes:explicit>
-    </item>
-    <item>
-      <title>30/09 — L'inflation remonte à 3 %</title>
-      <description>Brief du 2026-09-30. L'inflation remonte à 3 % · Fin de la coalition en Irak · Vigilance rouge dans le Sud · Expulsions vers des pays tiers · Rakuten France ferme ses portes · OpenAI poursuivi pour cyberattaques · Bordeaux racheté un euro symbolique
-
-Au sommaire :
-• L'inflation remonte à 3 %
-• Fin de la coalition en Irak
-• Vigilance rouge dans le Sud
-• Expulsions vers des pays tiers
-• Rakuten France ferme ses portes
-• OpenAI poursuivi pour cyberattaques
-• Bordeaux racheté un euro symbolique
-
-Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</description>
-      <lora:topics><![CDATA[[{"title": "L'inflation remonte à 3 %", "sources": ["Le Monde", "Le Figaro"]}, {"title": "Fin de la coalition en Irak", "sources": ["France 24", "RFI"]}, {"title": "Vigilance rouge dans le Sud", "sources": ["Le Monde"]}, {"title": "Expulsions vers des pays tiers", "sources": ["Le Monde"]}, {"title": "Rakuten France ferme ses portes", "sources": ["Le Monde"]}, {"title": "OpenAI poursuivi pour cyberattaques", "sources": ["Le Monde"]}, {"title": "Bordeaux racheté un euro symbolique", "sources": ["Le Monde"]}]]]></lora:topics>
-      <itunes:summary>Brief du 2026-09-30. L'inflation remonte à 3 % · Fin de la coalition en Irak · Vigilance rouge dans le Sud · Expulsions vers des pays tiers · Rakuten France ferme ses portes · OpenAI poursuivi pour cyberattaques · Bordeaux racheté un euro symbolique
-
-Au sommaire :
-• L'inflation remonte à 3 %
-• Fin de la coalition en Irak
-• Vigilance rouge dans le Sud
-• Expulsions vers des pays tiers
-• Rakuten France ferme ses portes
-• OpenAI poursuivi pour cyberattaques
-• Bordeaux racheté un euro symbolique
-
-Brief généré automatiquement par intelligence artificielle, texte et voix, à partir de titres et chapôs de presse.</itunes:summary>
-      <pubDate>Wed, 30 Sep 2026 08:57:28 +0000</pubDate>
-      <guid isPermaLink="false">brief-matin-2026-09-30</guid>
-      <enclosure url="https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-09-30.mp3" length="2157027" type="audio/mpeg"/>
-      <itunes:duration>2:59</itunes:duration>
       <itunes:episodeType>full</itunes:episodeType>
       <itunes:explicit>false</itunes:explicit>
     </item>

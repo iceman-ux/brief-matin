@@ -1,0 +1,33 @@
+{
+  "version": "1.2.0",
+  "chapters": [
+    {
+      "startTime": 0,
+      "title": "Ouverture"
+    },
+    {
+      "startTime": 11.7,
+      "title": "Christine Lagarde quittera la BCE"
+    },
+    {
+      "startTime": 54.3,
+      "title": "Pétroliers en feu à Ormuz"
+    },
+    {
+      "startTime": 78.6,
+      "title": "Édouard Philippe placé témoin assisté"
+    },
+    {
+      "startTime": 105.1,
+      "title": "Mistral AI dévoile Large 4"
+    },
+    {
+      "startTime": 132.0,
+      "title": "Dispositif policier massif samedi"
+    },
+    {
+      "startTime": 168.1,
+      "title": "À retenir de la semaine"
+    }
+  ]
+}
