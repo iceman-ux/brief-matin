@@ -1,0 +1,29 @@
+{
+  "version": "1.2.0",
+  "chapters": [
+    {
+      "startTime": 0,
+      "title": "Ouverture"
+    },
+    {
+      "startTime": 13.2,
+      "title": "Recul du PIB et alerte Fitch"
+    },
+    {
+      "startTime": 64.8,
+      "title": "Cyberattaque géante sur Binance"
+    },
+    {
+      "startTime": 92.1,
+      "title": "Parcours syndical validé par la justice"
+    },
+    {
+      "startTime": 120.9,
+      "title": "L'Europe prépare le Kids Act"
+    },
+    {
+      "startTime": 160.3,
+      "title": "Veto russe au Sahara occidental"
+    }
+  ]
+}

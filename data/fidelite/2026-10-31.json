@@ -1,0 +1,89 @@
+{
+ "date": "2026-10-31",
+ "reprises": [
+  {
+   "replique": 6,
+   "mots": 8,
+   "texte": "les grandes entreprises contre l'avis du gouvernement",
+   "source": "Le Monde — Une",
+   "champ": "chapô",
+   "titre_source": "Budget 2027 : les députés votent de nouvelles taxes sur les grandes entreprises et adoptent le « pacte Papin »"
+  },
+  {
+   "replique": 9,
+   "mots": 10,
+   "texte": "entre la porte de Bagnolet et la porte de Charenton",
+   "source": "Le Monde — Une",
+   "champ": "chapô",
+   "titre_source": "Manifestation du 31 octobre à Paris : le tribunal administratif suspend l’arrêté de la Préfecture de police interdisant le parcours entre Bastille et Nation, souhaité par l’intersyndicale"
+  },
+  {
+   "replique": 9,
+   "mots": 8,
+   "texte": "Le ministre de l'Intérieur, Laurent Nuñez, a",
+   "source": "Le Monde — Une",
+   "champ": "chapô",
+   "titre_source": "Manifestation du 31 octobre à Paris : le tribunal administratif suspend l’arrêté de la Préfecture de police interdisant le parcours entre Bastille et Nation, souhaité par l’intersyndicale"
+  },
+  {
+   "replique": 14,
+   "mots": 12,
+   "texte": "La Russie a opposé son veto vendredi à un projet de résolution",
+   "source": "Le Monde — Une",
+   "champ": "chapô",
+   "titre_source": "Sahara occidental : le mandat de la mission de l’ONU n’a pas été renouvelé"
+  }
+ ],
+ "citations": [],
+ "problemes": [
+  {
+   "replique": 9,
+   "extrait": "le cortège partira bien de la Bastille à quatorze heures",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "La source 3 indique que l'horaire de 14 heures était fixé pour le parcours alternatif souhaité par la Préfecture (porte de Bagnolet - porte de Charenton), sans préciser l'horaire retenu pour le départ de Bastille."
+  },
+  {
+   "replique": 16,
+   "extrait": "C'est un refus inédit dans ce dossier",
+   "type": "autre",
+   "gravite": "basse",
+   "explication": "La source 17 mentionne le veto russe de vendredi, mais n'indique nulle part qu'il s'agit d'un « refus inédit » dans ce dossier."
+  }
+ ],
+ "corrections": [
+  {
+   "replique": 6,
+   "avant": "Les députés ont voté de nouvelles taxes sur les grandes entreprises contre l'avis du gouvernement, et le ministre des Comptes publics, David Amiel, prévient déjà qu'il faudra exiger davantage d'efforts d'économies que prévu.",
+   "apres": "L'Assemblée a adopté des prélèvements supplémentaires ciblant les grands groupes, malgré l'opposition de l'exécutif. Et le ministre des Comptes publics, David Amiel, prévient déjà qu'il faudra exiger davantage d'efforts d'économies que prévu."
+  },
+  {
+   "replique": 9,
+   "avant": "En France, la justice a tranché en faveur des syndicats pour la journée de mobilisation de ce samedi. Le tribunal administratif de Paris a suspendu en urgence l'arrêté de la préfecture de police qui interdisait le parcours historique entre les places de la Bastille et de la Nation. Les autorités voulaient imposer un tracé périphérique entre la porte de Bagnolet et la porte de Charenton pour éviter des débordements dans le centre. Le ministre de l'Intérieur, Laurent Nuñez, a immédiatement annoncé un recours, mais le cortège partira bien de la Bastille à quatorze heures.",
+   "apres": "En France, la justice a tranché en faveur des syndicats pour la journée de mobilisation de ce samedi. Le tribunal administratif de Paris a suspendu en urgence l'arrêté préfectoral qui interdisait le parcours historique entre les places de la Bastille et de la Nation. La préfecture voulait imposer un tracé périphérique reliant Bagnolet à Charenton pour éviter des débordements dans le centre. Beauvau, par la voix de Laurent Nuñez, a immédiatement annoncé un recours, mais le cortège partira bien de la Bastille à quatorze heures."
+  },
+  {
+   "replique": 14,
+   "avant": "Toujours à l'international, blocage majeur aux Nations unies sur le statut du Sahara occidental. La Russie a opposé son veto vendredi à un projet de résolution déposé par les États-Unis. Le texte prévoyait de prolonger pour un an la mission de paix de l'ONU, la Minurso, tout en plaçant la proposition d'autonomie formulée par le Maroc au centre d'un futur règlement politique.",
+   "apres": "Toujours à l'international, blocage majeur aux Nations unies sur le statut du Sahara occidental. Moscou a rejeté vendredi une proposition de texte américaine. Le texte prévoyait de prolonger pour un an la mission de paix de l'ONU, la Minurso, tout en plaçant la proposition d'autonomie formulée par le Maroc au centre d'un futur règlement politique."
+  }
+ ],
+ "reprises_apres": [],
+ "appels": 2,
+ "cout_usd": 0.0262,
+ "erreurs": [],
+ "usage": [
+  {
+   "model": "gemini-3.8-flash",
+   "input": 16051,
+   "output": 206,
+   "thinking": 0
+  },
+  {
+   "model": "gemini-3.8-flash",
+   "input": 16161,
+   "output": 339,
+   "thinking": 0
+  }
+ ]
+}

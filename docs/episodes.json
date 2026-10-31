@@ -1,5 +1,172 @@
 [
   {
+    "date": "2026-10-31",
+    "filename": "brief-2026-10-31.mp3",
+    "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-31.mp3",
+    "storage": "releases",
+    "title": "31/10 — Recul du PIB et alerte Fitch",
+    "summary": "Brief du 2026-10-31. Recul du PIB et alerte Fitch · Cyberattaque géante sur Binance · Parcours syndical validé par la justice · L'Europe prépare le Kids Act · Veto russe au Sahara occidental",
+    "duration": 194,
+    "size": 2338213,
+    "topics": [
+      {
+        "slug": "economie-france-croissance-dette",
+        "title": "Recul du PIB et alerte Fitch",
+        "category": "eco",
+        "sources": [
+          "Le Monde",
+          "La Tribune"
+        ],
+        "articles": [
+          2,
+          23,
+          24,
+          43,
+          62,
+          92
+        ],
+        "place": {
+          "city": "Paris",
+          "country": "France",
+          "iso3": "FRA",
+          "lat": 48.85,
+          "lon": 2.35,
+          "tz": "Europe/Paris"
+        },
+        "start": 13.2,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          6
+        ]
+      },
+      {
+        "slug": "crypto-cyberattaque-binance",
+        "title": "Cyberattaque géante sur Binance",
+        "category": "tech",
+        "sources": [
+          "Le Figaro",
+          "RFI"
+        ],
+        "articles": [
+          25,
+          70,
+          77,
+          102,
+          118
+        ],
+        "start": 64.8,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          5
+        ]
+      },
+      {
+        "slug": "mobilisation-31-octobre-paris",
+        "title": "Parcours syndical validé par la justice",
+        "category": "france",
+        "sources": [
+          "Le Monde"
+        ],
+        "articles": [
+          3
+        ],
+        "place": {
+          "city": "Paris",
+          "country": "France",
+          "iso3": "FRA",
+          "lat": 48.85,
+          "lon": 2.35,
+          "tz": "Europe/Paris"
+        },
+        "start": 92.1,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "slug": "reglementation-reseaux-sociaux-ue",
+        "title": "L'Europe prépare le Kids Act",
+        "category": "tech",
+        "sources": [
+          "Le Monde"
+        ],
+        "articles": [
+          8
+        ],
+        "place": {
+          "city": "Bruxelles",
+          "country": "Belgique",
+          "iso3": "BEL",
+          "lat": 50.85,
+          "lon": 4.35,
+          "tz": "Europe/Brussels"
+        },
+        "start": 120.9,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "slug": "onu-sahara-occidental-veto",
+        "title": "Veto russe au Sahara occidental",
+        "category": "monde",
+        "sources": [
+          "Le Monde"
+        ],
+        "articles": [
+          17
+        ],
+        "place": {
+          "city": "New York",
+          "country": "États-Unis",
+          "iso3": "USA",
+          "lat": 40.71,
+          "lon": -74.01,
+          "tz": "America/New_York"
+        },
+        "start": 160.3,
+        "related7d": 0,
+        "trend7d": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      }
+    ],
+    "pub_date": "2026-10-31T03:04:05.156631+00:00",
+    "hook": "L'économie française recule de zéro virgule un pour cent et l'agence Fitch dégrade la perspective financière du pays."
+  },
+  {
     "date": "2026-10-30",
     "filename": "brief-2026-10-30.mp3",
     "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-30.mp3",
@@ -3637,74 +3804,5 @@
       }
     ],
     "pub_date": "2026-10-02T08:55:04.771966+00:00"
-  },
-  {
-    "date": "2026-10-01",
-    "filename": "brief-2026-10-01.mp3",
-    "url": "https://github.com/iceman-ux/brief-matin/releases/download/episodes/brief-2026-10-01.mp3",
-    "storage": "releases",
-    "title": "01/10 — Budget 2027 : 54 milliards d'efforts",
-    "summary": "Brief du 2026-10-01. Budget 2027 : 54 milliards d'efforts · Vol Dubaï-Tel-Aviv dérouté d'urgence · La contestation scolaire et universitaire s'étend · Une exécution par injection létale échoue · Stellantis suspend quatre usines françaises · Polluants éternels détectés chez des Européens",
-    "duration": 203,
-    "size": 2442285,
-    "topics": [
-      {
-        "slug": "budget-2027",
-        "title": "Budget 2027 : 54 milliards d'efforts",
-        "category": "eco",
-        "sources": [
-          "Le Figaro",
-          "France 24",
-          "Le Monde"
-        ]
-      },
-      {
-        "slug": "vol-flydubai-attaque",
-        "title": "Vol Dubaï-Tel-Aviv dérouté d'urgence",
-        "category": "monde",
-        "sources": [
-          "franceinfo",
-          "Le Monde"
-        ]
-      },
-      {
-        "slug": "contestation-lyceenne-universitaire",
-        "title": "La contestation scolaire et universitaire s'étend",
-        "category": "france",
-        "sources": [
-          "Le Monde",
-          "Le Figaro",
-          "RFI"
-        ]
-      },
-      {
-        "slug": "peine-mort-tennessee",
-        "title": "Une exécution par injection létale échoue",
-        "category": "monde",
-        "sources": [
-          "Le Monde",
-          "France 24",
-          "franceinfo"
-        ]
-      },
-      {
-        "slug": "stellantis-chômage-partiel",
-        "title": "Stellantis suspend quatre usines françaises",
-        "category": "eco",
-        "sources": [
-          "Le Monde"
-        ]
-      },
-      {
-        "slug": "pollution-pfas-tfa",
-        "title": "Polluants éternels détectés chez des Européens",
-        "category": "france",
-        "sources": [
-          "Le Monde",
-          "franceinfo"
-        ]
-      }
-    ],
-    "pub_date": "2026-10-01T09:21:04.244681+00:00"
   }
 ]
